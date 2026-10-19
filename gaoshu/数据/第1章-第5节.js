@@ -95,8 +95,8 @@
           },
           {
             id: "p7", kind: "结论", name: "存在与不存在的组合", page: "习题1-5 第5题（习题全解 p26–27）；武忠祥 p16；30讲 p83",
-            body: R`存在 ± 存在 = 存在；存在 ± 不存在 = 不存在；不存在 ± 不存在 = 不一定。乘积：存在 × 不存在、不存在 × 不存在 都不一定。`,
-            notes: [R`反例：$\operatorname{sgn}x+(-\operatorname{sgn}x)\equiv0$；$x\cdot\sin\dfrac1x\to0$；$\operatorname{sgn}x\cdot\operatorname{sgn}x=1\ (x\neq0)$（习题全解 p26–27）`, R`存在 ± 不存在 = 不存在 的理由：若和存在，则 $g=(f+g)-f$ 也存在，矛盾`],
+            body: R`存在 ± 存在 = 存在；存在 ± 不存在 = 不存在；不存在 ± 不存在 = 不一定。乘积：存在（极限 $\neq0$）× 不存在 = 不存在；存在（极限 $=0$）× 不存在 不一定；不存在 × 不存在 不一定。`,
+            notes: [R`反例：$\operatorname{sgn}x+(-\operatorname{sgn}x)\equiv0$；$x\cdot\sin\dfrac1x\to0$；$\operatorname{sgn}x\cdot\operatorname{sgn}x=1\ (x\neq0)$（习题全解 p26–27）`, R`存在 ± 不存在 = 不存在 的理由：若和存在，则 $g=(f+g)-f$ 也存在，矛盾`, R`乘积同理：$\lim f=A\neq0$ 且 $\lim fg$ 存在，则 $g=\dfrac{fg}{f}$ 的极限存在，矛盾；$A=0$ 时无此结论，如 $x\cdot\sin\dfrac1x\to0$（⚠️未核验：自己推导，与本节 p8 的结论一致）`],
             quiz: R`$\lim f$ 存在、$\lim g$ 不存在，$\lim fg$ 一定不存在吗？举例。`
           },
           {

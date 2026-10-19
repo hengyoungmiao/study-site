@@ -284,6 +284,11 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .flip { margin-right: auto; }
 .rate { display: flex; gap: 6px; align-items: center; }
 .rate .lab { font-size: 12.5px; color: var(--muted); }
+.nb { flex-basis: 100%; }
+.nb-text { margin: 8px 0 4px; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 var(--r) var(--r) 0; line-height: 1.7; }
+.nb-ta { width: 100%; margin-top: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--r); font: inherit; background: var(--sheet); color: var(--ink); resize: vertical; }
+.nb-hint { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.rbtn.nbtn { font-weight: 500; font-size: 13px; }
 .rbtn { border: 1px solid var(--line); background: var(--sheet); border-radius: var(--r); min-width: 36px; height: 30px; font-weight: 700; padding: 0 10px; }
 .r-bad.on { border-color: var(--bad); color: var(--bad); background: var(--bad-soft); }
 .r-ok:hover, .r-ok.on { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
@@ -438,7 +443,7 @@ a.ch-card:hover { border-color: var(--accent); }
     <h2 id="recTitle">学习记录</h2>
     <p class="note" style="margin:0">题型卡的 ✓ ✗、△ 重点和复习安排只存在这台设备的这个浏览器里。复制下面的文字存进学习仓库或发给克，就算备份；换设备时粘贴导入。</p>
     <label class="sub" for="recOut">当前记录</label>
-    <div class="syncbox"><b>云端同步</b><span class="note">在手机和电脑之间合并记录。每台设备输入一次同步密码。</span><div class="acts"><input id="syncTok" type="password" placeholder="同步密码" autocomplete="off" style="flex:1;min-width:0"><button class="btn primary" id="syncGo" type="button">保存并同步</button></div><span class="msg" id="syncMsg" role="status"></span></div>
+    <div class="syncbox"><b>保存到 GitHub</b><span class="note">自评、☆ △、我的总结自动存进仓库的 records 分支，手机和电脑共用，也方便复盘。令牌只存在这台设备的浏览器里，怎么建见「说明」。</span><div class="acts"><input id="syncTok" type="password" placeholder="GitHub 令牌" autocomplete="off" style="flex:1;min-width:0"><button class="btn primary" id="syncGo" type="button">保存并同步</button></div><span class="msg" id="syncMsg" role="status"></span></div>
     <textarea id="recOut" readonly></textarea>
     <div class="acts"><button class="btn primary" id="recCopy" type="button">复制记录</button><span class="msg" id="recMsg" role="status"></span></div>
     <label class="sub" for="recIn">导入记录（粘贴后点导入，会和现有记录合并）</label>
@@ -452,6 +457,7 @@ a.ch-card:hover { border-color: var(--accent); }
 <script>
 /* ===== 1. 数据文件清单：加一节就在这里加一行 ===== */
 const DATA_FILES = [
+  "数据/我的总结.js",
   "数据/第1章-第1节.js",
   "数据/第1章-第2节.js",
   "数据/第1章-第3节.js",
@@ -481,13 +487,14 @@ const CIRC = ["", "①","②","③","④","⑤","⑥","⑦","⑧","⑨","⑩","�
 window.KB = {
   sections: {}, chapterEnds: {},
   add(d) { this.sections[d.id] = d; },
+  seeds: {}, seedNotes(o) { Object.assign(this.seeds, o); },
   addChapterEnd(d) { d.id = "c" + d.chapter + "-end"; this.chapterEnds[d.chapter] = d; }
 };
 
 /* ===== 4. 记录（本机浏览器）：marks = 题型卡 ✓△✗；srs = 复习间隔 ===== */
 const STORE_KEY = "gaoshu-kb-v1";
-let store = { marks: {}, srs: {}, ui: {}, stars: {}, starT: {} };
-try { const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); if (s && s.marks) store = Object.assign({ srs: {}, ui: {}, stars: {}, starT: {} }, s); } catch (e) {}
+let store = { marks: {}, srs: {}, ui: {}, stars: {}, starT: {}, notes: {}, noteT: {} };
+try { const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); if (s && s.marks) store = Object.assign({ srs: {}, ui: {}, stars: {}, starT: {}, notes: {}, noteT: {} }, s); } catch (e) {}
 function rawSave() { try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
 function save() { rawSave(); schedulePush(); }
 /* ☆ 的开关：删除时留一个空值和时间，同步时才知道是「删了」而不是「没有」 */
@@ -510,21 +517,45 @@ function lastMark(key) { const h = (store.marks[key] || []).filter(x => x.r !== 
 /* △ = 重点记录的内容：开关，跟 ☆ 同样存法，键后加「!」 */
 /* 今天最后一次自评的结果；再点同一个按钮就取消这一次 */
 function curR(k) { const l = lastMark(k); return l && l.d === today() ? l.r : ""; }
+/* 我的总结：每个块下面一个按钮，点开写自己的话；自动保存，清空即删除 */
+function noteOf(k) { return (store.notes && store.notes[k]) || ""; }
+function nbInner(k, editing) {
+  const t = noteOf(k);
+  if (editing) return `<textarea class="nb-ta" rows="3" placeholder="写下你自己的总结……（可以用 $公式$）">${esc(t)}</textarea><div class="nb-hint">自动保存，清空就是删除。再点一次「总结」按钮收起。</div>`;
+  return t ? `<div class="nb-text"><b>我的总结</b>　${md(t).replace(/\n/g, "<br>")}</div>` : "";
+}
+function setNote(k, v, box) {
+  v = v.trim(); if (v === noteOf(k)) return;
+  store.notes[k] = v; store.noteT[k] = Date.now(); save();
+  const b = box && $('[data-act="note"]', box); if (b) b.textContent = v ? "✎ 总结 ●" : "✎ 总结";
+}
 function isKey(k) { return !!store.stars[k + "!"]; }
 /* ★ 和自评：同一套按钮用在知识点、题型、易错点、混合题上；记录按 "节号/条目号" 存 */
 function rateInner(k) {
   const st = statusOf(k), star = !!store.stars[k];
   const hist = (store.marks[k] || []).filter(m => m.r !== "mid").slice(-3).map(m => `<i>${SYM[m.r]} ${m.d.slice(5)}</i>`).join("");
-  return `<button class="star${star ? " on" : ""}" type="button" data-act="star" aria-pressed="${star}" title="标为不熟（★）">${star ? "★" : "☆"}</button><span class="status ${st.cls}" data-sk="${qa(k)}">${esc(st.text)}</span><span class="rate"><span class="lab">自评</span><button class="rbtn r-ok${curR(k) === "ok" ? " on" : ""}" type="button" data-r="ok" title="${curR(k) === "ok" ? "今天已评 ✓，再点一次取消" : "独立做对"}">✓</button><button class="rbtn r-bad${curR(k) === "bad" ? " on" : ""}" type="button" data-r="bad" title="${curR(k) === "bad" ? "今天已评 ✗，再点一次取消" : "不会或看了答案"}">✗</button><button class="rbtn r-mid${isKey(k) ? " on" : ""}" type="button" data-act="key" aria-pressed="${isKey(k)}" title="重点记录的内容：点一下标记，再点取消">△</button></span><span class="hist">${hist}</span>`;
+  return `<button class="star${star ? " on" : ""}" type="button" data-act="star" aria-pressed="${star}" title="标为不熟（★）">${star ? "★" : "☆"}</button><span class="status ${st.cls}" data-sk="${qa(k)}">${esc(st.text)}</span><span class="rate"><span class="lab">自评</span><button class="rbtn r-ok${curR(k) === "ok" ? " on" : ""}" type="button" data-r="ok" title="${curR(k) === "ok" ? "今天已评 ✓，再点一次取消" : "独立做对"}">✓</button><button class="rbtn r-bad${curR(k) === "bad" ? " on" : ""}" type="button" data-r="bad" title="${curR(k) === "bad" ? "今天已评 ✗，再点一次取消" : "不会或看了答案"}">✗</button><button class="rbtn nbtn" type="button" data-act="note" title="写下你自己的总结">${noteOf(k) ? "✎ 总结 ●" : "✎ 总结"}</button><button class="rbtn r-mid${isKey(k) ? " on" : ""}" type="button" data-act="key" aria-pressed="${isKey(k)}" title="重点记录的内容：点一下标记，再点取消">△</button></span><span class="hist">${hist}</span>`;
 }
 function rateBox(k) { return `<div class="rate-box" data-k="${qa(k)}">${rateInner(k)}</div>`; }
 function bindRate(root) {
   $$(".rate-box", root).forEach(box => {
     if (box.dataset.rb) return; box.dataset.rb = 1;
+    { const k0 = box.dataset.k, nb = document.createElement("div"); nb.className = "nb"; nb.dataset.nk = k0; nb.innerHTML = nbInner(k0, false); box.after(nb); if (noteOf(k0) && !box.closest(".lz")) typeset(nb); }
     box.addEventListener("click", e => {
       e.stopPropagation();
       const b = e.target.closest("button"); if (!b) return;
       const k = box.dataset.k;
+      if (b.dataset.act === "note") {
+        const nb = box.nextElementSibling; if (!nb || !nb.classList.contains("nb")) return;
+        const ta = $(".nb-ta", nb);
+        if (ta) { setNote(k, ta.value, box); nb.innerHTML = nbInner(k, false); typeset(nb); }
+        else {
+          nb.innerHTML = nbInner(k, true); const t = $(".nb-ta", nb); t.focus();
+          let tm; t.addEventListener("input", () => { clearTimeout(tm); tm = setTimeout(() => setNote(k, t.value, box), 700); });
+          t.addEventListener("blur", () => { clearTimeout(tm); setNote(k, t.value, box); });
+        }
+        return;
+      }
       if (b.dataset.act === "star") { toggleStar(k); }
       else if (b.dataset.act === "key") { toggleStar(k + "!"); }
       else if (b.dataset.r) {
@@ -544,61 +575,75 @@ function onRated() {
 function uiFlag(name, dflt) { return store.ui[name] === undefined ? dflt : !!store.ui[name]; }
 
 
-/* ===== 4b. 云端同步：同一份记录在手机和电脑之间合并；token 只存在本机浏览器里 ===== */
+/* ===== 4b. 记录存到 GitHub：自动提交到本仓库的 records 分支；令牌只存在本机浏览器里 ===== */
 const SYNC_KEY = "gaoshu-sync-v1";
-let sync = { token: "", ver: 0, at: "", msg: "" };
-try { const s = JSON.parse(localStorage.getItem(SYNC_KEY) || "null"); if (s) sync = Object.assign(sync, s, { msg: "" }); } catch (e) {}
-function syncSaveCfg() { try { localStorage.setItem(SYNC_KEY, JSON.stringify({ token: sync.token, ver: sync.ver, at: sync.at })); } catch (e) {} }
+const GH = { repo: "hengyoungmiao/study-site", branch: "records", state: "records/state.json", wrong: "records/wrong.json" };
+let sync = { token: "", at: "", msg: "" };
+try { const s = JSON.parse(localStorage.getItem(SYNC_KEY) || "null"); if (s) sync = Object.assign(sync, { token: s.token || "", at: s.at || "" }); } catch (e) {}
+function syncSaveCfg() { try { localStorage.setItem(SYNC_KEY, JSON.stringify({ token: sync.token, at: sync.at })); } catch (e) {} }
 function syncOn() { return !!sync.token && location.protocol !== "file:"; }
-function syncPayload() { return { marks: store.marks, srs: store.srs, stars: store.stars, starT: store.starT || {} }; }
-/* 合并规则：自评按「日期+结果」取并集；复习间隔取 last 更新的；☆ 按操作时间取新的 */
+function applySeeds() { for (const k in KB.seeds) if (!(k in store.notes)) { store.notes[k] = KB.seeds[k]; store.noteT[k] = 1; } rawSave(); }
+function syncPayload() { return { marks: store.marks, srs: store.srs, stars: store.stars, starT: store.starT || {}, notes: store.notes || {}, noteT: store.noteT || {} }; }
+/* 合并规则：自评按「日期+结果」取并集；复习间隔取 last 更新的；☆ △ 和总结按操作时间取新的 */
 function mergeState(a, b) {
-  const out = { marks: {}, srs: {}, stars: {}, starT: {} };
+  const out = { marks: {}, srs: {}, stars: {}, starT: {}, notes: {}, noteT: {} };
   for (const src of [a, b]) {
     for (const k in (src.marks || {})) {
       const seen = new Set((out.marks[k] || []).map(x => x.d + x.r));
       for (const x of src.marks[k]) if (x && x.d && SYM[x.r] && !seen.has(x.d + x.r)) { (out.marks[k] = out.marks[k] || []).push({ d: x.d, r: x.r }); seen.add(x.d + x.r); }
     }
     for (const k in (src.srs || {})) { const o = out.srs[k], n = src.srs[k]; if (n && n.due && (!o || (n.last || "") > (o.last || ""))) out.srs[k] = n; }
-    for (const k in (src.stars || {})) {
-      const t = (src.starT || {})[k] || 0;
-      if (!(k in out.stars) || t > (out.starT[k] || 0)) { out.stars[k] = src.stars[k]; out.starT[k] = t; }
+    for (const [f, t] of [["stars", "starT"], ["notes", "noteT"]]) for (const k in (src[f] || {})) {
+      const tm = (src[t] || {})[k] || 0;
+      if (!(k in out[f]) || tm > (out[t][k] || 0)) { out[f][k] = src[f][k]; out[t][k] = tm; }
     }
   }
   for (const k in out.marks) { out.marks[k].sort((x, y) => x.d < y.d ? -1 : x.d > y.d ? 1 : 0); if (out.marks[k].length > 20) out.marks[k] = out.marks[k].slice(-20); }
   return out;
 }
 const sameJ = (x, y) => JSON.stringify(x) === JSON.stringify(y);
-function api(path, opt) {
-  return fetch(path, Object.assign({ headers: { authorization: "Bearer " + sync.token, "content-type": "application/json" } }, opt || {}));
+const b64d = t => new TextDecoder().decode(Uint8Array.from(atob(t.replace(/\s/g, "")), c => c.charCodeAt(0)));
+const b64e = t => { let bin = ""; new TextEncoder().encode(t).forEach(c => bin += String.fromCharCode(c)); return btoa(bin); };
+const ghUrl = path => "https://api.github.com/repos/" + GH.repo + "/contents/" + path;
+const ghHead = () => ({ authorization: "Bearer " + sync.token, accept: "application/vnd.github+json", "x-github-api-version": "2022-11-28" });
+async function ghGet(path) {
+  const r = await fetch(ghUrl(path) + "?ref=" + GH.branch + "&t=" + Date.now(), { headers: ghHead(), cache: "no-store" });
+  if (r.status === 404) return null;
+  if (r.status === 401 || r.status === 403) throw new Error("令牌不对，或没有这个仓库的读写权限");
+  if (!r.ok) throw new Error("读取失败 " + r.status);
+  const j = await r.json(); return { sha: j.sha, text: b64d(j.content || "") };
+}
+function ghPut(path, text, sha, msg) {
+  return fetch(ghUrl(path), { method: "PUT", headers: Object.assign({ "content-type": "application/json" }, ghHead()), body: JSON.stringify({ message: msg, content: b64e(text), branch: GH.branch, sha: sha || undefined }) });
 }
 let syncBusy = false, syncAgain = false, pushTm = null;
-function schedulePush() { if (!syncOn()) return; clearTimeout(pushTm); pushTm = setTimeout(() => syncNow(), 2500); }
+function schedulePush() { if (!syncOn()) return; clearTimeout(pushTm); pushTm = setTimeout(() => syncNow(), 4000); }
 async function syncNow(manual) {
-  if (!syncOn()) { if (manual) { sync.msg = location.protocol === "file:" ? "本地文件打开时不同步，请用网址打开" : "还没填同步密码"; showSyncMsg(); } return; }
+  if (!syncOn()) { if (manual) { sync.msg = location.protocol === "file:" ? "本地文件打开时不同步，请用网址打开" : "还没填 GitHub 令牌"; showSyncMsg(); } return; }
   if (syncBusy) { syncAgain = true; return; }
   syncBusy = true; let changed = false;
   try {
     for (let i = 0; i < 3; i++) {
-      const r = await api("/api/state"); if (r.status === 401) throw new Error("密码不对"); if (!r.ok) throw new Error("读取失败 " + r.status);
-      const remote = await r.json();
-      const local = syncPayload();
-      const merged = mergeState(local, remote.data || {});
-      if (!sameJ(merged, mergeState(local, {}))) changed = true;
-      store.marks = merged.marks; store.srs = merged.srs; store.stars = merged.stars; store.starT = merged.starT; rawSave();
-      if (sameJ(merged, mergeState(remote.data || {}, {}))) { sync.ver = remote.ver; break; }
-      const w = await api("/api/state", { method: "PUT", body: JSON.stringify({ ver: remote.ver, data: merged }) });
-      if (w.ok) { sync.ver = (await w.json()).ver; break; }
-      if (w.status !== 409) throw new Error("写入失败 " + w.status);
+      const cur = await ghGet(GH.state);
+      let remote = {}; try { remote = cur && cur.text.trim() ? JSON.parse(cur.text) : {}; } catch (e) { throw new Error("云端的 state.json 格式坏了"); }
+      const merged = mergeState(syncPayload(), remote);
+      if (!sameJ(merged, mergeState(syncPayload(), {}))) changed = true;
+      Object.assign(store, merged); rawSave();
+      if (cur && sameJ(merged, mergeState(remote, {}))) break;
+      const w = await ghPut(GH.state, JSON.stringify(merged, null, 1) + "\n", cur && cur.sha, "记录 " + today() + " " + new Date().toTimeString().slice(0, 5));
+      if (w.ok) break;
+      if (w.status === 409 || w.status === 422) { if (!cur) throw new Error("云端没有 records 分支"); continue; }
+      if (w.status === 401 || w.status === 403 || w.status === 404) throw new Error("令牌没有写入权限（需要 Contents 读写）");
+      throw new Error("写入失败 " + w.status);
     }
-    sync.at = new Date().toTimeString().slice(0, 5); sync.msg = "已同步 " + sync.at; syncSaveCfg();
+    sync.at = new Date().toTimeString().slice(0, 5); sync.msg = "已保存到 GitHub " + sync.at; syncSaveCfg();
   } catch (e) { sync.msg = "同步失败：" + (e.message || e); }
   syncBusy = false; showSyncMsg();
-  if (changed) { updateDot(); if (!/^#(spaced|sample|review-run)/.test(location.hash) && !document.querySelector(".rv-card") && window.scrollY < 80) route(); }
+  if (changed) { updateDot(); if (!/^#(spaced|sample)/.test(location.hash) && !document.querySelector(".rv-card") && !document.querySelector(".nb-ta") && window.scrollY < 80) route(); }
   if (syncAgain) { syncAgain = false; schedulePush(); }
 }
-function showSyncMsg() { const el = $("#syncMsg"); if (el) el.textContent = sync.msg; const b = $("#recBtn"); if (b) b.classList.toggle("synced", syncOn() && /^已同步/.test(sync.msg)); }
-document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") syncNow(); });
+function showSyncMsg() { const el = $("#syncMsg"); if (el) el.textContent = sync.msg; const b = $("#recBtn"); if (b) b.classList.toggle("synced", syncOn() && /^已保存/.test(sync.msg)); }
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") syncNow(); else if (pushTm) { clearTimeout(pushTm); pushTm = null; syncNow(); } });
 
 /* ===== 5. 小工具 ===== */
 const $ = (s, el = document) => el.querySelector(s);
@@ -1283,6 +1328,7 @@ function buildIndex() {
     else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.idea && o.idea.key, ...((o.idea && o.idea.how) || []), ...(((o.idea && o.idea.refs) || []).map(r => r.src + " " + r.text)), o.first, ...o.steps, o.pitfall, o.practice];
     else if (it.kind === "pit") f = [o.wrong, o.test, o.ans, o.why, o.right, o.link];
     else f = [o.q, o.hint, o.ans, o.src];
+    f.push(noteOf(it.key));
     const raw = plain(f.filter(Boolean).join("　"));
     return { it, title: plain(itemTitle(it)), raw, low: raw.toLowerCase() };
   });
@@ -1329,7 +1375,7 @@ const CAUSES = ["审题", "概念不清", "条件遗漏", "方法选择", "计�
 let wrOpt = { cause: "all", sec: "all", st: "all", q: "" };
 async function loadWrong() {
   if (!syncOn()) return false;
-  try { const r = await api("/api/wrong"); if (!r.ok) return false; const j = await r.json(); WRONG = j.items || []; try { localStorage.setItem(WCACHE, JSON.stringify(WRONG)); } catch (e) {} return true; } catch (e) { return false; }
+  try { const f = await ghGet(GH.wrong); WRONG = f && f.text.trim() ? JSON.parse(f.text) : []; try { localStorage.setItem(WCACHE, JSON.stringify(WRONG)); } catch (e) {} return true; } catch (e) { return false; }
 }
 function wrongBody(w) {
   const d = w.data || {}, br = x => md(x).replace(/\n/g, "<br>");
@@ -1362,7 +1408,7 @@ function renderWrong(tgt) {
   const opt = (v, l, cur) => `<option value="${qa(v)}"${cur === v ? " selected" : ""}>${esc(l)}</option>`;
   $("#main").innerHTML = `<div class="eyebrow">错题区</div><h1>错题区</h1>
     <p class="note" style="max-width:46em">每道错题写明错因和关键一步。先自己重做，再点开正解；重做对了自评 ✓，间隔几天再做一次，连续两天独立做对才算学会。</p>
-    ${!syncOn() ? `<p class="msg">没有填同步密码，只能看这台设备上次缓存的错题。点右上角「记录」填写。</p>` : ""}
+    ${!syncOn() ? `<p class="msg">没有填 GitHub 令牌，只能看这台设备上次缓存的错题。点右上角「记录」填写。</p>` : ""}
     <div class="wr-bar"><select id="wrCause">${opt("all", "全部错因", wrOpt.cause)}${CAUSES.map(c => opt(c, c, wrOpt.cause)).join("")}</select>
       <select id="wrSec">${opt("all", "全部章节", wrOpt.sec)}${secs.map(c => opt(c, c, wrOpt.sec)).join("")}</select>
       <select id="wrSt">${opt("all", "全部状态", wrOpt.st)}${opt("todo", "还没学会", wrOpt.st)}${opt("done", "已学会", wrOpt.st)}</select>
@@ -1406,8 +1452,8 @@ function route() {
 }
 
 /* ===== 13. 记录面板 ===== */
-$("#syncGo").addEventListener("click", () => { sync.token = $("#syncTok").value.trim(); sync.ver = 0; wrFetched = false; syncSaveCfg(); sync.msg = "同步中…"; showSyncMsg(); syncNow(true); });
-function openRec() { $("#syncTok").value = sync.token; showSyncMsg(); $("#recOut").value = JSON.stringify({ marks: store.marks, srs: store.srs, stars: store.stars, exported: today() }, null, 1); $("#recMsg").textContent = ""; $("#recWrap").hidden = false; }
+$("#syncGo").addEventListener("click", () => { sync.token = $("#syncTok").value.trim(); wrFetched = false; syncSaveCfg(); sync.msg = "同步中…"; showSyncMsg(); syncNow(true); });
+function openRec() { $("#syncTok").value = sync.token; showSyncMsg(); $("#recOut").value = JSON.stringify({ marks: store.marks, srs: store.srs, stars: store.stars, starT: store.starT, notes: store.notes, noteT: store.noteT, exported: today() }, null, 1); $("#recMsg").textContent = ""; $("#recWrap").hidden = false; }
 $("#recBtn").addEventListener("click", openRec);
 $("#recClose").addEventListener("click", () => { $("#recWrap").hidden = true; });
 $("#recWrap").addEventListener("click", e => { if (e.target.id === "recWrap") $("#recWrap").hidden = true; });
@@ -1424,6 +1470,7 @@ $("#recImport").addEventListener("click", () => {
     const sr = obj.srs || {};
     for (const k in sr) { const a = store.srs[k], b = sr[k]; if (b && b.due && (!a || (b.last || "") > (a.last || ""))) { store.srs[k] = b; n++; } }
     const st = obj.stars || {}; for (const k in st) if (st[k] && !store.stars[k]) { setStar(k, true); n++; }
+    { const m = mergeState(syncPayload(), { notes: obj.notes || {}, noteT: obj.noteT || {} }); store.notes = m.notes; store.noteT = m.noteT; }
     save(); $("#recIn").value = ""; openRec(); $("#recMsg").textContent = "导入了 " + n + " 条"; route();
   } catch (e) { $("#recMsg").textContent = "导入失败：粘贴的不是完整的记录文字，请从「当前记录」整段复制"; }
 });
@@ -1433,7 +1480,7 @@ window.addEventListener("hashchange", route);
 /* ===== 14. 并行载入数据文件，全部到齐再显示 ===== */
 (function loadAll() {
   let left = DATA_FILES.length;
-  const done = () => { if (--left === 0) { route(); if (syncOn()) { syncNow(); loadWrong(); } } };
+  const done = () => { if (--left === 0) { applySeeds(); route(); if (syncOn()) { syncNow(); loadWrong(); } } };
   DATA_FILES.forEach(f => {
     const el = document.createElement("script");
     el.src = f; el.onload = done;
