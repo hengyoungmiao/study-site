@@ -109,6 +109,18 @@ nav#toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 70px); ali
 .toc-list a.on { background: var(--accent-soft); color: var(--accent); font-weight: 500; }
 .toc-list a.on .sn { color: var(--accent); }
 .toc-list span { color: var(--muted); opacity: 0.6; }
+.toc-list .toc-out { margin: 2px 0 6px 12px; padding-left: 10px; border-left: 1px solid var(--line); }
+.toc-out > summary, .out-g > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); padding: 3px 4px; border-radius: 4px; }
+.toc-out > summary::-webkit-details-marker, .out-g > summary::-webkit-details-marker { display: none; }
+.toc-out > summary::before, .out-g > summary::before { content: "▸"; font-size: 10px; transition: transform .15s; }
+.toc-out[open] > summary::before, .out-g[open] > summary::before { transform: rotate(90deg); }
+.toc-out > summary:hover, .out-g > summary:hover { background: var(--accent-soft); }
+.toc-out > summary { font-weight: 600; color: var(--ink); }
+.out-g .cnt { margin-left: auto; font: 11px var(--f-mono); }
+.out-g { margin-left: 4px; }
+.toc-list .toc-out a { display: block; font-size: 12.5px; padding: 2px 8px; line-height: 1.5; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.toc-list .toc-out a:hover { color: var(--accent); }
+.out-sub { font-size: 11.5px; color: var(--muted); opacity: .75; padding: 4px 8px 0; }
 .toc-list .end a, .toc-list .end span { margin-top: 4px; border-top: 1px dashed var(--line); border-radius: 0; padding-top: 6px; }
 .toc-list .end .sn { color: var(--yan); }
 
@@ -605,16 +617,45 @@ function nodeLabel(d, id) { const n = d.framework.nodes.find(x => x.id === id); 
 function toggle(name, label, on, hint) { return `<label class="switch"><input type="checkbox" data-flag="${name}"${on ? " checked" : ""}> ${label}</label>${hint ? `<span class="note">${hint}</span>` : ""}`; }
 
 /* ===== 6. 目录 ===== */
+/* 当前小节的大纲：知识点、题型、易错点、混合自测，可折叠；点击直接跳到条目 */
+function outlineHtml(d) {
+  const o = store.ui.outOpen || {};
+  const g = (id, label, n, body, dflt) => n ? `<details class="out-g" data-og="${id}"${(o[id] === undefined ? dflt : o[id]) ? " open" : ""}><summary>${label}<span class="cnt">${n}</span></summary>${body}</details>` : "";
+  const olp = t => String(t || "").replace(/\$+/g, "").replace(/\\([a-zA-Z]+)/g, "$1").replace(/[{}^_]/g, "").replace(/\*\*/g, "").replace(/\s+/g, " ").trim();
+  const a = (tg, txt) => `<a href="#${d.id}:${tg}" data-ot="${tg}" title="${qa(olp(txt))}">${esc(olp(txt))}</a>`;
+  const npts = (d.points || []).reduce((n, x) => n + x.items.length, 0);
+  const pts = (d.points || []).map(x => `<div class="out-sub">${esc(olp(x.group))}</div>${x.items.map(p => a(p.id, p.name)).join("")}`).join("");
+  const tys = (d.types || []).map(t => a(t.id, t.name)).join("");
+  const pits = (d.pitfalls || []).map((p, i) => a("e" + (i + 1), p.wrong)).join("");
+  const mxs = (d.mixed || []).map((m, i) => a(m.id, (i + 1) + ". " + (m.src || m.q))).join("");
+  const top = `<a href="#${d.id}" data-ot="top">知识框架${d.mindmap ? "和思维导图" : ""}</a>`;
+  return `<details class="toc-out" data-og="all"${o.all === false ? "" : " open"}><summary>本节大纲</summary>${top}${g("pts", "知识点", npts, pts, true)}${g("types", "题型梳理", (d.types || []).length, tys, false)}${g("pits", "易错点", (d.pitfalls || []).length, pits, false)}${g("mx", "混合自测", (d.mixed || []).length, mxs, false)}</details>`;
+}
+(function bindOutline() {
+  const nav = document.getElementById("toc");
+  nav.addEventListener("toggle", e => {
+    const el = e.target; if (!el.dataset || !el.dataset.og) return;
+    const o = (store.ui.outOpen = store.ui.outOpen || {});
+    if (o[el.dataset.og] !== el.open) { o[el.dataset.og] = el.open; rawSave(); }
+  }, true);
+  nav.addEventListener("click", e => {
+    const a = e.target.closest("a[data-ot]"); if (!a) return;
+    const d = curSec, tg = a.dataset.ot; if (!d) return;
+    e.preventDefault();
+    nav.classList.remove("open"); $("#tocBtn").setAttribute("aria-expanded", "false");
+    if (tg === "top") window.scrollTo({ top: 0, behavior: "smooth" }); else focusTarget(d, tg);
+  });
+})();
 function renderToc(cur) {
   const nav = $("#toc");
   nav.innerHTML = CATALOG.map(c => {
     const have = c.sections.filter(s => KB.sections[s[0]]).length;
     const open = (cur && String(cur).split(/[.-]/)[0].replace("c", "") === String(c.n)) || (!cur && c.n === 1);
     const items = c.sections.map(s => KB.sections[s[0]]
-      ? `<li><a class="${cur === s[0] ? "on" : ""}" href="#${s[0]}"><span class="sn">${s[0]}</span>${esc(s[1])}</a></li>`
+      ? `<li><a class="${cur === s[0] ? "on" : ""}" href="#${s[0]}"><span class="sn">${s[0]}</span>${esc(s[1])}</a>${cur === s[0] ? outlineHtml(KB.sections[s[0]]) : ""}</li>`
       : `<li><span title="还没生成"><span class="sn">${s[0]}</span>${esc(s[1])}</span></li>`).join("");
     const endId = "c" + c.n + "-end";
-    const end = `<li class="end"><a class="${cur === endId ? "on" : ""}" href="#${endId}"><span class="sn">研</span>章末 · 考研难度提升</a></li>`;
+    const end = `<li class="end"><a class="${cur === endId ? "on" : ""}" href="#${endId}"><span class="sn">研</span>章末 · 考研难度提升</a>${cur === endId && KB.chapterEnds[c.n] ? outlineHtml(KB.chapterEnds[c.n]) : ""}</li>`;
     return `<details class="toc-ch"${open ? " open" : ""}><summary><span class="no">第${CN[c.n]}章</span>${esc(c.title)}<span class="cnt">${have}/${c.sections.length}</span></summary><ul class="toc-list">${items}${end}</ul></details>`;
   }).join("");
 }
