@@ -1,6 +1,6 @@
 # study-site
 
-恆的学习网站，纯静态，部署在 Cloudflare Pages（构建命令留空，输出目录 `/`）。
+恆的学习网站，纯静态，部署在 Cloudflare Workers 静态资源（`wrangler.jsonc` 里 `assets.directory` 是仓库根目录，没有构建步骤）。
 
 | 路径 | 内容 |
 |---|---|
