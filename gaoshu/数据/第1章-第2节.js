@@ -26,13 +26,13 @@
     framework: {
       main: R`数列收敛只看 $n$ 充分大以后的项。收敛带来三条性质（唯一、有界、保号），并且所有子列都收敛到同一个数；反过来，无界或者两个子列极限不同，就能判发散。`,
       nodes: [
-        { id: "SEQ", col: 0, row: 0, kind: "map", label: "数列", sub: R`$x_n=f(n)$，有无穷多项` },
-        { id: "CONV", col: 1, row: 0, kind: "func", label: "收敛", sub: R`$\lim\limits_{n\to\infty}x_n=a$，只看 $n$ 充分大` },
-        { id: "SIGN", col: 2, row: 0, kind: "prop", label: "保号性", sub: R`$a>0\Rightarrow$ 后面的项 $>0$` },
-        { id: "UNI", col: 0, row: 1, kind: "prop", label: "唯一性", sub: "极限只有一个" },
-        { id: "BND", col: 1, row: 1, kind: "prop", label: "有界性", sub: "收敛必有界，反之不对" },
-        { id: "SUB", col: 2, row: 1, kind: "build", label: "子数列", sub: "收敛则子列同极限" },
-        { id: "DIV", col: 2, row: 2, kind: "build", label: "发散", sub: "判别：无界，或子列不一致" }
+        { id: "SEQ", go: "p1", col: 0, row: 0, kind: "map", label: "数列", sub: R`$x_n=f(n)$，有无穷多项` },
+        { id: "CONV", go: "p2", col: 1, row: 0, kind: "func", label: "收敛", sub: R`$\lim\limits_{n\to\infty}x_n=a$，只看 $n$ 充分大` },
+        { id: "SIGN", go: "p9", col: 2, row: 0, kind: "prop", label: "保号性", sub: R`$a>0\Rightarrow$ 后面的项 $>0$` },
+        { id: "UNI", go: "p6", col: 0, row: 1, kind: "prop", label: "唯一性", sub: "极限只有一个" },
+        { id: "BND", go: "p8", col: 1, row: 1, kind: "prop", label: "有界性", sub: "收敛必有界，反之不对" },
+        { id: "SUB", go: "p11", col: 2, row: 1, kind: "build", label: "子数列", sub: "收敛则子列同极限" },
+        { id: "DIV", go: "t2", col: 2, row: 2, kind: "build", label: "发散", sub: "判别：无界，或子列不一致" }
       ],
       edges: [
         { from: "SEQ", to: "CONV", label: R`$n\to\infty$` },

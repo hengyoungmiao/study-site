@@ -149,6 +149,58 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .cnode.k-func { border-color: var(--accent); background: var(--accent-soft); }
 .cnode.k-prop { border-color: var(--ok); background: var(--ok-soft); }
 .cnode.k-build { border-color: var(--mid); background: var(--mid-soft); }
+.cnode.go { cursor: pointer; transition: box-shadow .15s, transform .15s; }
+.cnode.go:hover, .cnode.go:focus-visible { box-shadow: 0 0 0 3px var(--accent-soft), 0 2px 8px rgba(0,0,0,.08); transform: translateY(-1px); outline: none; }
+.cnode.go::after { content: "↗"; position: absolute; right: 7px; top: 4px; font-size: 11px; color: var(--muted); }
+.flash { animation: flash 1.8s ease-out; }
+@keyframes flash { 0% { box-shadow: 0 0 0 3px var(--accent); background-color: var(--accent-soft); } 100% { box-shadow: 0 0 0 0 transparent; } }
+.go-tip { font-size: 12.5px; color: var(--muted); margin: -4px 0 8px; }
+/* 全章思维导图 */
+.mm-wrap { overflow-x: auto; padding: 6px 2px 12px; }
+.mm-node { display: flex; align-items: center; }
+.mm-kids { display: flex; flex-direction: column; padding-left: 30px; position: relative; }
+.mm-kids::before { content: ""; position: absolute; left: 0; top: 50%; width: 15px; border-top: 1.5px solid var(--edge); }
+.mm-kids > .mm-node { position: relative; padding: 3px 0; }
+.mm-kids > .mm-node::before { content: ""; position: absolute; left: -15px; top: 50%; width: 15px; border-top: 1.5px solid var(--edge); }
+.mm-kids > .mm-node::after { content: ""; position: absolute; left: -15px; top: 0; bottom: 0; border-left: 1.5px solid var(--edge); }
+.mm-kids > .mm-node:first-child::after { top: 50%; }
+.mm-kids > .mm-node:last-child::after { bottom: 50%; }
+.mm-kids > .mm-node:only-child::after { display: none; }
+.mm-chip { display: inline-block; padding: 3px 10px; border-radius: 6px; border: 1.5px solid var(--line); background: var(--sheet); font-size: 13px; line-height: 1.45; white-space: nowrap; }
+.lv0 > .mm-chip { font: 700 16px/1.4 var(--f-display); border-color: var(--accent); background: var(--accent-soft); padding: 8px 14px; }
+.lv1 > .mm-chip { font: 700 15px/1.4 var(--f-display); border-color: var(--k-map); background: var(--k-map-soft); }
+.lv2 > .mm-chip { font-weight: 600; border-color: var(--accent); }
+.mm-chip.go { cursor: pointer; }
+/* 根节点在上，四个分支竖排；每个分支内部横向展开 */
+.lv0 { flex-direction: column; align-items: flex-start; }
+.lv0 > .mm-kids { margin-left: 22px; padding-left: 30px; padding-top: 4px; }
+.lv0 > .mm-kids::before { display: none; }
+.lv0 > .mm-kids > .mm-node { padding: 8px 0; }
+.lv0 > .mm-kids > .mm-node::after, .lv0 > .mm-kids > .mm-node:first-child::after { left: -30px; top: 0; }
+.lv0 > .mm-kids > .mm-node::before { left: -30px; width: 30px; }
+.lv0 > .mm-kids > .mm-node:only-child::after { display: block; bottom: 50%; }
+@media (max-width: 640px) {
+  .mm-node { flex-direction: column; align-items: flex-start; }
+  .mm-kids, .lv0 > .mm-kids { margin-left: 12px; padding-left: 20px; padding-top: 2px; }
+  .mm-kids::before { display: none; }
+  .mm-kids > .mm-node, .lv0 > .mm-kids > .mm-node { padding: 3px 0; }
+  .mm-kids > .mm-node::before, .lv0 > .mm-kids > .mm-node::before { left: -20px; width: 18px; top: 16px; }
+  .mm-kids > .mm-node::after, .mm-kids > .mm-node:first-child::after,
+  .lv0 > .mm-kids > .mm-node::after, .lv0 > .mm-kids > .mm-node:first-child::after { left: -20px; top: 0; bottom: 0; height: auto; }
+  .mm-kids > .mm-node:last-child::after, .lv0 > .mm-kids > .mm-node:last-child::after { bottom: auto; height: 16px; }
+  .mm-kids > .mm-node:only-child::after { display: block; bottom: auto; height: 16px; }
+  .mm-chip { white-space: normal; }
+}
+.mm-chip.go:hover, .mm-chip.go:focus-visible { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); outline: none; }
+/* 混合自测 */
+.mx { padding: 14px 18px; margin-bottom: 12px; }
+.mx-top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: baseline; margin-bottom: 6px; }
+.mx-blk { font-size: 12px; color: var(--muted); }
+.mx-q { margin: 2px 0 8px; }
+.mx-btns { display: flex; flex-wrap: wrap; gap: 8px; }
+.mx-box { margin-top: 10px; padding: 10px 12px; border-radius: var(--r); background: var(--accent-soft); font-size: 14px; }
+.mx-box b { display: block; font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+.badge-b { font-size: 11.5px; padding: 1px 7px; border-radius: 10px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
 
 /* 切换栏 */
 .tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--line); margin-bottom: 16px; overflow-x: auto; }
@@ -341,7 +393,8 @@ const DATA_FILES = [
   "数据/第1章-第7节.js",
   "数据/第1章-第8节.js",
   "数据/第1章-第9节.js",
-  "数据/第1章-第10节.js"
+  "数据/第1章-第10节.js",
+  "数据/第1章-章末.js"
 ];
 
 /* ===== 2. 教材目录（同济第八版上册，页码是印刷页） ===== */
@@ -475,7 +528,8 @@ let curTab = store.ui.tab || "points";
 let filter = "all";
 let curSec = null;
 function renderSection(d, isEnd) {
-  curSec = d;
+  curSec = d; filter = "all";
+  if (curTab === "mixed" && !d.mixed) curTab = "points";
   const chap = CATALOG.find(c => c.n === d.chapter) || { title: "" };
   const npts = (d.points || []).reduce((a, g) => a + g.items.length, 0);
   $("#main").innerHTML = `
@@ -483,16 +537,73 @@ function renderSection(d, isEnd) {
     <h1>${isEnd ? "考研难度提升" : d.id + "　" + esc(d.title)}</h1>
     <div class="meta"><span class="pg">${esc(d.pages || "")}</span><span>更新 ${esc(d.updated || "")}</span></div>
     <div class="meta" style="margin-top:4px">${(d.sources || []).map(s => `<span>${esc(s)}</span>`).join("")}</div>
+    ${d.mindmap ? mindHtml(d) : ""}
     ${d.framework && d.framework.nodes ? frameHtml(d) : ""}
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" data-tab="points" aria-selected="false">知识点<span class="n">${npts}</span></button>
       <button class="tab" role="tab" data-tab="types" aria-selected="false">题型梳理<span class="n">${(d.types || []).length}</span></button>
       <button class="tab" role="tab" data-tab="pitfalls" aria-selected="false">易错点<span class="n">${(d.pitfalls || []).length}</span></button>
+      ${d.mixed ? `<button class="tab" role="tab" data-tab="mixed" aria-selected="false">混合自测<span class="n">${d.mixed.length}</span></button>` : ""}
     </div>
     <div id="pane"></div>`;
   $$(".tab").forEach(b => b.addEventListener("click", () => { curTab = b.dataset.tab; store.ui.tab = curTab; save(); showTab(d); }));
   if (d.framework && d.framework.nodes) bindFrame(d);
   showTab(d, true);
+  bindGo(d, $("#main"));
+}
+function mmNode(n, lv) {
+  const kids = n.kids || [];
+  return `<div class="mm-node lv${lv}"><span class="mm-chip${n.go ? " go" : ""}"${n.go ? ` data-go="${esc(n.go)}" role="link" tabindex="0"` : ""}>${md(n.label)}</span>${kids.length ? `<div class="mm-kids">${kids.map(k => mmNode(k, lv + 1)).join("")}</div>` : ""}</div>`;
+}
+function mindHtml(d) {
+  const m = d.mindmap;
+  return `<section class="frame panel"><h2>${esc(m.title || "全章思维导图")}</h2>${m.main ? `<p class="mainline">${md(m.main)}</p>` : ""}
+    <p class="go-tip">点任意一个卡片，跳到对应小节的内容。</p>
+    <div class="mm-wrap">${mmNode({ label: m.root, go: m.go, kids: m.branches }, 0)}</div></section>`;
+}
+/* 跳转：go 写成 "p3"（本节知识点）、"t2"（本节题型）、"e4"（本节易错点）、"b3"（章末板块）、"1.3"（别的节）、"1.3:p5"（别的节的某条） */
+function bindGo(d, root) {
+  $$("[data-go]", root).forEach(el => {
+    if (el.dataset.goBound) return; el.dataset.goBound = 1;
+    const go = () => jumpTo(d, el.dataset.go);
+    el.addEventListener("click", e => { e.stopPropagation(); go(); });
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+}
+function jumpTo(d, go) {
+  let sec = d.id, tgt = go;
+  const i = go.indexOf(":");
+  if (i >= 0) { sec = go.slice(0, i); tgt = go.slice(i + 1); }
+  else if (!/^[ptebm]\d+$/.test(go)) { sec = go; tgt = ""; }
+  if (sec !== d.id) { location.hash = sec + (tgt ? ":" + tgt : ""); return; }
+  focusTarget(d, tgt);
+}
+function focusTarget(d, tgt) {
+  if (!tgt) return;
+  const c = tgt[0];
+  curTab = c === "t" || c === "b" ? "types" : c === "e" ? "pitfalls" : c === "m" ? "mixed" : "points";
+  filter = c === "b" ? "b:" + tgt : "all";
+  store.ui.tab = curTab; save(); showTab(d);
+  let el;
+  if (c === "t") el = $(`.tcard[data-key="${d.id}/${tgt}"]`);
+  else if (c === "e") el = $$(".pf-item")[+tgt.slice(1) - 1];
+  else if (c === "m") el = $(`.mx[data-id="${tgt}"]`);
+  else if (c === "b") el = $(".tabs");
+  else el = $(`.pt[data-id="${tgt}"]`);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: c === "b" ? "start" : "center" });
+  if (c !== "b") { el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
+}
+function mixedHtml(d) {
+  const blk = id => { const b = (d.blocks || []).find(x => x.id === id); return b ? b.name : ""; };
+  return `<p class="note" style="margin:0 0 14px">题目打乱了板块顺序。先判断"这题属于哪一类、第一步做什么"，再点"看思路"核对，最后自己做完再看答案。</p>
+  ${d.mixed.map((x, i) => `<article class="mx panel" data-id="${x.id}">
+    <div class="mx-top"><span class="tc-no">${i + 1}</span>${x.level ? `<span class="badge-b">${esc(x.level)}</span>` : ""}<span class="mx-blk">${esc(x.src || "")}</span></div>
+    <div class="mx-q">${md(x.q)}</div>
+    <div class="mx-btns"><button class="btn" type="button" data-show="hint">看思路</button><button class="btn" type="button" data-show="ans">看答案</button>${x.go ? `<button class="btn" type="button" data-go="${esc(x.go)}">对应题型 →</button>` : ""}</div>
+    <div class="mx-box" data-box="hint" hidden><b>属于：${esc(blk(x.block))}</b>${md(x.hint)}</div>
+    <div class="mx-box" data-box="ans" hidden><b>答案</b>${md(x.ans)}</div>
+  </article>`).join("")}`;
 }
 
 /* --- 10.1 知识框架：一张少而清楚的关系图 + 几条要点 --- */
@@ -501,14 +612,15 @@ function frameHtml(d) {
   const fw = d.framework;
   const cols = Math.max(...fw.nodes.map(n => n.col)) + 1;
   return `<section class="frame panel">
-    <h2>知识框架</h2>
+    <h2>${esc(fw.title || "知识框架")}</h2>
     ${fw.main ? `<p class="mainline">${md(fw.main)}</p>` : ""}
     <div class="cmap-wrap"><div class="cmap" id="cmap" style="width:${(cols - 1) * CW + NW}px">
       <svg id="cmapSvg" aria-hidden="true"><defs>
         <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" style="fill:var(--edge)"></path></marker>
       </defs></svg>
-      ${fw.nodes.map(n => `<div class="cnode k-${n.kind}" data-node="${n.id}" style="left:${n.col * CW}px;top:${n.row * RH}px"><b>${md(n.label)}</b>${n.sub ? `<small>${md(n.sub)}</small>` : ""}</div>`).join("")}
+      ${fw.nodes.map(n => `<div class="cnode k-${n.kind}${n.go ? " go" : ""}" data-node="${n.id}"${n.go ? ` data-go="${esc(n.go)}" role="link" tabindex="0" title="跳到对应内容"` : ""} style="left:${n.col * CW}px;top:${n.row * RH}px"><b>${md(n.label)}</b>${n.sub ? `<small>${md(n.sub)}</small>` : ""}</div>`).join("")}
     </div></div>
+    ${fw.nodes.some(n => n.go) ? `<p class="go-tip">点图里的卡片，跳到对应的知识点或题型。</p>` : ""}
     ${fw.keys && fw.keys.length ? `<div class="keys"><div class="sub">抓住这几条</div><ol>${fw.keys.map(k => `<li>${md(k.a)}</li>`).join("")}</ol></div>` : ""}
   </section>`;
 }
@@ -555,10 +667,13 @@ function showTab(d, first) {
   const pane = $("#pane");
   if (curTab === "types") pane.innerHTML = typesHtml(d);
   else if (curTab === "pitfalls") pane.innerHTML = pitfallsHtml(d);
+  else if (curTab === "mixed" && d.mixed) pane.innerHTML = mixedHtml(d);
   else pane.innerHTML = pointsHtml(d);
   typeset(first ? $("#main") : pane);
   if (first && d.framework && d.framework.nodes) drawEdges(d);
   bindPane(d);
+  bindGo(d, pane);
+  $$(".mx [data-show]", pane).forEach(b => b.addEventListener("click", () => { const box = $(`[data-box="${b.dataset.show}"]`, b.closest(".mx")); box.hidden = !box.hidden; if (!box.hidden) typeset(box); }));
 }
 function pointsHtml(d) {
   const cover = uiFlag("coverPts", false);
@@ -586,19 +701,20 @@ function typesHtml(d) {
   types.forEach(t => { const h = store.marks[key(t)]; if (!h || !h.length) cnt.none++; else cnt[h[h.length - 1].r]++; });
   const show = types.filter(t => {
     if (filter === "yan") return t.tag === "研";
+    if (filter.startsWith("b:")) return t.block === filter.slice(2);
     if (filter === "todo") { const s = statusOf(key(t)); return s.cls !== "s-learned" && s.cls !== "s-ok"; }
     return true;
   });
   const cover = uiFlag("coverIdea", true);
   const fbtn = (v, label) => `<button class="chip" type="button" data-f="${v}" aria-pressed="${filter === v}">${label}</button>`;
-  return `<div class="toolbar"><div class="chips">${fbtn("all", "全部")}${fbtn("todo", "还没掌握")}${types.some(t => t.tag === "研") ? fbtn("yan", "研") : ""}</div>
+  return `<div class="toolbar"><div class="chips">${fbtn("all", "全部")}${fbtn("todo", "还没掌握")}${types.some(t => t.tag === "研") ? fbtn("yan", "研") : ""}${(d.blocks || []).map(b => fbtn("b:" + b.id, b.name)).join("")}</div>
     ${toggle("coverIdea", "遮住通法", cover)}
     <div class="tally"><span>✓ ${cnt.ok}</span><span>△ ${cnt.mid}</span><span>✗ ${cnt.bad}</span><span>未做 ${cnt.none}</span></div></div>
   <div class="cards ${cover ? "cover-on" : ""}" data-cover="coverIdea">${show.length ? show.map(t => {
     const i = types.indexOf(t) + 1, k = key(t), st = statusOf(k);
     const hist = (store.marks[k] || []).slice(-3).map(m => `<i>${SYM[m.r]} ${m.d.slice(5)}</i>`).join("");
     return `<article class="tcard panel" data-key="${k}">
-      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${md(t.name)}</span>${t.tag === "研" ? `<span class="badge-t yan">研</span>` : ""}<span class="status ${st.cls}">${esc(st.text)}</span></div>
+      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${md(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "研" ? `<span class="badge-t yan">研</span>` : ""}<span class="status ${st.cls}">${esc(st.text)}</span></div>
       <div class="tc-body">
         <div class="row"><span class="lab">看到</span><div>${md(t.signal)}</div></div>
         <div class="row"><span class="lab">例题</span><div>${md(t.example.q)}<div class="src">${esc(t.example.src)}</div></div></div>
@@ -748,7 +864,9 @@ function finishReview() {
 
 /* ===== 12. 路由 ===== */
 function route() {
-  const h = decodeURIComponent(location.hash.slice(1));
+  let h = decodeURIComponent(location.hash.slice(1)), tgt = "";
+  const ci = h.indexOf(":");
+  if (ci > 0) { tgt = h.slice(ci + 1); h = h.slice(0, ci); }
   $("#toc").classList.remove("open"); $("#tocBtn").setAttribute("aria-expanded", "false");
   let m;
   if (KB.sections[h]) { renderToc(h); renderSection(KB.sections[h]); }
@@ -757,6 +875,7 @@ function route() {
   else { renderToc(null); renderHome(); }
   updateDot();
   window.scrollTo(0, 0);
+  if (tgt && curSec) setTimeout(() => focusTarget(curSec, tgt), 80);
 }
 
 /* ===== 13. 记录面板 ===== */

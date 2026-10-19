@@ -24,13 +24,13 @@
     framework: {
       main: R`两个无穷小谁趋于 0 更快，看它们比值的极限：0 是高阶，$\infty$ 是低阶，非零常数是同阶，1 是等价。等价无穷小可以在乘除的因子里互相替换，用来化简 $\frac00$ 型极限；加减里的项不能直接换，要先变成乘积。`,
       nodes: [
-        { id: "RAT", col: 0, row: 0, kind: "map", label: "比值的极限", sub: R`$\lim\frac{\beta}{\alpha}$，同一过程` },
-        { id: "ORD", col: 1, row: 0, kind: "func", label: "高阶 · 同阶 · k 阶", sub: R`$0$ / 非零常数 / 比 $\alpha^k$` },
-        { id: "EQ", col: 2, row: 0, kind: "func", label: "等价无穷小", sub: R`比值极限为 $1$，记 $\alpha\sim\beta$` },
-        { id: "LIST", col: 0, row: 1, kind: "build", label: "常用等价", sub: R`$\sin x\sim x$，$1-\cos x\sim\frac{x^2}{2}$…` },
-        { id: "SUB", col: 1, row: 1, kind: "prop", label: "替换定理", sub: "乘除的因子可以换" },
-        { id: "T1", col: 2, row: 1, kind: "prop", label: R`$\beta=\alpha+o(\alpha)$`, sub: "等价的充要条件" },
-        { id: "NO", col: 1, row: 2, kind: "build", label: "加减不能直接换", sub: "先提公因式、通分变乘积" }
+        { id: "RAT", go: "p2", col: 0, row: 0, kind: "map", label: "比值的极限", sub: R`$\lim\frac{\beta}{\alpha}$，同一过程` },
+        { id: "ORD", go: "p1", col: 1, row: 0, kind: "func", label: "高阶 · 同阶 · k 阶", sub: R`$0$ / 非零常数 / 比 $\alpha^k$` },
+        { id: "EQ", go: "p8", col: 2, row: 0, kind: "func", label: "等价无穷小", sub: R`比值极限为 $1$，记 $\alpha\sim\beta$` },
+        { id: "LIST", go: "p4", col: 0, row: 1, kind: "build", label: "常用等价", sub: R`$\sin x\sim x$，$1-\cos x\sim\frac{x^2}{2}$…` },
+        { id: "SUB", go: "p7", col: 1, row: 1, kind: "prop", label: "替换定理", sub: "乘除的因子可以换" },
+        { id: "T1", go: "p6", col: 2, row: 1, kind: "prop", label: R`$\beta=\alpha+o(\alpha)$`, sub: "等价的充要条件" },
+        { id: "NO", go: "t4", col: 1, row: 2, kind: "build", label: "加减不能直接换", sub: "先提公因式、通分变乘积" }
       ],
       edges: [
         { from: "RAT", to: "ORD", label: "看比值" },

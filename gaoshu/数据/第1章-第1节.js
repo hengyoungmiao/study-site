@@ -27,14 +27,14 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
     framework: {
       main: R`函数是特殊的映射：映射的"逆"和"复合"，到函数里就是反函数和复合函数；函数用四种特性描述形状；基本初等函数经有限次运算和复合，得到初等函数。`,
       nodes: [
-        { id: "M", col: 0, row: 0, kind: "map", label: "映射", sub: R`每个 $x$ 对应唯一的 $y$` },
-        { id: "IM", col: 0, row: 1, kind: "map", label: "逆映射", sub: "单射才有" },
-        { id: "CM", col: 0, row: 2, kind: "map", label: "复合映射", sub: R`$f\circ g$，有顺序` },
-        { id: "F", col: 1, row: 0, kind: "func", label: "函数", sub: "两要素：定义域、对应法则" },
-        { id: "INV", col: 1, row: 1, kind: "func", label: "反函数", sub: R`定义域 = 原函数值域` },
-        { id: "COMP", col: 1, row: 2, kind: "func", label: "复合函数", sub: R`$y=f[g(x)]$` },
-        { id: "P", col: 2, row: 0, kind: "prop", label: "四种特性", sub: "有界 · 单调 · 奇偶 · 周期" },
-        { id: "ELE", col: 2, row: 2, kind: "build", label: "初等函数", sub: "基本初等函数 + 有限次四则、复合" }
+        { id: "M", go: "p1", col: 0, row: 0, kind: "map", label: "映射", sub: R`每个 $x$ 对应唯一的 $y$` },
+        { id: "IM", go: "p3", col: 0, row: 1, kind: "map", label: "逆映射", sub: "单射才有" },
+        { id: "CM", go: "p4", col: 0, row: 2, kind: "map", label: "复合映射", sub: R`$f\circ g$，有顺序` },
+        { id: "F", go: "p5", col: 1, row: 0, kind: "func", label: "函数", sub: "两要素：定义域、对应法则" },
+        { id: "INV", go: "p12", col: 1, row: 1, kind: "func", label: "反函数", sub: R`定义域 = 原函数值域` },
+        { id: "COMP", go: "p14", col: 1, row: 2, kind: "func", label: "复合函数", sub: R`$y=f[g(x)]$` },
+        { id: "P", go: "p8", col: 2, row: 0, kind: "prop", label: "四种特性", sub: "有界 · 单调 · 奇偶 · 周期" },
+        { id: "ELE", go: "p17", col: 2, row: 2, kind: "build", label: "初等函数", sub: "基本初等函数 + 有限次四则、复合" }
       ],
       edges: [
         { from: "M", to: "F", label: "数集到实数集" },

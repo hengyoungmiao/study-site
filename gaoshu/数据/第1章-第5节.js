@@ -24,13 +24,13 @@
     framework: {
       main: R`四则运算法则只在"每一部分的极限都存在（分母极限不为 0）"时才能拆开用。拆不开的未定式（$\frac00$、$\frac{\infty}{\infty}$、$\infty-\infty$）要先变形：约分、有理化、通分、抓大头；分母趋于 0 而分子不趋于 0 的，用倒数判成 $\infty$。`,
       nodes: [
-        { id: "INF", col: 0, row: 0, kind: "map", label: "无穷小的运算", sub: "有限个的和、积；有界×无穷小" },
-        { id: "ARI", col: 1, row: 0, kind: "func", label: "四则运算法则", sub: R`各自极限存在才能拆` },
-        { id: "COMP", col: 2, row: 0, kind: "func", label: "复合函数的极限", sub: R`换元 $u=g(x)$` },
-        { id: "SUB", col: 0, row: 1, kind: "prop", label: "直接代入", sub: R`有理函数，分母 $\neq0$` },
-        { id: "IND", col: 1, row: 1, kind: "prop", label: "未定式先变形", sub: R`约分 · 有理化 · 通分` },
-        { id: "PAR", col: 2, row: 1, kind: "build", label: "反求参数", sub: R`$\frac fg$ 有极限且 $g\to0\Rightarrow f\to0$` },
-        { id: "BIG", col: 1, row: 2, kind: "build", label: "抓大头", sub: R`$x\to\infty$：比最高次` }
+        { id: "INF", go: "p1", col: 0, row: 0, kind: "map", label: "无穷小的运算", sub: "有限个的和、积；有界×无穷小" },
+        { id: "ARI", go: "p3", col: 1, row: 0, kind: "func", label: "四则运算法则", sub: R`各自极限存在才能拆` },
+        { id: "COMP", go: "p12", col: 2, row: 0, kind: "func", label: "复合函数的极限", sub: R`换元 $u=g(x)$` },
+        { id: "SUB", go: "p10", col: 0, row: 1, kind: "prop", label: "直接代入", sub: R`有理函数，分母 $\neq0$` },
+        { id: "IND", go: "t2", col: 1, row: 1, kind: "prop", label: "未定式先变形", sub: R`约分 · 有理化 · 通分` },
+        { id: "PAR", go: "t8", col: 2, row: 1, kind: "build", label: "反求参数", sub: R`$\frac fg$ 有极限且 $g\to0\Rightarrow f\to0$` },
+        { id: "BIG", go: "p11", col: 1, row: 2, kind: "build", label: "抓大头", sub: R`$x\to\infty$：比最高次` }
       ],
       edges: [
         { from: "INF", to: "ARI", label: "证明的基础" },

@@ -24,14 +24,14 @@
     framework: {
       main: R`连续性经过四则运算、反函数、复合都保得住，所以基本初等函数、初等函数在定义区间内都连续。由此得到两件好用的事：定义区间内的点求极限直接代入；外层连续时，极限号可以移进函数里面。把极限号移进对数，就得到 $\ln(1+x)$、$\mathrm e^x-1$、$(1+x)^\alpha-1$ 三个等价和幂指函数的极限公式。`,
       nodes: [
-        { id: "INV", col: 0, row: 0, kind: "map", label: "反函数", sub: "单调连续 ⇒ 反函数也单调连续" },
-        { id: "OP", col: 1, row: 0, kind: "map", label: "四则运算", sub: R`$f\pm g$、$fg$、$\frac fg$（$g(x_0)\neq0$）` },
-        { id: "BASIC", col: 0, row: 1, kind: "func", label: "基本初等函数", sub: "在定义域内连续" },
-        { id: "ELEM", col: 1, row: 1, kind: "func", label: "初等函数", sub: "在定义区间内连续" },
-        { id: "COMP", col: 2, row: 1, kind: "map", label: "复合函数", sub: R`$\lim f[g(x)]=f[\lim g(x)]$` },
-        { id: "SUB", col: 0, row: 2, kind: "prop", label: "代入求极限", sub: R`$\lim\limits_{x\to x_0}f(x)=f(x_0)$` },
-        { id: "EQ", col: 1, row: 2, kind: "build", label: "三个等价", sub: R`$\ln(1+x)$、$\mathrm e^x-1$、$(1+x)^\alpha-1$` },
-        { id: "POW", col: 2, row: 2, kind: "build", label: "幂指函数", sub: R`$\lim u^v=a^b$（$a>0$）` }
+        { id: "INV", go: "p2", col: 0, row: 0, kind: "map", label: "反函数", sub: "单调连续 ⇒ 反函数也单调连续" },
+        { id: "OP", go: "p1", col: 1, row: 0, kind: "map", label: "四则运算", sub: R`$f\pm g$、$fg$、$\frac fg$（$g(x_0)\neq0$）` },
+        { id: "BASIC", go: "p5", col: 0, row: 1, kind: "func", label: "基本初等函数", sub: "在定义域内连续" },
+        { id: "ELEM", go: "p6", col: 1, row: 1, kind: "func", label: "初等函数", sub: "在定义区间内连续" },
+        { id: "COMP", go: "p3", col: 2, row: 1, kind: "map", label: "复合函数", sub: R`$\lim f[g(x)]=f[\lim g(x)]$` },
+        { id: "SUB", go: "p7", col: 0, row: 2, kind: "prop", label: "代入求极限", sub: R`$\lim\limits_{x\to x_0}f(x)=f(x_0)$` },
+        { id: "EQ", go: "p8", col: 1, row: 2, kind: "build", label: "三个等价", sub: R`$\ln(1+x)$、$\mathrm e^x-1$、$(1+x)^\alpha-1$` },
+        { id: "POW", go: "p11", col: 2, row: 2, kind: "build", label: "幂指函数", sub: R`$\lim u^v=a^b$（$a>0$）` }
       ],
       edges: [
         { from: "INV", to: "BASIC", label: "得反三角、对数" },

@@ -24,12 +24,12 @@
     framework: {
       main: R`无穷小就是"极限为 0 的函数"，任何极限都能写成"极限值 + 无穷小"；无穷大是 $|f|$ 无限增大，极限其实不存在，只是记作 $\infty$。两者在 $f\neq0$ 时互为倒数；无穷大一定无界，无界不一定是无穷大。`,
       nodes: [
-        { id: "LIM", col: 0, row: 0, kind: "map", label: "函数极限", sub: R`$\lim f(x)=A$` },
-        { id: "ZERO", col: 1, row: 0, kind: "func", label: "无穷小", sub: R`极限为 $0$ 的函数` },
-        { id: "BIG", col: 2, row: 0, kind: "func", label: "无穷大", sub: R`$|f|\to+\infty$，记作 $\lim f=\infty$` },
-        { id: "DEC", col: 0, row: 1, kind: "prop", label: "脱帽", sub: R`$f=A+\alpha$，$\alpha$ 是无穷小` },
-        { id: "VA", col: 1, row: 1, kind: "build", label: "铅直渐近线", sub: R`$\lim\limits_{x\to x_0}f=\infty\Rightarrow x=x_0$` },
-        { id: "UNB", col: 2, row: 1, kind: "prop", label: "无界", sub: "有些点的值很大就够" }
+        { id: "LIM", go: "1.3:p2", col: 0, row: 0, kind: "map", label: "函数极限", sub: R`$\lim f(x)=A$` },
+        { id: "ZERO", go: "p1", col: 1, row: 0, kind: "func", label: "无穷小", sub: R`极限为 $0$ 的函数` },
+        { id: "BIG", go: "p5", col: 2, row: 0, kind: "func", label: "无穷大", sub: R`$|f|\to+\infty$，记作 $\lim f=\infty$` },
+        { id: "DEC", go: "p3", col: 0, row: 1, kind: "prop", label: "脱帽", sub: R`$f=A+\alpha$，$\alpha$ 是无穷小` },
+        { id: "VA", go: "p7", col: 1, row: 1, kind: "build", label: "铅直渐近线", sub: R`$\lim\limits_{x\to x_0}f=\infty\Rightarrow x=x_0$` },
+        { id: "UNB", go: "p9", col: 2, row: 1, kind: "prop", label: "无界", sub: "有些点的值很大就够" }
       ],
       edges: [
         { from: "LIM", to: "ZERO", label: R`$A=0$` },

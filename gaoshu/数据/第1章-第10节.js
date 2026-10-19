@@ -25,14 +25,14 @@
     framework: {
       main: R`函数在闭区间上连续，就有三条好性质：有界、取得最大值和最小值、能取到 $m$ 和 $M$ 之间的一切值。零点定理是介值定理的特殊情形（$C=0$），专门用来证明"方程有根""存在 $\xi$ 使某式成立"。"闭区间"和"连续"少一个，结论就可能不成立。`,
       nodes: [
-        { id: "CONT", col: 0, row: 0, kind: "map", label: "在 [a,b] 上连续", sub: R`$(a,b)$ 内连续，$a$ 右连续，$b$ 左连续` },
-        { id: "BND", col: 1, row: 0, kind: "prop", label: "有界性", sub: R`$|f(x)|\leqslant M$` },
-        { id: "MAX", col: 2, row: 0, kind: "prop", label: "最值定理", sub: "取得最大值 M、最小值 m" },
-        { id: "ZERO", col: 0, row: 1, kind: "func", label: "零点定理", sub: R`$f(a)f(b)<0\Rightarrow$ $(a,b)$ 内有零点` },
-        { id: "IVT", col: 1, row: 1, kind: "func", label: "介值定理", sub: R`$f(a)$ 与 $f(b)$ 之间的值都取到` },
-        { id: "RANGE", col: 2, row: 1, kind: "func", label: "值域 = [m, M]", sub: "介值定理的推论" },
-        { id: "ROOT", col: 0, row: 2, kind: "build", label: "证方程有根", sub: R`构造 $F(x)$，找两点异号` },
-        { id: "MEAN", col: 1, row: 2, kind: "build", label: "证取到平均值", sub: R`$m\leqslant$ 平均值 $\leqslant M$` }
+        { id: "CONT", go: "p1", col: 0, row: 0, kind: "map", label: "在 [a,b] 上连续", sub: R`$(a,b)$ 内连续，$a$ 右连续，$b$ 左连续` },
+        { id: "BND", go: "p3", col: 1, row: 0, kind: "prop", label: "有界性", sub: R`$|f(x)|\leqslant M$` },
+        { id: "MAX", go: "p3", col: 2, row: 0, kind: "prop", label: "最值定理", sub: "取得最大值 M、最小值 m" },
+        { id: "ZERO", go: "p5", col: 0, row: 1, kind: "func", label: "零点定理", sub: R`$f(a)f(b)<0\Rightarrow$ $(a,b)$ 内有零点` },
+        { id: "IVT", go: "p6", col: 1, row: 1, kind: "func", label: "介值定理", sub: R`$f(a)$ 与 $f(b)$ 之间的值都取到` },
+        { id: "RANGE", go: "p7", col: 2, row: 1, kind: "func", label: "值域 = [m, M]", sub: "介值定理的推论" },
+        { id: "ROOT", go: "t2", col: 0, row: 2, kind: "build", label: "证方程有根", sub: R`构造 $F(x)$，找两点异号` },
+        { id: "MEAN", go: "t4", col: 1, row: 2, kind: "build", label: "证取到平均值", sub: R`$m\leqslant$ 平均值 $\leqslant M$` }
       ],
       edges: [
         { from: "CONT", to: "BND", label: "必" },

@@ -24,14 +24,14 @@
     framework: {
       main: R`连续就是"极限值等于函数值"：$\lim\limits_{x\to x_0}f(x)=f(x_0)$。三件事（有定义、极限存在、两者相等）缺一件，就是间断点。间断点按左右极限分类：左右极限都存在是第一类（相等为可去、不等为跳跃），否则是第二类（常见的有无穷、振荡）。`,
       nodes: [
-        { id: "DEF", col: 0, row: 0, kind: "map", label: "连续", sub: R`$\lim\limits_{x\to x_0}f(x)=f(x_0)$` },
-        { id: "LR", col: 1, row: 0, kind: "func", label: "左连续 + 右连续", sub: R`$f(x_0^-)=f(x_0^+)=f(x_0)$` },
-        { id: "DIS", col: 0, row: 1, kind: "map", label: "间断点", sub: "无定义 · 极限不存在 · 不相等" },
-        { id: "C1", col: 1, row: 1, kind: "func", label: "第一类", sub: "左、右极限都存在" },
-        { id: "C2", col: 2, row: 1, kind: "func", label: "第二类", sub: "至少一侧极限不存在" },
-        { id: "REM", col: 0, row: 2, kind: "prop", label: "可去", sub: "左 = 右，改一个值就连续" },
-        { id: "JUMP", col: 1, row: 2, kind: "prop", label: "跳跃", sub: "左 ≠ 右" },
-        { id: "INF", col: 2, row: 2, kind: "build", label: "无穷 · 振荡", sub: R`$\frac1x$、$\sin\frac1x$ 在 $0$ 处` }
+        { id: "DEF", go: "p2", col: 0, row: 0, kind: "map", label: "连续", sub: R`$\lim\limits_{x\to x_0}f(x)=f(x_0)$` },
+        { id: "LR", go: "p3", col: 1, row: 0, kind: "func", label: "左连续 + 右连续", sub: R`$f(x_0^-)=f(x_0^+)=f(x_0)$` },
+        { id: "DIS", go: "p8", col: 0, row: 1, kind: "map", label: "间断点", sub: "无定义 · 极限不存在 · 不相等" },
+        { id: "C1", go: "p9", col: 1, row: 1, kind: "func", label: "第一类", sub: "左、右极限都存在" },
+        { id: "C2", go: "p9", col: 2, row: 1, kind: "func", label: "第二类", sub: "至少一侧极限不存在" },
+        { id: "REM", go: "p10", col: 0, row: 2, kind: "prop", label: "可去", sub: "左 = 右，改一个值就连续" },
+        { id: "JUMP", go: "p10", col: 1, row: 2, kind: "prop", label: "跳跃", sub: "左 ≠ 右" },
+        { id: "INF", go: "p10", col: 2, row: 2, kind: "build", label: "无穷 · 振荡", sub: R`$\frac1x$、$\sin\frac1x$ 在 $0$ 处` }
       ],
       edges: [
         { from: "DEF", to: "LR", label: "⇔" },

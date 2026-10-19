@@ -24,14 +24,14 @@
     framework: {
       main: R`两个准则用来"证明极限存在"：夹逼准则把式子夹在两个同极限的式子中间，单调有界准则保证单调数列只要有界就收敛。用它们分别得到两个重要极限 $\lim\limits_{x\to0}\frac{\sin x}{x}=1$ 和 $\lim\limits_{x\to\infty}\left(1+\frac1x\right)^x=\mathrm e$，再通过换元推广到"$\square\to0$"的一般形式。`,
       nodes: [
-        { id: "SQ", col: 0, row: 0, kind: "map", label: "夹逼准则", sub: "两边极限存在且相等" },
-        { id: "S1", col: 1, row: 0, kind: "func", label: R`$\frac{\sin x}{x}\to1$`, sub: R`$\cos x<\frac{\sin x}{x}<1$` },
-        { id: "S1G", col: 2, row: 0, kind: "prop", label: R`$\frac{\sin\square}{\square}\to1$`, sub: R`要求 $\square\to0$` },
-        { id: "NS", col: 0, row: 1, kind: "build", label: "n 项和、取整", sub: "放缩成同一极限" },
-        { id: "REC", col: 1, row: 1, kind: "build", label: "递推数列", sub: "先证存在，再取极限" },
-        { id: "MB", col: 0, row: 2, kind: "map", label: "单调有界准则", sub: "单调 + 有界 ⇒ 收敛" },
-        { id: "E", col: 1, row: 2, kind: "func", label: R`$\left(1+\frac1n\right)^n\to\mathrm e$`, sub: "单调增、有上界 3" },
-        { id: "E1", col: 2, row: 2, kind: "prop", label: R`$1^{\infty}$ 型`, sub: R`$(1+\square)^{\frac1\square}\to\mathrm e$` }
+        { id: "SQ", go: "p1", col: 0, row: 0, kind: "map", label: "夹逼准则", sub: "两边极限存在且相等" },
+        { id: "S1", go: "p4", col: 1, row: 0, kind: "func", label: R`$\frac{\sin x}{x}\to1$`, sub: R`$\cos x<\frac{\sin x}{x}<1$` },
+        { id: "S1G", go: "p5", col: 2, row: 0, kind: "prop", label: R`$\frac{\sin\square}{\square}\to1$`, sub: R`要求 $\square\to0$` },
+        { id: "NS", go: "t1", col: 0, row: 1, kind: "build", label: "n 项和、取整", sub: "放缩成同一极限" },
+        { id: "REC", go: "t2", col: 1, row: 1, kind: "build", label: "递推数列", sub: "先证存在，再取极限" },
+        { id: "MB", go: "p6", col: 0, row: 2, kind: "map", label: "单调有界准则", sub: "单调 + 有界 ⇒ 收敛" },
+        { id: "E", go: "p9", col: 1, row: 2, kind: "func", label: R`$\left(1+\frac1n\right)^n\to\mathrm e$`, sub: "单调增、有上界 3" },
+        { id: "E1", go: "p11", col: 2, row: 2, kind: "prop", label: R`$1^{\infty}$ 型`, sub: R`$(1+\square)^{\frac1\square}\to\mathrm e$` }
       ],
       edges: [
         { from: "SQ", to: "S1", label: "夹出来" },

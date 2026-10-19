@@ -24,13 +24,13 @@
     framework: {
       main: R`函数极限是把数列极限的自变量从"一个个正整数"换成"连续变化的 $x$"。$x\to x_0$ 时只看 $x_0$ 附近（去掉 $x_0$ 本身），所以要分左右；性质都变成"局部"的；海涅定理把它和数列极限接起来，也给出判断"不存在"的办法。`,
       nodes: [
-        { id: "SEQ", col: 0, row: 0, kind: "map", label: "数列极限", sub: R`$n\to\infty$（1.2）` },
-        { id: "FUN", col: 1, row: 0, kind: "func", label: "函数极限", sub: R`只看去心邻域，与 $f(x_0)$ 无关` },
-        { id: "HEI", col: 2, row: 1, kind: "func", label: "海涅定理", sub: R`$f(x)\to A\Rightarrow f(x_n)\to A$` },
-        { id: "LR", col: 0, row: 1, kind: "prop", label: "左、右极限", sub: R`$f(x_0^-)$、$f(x_0^+)$` },
-        { id: "BND", col: 1, row: 1, kind: "prop", label: "局部有界", sub: "某去心邻域内有界" },
-        { id: "SIGN", col: 2, row: 0, kind: "prop", label: "局部保号", sub: R`$A>0\Rightarrow$ 附近 $f>0$` },
-        { id: "NO", col: 1, row: 2, kind: "build", label: "极限不存在", sub: "左右不等，或两条数列不一致" }
+        { id: "SEQ", go: "1.2:p2", col: 0, row: 0, kind: "map", label: "数列极限", sub: R`$n\to\infty$（1.2）` },
+        { id: "FUN", go: "p2", col: 1, row: 0, kind: "func", label: "函数极限", sub: R`只看去心邻域，与 $f(x_0)$ 无关` },
+        { id: "HEI", go: "p11", col: 2, row: 1, kind: "func", label: "海涅定理", sub: R`$f(x)\to A\Rightarrow f(x_n)\to A$` },
+        { id: "LR", go: "p4", col: 0, row: 1, kind: "prop", label: "左、右极限", sub: R`$f(x_0^-)$、$f(x_0^+)$` },
+        { id: "BND", go: "p9", col: 1, row: 1, kind: "prop", label: "局部有界", sub: "某去心邻域内有界" },
+        { id: "SIGN", go: "p10", col: 2, row: 0, kind: "prop", label: "局部保号", sub: R`$A>0\Rightarrow$ 附近 $f>0$` },
+        { id: "NO", go: "t3", col: 1, row: 2, kind: "build", label: "极限不存在", sub: "左右不等，或两条数列不一致" }
       ],
       edges: [
         { from: "SEQ", to: "FUN", label: "自变量推广" },
