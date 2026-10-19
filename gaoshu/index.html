@@ -274,7 +274,7 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .rate .lab { font-size: 12.5px; color: var(--muted); }
 .rbtn { border: 1px solid var(--line); background: var(--sheet); border-radius: var(--r); min-width: 36px; height: 30px; font-weight: 700; padding: 0 10px; }
 .r-ok:hover, .r-ok.on { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
-.r-mid:hover { border-color: var(--mid); color: var(--mid); background: var(--mid-soft); }
+.r-mid:hover, .r-mid.on { border-color: var(--mid); color: var(--mid); background: var(--mid-soft); }
 .r-bad:hover { border-color: var(--bad); color: var(--bad); background: var(--bad-soft); }
 .hist { display: flex; gap: 4px; font: 11.5px var(--f-mono); color: var(--muted); flex-wrap: wrap; }
 .hist i { font-style: normal; padding: 0 6px; border-radius: 4px; background: var(--paper); }
@@ -423,7 +423,7 @@ a.ch-card:hover { border-color: var(--accent); }
 <div class="sheet-wrap" id="recWrap" hidden>
   <section class="sheet panel" role="dialog" aria-modal="true" aria-labelledby="recTitle">
     <h2 id="recTitle">学习记录</h2>
-    <p class="note" style="margin:0">题型卡的 ✓ △ ✗ 和复习安排只存在这台设备的这个浏览器里。复制下面的文字存进学习仓库或发给克，就算备份；换设备时粘贴导入。</p>
+    <p class="note" style="margin:0">题型卡的 ✓ ✗、△ 重点和复习安排只存在这台设备的这个浏览器里。复制下面的文字存进学习仓库或发给克，就算备份；换设备时粘贴导入。</p>
     <label class="sub" for="recOut">当前记录</label>
     <div class="syncbox"><b>云端同步</b><span class="note">在手机和电脑之间合并记录。每台设备输入一次同步密码。</span><div class="acts"><input id="syncTok" type="password" placeholder="同步密码" autocomplete="off" style="flex:1;min-width:0"><button class="btn primary" id="syncGo" type="button">保存并同步</button></div><span class="msg" id="syncMsg" role="status"></span></div>
     <textarea id="recOut" readonly></textarea>
@@ -486,19 +486,21 @@ function addDays(n) { const d = new Date(); d.setDate(d.getDate() + n); return y
 const SYM = { ok: "✓", mid: "△", bad: "✗" };
 const INTERVALS = [1, 3, 7, 21];
 function statusOf(key) {
-  const h = store.marks[key] || [];
+  const h = (store.marks[key] || []).filter(x => x.r !== "mid");
   if (!h.length) return { cls: "", text: "未做" };
   const a = h[h.length - 1], b = h[h.length - 2];
   if (a.r === "ok" && b && b.r === "ok" && a.d !== b.d) return { cls: "s-learned", text: "已学会" };
   return { cls: "s-" + a.r, text: SYM[a.r] + " " + a.d.slice(5) };
 }
 function qa(s) { return esc(s).replace(/"/g, "&quot;"); }
-function lastMark(key) { const h = store.marks[key] || []; return h[h.length - 1]; }
+function lastMark(key) { const h = (store.marks[key] || []).filter(x => x.r !== "mid"); return h[h.length - 1]; }
+/* △ = 重点记录的内容：开关，跟 ☆ 同样存法，键后加「!」 */
+function isKey(k) { return !!store.stars[k + "!"]; }
 /* ★ 和自评：同一套按钮用在知识点、题型、易错点、混合题上；记录按 "节号/条目号" 存 */
 function rateInner(k) {
   const st = statusOf(k), star = !!store.stars[k];
-  const hist = (store.marks[k] || []).slice(-3).map(m => `<i>${SYM[m.r]} ${m.d.slice(5)}</i>`).join("");
-  return `<button class="star${star ? " on" : ""}" type="button" data-act="star" aria-pressed="${star}" title="标为不熟（★）">${star ? "★" : "☆"}</button><span class="status ${st.cls}" data-sk="${qa(k)}">${esc(st.text)}</span><span class="rate"><span class="lab">自评</span><button class="rbtn r-ok" type="button" data-r="ok" title="独立做对">✓</button><button class="rbtn r-mid" type="button" data-r="mid" title="看提示后做对">△</button><button class="rbtn r-bad" type="button" data-r="bad" title="看了答案">✗</button></span><span class="hist">${hist}</span>`;
+  const hist = (store.marks[k] || []).filter(m => m.r !== "mid").slice(-3).map(m => `<i>${SYM[m.r]} ${m.d.slice(5)}</i>`).join("");
+  return `<button class="star${star ? " on" : ""}" type="button" data-act="star" aria-pressed="${star}" title="标为不熟（★）">${star ? "★" : "☆"}</button><span class="status ${st.cls}" data-sk="${qa(k)}">${esc(st.text)}</span><span class="rate"><span class="lab">自评</span><button class="rbtn r-ok" type="button" data-r="ok" title="独立做对">✓</button><button class="rbtn r-bad" type="button" data-r="bad" title="不会或看了答案">✗</button><button class="rbtn r-mid${isKey(k) ? " on" : ""}" type="button" data-act="key" aria-pressed="${isKey(k)}" title="重点记录的内容：点一下标记，再点取消">△</button></span><span class="hist">${hist}</span>`;
 }
 function rateBox(k) { return `<div class="rate-box" data-k="${qa(k)}">${rateInner(k)}</div>`; }
 function bindRate(root) {
@@ -509,6 +511,7 @@ function bindRate(root) {
       const b = e.target.closest("button"); if (!b) return;
       const k = box.dataset.k;
       if (b.dataset.act === "star") { toggleStar(k); }
+      else if (b.dataset.act === "key") { toggleStar(k + "!"); }
       else if (b.dataset.r) { const h = (store.marks[k] = store.marks[k] || []); h.push({ d: today(), r: b.dataset.r }); if (h.length > 20) store.marks[k] = h.slice(-20); }
       else return;
       save(); box.innerHTML = rateInner(k); onRated();
@@ -656,9 +659,9 @@ function renderHome() {
         <li>先在白纸上凭记忆画这一节的关系图：有哪些概念、谁推出谁、条件是什么。画不全没关系。</li>
         <li>打开知识框架对照，用红笔补上漏掉的连线，再把「抓住这几条」逐条讲出为什么。</li>
         <li>知识点栏开「遮住内容自测」，看名字和自测问题，先说出定义和条件，再点开对照。</li>
-        <li>题型栏：看正面，先说出这类题的通法和本题第一步，再点开通法、翻背面对照；标 ✓（独立对）、△（看提示对）、✗（不会）。</li>
+        <li>题型栏：看正面，先说出这类题的通法和本题第一步，再点开通法、翻背面对照；标 ✓（独立对）、✗（不会）；需要重点记住的内容点 △。</li>
         <li>易错点栏：先做陷阱小题，再看为什么错。</li>
-        <li>不熟的条目点 ☆；自评 ✗ △ 的会自动进「薄弱清单」。</li>
+        <li>不熟的条目点 ☆，要重点记录的点 △，自评 ✗ 的也会进「薄弱清单」。</li>
         <li>之后每天点「复习」：先看薄弱清单，再做到期的间隔复习；周日用速认和抽题做综合复习。</li>
       </ol>
     </div>`;
@@ -876,8 +879,8 @@ function ideaHtml(t) {
 }
 function tallyHtml(d) {
   const cnt = { ok: 0, mid: 0, bad: 0, none: 0 };
-  (d.types || []).forEach(t => { const m = lastMark(d.id + "/" + t.id); if (!m) cnt.none++; else cnt[m.r]++; });
-  return `<span>✓ ${cnt.ok}</span><span>△ ${cnt.mid}</span><span>✗ ${cnt.bad}</span><span>未做 ${cnt.none}</span>`;
+  (d.types || []).forEach(t => { const k = d.id + "/" + t.id, m = lastMark(k); if (isKey(k)) cnt.mid++; if (!m) cnt.none++; else cnt[m.r]++; });
+  return `<span>✓ ${cnt.ok}</span><span>△ 重点 ${cnt.mid}</span><span>✗ ${cnt.bad}</span><span>未做 ${cnt.none}</span>`;
 }
 function typesHtml(d) {
   const types = d.types || [];
@@ -1043,13 +1046,13 @@ function finishReview() {
 
 /* ===== 11b. 复习中心：复习首页、薄弱清单、速认、限时抽题、搜索 ===== */
 const REVIEW_KINDS = ["pt", "rel", "type", "pit"];
-const WHY = { star: "★ 不熟", bad: "✗ 不会", mid: "△ 看提示才对", rv: "复习答错" };
+const WHY = { star: "★ 不熟", bad: "✗ 不会", mid: "△ 重点", rv: "复习答错" };
 function secRank(d) { const m = String(d.id).match(/^(\d+)\.(\d+)$/); if (m) return +m[1] * 100 + +m[2]; const e = String(d.id).match(/^c(\d+)-end$/); return e ? +e[1] * 100 + 99 : 9999; }
 function secById(id) { return KB.sections[id] || Object.values(KB.chapterEnds).find(x => x.id === id); }
 function secLabel(d) { if (d.id === "wrong") return "错题区"; return String(d.id).startsWith("c") ? "第" + CN[d.chapter] + "章末 · 考研难度提升" : d.id + " " + d.title; }
 function reasons(key) {
   const r = []; if (store.stars[key]) r.push("star");
-  const l = lastMark(key); if (l && l.r === "bad") r.push("bad"); else if (l && l.r === "mid") r.push("mid");
+  const l = lastMark(key); if (l && l.r === "bad") r.push("bad"); if (isKey(key)) r.push("mid");
   const s = store.srs[key]; if (s && s.lastWrong) r.push("rv");
   return r;
 }
@@ -1071,7 +1074,7 @@ function renderHub() {
   $("#main").innerHTML = `<div class="eyebrow">综合复习</div><h1>复习</h1>
     <p class="intro">内容多的时候不要从头重读。先看薄弱清单，再用速认和抽题练「认出题型、说出第一步」。考试丢分多半不是不会算，而是没认出该用什么方法。</p>
     <div class="home-grid">
-      ${card("#weak", "每天先看", "薄弱清单", "汇总标了 ☆、自评 ✗ △、间隔复习答错的条目，一条一行，点开才看详情。", w + " 条")}
+      ${card("#weak", "每天先看", "薄弱清单", "汇总标了 ☆、△ 重点、自评 ✗、间隔复习答错的条目，一条一行，点开才看详情。", w + " 条")}
       ${card("#quick", "综合复习", "速认模式", "每张题型只显示「看到」和例题。先在心里说出方法和第一步，再点核对。", "")}
       ${card("#sample", "周复盘", "限时抽题", "从题型、易错点、混合题里随机抽，每题限时，时间到自动翻出答案。", "")}
       ${card("#wrong", "错题", "错题区", "你做错的题，按错因和章节整理，先自己重做，再看正解。", WRONG.length + " 题")}
@@ -1084,7 +1087,7 @@ function renderHub() {
       <tr><td>周日周复盘</td><td>薄弱清单过一遍，限时抽题 10 张</td><td>30 分钟</td></tr>
       <tr><td>每章学完</td><td>章末混合自测</td><td>60 分钟</td></tr>
       <tr><td>考前两周</td><td>每章：闭卷思维导图 → 速认模式 → 薄弱清单</td><td>每章约 1 小时</td></tr></table>
-      <p class="note" style="margin-top:10px">薄弱清单的规则：自评 ✓ 后，✗ △ 的条目自动离开；☆ 要你自己点掉；复习答错的条目在下次一次答对后离开。</p></div>`;
+      <p class="note" style="margin-top:10px">薄弱清单的规则：自评 ✓ 后，✗ 的条目自动离开；☆ 和 △ 重点要你自己点掉；复习答错的条目在下次一次答对后离开。</p></div>`;
   $("#mmGo").addEventListener("click", () => { store.ui.mmClosed = true; save(); });
 }
 
@@ -1103,10 +1106,10 @@ function renderWeak() {
   });
   if (cur) html += "</section>";
   $("#main").innerHTML = `<div class="eyebrow">复习 · 薄弱清单</div><h1>薄弱清单</h1>
-    <p class="note" style="max-width:46em">来源：你标的 ☆、自评最近一次是 ✗ 或 △、间隔复习答错的条目。重新自评 ✓ 后，✗ △ 会自动离开；☆ 要自己点掉。</p>
+    <p class="note" style="max-width:46em">来源：你标的 ☆、△ 重点、自评最近一次是 ✗、间隔复习答错的条目。重新自评 ✓ 后 ✗ 会自动离开；☆ 和 △ 要自己点掉。</p>
     <div class="toolbar"><div class="chips">${["all", "star", "bad", "mid", "rv"].map(w => chipBtn("why", w, (w === "all" ? "全部" : WHY[w]) + " " + cnt(w), wkOpt.why === w)).join("")}</div></div>
     <div class="toolbar"><div class="chips">${Object.keys(kinds).map(k => chipBtn("kind", k, kinds[k], wkOpt.kind === k)).join("")}</div><span class="tally">${items.length} 条</span></div>
-    ${html || `<div class="empty panel"><h2>这里是空的</h2><p>没有符合条件的条目。在知识点、题型、易错点旁点 ☆，或自评 ✗ △，就会出现在这里。</p></div>`}`;
+    ${html || `<div class="empty panel"><h2>这里是空的</h2><p>没有符合条件的条目。在知识点、题型、易错点旁点 ☆ 或 △，或自评 ✗，就会出现在这里。</p></div>`}`;
   $$("[data-why]").forEach(b => b.addEventListener("click", () => { wkOpt.why = b.dataset.why; renderWeak(); }));
   $$("[data-kind]").forEach(b => b.addEventListener("click", () => { wkOpt.kind = b.dataset.kind; renderWeak(); }));
   const byKey = {}; items.forEach(it => byKey[it.key] = it);
@@ -1171,7 +1174,7 @@ function startSample(o) {
   const pick = shuffle(pool).slice(0, o.n);
   if (!pick.length) { $("#main").insertAdjacentHTML("beforeend", `<p class="msg">这个范围里没有可抽的题。</p>`); return; }
   sp = { q: pick, i: 0, sec: o.sec, before: {} };
-  pick.forEach(it => sp.before[it.key] = (store.marks[it.key] || []).length);
+  pick.forEach(it => sp.before[it.key] = (store.marks[it.key] || []).filter(x => x.r !== "mid").length);
   nextSample();
 }
 function samplePrompt(it) {
@@ -1210,11 +1213,11 @@ function nextSample() {
 function finishSample() {
   stopSampleTimer();
   const rated = { ok: [], mid: [], bad: [], none: [] };
-  sp.q.forEach(it => { const h = store.marks[it.key] || []; if (h.length > sp.before[it.key]) rated[h[h.length - 1].r].push(it); else rated.none.push(it); });
-  const list = rated.bad.concat(rated.mid);
+  sp.q.forEach(it => { const h = (store.marks[it.key] || []).filter(x => x.r !== "mid"); if (h.length > sp.before[it.key]) rated[h[h.length - 1].r].push(it); else rated.none.push(it); });
+  const list = rated.bad;
   $("#main").innerHTML = `<div class="eyebrow">限时抽题</div><h1>本轮结束</h1>
-    <div class="stats"><span><b>${rated.ok.length}</b>✓</span><span><b>${rated.mid.length}</b>△</span><span><b>${rated.bad.length}</b>✗</span><span><b>${rated.none.length}</b>没评</span></div>
-    ${list.length ? `<h3 style="margin:16px 0 6px">需要回头看的</h3>${list.map(it => `<div class="wk panel"><div class="wk-top"><span class="rv-kind k-${it.kind}">${KIND_NAME[it.kind]}</span><span class="wk-t">${md(itemTitle(it))}</span><a class="btn" href="#${it.sec.id}:${itemTarget(it)}">去看</a></div></div>`).join("")}` : `<p>这一轮没有 ✗ 或 △。</p>`}
+    <div class="stats"><span><b>${rated.ok.length}</b>✓</span><span><b>${rated.bad.length}</b>✗</span><span><b>${rated.none.length}</b>没评</span></div>
+    ${list.length ? `<h3 style="margin:16px 0 6px">需要回头看的</h3>${list.map(it => `<div class="wk panel"><div class="wk-top"><span class="rv-kind k-${it.kind}">${KIND_NAME[it.kind]}</span><span class="wk-t">${md(itemTitle(it))}</span><a class="btn" href="#${it.sec.id}:${itemTarget(it)}">去看</a></div></div>`).join("")}` : `<p>这一轮没有 ✗。</p>`}
     <p style="margin-top:14px"><a class="btn primary" href="#sample" id="spAgain">再来一轮</a> <a class="btn" href="#weak">看薄弱清单</a></p>`;
   typeset($("#main")); sp = null; updateDot();
   $("#spAgain").addEventListener("click", e => { e.preventDefault(); renderSample(); });
@@ -1303,7 +1306,7 @@ function renderWrong(tgt) {
     if (wrOpt.cause !== "all" && w.cause !== wrOpt.cause) return false;
     if (wrOpt.sec !== "all" && w.section !== wrOpt.sec) return false;
     const st = statusOf("w/" + w.id).text;
-    if (wrOpt.st === "todo" && st !== "未做" && !/^[△✗]/.test(st)) return false;
+    if (wrOpt.st === "todo" && st !== "未做" && !/^✗/.test(st)) return false;
     if (wrOpt.st === "done" && st !== "已学会") return false;
     if (q && !JSON.stringify(w).toLowerCase().includes(q)) return false;
     return true;
