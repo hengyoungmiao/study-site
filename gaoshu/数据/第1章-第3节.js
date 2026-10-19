@@ -26,10 +26,10 @@
       nodes: [
         { id: "SEQ", col: 0, row: 0, kind: "map", label: "数列极限", sub: R`$n\to\infty$（1.2）` },
         { id: "FUN", col: 1, row: 0, kind: "func", label: "函数极限", sub: R`只看去心邻域，与 $f(x_0)$ 无关` },
-        { id: "HEI", col: 2, row: 0, kind: "func", label: "海涅定理", sub: R`$f(x)\to A\Rightarrow f(x_n)\to A$` },
+        { id: "HEI", col: 2, row: 1, kind: "func", label: "海涅定理", sub: R`$f(x)\to A\Rightarrow f(x_n)\to A$` },
         { id: "LR", col: 0, row: 1, kind: "prop", label: "左、右极限", sub: R`$f(x_0^-)$、$f(x_0^+)$` },
         { id: "BND", col: 1, row: 1, kind: "prop", label: "局部有界", sub: "某去心邻域内有界" },
-        { id: "SIGN", col: 2, row: 1, kind: "prop", label: "局部保号", sub: R`$A>0\Rightarrow$ 附近 $f>0$` },
+        { id: "SIGN", col: 2, row: 0, kind: "prop", label: "局部保号", sub: R`$A>0\Rightarrow$ 附近 $f>0$` },
         { id: "NO", col: 1, row: 2, kind: "build", label: "极限不存在", sub: "左右不等，或两条数列不一致" }
       ],
       edges: [
@@ -42,7 +42,7 @@
         { from: "HEI", to: "NO", label: "两数列值不同" }
       ],
       keys: [
-        { q: R`$x\to x_0$ 时 $f(x)$ 的极限和 $f(x_0)$ 有什么关系？`, a: R`没有关系：极限只看 $x_0$ 的去心邻域，$f$ 在 $x_0$ 有没有定义、等于多少都不影响（教材 p27；武忠祥 p10）。` },
+        { q: R`$x\to x_0$ 时 $f(x)$ 的极限和 $f(x_0)$ 有什么关系？`, a: R`$x\to x_0$ 的极限与 $f(x_0)$ 没有关系：只看 $x_0$ 的去心邻域，$f$ 在 $x_0$ 有没有定义、等于多少都不影响（教材 p27；武忠祥 p10）。` },
         { q: R`$\lim\limits_{x\to x_0}f(x)$ 存在的充要条件？$x\to\infty$ 呢？`, a: R`$\lim\limits_{x\to x_0}f(x)$ 存在 $\Leftrightarrow$ 左、右极限都存在且相等（教材 p29）。$x\to\infty$ 指 $|x|\to+\infty$，要 $x\to+\infty$ 和 $x\to-\infty$ 的极限都存在且相等（习题1-3 第10题；武忠祥 p10）。` },
         { q: R`函数极限的有界性、保号性和数列的有什么不同？`, a: R`函数的都是"局部"的：只在 $x_0$ 的某个去心邻域内有界、保号。保号性同样是脱帽严格、戴帽非严格（教材 p31；30讲 p40）。` },
         { q: R`怎样说明 $\lim\limits_{x\to x_0}f(x)$ 不存在？`, a: R`算左、右极限，不相等就不存在；或者找两条趋于 $x_0$（且不等于 $x_0$）的数列，使函数值数列的极限不同（教材 p29、p31–32；吉米【33】p10）。` }
