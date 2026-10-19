@@ -507,8 +507,8 @@ window.KB = {
 
 /* ===== 4. 记录（本机浏览器）：marks = 题型卡 ✓△✗；srs = 复习间隔 ===== */
 const STORE_KEY = "gaoshu-kb-v1";
-let store = { marks: {}, srs: {}, ui: {}, stars: {}, starT: {}, notes: {}, noteT: {} };
-try { const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); if (s && s.marks) store = Object.assign({ srs: {}, ui: {}, stars: {}, starT: {}, notes: {}, noteT: {} }, s); } catch (e) {}
+let store = { marks: {}, srs: {}, ui: {}, stars: {}, starT: {}, notes: {}, noteT: {}, del: {} };
+try { const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); if (s && s.marks) store = Object.assign({ srs: {}, ui: {}, stars: {}, starT: {}, notes: {}, noteT: {}, del: {} }, s); } catch (e) {}
 function rawSave() { try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
 function save() { rawSave(); schedulePush(); }
 /* ☆ 的开关：删除时留一个空值和时间，同步时才知道是「删了」而不是「没有」 */
@@ -530,6 +530,8 @@ function qa(s) { return esc(s).replace(/"/g, "&quot;"); }
 function lastMark(key) { const h = (store.marks[key] || []).filter(x => x.r !== "mid"); return h[h.length - 1]; }
 /* △ = 重点记录的内容：开关，跟 ☆ 同样存法，键后加「!」 */
 /* 今天最后一次自评的结果；再点同一个按钮就取消这一次 */
+/* 一条自评的身份：日期+结果+时间戳；撤销时记一条「已撤销」，合并时不会从别的设备复活 */
+function mid(x) { return x.d + x.r + (x.t || 0); }
 function curR(k) { const l = lastMark(k); return l && l.d === today() ? l.r : ""; }
 /* 我的总结：每个块下面一个按钮，点开写自己的话；自动保存，清空即删除 */
 function noteOf(k) { return (store.notes && store.notes[k]) || ""; }
@@ -574,8 +576,8 @@ function bindRate(root) {
       else if (b.dataset.act === "key") { toggleStar(k + "!"); }
       else if (b.dataset.r) {
         const h = (store.marks[k] = store.marks[k] || []);
-        if (curR(k) === b.dataset.r) { for (let i = h.length - 1; i >= 0; i--) if (h[i].r !== "mid") { h.splice(i, 1); break; } if (!h.length) delete store.marks[k]; }
-        else { h.push({ d: today(), r: b.dataset.r }); if (h.length > 20) store.marks[k] = h.slice(-20); }
+        if (curR(k) === b.dataset.r) { for (let i = h.length - 1; i >= 0; i--) if (h[i].r !== "mid") { const x = h.splice(i, 1)[0]; store.del = store.del || {}; store.del[k + "|" + mid(x)] = Date.now(); break; } if (!h.length) delete store.marks[k]; }
+        else { h.push({ d: today(), r: b.dataset.r, t: Date.now() }); if (h.length > 20) store.marks[k] = h.slice(-20); }
       }
       else return;
       save(); box.innerHTML = rateInner(k); onRated();
@@ -592,20 +594,21 @@ function uiFlag(name, dflt) { return store.ui[name] === undefined ? dflt : !!sto
 
 /* ===== 4b. 记录存到 GitHub：自动提交到本仓库的 records 分支；令牌只存在本机浏览器里 ===== */
 const SYNC_KEY = "gaoshu-sync-v1";
-const GH = { repo: "hengyoungmiao/study-site", branch: "records", state: "records/state.json", wrong: "records/wrong.json" };
+const GH = { repo: "hengyoungmiao/study-site", branch: "records", state: "records/state.json", wrong: "records/wrong.json", review: "records/review.md" };
 let sync = { token: "", at: "", msg: "" };
 try { const s = JSON.parse(localStorage.getItem(SYNC_KEY) || "null"); if (s) sync = Object.assign(sync, { token: s.token || "", at: s.at || "" }); } catch (e) {}
 function syncSaveCfg() { try { localStorage.setItem(SYNC_KEY, JSON.stringify({ token: sync.token, at: sync.at })); } catch (e) {} }
 function syncOn() { return !!sync.token && location.protocol !== "file:"; }
 function applySeeds() { for (const k in KB.seeds) if (!(k in store.notes)) { store.notes[k] = KB.seeds[k]; store.noteT[k] = 1; } rawSave(); }
-function syncPayload() { return { marks: store.marks, srs: store.srs, stars: store.stars, starT: store.starT || {}, notes: store.notes || {}, noteT: store.noteT || {} }; }
+function syncPayload() { return { marks: store.marks, srs: store.srs, stars: store.stars, starT: store.starT || {}, notes: store.notes || {}, noteT: store.noteT || {}, del: store.del || {} }; }
 /* 合并规则：自评按「日期+结果」取并集；复习间隔取 last 更新的；☆ △ 和总结按操作时间取新的 */
 function mergeState(a, b) {
-  const out = { marks: {}, srs: {}, stars: {}, starT: {}, notes: {}, noteT: {} };
+  const out = { marks: {}, srs: {}, stars: {}, starT: {}, notes: {}, noteT: {}, del: {} };
+  for (const src of [a, b]) for (const k in (src.del || {})) out.del[k] = Math.max(out.del[k] || 0, src.del[k]);
   for (const src of [a, b]) {
     for (const k in (src.marks || {})) {
-      const seen = new Set((out.marks[k] || []).map(x => x.d + x.r));
-      for (const x of src.marks[k]) if (x && x.d && SYM[x.r] && !seen.has(x.d + x.r)) { (out.marks[k] = out.marks[k] || []).push({ d: x.d, r: x.r }); seen.add(x.d + x.r); }
+      const seen = new Set((out.marks[k] || []).map(mid));
+      for (const x of src.marks[k]) if (x && x.d && SYM[x.r] && !seen.has(mid(x)) && !((k + "|" + mid(x)) in out.del)) { (out.marks[k] = out.marks[k] || []).push(x.t ? { d: x.d, r: x.r, t: x.t } : { d: x.d, r: x.r }); seen.add(mid(x)); }
     }
     for (const k in (src.srs || {})) { const o = out.srs[k], n = src.srs[k]; if (n && n.due && (!o || (n.last || "") > (o.last || ""))) out.srs[k] = n; }
     for (const [f, t] of [["stars", "starT"], ["notes", "noteT"]]) for (const k in (src[f] || {})) {
@@ -613,7 +616,8 @@ function mergeState(a, b) {
       if (!(k in out[f]) || tm > (out[t][k] || 0)) { out[f][k] = src[f][k]; out[t][k] = tm; }
     }
   }
-  for (const k in out.marks) { out.marks[k].sort((x, y) => x.d < y.d ? -1 : x.d > y.d ? 1 : 0); if (out.marks[k].length > 20) out.marks[k] = out.marks[k].slice(-20); }
+  for (const k in out.del) if (Date.now() - out.del[k] > 90 * 864e5) delete out.del[k];
+  for (const k in out.marks) { out.marks[k].sort((x, y) => x.d < y.d ? -1 : x.d > y.d ? 1 : x.t - y.t || 0); if (out.marks[k].length > 20) out.marks[k] = out.marks[k].slice(-20); }
   return out;
 }
 const sameJ = (x, y) => JSON.stringify(x) === JSON.stringify(y);
@@ -631,12 +635,49 @@ async function ghGet(path) {
 function ghPut(path, text, sha, msg) {
   return fetch(ghUrl(path), { method: "PUT", headers: Object.assign({ "content-type": "application/json" }, ghHead()), body: JSON.stringify({ message: msg, content: b64e(text), branch: GH.branch, sha: sha || undefined }) });
 }
-let syncBusy = false, syncAgain = false, pushTm = null;
+/* 复盘摘要：把记录翻译成人能读的 Markdown，每次同步后更新 records/review.md，克复盘时直接读它 */
+function itemLabel(k) {
+  if (k.startsWith("w/")) { const w = WRONG.find(x => String(x.id) === k.slice(2)); return "错题 " + k.slice(2) + (w && w.data && w.data.title ? "：" + plainLbl(w.data.title) : ""); }
+  const m = k.match(/^(.+?)\/mm:(.*)$/); if (m) return m[1] + " 导图：" + m[2];
+  const info = keyInfo(k); if (info) return info.label;
+  const q = k.match(/^(.+?)\/k(\d+)$/); return q ? q[1] + " 要点 " + q[2] : k;
+}
+function reviewMd() {
+  const t = today(), days = []; for (let i = 0; i < 7; i++) { const d = new Date(); d.setDate(d.getDate() - i); days.push(ymd(d)); }
+  const byDay = {}; days.forEach(d => byDay[d] = { ok: [], bad: [] });
+  for (const k in store.marks) for (const x of store.marks[k]) if (byDay[x.d] && (x.r === "ok" || x.r === "bad")) byDay[x.d][x.r].push(k);
+  const lines = k => k.map(x => "- " + itemLabel(x));
+  const lastBad = [], keys = [], stars = [];
+  for (const k in store.marks) { const l = lastMark(k); if (l && l.r === "bad") lastBad.push(k); }
+  for (const k in store.stars) { if (!store.stars[k]) continue; if (k.endsWith("!")) keys.push(k.slice(0, -1)); else stars.push(k); }
+  const due = Object.keys(store.srs).filter(k => store.srs[k].due <= t).sort();
+  const notes = Object.keys(store.notes).filter(k => store.notes[k]).sort();
+  const sec = (h, a) => `## ${h}（${a.length}）\n\n${a.length ? a.join("\n") : "（无）"}\n`;
+  const td = byDay[t];
+  return [
+    "# 高数复盘记录", "",
+    "> 由知识网页自动生成，原始数据在 `state.json`。✓ 独立做对，✗ 不会或看了答案，☆ 不熟，△ 重点记录。", "",
+    `## 今天（${t}）`, "", `自评 ✓ ${td.ok.length}，✗ ${td.bad.length}`, "",
+    ...(td.bad.length ? ["**今天不会的**", "", ...lines(td.bad), ""] : []),
+    ...(td.ok.length ? ["**今天做对的**", "", ...lines(td.ok), ""] : []),
+    "## 最近 7 天", "", "| 日期 | ✓ | ✗ |", "|---|---|---|", ...days.map(d => `| ${d} | ${byDay[d].ok.length} | ${byDay[d].bad.length} |`), "",
+    sec("最近一次自评是 ✗ 的", lines(lastBad)),
+    sec("☆ 不熟", lines(stars)),
+    sec("△ 重点记录", lines(keys)),
+    sec("今天及之前到期的间隔复习", due.slice(0, 40).map(k => `- ${itemLabel(k)}（到期 ${store.srs[k].due}）`)),
+    sec("我的总结", notes.map(k => `- ${itemLabel(k)}：${store.notes[k].replace(/\n/g, " ")}`)),
+    ""
+  ].join("\n");
+}
+async function pushReview() {
+  try { const text = reviewMd(), cur = await ghGet(GH.review); if (cur && cur.text === text) return; await ghPut(GH.review, text, cur && cur.sha, "复盘摘要 " + today() + " " + new Date().toTimeString().slice(0, 5)); } catch (e) {}
+}
+let syncBusy = false, syncAgain = false, pushTm = null, reviewAt = 0;
 function schedulePush() { if (!syncOn()) return; clearTimeout(pushTm); pushTm = setTimeout(() => syncNow(), 4000); }
 async function syncNow(manual) {
   if (!syncOn()) { if (manual) { sync.msg = location.protocol === "file:" ? "本地文件打开时不同步，请用网址打开" : "还没填 GitHub 令牌"; showSyncMsg(); } return; }
   if (syncBusy) { syncAgain = true; return; }
-  syncBusy = true; let changed = false;
+  syncBusy = true; let changed = false, wrote = false;
   try {
     for (let i = 0; i < 3; i++) {
       const cur = await ghGet(GH.state);
@@ -646,18 +687,22 @@ async function syncNow(manual) {
       Object.assign(store, merged); rawSave();
       if (cur && sameJ(merged, mergeState(remote, {}))) break;
       const w = await ghPut(GH.state, JSON.stringify(merged, null, 1) + "\n", cur && cur.sha, "记录 " + today() + " " + new Date().toTimeString().slice(0, 5));
-      if (w.ok) break;
+      if (w.ok) { wrote = true; break; }
       if (w.status === 409 || w.status === 422) { if (!cur) throw new Error("云端没有 records 分支"); continue; }
       if (w.status === 401 || w.status === 403 || w.status === 404) throw new Error("令牌没有写入权限（需要 Contents 读写）");
       throw new Error("写入失败 " + w.status);
     }
     sync.at = new Date().toTimeString().slice(0, 5); sync.msg = "已保存到 GitHub " + sync.at; syncSaveCfg();
+    if (wrote || !reviewAt) { reviewAt = Date.now(); await pushReview(); }
   } catch (e) { sync.msg = "同步失败：" + (e.message || e); }
   syncBusy = false; showSyncMsg();
   if (changed) { updateDot(); if (!/^#(spaced|sample)/.test(location.hash) && !document.querySelector(".rv-card") && !document.querySelector(".nb-ta") && window.scrollY < 80) route(); }
   if (syncAgain) { syncAgain = false; schedulePush(); }
 }
 function showSyncMsg() { const el = $("#syncMsg"); if (el) el.textContent = sync.msg; const b = $("#recBtn"); if (b) b.classList.toggle("synced", syncOn() && /^已保存/.test(sync.msg)); }
+setInterval(() => { if (document.visibilityState === "visible" && syncOn() && !document.querySelector(".nb-ta")) syncNow(); }, 90000);
+/* 新设备快捷配置：打开 网址/gaoshu/#setup=令牌，会把令牌存进这台设备并立刻同步，然后把地址栏里的令牌清掉 */
+(function setupLink() { const m = location.hash.match(/^#setup=(.+)$/); if (m) { sync.token = decodeURIComponent(m[1]).trim(); syncSaveCfg(); history.replaceState(null, "", location.pathname + location.search + "#home"); } })();
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") syncNow(); else if (pushTm) { clearTimeout(pushTm); pushTm = null; syncNow(); } });
 
 /* ===== 5. 小工具 ===== */
@@ -1515,7 +1560,7 @@ $("#recCopy").addEventListener("click", () => {
 $("#recImport").addEventListener("click", () => {
   try {
     const obj = JSON.parse($("#recIn").value); const mk = obj.marks || {}; let n = 0;
-    for (const k in mk) { const seen = new Set((store.marks[k] || []).map(x => x.d + x.r)); for (const x of mk[k]) if (x && x.d && SYM[x.r] && !seen.has(x.d + x.r)) { (store.marks[k] = store.marks[k] || []).push(x); n++; } if (store.marks[k]) store.marks[k].sort((a, b) => a.d < b.d ? -1 : 1); }
+    for (const k in mk) { const seen = new Set((store.marks[k] || []).map(mid)); for (const x of mk[k]) if (x && x.d && SYM[x.r] && !seen.has(mid(x))) { (store.marks[k] = store.marks[k] || []).push(x); n++; } if (store.marks[k]) store.marks[k].sort((a, b) => a.d < b.d ? -1 : 1); }
     const sr = obj.srs || {};
     for (const k in sr) { const a = store.srs[k], b = sr[k]; if (b && b.due && (!a || (b.last || "") > (a.last || ""))) { store.srs[k] = b; n++; } }
     const st = obj.stars || {}; for (const k in st) if (st[k] && !store.stars[k]) { setStar(k, true); n++; }
