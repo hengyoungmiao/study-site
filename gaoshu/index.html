@@ -286,7 +286,11 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .flip { margin-right: auto; }
 .rate { display: flex; gap: 6px; align-items: center; }
 .rate .lab { font-size: 12.5px; color: var(--muted); }
-.nb { flex-basis: 100%; }
+.nb, .wl { flex-basis: 100%; }
+.wl { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.wl:empty { display: none; }
+.wl .lab, .wr-links .lab { font-size: 12.5px; color: var(--bad); }
+.wr-links { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; }
 .nb-text { margin: 8px 0 4px; padding: 8px 12px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 var(--r) var(--r) 0; line-height: 1.7; }
 .nb-ta { width: 100%; margin-top: 8px; padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--r); font: inherit; background: var(--sheet); color: var(--ink); resize: vertical; }
 .nb-hint { font-size: 12px; color: var(--muted); margin-top: 2px; }
@@ -577,6 +581,7 @@ function bindRate(root) {
       save(); box.innerHTML = rateInner(k); onRated();
     });
   });
+  if (WRONG.length) paintWl(root);
 }
 function onRated() {
   const el = $("#tally"); if (el && curSec) el.innerHTML = tallyHtml(curSec);
@@ -1394,7 +1399,32 @@ const CAUSES = ["审题", "概念不清", "条件遗漏", "方法选择", "计�
 let wrOpt = { cause: "all", sec: "all", st: "all", q: "" };
 async function loadWrong() {
   if (!syncOn()) return false;
-  try { const f = await ghGet(GH.wrong); WRONG = f && f.text.trim() ? JSON.parse(f.text) : []; try { localStorage.setItem(WCACHE, JSON.stringify(WRONG)); } catch (e) {} return true; } catch (e) { return false; }
+  try { const f = await ghGet(GH.wrong); WRONG = f && f.text.trim() ? JSON.parse(f.text) : []; try { localStorage.setItem(WCACHE, JSON.stringify(WRONG)); } catch (e) {} paintWl(document); return true; } catch (e) { return false; }
+}
+/* 错题索引：错题 ↔ 知识点和题型。data.links 写 ["1.5/p7","1.6/t11"]（p 知识点、t 题型、e 易错点、m 混合题）；没写 links 就用 type_key */
+function wrongLinks(w) { const l = w.data && Array.isArray(w.data.links) ? w.data.links : (w.type_key ? [w.type_key] : []); return l.filter(Boolean); }
+function plainLbl(t) { return String(t || "").replace(/\$+/g, "").replace(/\\([a-zA-Z]+)/g, "$1").replace(/[{}^_]/g, "").replace(/\*\*/g, "").replace(/\s+/g, " ").trim(); }
+function keyInfo(key) {
+  const i = key.indexOf("/"), sid = key.slice(0, i), t = key.slice(i + 1), d = secById(sid);
+  if (!d || !t) return d ? { href: "#" + sid, label: secLabel(d) } : null;
+  let kind = "", name = "";
+  if (t[0] === "p") { kind = "知识点"; for (const g of d.points || []) for (const p of g.items) if (p.id === t) name = p.name; }
+  else if (t[0] === "t") { kind = "题型"; const x = (d.types || []).find(x => x.id === t); name = x ? x.name : ""; }
+  else if (t[0] === "e") { kind = "易错点"; const x = (d.pitfalls || [])[+t.slice(1) - 1]; name = x ? x.wrong : ""; }
+  else if (t[0] === "m") { kind = "混合题"; const x = (d.mixed || []).find(x => x.id === t); name = x ? (x.src || x.q) : ""; }
+  if (!name) return null;
+  return { href: "#" + sid + ":" + t, label: (String(sid).startsWith("c") ? "章末" : sid) + " " + kind + "：" + plainLbl(name) };
+}
+function wlHtml(key) {
+  const hit = WRONG.filter(w => wrongLinks(w).includes(key));
+  return hit.length ? `<span class="lab">错题</span>${hit.map(w => `<a class="chip" href="#wrong:${w.id}" title="${qa(plainLbl((w.data && w.data.title) || w.source || ""))}">错题 ${w.id}${w.cause ? "·" + esc(w.cause) : ""}</a>`).join("")}` : "";
+}
+function paintWl(root) {
+  $$(".nb", root).forEach(nb => {
+    let wl = nb.nextElementSibling;
+    if (!(wl && wl.classList.contains("wl"))) { wl = document.createElement("div"); wl.className = "wl"; nb.after(wl); }
+    wl.innerHTML = wlHtml(nb.dataset.nk);
+  });
 }
 function wrongBody(w) {
   const d = w.data || {}, br = x => md(x).replace(/\n/g, "<br>");
@@ -1405,11 +1435,11 @@ function wrongBody(w) {
 }
 function wrongCard(w) {
   const key = "w/" + w.id, d = w.data || {};
-  const loc = w.type_key ? w.type_key.split("/") : null;
-  const link = loc && KB.sections[loc[0]] ? `<a class="btn" href="#${esc(loc[0])}${loc[1] ? ":" + esc(loc[1]) : ""}">对应${loc[1] ? "题型" : "小节"} ${esc(w.type_key)}</a>` : "";
+  const infos = wrongLinks(w).map(keyInfo).filter(Boolean);
+  const link = infos.length ? `<div class="wr-links"><span class="lab">对应知识点和题型 →</span>${infos.map(x => `<a class="chip" href="${esc(x.href)}">${esc(x.label)}</a>`).join("")}</div>` : "";
   return `<article class="wr panel" id="w${w.id}"><div class="wk-top"><span class="rv-kind k-wr">错题 ${w.id}</span><span class="src">${esc(w.source || "")}</span>${w.cause ? `<span class="wr-cause">${esc(w.cause)}</span>` : ""}<span class="src">${esc((w.created || "").slice(0, 10))}</span></div>
     <h3 style="margin:6px 0">${md(d.title || "")}</h3>${wrongBody(w)}
-    <div class="rate-box" data-k="${qa(key)}">${rateInner(key)}</div>${link ? `<div style="margin-top:6px">${link}</div>` : ""}</article>`;
+    <div class="rate-box" data-k="${qa(key)}">${rateInner(key)}</div>${link}</article>`;
 }
 function renderWrong(tgt) {
   curSec = null;
