@@ -359,6 +359,17 @@ a.ch-card:hover { border-color: var(--accent); }
 .lz { min-height: 40px; }
 
 /* 记录面板 */
+.syncbox { display:flex; flex-direction:column; gap:6px; margin:6px 0 12px; padding:10px; border:1px solid var(--line); border-radius:10px; }
+.syncbox .acts { display:flex; gap:8px; }
+.syncbox input { padding:8px 10px; border:1px solid var(--line); border-radius:8px; font:inherit; background:var(--sheet); color:var(--ink); }
+.btn.synced::after { content:""; display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--ok); margin-left:6px; vertical-align:middle; }
+.rv-kind.k-wr { background: var(--bad-soft); color: var(--bad); }
+.wr { margin:12px 0; }
+.wr .wr-f { margin:6px 0; line-height:1.7; }
+.wr .wr-cause { background:var(--bad-soft); color:var(--bad); border-radius:6px; padding:1px 8px; font-size:12px; }
+.wr details { margin:6px 0; } .wr summary { cursor:pointer; color:var(--accent); }
+.wr-bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:10px 0; }
+.wr-bar select, .wr-bar input { padding:6px 8px; border:1px solid var(--line); border-radius:8px; font:inherit; background:var(--sheet); color:var(--ink); max-width:100%; }
 .sheet-wrap { position: fixed; inset: 0; z-index: 20; background: rgba(10, 16, 22, 0.42); display: grid; place-items: center;
   padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
 .sheet { width: min(640px, 100%); max-height: 100%; overflow-y: auto; padding: 18px 20px; display: grid; gap: 10px; }
@@ -397,6 +408,7 @@ a.ch-card:hover { border-color: var(--accent); }
     <div class="top-actions">
       <button class="btn" id="tocBtn" type="button" aria-expanded="false" aria-controls="toc">目录</button>
       <a class="btn" id="srBtn" href="#search">搜索</a>
+      <a class="btn" id="wrBtn" href="#wrong">错题</a>
       <a class="btn" id="rvBtn" href="#review">复习<span class="dot" id="dueDot" hidden></span></a>
       <button class="btn" id="recBtn" type="button">记录</button>
     </div>
@@ -413,6 +425,7 @@ a.ch-card:hover { border-color: var(--accent); }
     <h2 id="recTitle">学习记录</h2>
     <p class="note" style="margin:0">题型卡的 ✓ △ ✗ 和复习安排只存在这台设备的这个浏览器里。复制下面的文字存进学习仓库或发给克，就算备份；换设备时粘贴导入。</p>
     <label class="sub" for="recOut">当前记录</label>
+    <div class="syncbox"><b>云端同步</b><span class="note">在手机和电脑之间合并记录。每台设备输入一次同步密码。</span><div class="acts"><input id="syncTok" type="password" placeholder="同步密码" autocomplete="off" style="flex:1;min-width:0"><button class="btn primary" id="syncGo" type="button">保存并同步</button></div><span class="msg" id="syncMsg" role="status"></span></div>
     <textarea id="recOut" readonly></textarea>
     <div class="acts"><button class="btn primary" id="recCopy" type="button">复制记录</button><span class="msg" id="recMsg" role="status"></span></div>
     <label class="sub" for="recIn">导入记录（粘贴后点导入，会和现有记录合并）</label>
@@ -460,9 +473,13 @@ window.KB = {
 
 /* ===== 4. 记录（本机浏览器）：marks = 题型卡 ✓△✗；srs = 复习间隔 ===== */
 const STORE_KEY = "gaoshu-kb-v1";
-let store = { marks: {}, srs: {}, ui: {}, stars: {} };
-try { const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); if (s && s.marks) store = Object.assign({ srs: {}, ui: {}, stars: {} }, s); } catch (e) {}
-function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
+let store = { marks: {}, srs: {}, ui: {}, stars: {}, starT: {} };
+try { const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); if (s && s.marks) store = Object.assign({ srs: {}, ui: {}, stars: {}, starT: {} }, s); } catch (e) {}
+function rawSave() { try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
+function save() { rawSave(); schedulePush(); }
+/* ☆ 的开关：删除时留一个空值和时间，同步时才知道是「删了」而不是「没有」 */
+function setStar(k, on) { store.starT = store.starT || {}; store.stars[k] = on ? today() : ""; store.starT[k] = Date.now(); }
+function toggleStar(k) { setStar(k, !store.stars[k]); }
 function ymd(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
 function today() { return ymd(new Date()); }
 function addDays(n) { const d = new Date(); d.setDate(d.getDate() + n); return ymd(d); }
@@ -491,7 +508,7 @@ function bindRate(root) {
       e.stopPropagation();
       const b = e.target.closest("button"); if (!b) return;
       const k = box.dataset.k;
-      if (b.dataset.act === "star") { if (store.stars[k]) delete store.stars[k]; else store.stars[k] = today(); }
+      if (b.dataset.act === "star") { toggleStar(k); }
       else if (b.dataset.r) { const h = (store.marks[k] = store.marks[k] || []); h.push({ d: today(), r: b.dataset.r }); if (h.length > 20) store.marks[k] = h.slice(-20); }
       else return;
       save(); box.innerHTML = rateInner(k); onRated();
@@ -503,6 +520,63 @@ function onRated() {
   updateDot();
 }
 function uiFlag(name, dflt) { return store.ui[name] === undefined ? dflt : !!store.ui[name]; }
+
+
+/* ===== 4b. 云端同步：同一份记录在手机和电脑之间合并；token 只存在本机浏览器里 ===== */
+const SYNC_KEY = "gaoshu-sync-v1";
+let sync = { token: "", ver: 0, at: "", msg: "" };
+try { const s = JSON.parse(localStorage.getItem(SYNC_KEY) || "null"); if (s) sync = Object.assign(sync, s, { msg: "" }); } catch (e) {}
+function syncSaveCfg() { try { localStorage.setItem(SYNC_KEY, JSON.stringify({ token: sync.token, ver: sync.ver, at: sync.at })); } catch (e) {} }
+function syncOn() { return !!sync.token && location.protocol !== "file:"; }
+function syncPayload() { return { marks: store.marks, srs: store.srs, stars: store.stars, starT: store.starT || {} }; }
+/* 合并规则：自评按「日期+结果」取并集；复习间隔取 last 更新的；☆ 按操作时间取新的 */
+function mergeState(a, b) {
+  const out = { marks: {}, srs: {}, stars: {}, starT: {} };
+  for (const src of [a, b]) {
+    for (const k in (src.marks || {})) {
+      const seen = new Set((out.marks[k] || []).map(x => x.d + x.r));
+      for (const x of src.marks[k]) if (x && x.d && SYM[x.r] && !seen.has(x.d + x.r)) { (out.marks[k] = out.marks[k] || []).push({ d: x.d, r: x.r }); seen.add(x.d + x.r); }
+    }
+    for (const k in (src.srs || {})) { const o = out.srs[k], n = src.srs[k]; if (n && n.due && (!o || (n.last || "") > (o.last || ""))) out.srs[k] = n; }
+    for (const k in (src.stars || {})) {
+      const t = (src.starT || {})[k] || 0;
+      if (!(k in out.stars) || t > (out.starT[k] || 0)) { out.stars[k] = src.stars[k]; out.starT[k] = t; }
+    }
+  }
+  for (const k in out.marks) { out.marks[k].sort((x, y) => x.d < y.d ? -1 : x.d > y.d ? 1 : 0); if (out.marks[k].length > 20) out.marks[k] = out.marks[k].slice(-20); }
+  return out;
+}
+const sameJ = (x, y) => JSON.stringify(x) === JSON.stringify(y);
+function api(path, opt) {
+  return fetch(path, Object.assign({ headers: { authorization: "Bearer " + sync.token, "content-type": "application/json" } }, opt || {}));
+}
+let syncBusy = false, syncAgain = false, pushTm = null;
+function schedulePush() { if (!syncOn()) return; clearTimeout(pushTm); pushTm = setTimeout(() => syncNow(), 2500); }
+async function syncNow(manual) {
+  if (!syncOn()) { if (manual) { sync.msg = location.protocol === "file:" ? "本地文件打开时不同步，请用网址打开" : "还没填同步密码"; showSyncMsg(); } return; }
+  if (syncBusy) { syncAgain = true; return; }
+  syncBusy = true; let changed = false;
+  try {
+    for (let i = 0; i < 3; i++) {
+      const r = await api("/api/state"); if (r.status === 401) throw new Error("密码不对"); if (!r.ok) throw new Error("读取失败 " + r.status);
+      const remote = await r.json();
+      const local = syncPayload();
+      const merged = mergeState(local, remote.data || {});
+      if (!sameJ(merged, mergeState(local, {}))) changed = true;
+      store.marks = merged.marks; store.srs = merged.srs; store.stars = merged.stars; store.starT = merged.starT; rawSave();
+      if (sameJ(merged, mergeState(remote.data || {}, {}))) { sync.ver = remote.ver; break; }
+      const w = await api("/api/state", { method: "PUT", body: JSON.stringify({ ver: remote.ver, data: merged }) });
+      if (w.ok) { sync.ver = (await w.json()).ver; break; }
+      if (w.status !== 409) throw new Error("写入失败 " + w.status);
+    }
+    sync.at = new Date().toTimeString().slice(0, 5); sync.msg = "已同步 " + sync.at; syncSaveCfg();
+  } catch (e) { sync.msg = "同步失败：" + (e.message || e); }
+  syncBusy = false; showSyncMsg();
+  if (changed) { updateDot(); if (!/^#(spaced|sample|review-run)/.test(location.hash) && !document.querySelector(".rv-card") && window.scrollY < 80) route(); }
+  if (syncAgain) { syncAgain = false; schedulePush(); }
+}
+function showSyncMsg() { const el = $("#syncMsg"); if (el) el.textContent = sync.msg; const b = $("#recBtn"); if (b) b.classList.toggle("synced", syncOn() && /^已同步/.test(sync.msg)); }
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") syncNow(); });
 
 /* ===== 5. 小工具 ===== */
 const $ = (s, el = document) => el.querySelector(s);
@@ -659,7 +733,7 @@ function mindHtml(d) {
 function bindMm() {
   $$(".mm-star").forEach(b => b.addEventListener("click", e => {
     e.stopPropagation();
-    const k = b.dataset.mk; if (store.stars[k]) delete store.stars[k]; else store.stars[k] = today();
+    const k = b.dataset.mk; toggleStar(k);
     save(); const on = !!store.stars[k]; b.classList.toggle("on", on); b.textContent = on ? "★" : "☆";
   }));
 }
@@ -869,7 +943,7 @@ function bindPane(d) {
 }
 
 /* ===== 11. 复习：连续重学（答错的本轮再出现，全部答对一次才结束）+ 1/3/7/21 天间隔 + 混合抽题 ===== */
-const KIND_NAME = { pt: "知识点", rel: "要点", type: "题型", pit: "易错点", mx: "混合题" };
+const KIND_NAME = { pt: "知识点", rel: "要点", type: "题型", pit: "易错点", mx: "混合题", wr: "错题" };
 let rv = null;
 function renderSpaced() {
   curSec = null;
@@ -916,6 +990,7 @@ function promptHtml(it) {
 }
 function answerHtml(it) {
   const o = it.obj;
+  if (it.kind === "wr") return wrongBody(o);
   if (it.kind === "pt") return `<div>${md(o.body)}</div>${o.notes ? `<ul class="pt-notes">${o.notes.map(n => `<li>${md(n)}</li>`).join("")}</ul>` : ""}<div class="src">${esc(o.page || "")}</div>`;
   if (it.kind === "rel") return `<div>${md(o.a)}</div>`;
   if (it.kind === "mx") return `<div><b>思路</b>　${md(o.hint)}</div><div><b>答案</b>　${md(o.ans)}</div>`;
@@ -971,7 +1046,7 @@ const REVIEW_KINDS = ["pt", "rel", "type", "pit"];
 const WHY = { star: "★ 不熟", bad: "✗ 不会", mid: "△ 看提示才对", rv: "复习答错" };
 function secRank(d) { const m = String(d.id).match(/^(\d+)\.(\d+)$/); if (m) return +m[1] * 100 + +m[2]; const e = String(d.id).match(/^c(\d+)-end$/); return e ? +e[1] * 100 + 99 : 9999; }
 function secById(id) { return KB.sections[id] || Object.values(KB.chapterEnds).find(x => x.id === id); }
-function secLabel(d) { return String(d.id).startsWith("c") ? "第" + CN[d.chapter] + "章末 · 考研难度提升" : d.id + " " + d.title; }
+function secLabel(d) { if (d.id === "wrong") return "错题区"; return String(d.id).startsWith("c") ? "第" + CN[d.chapter] + "章末 · 考研难度提升" : d.id + " " + d.title; }
 function reasons(key) {
   const r = []; if (store.stars[key]) r.push("star");
   const l = lastMark(key); if (l && l.r === "bad") r.push("bad"); else if (l && l.r === "mid") r.push("mid");
@@ -981,10 +1056,11 @@ function reasons(key) {
 function weakItems() {
   const out = [];
   for (const it of allItems(true)) { const r = reasons(it.key); if (r.length) out.push(Object.assign({ why: r }, it)); }
+  for (const w of WRONG) { const key = "w/" + w.id, r = reasons(key); if (r.length) out.push({ key, sec: WSEC, kind: "wr", obj: w, why: r }); }
   for (const k in store.stars) { const m = k.match(/^(.+?)\/mm:(.*)$/); const d = m && secById(m[1]); if (d) out.push({ key: k, sec: d, kind: "mm", obj: { label: m[2] }, why: ["star"] }); }
   return out;
 }
-function itemTitle(it) { const o = it.obj; return it.kind === "pt" || it.kind === "type" ? o.name : it.kind === "rel" ? o.q : it.kind === "pit" ? o.wrong : it.kind === "mx" ? o.q : o.label || ""; }
+function itemTitle(it) { const o = it.obj; return it.kind === "pt" || it.kind === "type" ? o.name : it.kind === "rel" ? o.q : it.kind === "pit" ? o.wrong : it.kind === "mx" ? o.q : it.kind === "wr" ? ((o.data && o.data.title) || o.source || "错题 " + o.id) : o.label || ""; }
 function itemTarget(it) { return it.kind === "rel" || it.kind === "mm" ? "" : it.key.split("/")[1]; }
 function chipBtn(a, v, label, on) { return `<button class="chip" type="button" data-${a}="${qa(v)}" aria-pressed="${on}">${label}</button>`; }
 
@@ -998,6 +1074,7 @@ function renderHub() {
       ${card("#weak", "每天先看", "薄弱清单", "汇总标了 ☆、自评 ✗ △、间隔复习答错的条目，一条一行，点开才看详情。", w + " 条")}
       ${card("#quick", "综合复习", "速认模式", "每张题型只显示「看到」和例题。先在心里说出方法和第一步，再点核对。", "")}
       ${card("#sample", "周复盘", "限时抽题", "从题型、易错点、混合题里随机抽，每题限时，时间到自动翻出答案。", "")}
+      ${card("#wrong", "错题", "错题区", "你做错的题，按错因和章节整理，先自己重做，再看正解。", WRONG.length + " 题")}
       ${card("#spaced", "每天 22:30", "间隔复习", "按 1、3、7、21 天的间隔抽查，答错的当场重学。", due + " 到期")}
       ${card("#c1-end", "考前一周", "闭卷思维导图", "章末页的导图会先模糊小节下的内容，先回忆再点开，不熟的点 ☆。", "", "mmGo")}
     </div>
@@ -1017,7 +1094,7 @@ function renderWeak() {
   const all = weakItems().sort((a, b) => secRank(a.sec) - secRank(b.sec));
   const items = all.filter(it => (wkOpt.why === "all" || it.why.includes(wkOpt.why)) && (wkOpt.kind === "all" || it.kind === wkOpt.kind));
   const cnt = w => all.filter(it => w === "all" || it.why.includes(w)).length;
-  const kinds = { all: "全部", pt: "知识点", type: "题型", pit: "易错点", mx: "混合题", rel: "要点", mm: "导图" };
+  const kinds = { all: "全部", pt: "知识点", type: "题型", pit: "易错点", mx: "混合题", wr: "错题", rel: "要点", mm: "导图" };
   let cur = "", html = "";
   items.forEach(it => {
     if (it.sec.id !== cur) { if (cur) html += "</section>"; cur = it.sec.id; html += `<section class="group"><h3>${esc(secLabel(it.sec))}</h3>`; }
@@ -1192,6 +1269,68 @@ function runSearch(q) {
   }).join("");
 }
 
+
+/* ===== 11c. 错题区：题目存在云端数据库，本机只留一份缓存 ===== */
+const WCACHE = "gaoshu-wrong-v1";
+let WRONG = []; try { WRONG = JSON.parse(localStorage.getItem(WCACHE) || "[]"); } catch (e) {}
+const WSEC = { id: "wrong", title: "错题区", chapter: 0 };
+const CAUSES = ["审题", "概念不清", "条件遗漏", "方法选择", "计算", "书写表达"];
+let wrOpt = { cause: "all", sec: "all", st: "all", q: "" };
+async function loadWrong() {
+  if (!syncOn()) return false;
+  try { const r = await api("/api/wrong"); if (!r.ok) return false; const j = await r.json(); WRONG = j.items || []; try { localStorage.setItem(WCACHE, JSON.stringify(WRONG)); } catch (e) {} return true; } catch (e) { return false; }
+}
+function wrongBody(w) {
+  const d = w.data || {}, br = x => md(x).replace(/\n/g, "<br>");
+  const f = (l, v) => v ? `<div class="wr-f"><b>${l}</b>　${br(v)}</div>` : "";
+  return f("题干", d.stem) + f("我的错解", d.mine) + f("关键一步", d.key)
+    + (d.ans ? `<details><summary>先自己重做，再点开看正解</summary><div class="wr-f">${br(d.ans)}</div></details>` : "")
+    + (d.variant ? `<details><summary>变式</summary><div class="wr-f">${br(d.variant)}</div></details>` : "");
+}
+function wrongCard(w) {
+  const key = "w/" + w.id, d = w.data || {};
+  const loc = w.type_key ? w.type_key.split("/") : null;
+  const link = loc && KB.sections[loc[0]] ? `<a class="btn" href="#${esc(loc[0])}${loc[1] ? ":" + esc(loc[1]) : ""}">对应${loc[1] ? "题型" : "小节"} ${esc(w.type_key)}</a>` : "";
+  return `<article class="wr panel" id="w${w.id}"><div class="wk-top"><span class="rv-kind k-wr">错题 ${w.id}</span><span class="src">${esc(w.source || "")}</span>${w.cause ? `<span class="wr-cause">${esc(w.cause)}</span>` : ""}<span class="src">${esc((w.created || "").slice(0, 10))}</span></div>
+    <h3 style="margin:6px 0">${md(d.title || "")}</h3>${wrongBody(w)}
+    <div class="rate-box" data-k="${qa(key)}">${rateInner(key)}</div>${link ? `<div style="margin-top:6px">${link}</div>` : ""}</article>`;
+}
+function renderWrong(tgt) {
+  curSec = null;
+  const secs = Array.from(new Set(WRONG.map(w => w.section).filter(Boolean))).sort();
+  const q = wrOpt.q.trim().toLowerCase();
+  const items = WRONG.filter(w => {
+    if (wrOpt.cause !== "all" && w.cause !== wrOpt.cause) return false;
+    if (wrOpt.sec !== "all" && w.section !== wrOpt.sec) return false;
+    const st = statusOf("w/" + w.id).text;
+    if (wrOpt.st === "todo" && st !== "未做" && !/^[△✗]/.test(st)) return false;
+    if (wrOpt.st === "done" && st !== "已学会") return false;
+    if (q && !JSON.stringify(w).toLowerCase().includes(q)) return false;
+    return true;
+  }).sort((a, b) => b.id - a.id);
+  const opt = (v, l, cur) => `<option value="${qa(v)}"${cur === v ? " selected" : ""}>${esc(l)}</option>`;
+  $("#main").innerHTML = `<div class="eyebrow">错题区</div><h1>错题区</h1>
+    <p class="note" style="max-width:46em">每道错题写明错因和关键一步。先自己重做，再点开正解；重做对了自评 ✓，间隔几天再做一次，连续两天独立做对才算学会。</p>
+    ${!syncOn() ? `<p class="msg">没有填同步密码，只能看这台设备上次缓存的错题。点右上角「记录」填写。</p>` : ""}
+    <div class="wr-bar"><select id="wrCause">${opt("all", "全部错因", wrOpt.cause)}${CAUSES.map(c => opt(c, c, wrOpt.cause)).join("")}</select>
+      <select id="wrSec">${opt("all", "全部章节", wrOpt.sec)}${secs.map(c => opt(c, c, wrOpt.sec)).join("")}</select>
+      <select id="wrSt">${opt("all", "全部状态", wrOpt.st)}${opt("todo", "还没学会", wrOpt.st)}${opt("done", "已学会", wrOpt.st)}</select>
+      <input id="wrQ" type="search" placeholder="搜题干、错解" value="${qa(wrOpt.q)}"><span class="tally">${items.length} / ${WRONG.length} 题</span></div>
+    <div id="wrList">${items.map(wrongCard).join("") || `<div class="empty panel"><h2>这里还是空的</h2><p>把做错的题发给我，我会按错因整理后收进来。</p></div>`}</div>`;
+  const re = () => renderWrong();
+  $("#wrCause").addEventListener("change", e => { wrOpt.cause = e.target.value; re(); });
+  $("#wrSec").addEventListener("change", e => { wrOpt.sec = e.target.value; re(); });
+  $("#wrSt").addEventListener("change", e => { wrOpt.st = e.target.value; re(); });
+  let tm; $("#wrQ").addEventListener("input", e => { clearTimeout(tm); tm = setTimeout(() => { wrOpt.q = e.target.value; re(); const q2 = $("#wrQ"); q2.focus(); q2.setSelectionRange(99, 99); }, 250); });
+  bindRate($("#main")); typeset($("#main"));
+  if (tgt) { const el = $("#w" + tgt); if (el) setTimeout(() => el.scrollIntoView({ block: "start" }), 60); }
+}
+let wrFetched = false;
+function showWrong(tgt) {
+  renderWrong(tgt);
+  if (!wrFetched) { wrFetched = true; const before = JSON.stringify(WRONG); loadWrong().then(ok => { if (ok && JSON.stringify(WRONG) !== before && location.hash.startsWith("#wrong")) renderWrong(tgt); }); }
+}
+
 /* ===== 12. 路由 ===== */
 function route() {
   let h = decodeURIComponent(location.hash.slice(1)), tgt = "";
@@ -1202,6 +1341,7 @@ function route() {
   let m;
   if (KB.sections[h]) { renderToc(h); renderSection(KB.sections[h]); }
   else if ((m = h.match(/^c(\d+)-end$/))) { renderToc(h); renderChapterEnd(+m[1]); }
+  else if (h === "wrong") { renderToc(null); showWrong(tgt); updateDot(); window.scrollTo(0, 0); return; }
   else if (h === "review") { renderToc(null); renderHub(); }
   else if (h === "spaced") { renderToc(null); renderSpaced(); }
   else if (h === "weak") { renderToc(null); renderWeak(); }
@@ -1215,7 +1355,8 @@ function route() {
 }
 
 /* ===== 13. 记录面板 ===== */
-function openRec() { $("#recOut").value = JSON.stringify({ marks: store.marks, srs: store.srs, stars: store.stars, exported: today() }, null, 1); $("#recMsg").textContent = ""; $("#recWrap").hidden = false; }
+$("#syncGo").addEventListener("click", () => { sync.token = $("#syncTok").value.trim(); sync.ver = 0; wrFetched = false; syncSaveCfg(); sync.msg = "同步中…"; showSyncMsg(); syncNow(true); });
+function openRec() { $("#syncTok").value = sync.token; showSyncMsg(); $("#recOut").value = JSON.stringify({ marks: store.marks, srs: store.srs, stars: store.stars, exported: today() }, null, 1); $("#recMsg").textContent = ""; $("#recWrap").hidden = false; }
 $("#recBtn").addEventListener("click", openRec);
 $("#recClose").addEventListener("click", () => { $("#recWrap").hidden = true; });
 $("#recWrap").addEventListener("click", e => { if (e.target.id === "recWrap") $("#recWrap").hidden = true; });
@@ -1231,7 +1372,7 @@ $("#recImport").addEventListener("click", () => {
     for (const k in mk) { const seen = new Set((store.marks[k] || []).map(x => x.d + x.r)); for (const x of mk[k]) if (x && x.d && SYM[x.r] && !seen.has(x.d + x.r)) { (store.marks[k] = store.marks[k] || []).push(x); n++; } if (store.marks[k]) store.marks[k].sort((a, b) => a.d < b.d ? -1 : 1); }
     const sr = obj.srs || {};
     for (const k in sr) { const a = store.srs[k], b = sr[k]; if (b && b.due && (!a || (b.last || "") > (a.last || ""))) { store.srs[k] = b; n++; } }
-    const st = obj.stars || {}; for (const k in st) if (!store.stars[k]) { store.stars[k] = st[k]; n++; }
+    const st = obj.stars || {}; for (const k in st) if (st[k] && !store.stars[k]) { setStar(k, true); n++; }
     save(); $("#recIn").value = ""; openRec(); $("#recMsg").textContent = "导入了 " + n + " 条"; route();
   } catch (e) { $("#recMsg").textContent = "导入失败：粘贴的不是完整的记录文字，请从「当前记录」整段复制"; }
 });
@@ -1241,7 +1382,7 @@ window.addEventListener("hashchange", route);
 /* ===== 14. 并行载入数据文件，全部到齐再显示 ===== */
 (function loadAll() {
   let left = DATA_FILES.length;
-  const done = () => { if (--left === 0) route(); };
+  const done = () => { if (--left === 0) { route(); if (syncOn()) { syncNow(); loadWrong(); } } };
   DATA_FILES.forEach(f => {
     const el = document.createElement("script");
     el.src = f; el.onload = done;

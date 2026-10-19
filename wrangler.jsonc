@@ -1,5 +1,7 @@
 {
   "name": "study-site",
+  "main": "src/worker.js",
   "compatibility_date": "2026-10-19",
-  "assets": { "directory": "./" }
+  "assets": { "directory": "./", "binding": "ASSETS", "run_worker_first": ["/api/*"] },
+  "d1_databases": [{ "binding": "DB", "database_name": "study-site-db", "database_id": "9c35972a-7885-4f7c-8444-ed4b78b5b30f" }]
 }

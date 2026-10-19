@@ -10,3 +10,5 @@
 - 本仓库是网页的标准版本；学习仓库 `进度库/交互网页/高等数学/` 是备份，每次更新后同步。
 - 加一节：在 `gaoshu/数据/` 放 `第N章-第M节.js`，在 `gaoshu/index.html` 的 `DATA_FILES` 加一行。
 - 复习记录存在浏览器 localStorage（键 `gaoshu-kb-v1`），换域名会是空的，用页面右上角「记录」复制/导入。
+
+- `src/worker.js` + D1（`study-site-db`）提供 `/api/state`、`/api/wrong`；需要在 Cloudflare 给 Worker 设置名为 `TOKEN` 的 Secret。详见 `gaoshu/说明.md`。
