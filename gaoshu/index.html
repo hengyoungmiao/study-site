@@ -230,6 +230,7 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .pg-mono { font: 11.5px/1.4 var(--f-mono); color: var(--muted); }
 .pt-name { font-weight: 700; margin-bottom: 2px; }
 .pt-body p { margin: 0; }
+.pt > div { min-width: 0; overflow-x: auto; }
 .pt-notes { margin: 6px 0 0; padding-left: 1.1em; font-size: 14px; }
 .pt-notes li { margin: 3px 0; }
 .pt-notes li::marker { color: var(--accent); }
@@ -319,6 +320,44 @@ a.ch-card:hover { border-color: var(--accent); }
 .rv-prog { height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; max-width: 760px; }
 .rv-prog i { display: block; height: 100%; background: var(--ok); transition: width .2s; }
 
+/* ★ 与自评（知识点、题型、易错点、混合题通用） */
+.star { border: 0; background: none; font-size: 19px; line-height: 1; padding: 2px 4px; color: var(--muted); cursor: pointer; }
+.star:hover { color: var(--mid); }
+.star.on { color: var(--mid); }
+.rate-box { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-top: 8px; }
+.rate-box .hist { margin-left: auto; }
+.rate-box .status { margin-left: 0; }
+.tc-foot .rate-box { margin: 0; width: 100%; }
+.mm-star { display: none; font-size: 14px; padding: 0 2px 0 6px; vertical-align: baseline; }
+.cover-on .mm-star { display: inline; }
+.seclinks { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 0 0 14px; font-size: 13px; }
+.seclinks .lab { color: var(--yan); font-weight: 700; }
+.seclinks a.chip { text-decoration: none; color: inherit; }
+.seclinks a.chip:hover { border-color: var(--yan); color: var(--yan); }
+/* 复习中心 */
+.wk, .qk { padding: 10px 14px; margin-bottom: 8px; overflow-x: auto; }
+.wk-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; }
+.wk-t { flex: 1 1 14em; min-width: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.wk-why { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.wk-why i { font: 500 11.5px/18px var(--f-mono); font-style: normal; padding: 0 6px; border-radius: 4px; background: var(--paper); color: var(--muted); border: 1px solid var(--line); }
+.wk-why .why-bad { color: var(--bad); } .wk-why .why-mid, .wk-why .why-star { color: var(--mid); } .wk-why .why-rv { color: var(--warn); }
+.wk-body, .qk-body { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); display: grid; gap: 8px; }
+.rv-kind.k-mx { background: var(--yan-soft); color: var(--yan); }
+.rv-kind.k-mm { background: var(--k-map-soft); color: var(--k-map); }
+.sp-bar { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; max-width: 760px; margin: 10px 0; }
+.sp-bar i { display: block; height: 100%; background: var(--accent); transition: width 1s linear; }
+.sp-bar.late i { background: var(--bad); }
+.tbl { border-collapse: collapse; font-size: 14px; margin-top: 8px; }
+.tbl th, .tbl td { border: 1px solid var(--line); padding: 6px 12px; text-align: left; vertical-align: top; }
+.tbl th { background: var(--paper); }
+.sr { display: block; padding: 10px 14px; margin-bottom: 8px; text-decoration: none; color: inherit; }
+.sr:hover { border-color: var(--accent); }
+.sr .t { font-weight: 700; }
+.sr .snip { font-size: 13px; color: var(--muted); }
+.sr mark { background: var(--mid-soft); color: inherit; border-radius: 2px; }
+.srbox { width: 100%; max-width: 640px; padding: 10px 14px; font: inherit; border: 1px solid var(--line); border-radius: var(--r); background: var(--sheet); color: var(--ink); }
+.lz { min-height: 40px; }
+
 /* 记录面板 */
 .sheet-wrap { position: fixed; inset: 0; z-index: 20; background: rgba(10, 16, 22, 0.42); display: grid; place-items: center;
   padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
@@ -339,6 +378,8 @@ a.ch-card:hover { border-color: var(--accent); }
   .pf-grid { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
 @media (max-width: 560px) {
+  .top-actions { gap: 5px; }
+  .top-actions .btn { padding: 5px 8px; }
   .pt { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .pt-side { flex-direction: row; gap: 10px; align-items: baseline; }
   .row { grid-template-columns: minmax(0, 1fr); gap: 0; }
@@ -355,6 +396,7 @@ a.ch-card:hover { border-color: var(--accent); }
     <a class="brand" href="#home"><b>高等数学 I(1)</b><span>知识网页 · 同济第八版上册</span></a>
     <div class="top-actions">
       <button class="btn" id="tocBtn" type="button" aria-expanded="false" aria-controls="toc">目录</button>
+      <a class="btn" id="srBtn" href="#search">搜索</a>
       <a class="btn" id="rvBtn" href="#review">复习<span class="dot" id="dueDot" hidden></span></a>
       <button class="btn" id="recBtn" type="button">记录</button>
     </div>
@@ -418,8 +460,8 @@ window.KB = {
 
 /* ===== 4. 记录（本机浏览器）：marks = 题型卡 ✓△✗；srs = 复习间隔 ===== */
 const STORE_KEY = "gaoshu-kb-v1";
-let store = { marks: {}, srs: {}, ui: {} };
-try { const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); if (s && s.marks) store = Object.assign({ srs: {}, ui: {} }, s); } catch (e) {}
+let store = { marks: {}, srs: {}, ui: {}, stars: {} };
+try { const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); if (s && s.marks) store = Object.assign({ srs: {}, ui: {}, stars: {} }, s); } catch (e) {}
 function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(store)); } catch (e) {} }
 function ymd(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
 function today() { return ymd(new Date()); }
@@ -433,6 +475,33 @@ function statusOf(key) {
   if (a.r === "ok" && b && b.r === "ok" && a.d !== b.d) return { cls: "s-learned", text: "已学会" };
   return { cls: "s-" + a.r, text: SYM[a.r] + " " + a.d.slice(5) };
 }
+function qa(s) { return esc(s).replace(/"/g, "&quot;"); }
+function lastMark(key) { const h = store.marks[key] || []; return h[h.length - 1]; }
+/* ★ 和自评：同一套按钮用在知识点、题型、易错点、混合题上；记录按 "节号/条目号" 存 */
+function rateInner(k) {
+  const st = statusOf(k), star = !!store.stars[k];
+  const hist = (store.marks[k] || []).slice(-3).map(m => `<i>${SYM[m.r]} ${m.d.slice(5)}</i>`).join("");
+  return `<button class="star${star ? " on" : ""}" type="button" data-act="star" aria-pressed="${star}" title="标为不熟（★）">${star ? "★" : "☆"}</button><span class="status ${st.cls}" data-sk="${qa(k)}">${esc(st.text)}</span><span class="rate"><span class="lab">自评</span><button class="rbtn r-ok" type="button" data-r="ok" title="独立做对">✓</button><button class="rbtn r-mid" type="button" data-r="mid" title="看提示后做对">△</button><button class="rbtn r-bad" type="button" data-r="bad" title="看了答案">✗</button></span><span class="hist">${hist}</span>`;
+}
+function rateBox(k) { return `<div class="rate-box" data-k="${qa(k)}">${rateInner(k)}</div>`; }
+function bindRate(root) {
+  $$(".rate-box", root).forEach(box => {
+    if (box.dataset.rb) return; box.dataset.rb = 1;
+    box.addEventListener("click", e => {
+      e.stopPropagation();
+      const b = e.target.closest("button"); if (!b) return;
+      const k = box.dataset.k;
+      if (b.dataset.act === "star") { if (store.stars[k]) delete store.stars[k]; else store.stars[k] = today(); }
+      else if (b.dataset.r) { const h = (store.marks[k] = store.marks[k] || []); h.push({ d: today(), r: b.dataset.r }); if (h.length > 20) store.marks[k] = h.slice(-20); }
+      else return;
+      save(); box.innerHTML = rateInner(k); onRated();
+    });
+  });
+}
+function onRated() {
+  const el = $("#tally"); if (el && curSec) el.innerHTML = tallyHtml(curSec);
+  updateDot();
+}
 function uiFlag(name, dflt) { return store.ui[name] === undefined ? dflt : !!store.ui[name]; }
 
 /* ===== 5. 小工具 ===== */
@@ -442,8 +511,18 @@ function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").
 function md(s) { return esc(s || "").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"); }
 function typeset(el) {
   if (window.renderMathInElement) {
-    renderMathInElement(el, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+    renderMathInElement(el, { ignoredClasses: ["lz"], delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
   }
+}
+function renderLz(e) { if (!e.classList.contains("lz")) return; e.classList.remove("lz"); typeset(e); }
+/* 公式分批排版：先排屏幕附近的，其余滚到再排，避免一次排几百条 */
+function lazyTypeset(root) {
+  const heavy = $$(".pt,.tcard,.pf-item,.mx,.wk,.qk", root);
+  if (!("IntersectionObserver" in window) || heavy.length < 8) { typeset(root); return; }
+  heavy.forEach(e => e.classList.add("lz"));
+  typeset(root);
+  const io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { io.unobserve(en.target); renderLz(en.target); } }), { rootMargin: "900px 0px" });
+  heavy.forEach(e => io.observe(e));
 }
 function nodeLabel(d, id) { const n = d.framework.nodes.find(x => x.id === id); return n ? n.label : id; }
 function toggle(name, label, on, hint) { return `<label class="switch"><input type="checkbox" data-flag="${name}"${on ? " checked" : ""}> ${label}</label>${hint ? `<span class="note">${hint}</span>` : ""}`; }
@@ -464,7 +543,7 @@ function renderToc(cur) {
 }
 
 /* ===== 7. 复习条目（知识点、关系、题型、易错点） ===== */
-function allItems() {
+function allItems(withMx) {
   const out = [];
   const secs = Object.values(KB.sections).concat(Object.values(KB.chapterEnds));
   for (const d of secs) {
@@ -472,6 +551,7 @@ function allItems() {
     ((d.framework && d.framework.keys) || []).forEach((k, i) => out.push({ key: d.id + "/k" + (i + 1), sec: d, kind: "rel", obj: k }));
     for (const t of d.types || []) out.push({ key: d.id + "/" + t.id, sec: d, kind: "type", obj: t });
     (d.pitfalls || []).forEach((p, i) => out.push({ key: d.id + "/e" + (i + 1), sec: d, kind: "pit", obj: p }));
+    if (withMx) (d.mixed || []).forEach(m => out.push({ key: d.id + "/" + m.id, sec: d, kind: "mx", obj: m }));
   }
   return out;
 }
@@ -493,7 +573,7 @@ function renderHome() {
     <div class="intro">
       <div class="eyebrow">同济《高等数学》第八版上册 · 已生成 ${have} / ${total} 节</div>
       <h1>高等数学知识网页</h1>
-      <p>一章分成各小节，最后一页是章末考研难度提升。每节先是<strong>知识框架</strong>，一张图讲清知识点之间怎么连起来，然后分三栏：<strong>知识点</strong>、<strong>题型梳理</strong>、<strong>易错点</strong>。右上角的<strong>复习</strong>会按 1、3、7、21 天的间隔，把知识点、要点、题型、易错点混在一起抽查。</p>
+      <p>一章分成各小节，最后一页是章末考研难度提升。每节先是<strong>知识框架</strong>，一张图讲清知识点之间怎么连起来，然后分三栏：<strong>知识点</strong>、<strong>题型梳理</strong>、<strong>易错点</strong>。知识点、题型、易错点旁都有 <strong>☆</strong>（标为不熟）和 <strong>✓ △ ✗</strong> 自评。右上角的<strong>复习</strong>里有薄弱清单、速认模式、限时抽题和间隔复习；<strong>搜索</strong>能查全站。</p>
     </div>
     <div class="home-grid">${cards}</div>
     <div class="howto panel">
@@ -504,7 +584,8 @@ function renderHome() {
         <li>知识点栏开「遮住内容自测」，看名字和自测问题，先说出定义和条件，再点开对照。</li>
         <li>题型栏：看正面，先说出这类题的通法和本题第一步，再点开通法、翻背面对照；标 ✓（独立对）、△（看提示对）、✗（不会）。</li>
         <li>易错点栏：先做陷阱小题，再看为什么错。</li>
-        <li>之后每天点「复习」，把到期的条目做完：答错的当场会再出现，直到全部答对一次。</li>
+        <li>不熟的条目点 ☆；自评 ✗ △ 的会自动进「薄弱清单」。</li>
+        <li>之后每天点「复习」：先看薄弱清单，再做到期的间隔复习；周日用速认和抽题做综合复习。</li>
       </ol>
     </div>`;
 }
@@ -539,6 +620,7 @@ function renderSection(d, isEnd) {
     <div class="meta" style="margin-top:4px">${(d.sources || []).map(s => `<span>${esc(s)}</span>`).join("")}</div>
     ${d.mindmap ? mindHtml(d) : ""}
     ${d.framework && d.framework.nodes ? frameHtml(d) : ""}
+    ${secLinksHtml(d, isEnd)}
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" data-tab="points" aria-selected="false">知识点<span class="n">${npts}</span></button>
       <button class="tab" role="tab" data-tab="types" aria-selected="false">题型梳理<span class="n">${(d.types || []).length}</span></button>
@@ -548,24 +630,44 @@ function renderSection(d, isEnd) {
     <div id="pane"></div>`;
   $$(".tab").forEach(b => b.addEventListener("click", () => { curTab = b.dataset.tab; store.ui.tab = curTab; save(); showTab(d); }));
   if (d.framework && d.framework.nodes) bindFrame(d);
+  if (d.mindmap) { bindGo(d, $(".mm-wrap")); bindMm(); }
   showTab(d, true);
   bindGo(d, $("#main"));
 }
-function mmNode(n, lv) {
+/* 小节页：章末里和本节相关的考研题型 */
+function secLinksHtml(d, isEnd) {
+  const endD = KB.chapterEnds[d.chapter];
+  const ids = (!isEnd && endD && endD.sectionLinks && endD.sectionLinks[d.id]) || [];
+  const chips = ids.map(id => { const t = (endD.types || []).find(x => x.id === id); return t ? `<a class="chip" href="#c${d.chapter}-end:${id}">${md(t.name)}</a>` : ""; }).join("");
+  return chips ? `<div class="seclinks"><span class="lab">章末考研同类 →</span>${chips}</div>` : "";
+}
+function mmNode(n, lv, d) {
   const kids = n.kids || [];
-  return `<div class="mm-node lv${lv}"><span class="mm-chip${n.go ? " go" : ""}"${n.go ? ` data-go="${esc(n.go)}" role="link" tabindex="0"` : ""}>${md(n.label)}</span>${kids.length ? `<div class="mm-kids">${kids.map(k => mmNode(k, lv + 1)).join("")}</div>` : ""}</div>`;
+  const hide = lv >= 2, key = d.id + "/mm:" + n.label;
+  const goAttr = n.go ? ` data-go="${qa(n.go)}" role="link" tabindex="0"` : "";
+  const star = !!store.stars[key];
+  const inner = hide ? `<span class="cov">${md(n.label)}</span><button class="star mm-star${star ? " on" : ""}" type="button" data-mk="${qa(key)}" title="标为不熟（★）">${star ? "★" : "☆"}</button>` : md(n.label);
+  return `<div class="mm-node lv${lv}"><span class="mm-chip${n.go ? " go" : ""}${hide ? " ci" : ""}"${goAttr}>${inner}</span>${kids.length ? `<div class="mm-kids">${kids.map(k => mmNode(k, lv + 1, d)).join("")}</div>` : ""}</div>`;
 }
 function mindHtml(d) {
-  const m = d.mindmap;
+  const m = d.mindmap, closed = uiFlag("mmClosed", false);
   return `<section class="frame panel"><h2>${esc(m.title || "全章思维导图")}</h2>${m.main ? `<p class="mainline">${md(m.main)}</p>` : ""}
+    <div class="toolbar">${toggle("mmClosed", "闭卷练习", closed, "各小节下的内容先模糊：先回忆，再点开核对，不熟的点 ☆")}</div>
     <p class="go-tip">点任意一个卡片，跳到对应小节的内容。</p>
-    <div class="mm-wrap">${mmNode({ label: m.root, go: m.go, kids: m.branches }, 0)}</div></section>`;
+    <div class="mm-wrap${closed ? " cover-on" : ""}" data-cover="mmClosed">${mmNode({ label: m.root, go: m.go, kids: m.branches }, 0, d)}</div></section>`;
+}
+function bindMm() {
+  $$(".mm-star").forEach(b => b.addEventListener("click", e => {
+    e.stopPropagation();
+    const k = b.dataset.mk; if (store.stars[k]) delete store.stars[k]; else store.stars[k] = today();
+    save(); const on = !!store.stars[k]; b.classList.toggle("on", on); b.textContent = on ? "★" : "☆";
+  }));
 }
 /* 跳转：go 写成 "p3"（本节知识点）、"t2"（本节题型）、"e4"（本节易错点）、"b3"（章末板块）、"1.3"（别的节）、"1.3:p5"（别的节的某条） */
 function bindGo(d, root) {
   $$("[data-go]", root).forEach(el => {
     if (el.dataset.goBound) return; el.dataset.goBound = 1;
-    const go = () => jumpTo(d, el.dataset.go);
+    const go = () => { if (el.classList.contains("ci") && el.closest(".cover-on") && !el.classList.contains("show")) return; jumpTo(d, el.dataset.go); };
     el.addEventListener("click", e => { e.stopPropagation(); go(); });
     el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
   });
@@ -591,6 +693,7 @@ function focusTarget(d, tgt) {
   else if (c === "b") el = $(".tabs");
   else el = $(`.pt[data-id="${tgt}"]`);
   if (!el) return;
+  $$(".lz").forEach(x => { if (x === el || (x.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING)) renderLz(x); });
   el.scrollIntoView({ behavior: "smooth", block: c === "b" ? "start" : "center" });
   if (c !== "b") { el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); }
 }
@@ -601,6 +704,7 @@ function mixedHtml(d) {
     <div class="mx-top"><span class="tc-no">${i + 1}</span>${x.level ? `<span class="badge-b">${esc(x.level)}</span>` : ""}<span class="mx-blk">${esc(x.src || "")}</span></div>
     <div class="mx-q">${md(x.q)}</div>
     <div class="mx-btns"><button class="btn" type="button" data-show="hint">看思路</button><button class="btn" type="button" data-show="ans">看答案</button>${x.go ? `<button class="btn" type="button" data-go="${esc(x.go)}">对应题型 →</button>` : ""}</div>
+    ${rateBox(d.id + "/" + x.id)}
     <div class="mx-box" data-box="hint" hidden><b>属于：${esc(blk(x.block))}</b>${md(x.hint)}</div>
     <div class="mx-box" data-box="ans" hidden><b>答案</b>${md(x.ans)}</div>
   </article>`).join("")}`;
@@ -669,9 +773,10 @@ function showTab(d, first) {
   else if (curTab === "pitfalls") pane.innerHTML = pitfallsHtml(d);
   else if (curTab === "mixed" && d.mixed) pane.innerHTML = mixedHtml(d);
   else pane.innerHTML = pointsHtml(d);
-  typeset(first ? $("#main") : pane);
+  lazyTypeset(first ? $("#main") : pane);
   if (first && d.framework && d.framework.nodes) drawEdges(d);
   bindPane(d);
+  bindRate(pane);
   bindGo(d, pane);
   $$(".mx [data-show]", pane).forEach(b => b.addEventListener("click", () => { const box = $(`[data-box="${b.dataset.show}"]`, b.closest(".mx")); box.hidden = !box.hidden; if (!box.hidden) typeset(box); }));
 }
@@ -686,6 +791,7 @@ function pointsHtml(d) {
         <div class="cov"><div class="pt-body"><p>${md(p.body)}</p></div>
         ${p.notes && p.notes.length ? `<ul class="pt-notes">${p.notes.map(n => `<li>${md(n)}</li>`).join("")}</ul>` : ""}</div>
         ${p.quiz ? `<div class="quiz"><b>自测</b><span>${md(p.quiz)}</span></div>` : ""}
+        ${rateBox(d.id + "/" + p.id)}
       </div>
     </div>`).join("")}</section>`).join("")}</div>`;
 }
@@ -694,11 +800,14 @@ function ideaHtml(t) {
   return `<div class="row ci"><span class="lab">通法</span><div class="idea"><span class="reveal-hint">先说出这类题的通法，再点击显示</span><div class="cov">
     <p class="key">${md(i.key)}</p>${i.how ? `<ol>${i.how.map(s => `<li>${md(s)}</li>`).join("")}</ol>` : ""}${i.refs && i.refs.length ? `<div class="refs"><div class="refs-h">辅导书怎么说</div>${i.refs.map(r => `<div class="ref"><span class="src">${esc(r.src)}</span>${md(r.text)}</div>`).join("")}</div>` : ""}</div></div></div>`;
 }
+function tallyHtml(d) {
+  const cnt = { ok: 0, mid: 0, bad: 0, none: 0 };
+  (d.types || []).forEach(t => { const m = lastMark(d.id + "/" + t.id); if (!m) cnt.none++; else cnt[m.r]++; });
+  return `<span>✓ ${cnt.ok}</span><span>△ ${cnt.mid}</span><span>✗ ${cnt.bad}</span><span>未做 ${cnt.none}</span>`;
+}
 function typesHtml(d) {
   const types = d.types || [];
   const key = t => d.id + "/" + t.id;
-  const cnt = { ok: 0, mid: 0, bad: 0, none: 0 };
-  types.forEach(t => { const h = store.marks[key(t)]; if (!h || !h.length) cnt.none++; else cnt[h[h.length - 1].r]++; });
   const show = types.filter(t => {
     if (filter === "yan") return t.tag === "研";
     if (filter.startsWith("b:")) return t.block === filter.slice(2);
@@ -709,12 +818,11 @@ function typesHtml(d) {
   const fbtn = (v, label) => `<button class="chip" type="button" data-f="${v}" aria-pressed="${filter === v}">${label}</button>`;
   return `<div class="toolbar"><div class="chips">${fbtn("all", "全部")}${fbtn("todo", "还没掌握")}${types.some(t => t.tag === "研") ? fbtn("yan", "研") : ""}${(d.blocks || []).map(b => fbtn("b:" + b.id, b.name)).join("")}</div>
     ${toggle("coverIdea", "遮住通法", cover)}
-    <div class="tally"><span>✓ ${cnt.ok}</span><span>△ ${cnt.mid}</span><span>✗ ${cnt.bad}</span><span>未做 ${cnt.none}</span></div></div>
+    <div class="tally" id="tally">${tallyHtml(d)}</div></div>
   <div class="cards ${cover ? "cover-on" : ""}" data-cover="coverIdea">${show.length ? show.map(t => {
-    const i = types.indexOf(t) + 1, k = key(t), st = statusOf(k);
-    const hist = (store.marks[k] || []).slice(-3).map(m => `<i>${SYM[m.r]} ${m.d.slice(5)}</i>`).join("");
+    const i = types.indexOf(t) + 1, k = key(t);
     return `<article class="tcard panel" data-key="${k}">
-      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${md(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "研" ? `<span class="badge-t yan">研</span>` : ""}<span class="status ${st.cls}">${esc(st.text)}</span></div>
+      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${md(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "研" ? `<span class="badge-t yan">研</span>` : ""}</div>
       <div class="tc-body">
         <div class="row"><span class="lab">看到</span><div>${md(t.signal)}</div></div>
         <div class="row"><span class="lab">例题</span><div>${md(t.example.q)}<div class="src">${esc(t.example.src)}</div></div></div>
@@ -727,8 +835,7 @@ function typesHtml(d) {
         </div>
       </div>
       <div class="tc-foot"><button class="btn flip" type="button" aria-expanded="false">看背面</button>
-        <div class="hist">${hist}</div>
-        <div class="rate"><span class="lab">自评</span><button class="rbtn r-ok" type="button" data-r="ok" title="独立做对">✓</button><button class="rbtn r-mid" type="button" data-r="mid" title="看提示后做对">△</button><button class="rbtn r-bad" type="button" data-r="bad" title="看了答案">✗</button></div>
+        ${rateBox(k)}
       </div></article>`;
   }).join("") : `<p class="note">这一栏没有符合条件的题型。</p>`}</div>`;
 }
@@ -742,7 +849,7 @@ function pitfallsHtml(d) {
       ${p.ans ? `<div><b>答案</b>${md(p.ans)}</div>` : ""}
       <div><b>为什么错</b>${md(p.why)}</div>
       <div class="r"><b>正确做法</b>${md(p.right)}</div>
-    </div></div>`).join("")}</div>`;
+    </div>${rateBox(d.id + "/e" + (i + 1))}</div>`).join("")}</div>`;
 }
 function bindPane(d) {
   $$("input[data-flag]").forEach(sw => {
@@ -753,24 +860,18 @@ function bindPane(d) {
       if (box) { box.classList.toggle("cover-on", sw.checked); $$(".ci.show", box).forEach(x => x.classList.remove("show")); }
     });
   });
-  $$(".ci").forEach(c => { if (c.dataset.bound) return; c.dataset.bound = 1; c.addEventListener("click", () => { const box = c.closest(".cover-on"); if (box) c.classList.add("show"); }); });
+  $$(".ci").forEach(c => { if (c.dataset.bound) return; c.dataset.bound = 1; c.addEventListener("click", e => { if (e.target.closest(".rate-box,.mm-star")) return; const box = c.closest(".cover-on"); if (box) c.classList.add("show"); }); });
   $$(".chip[data-f]").forEach(b => b.addEventListener("click", () => { filter = b.dataset.f; showTab(d); }));
   $$(".tcard").forEach(card => {
     const back = $(".back", card), flip = $(".flip", card);
     flip.addEventListener("click", () => { back.hidden = !back.hidden; flip.textContent = back.hidden ? "看背面" : "收起背面"; flip.setAttribute("aria-expanded", String(!back.hidden)); });
-    $$(".rbtn", card).forEach(b => b.addEventListener("click", () => {
-      const k = card.dataset.key; (store.marks[k] = store.marks[k] || []).push({ d: today(), r: b.dataset.r });
-      if (store.marks[k].length > 20) store.marks[k] = store.marks[k].slice(-20);
-      save(); const open = !back.hidden; showTab(d);
-      if (open) { const c = document.querySelector(`.tcard[data-key="${k}"]`); if (c) { $(".back", c).hidden = false; $(".flip", c).textContent = "收起背面"; } }
-    }));
   });
 }
 
 /* ===== 11. 复习：连续重学（答错的本轮再出现，全部答对一次才结束）+ 1/3/7/21 天间隔 + 混合抽题 ===== */
-const KIND_NAME = { pt: "知识点", rel: "要点", type: "题型", pit: "易错点" };
+const KIND_NAME = { pt: "知识点", rel: "要点", type: "题型", pit: "易错点", mx: "混合题" };
 let rv = null;
-function renderReview() {
+function renderSpaced() {
   curSec = null;
   const items = allItems();
   const t = today();
@@ -780,18 +881,18 @@ function renderReview() {
   const opt = Object.assign({ scope: "all", kinds: ["pt", "rel", "type", "pit"], size: 20 }, store.ui.rv || {});
   const secs = Object.keys(KB.sections);
   const chip = (attr, v, label, on) => `<button class="chip" type="button" data-${attr}="${v}" aria-pressed="${on}">${label}</button>`;
-  $("#main").innerHTML = `<div class="eyebrow">间隔复习 · 混合抽查</div><h1>复习</h1>
+  $("#main").innerHTML = `<div class="eyebrow">复习 · 间隔复习</div><h1>间隔复习</h1>
     <div class="stats" style="margin-bottom:16px"><span><b>${seenDue}</b>到期</span><span><b>${fresh}</b>没学过</span><span><b>${learned}</b>还没到期</span></div>
     <div class="rv-setup panel">
       <div class="line"><span>范围</span><div class="chips">${chip("scope", "all", "全部已生成", opt.scope === "all")}${secs.map(s => chip("scope", s, s + " " + KB.sections[s].title, opt.scope === s)).join("")}</div></div>
-      <div class="line"><span>内容</span><div class="chips">${Object.keys(KIND_NAME).map(k => chip("kind", k, KIND_NAME[k], opt.kinds.includes(k))).join("")}</div></div>
+      <div class="line"><span>内容</span><div class="chips">${REVIEW_KINDS.map(k => chip("kind", k, KIND_NAME[k], opt.kinds.includes(k))).join("")}</div></div>
       <div class="line"><span>一轮</span><div class="chips">${[10, 20, 40].map(n => chip("size", n, n + " 条", opt.size === n)).join("")}</div></div>
       <div class="line"><button class="btn primary" id="rvStart" type="button">开始</button><span class="note">先抽到期的，再补没学过的，顺序打乱。答错的会在本轮再出现，直到答对一次。</span></div>
     </div>
     <p class="note" style="max-width:760px;margin-top:16px">一次就答对：下次在 1、3、7、21 天后（每多对一轮，间隔往后挪一档）。本轮答错过：明天再来。这个安排来自"连续重学"（Rawson、Dunlosky 等的研究：先检索到全部答对一次，再隔天重学几轮）。</p>`;
-  $$("[data-scope]").forEach(b => b.addEventListener("click", () => { opt.scope = b.dataset.scope; store.ui.rv = opt; save(); renderReview(); }));
-  $$("[data-kind]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.kind; opt.kinds = opt.kinds.includes(k) ? opt.kinds.filter(x => x !== k) : opt.kinds.concat(k); if (!opt.kinds.length) opt.kinds = [k]; store.ui.rv = opt; save(); renderReview(); }));
-  $$("[data-size]").forEach(b => b.addEventListener("click", () => { opt.size = +b.dataset.size; store.ui.rv = opt; save(); renderReview(); }));
+  $$("[data-scope]").forEach(b => b.addEventListener("click", () => { opt.scope = b.dataset.scope; store.ui.rv = opt; save(); renderSpaced(); }));
+  $$("[data-kind]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.kind; opt.kinds = opt.kinds.includes(k) ? opt.kinds.filter(x => x !== k) : opt.kinds.concat(k); if (!opt.kinds.length) opt.kinds = [k]; store.ui.rv = opt; save(); renderSpaced(); }));
+  $$("[data-size]").forEach(b => b.addEventListener("click", () => { opt.size = +b.dataset.size; store.ui.rv = opt; save(); renderSpaced(); }));
   $("#rvStart").addEventListener("click", () => startReview(opt));
 }
 function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
@@ -810,12 +911,14 @@ function promptHtml(it) {
   if (it.kind === "pt") return `<div class="rv-q"><b>${md(o.name)}</b></div><div>${o.quiz ? md(o.quiz) : "说出它的定义或内容，条件写全。"}</div>`;
   if (it.kind === "rel") return `<div class="rv-q">${md(o.q)}</div>`;
   if (it.kind === "type") return `<div class="rv-q"><b>${md(o.name)}</b></div><div>${md(o.example.q)}</div><div class="note">说出这类题的通法和本题第一步（不用算完）。</div>`;
+  if (it.kind === "mx") return `<div class="rv-q">${md(o.q)}</div><div class="src">${esc(o.src || "")}</div>`;
   return `<div class="rv-q">${md(o.test || o.wrong)}</div><div class="note">先回答，再说清容易错在哪。</div>`;
 }
 function answerHtml(it) {
   const o = it.obj;
   if (it.kind === "pt") return `<div>${md(o.body)}</div>${o.notes ? `<ul class="pt-notes">${o.notes.map(n => `<li>${md(n)}</li>`).join("")}</ul>` : ""}<div class="src">${esc(o.page || "")}</div>`;
   if (it.kind === "rel") return `<div>${md(o.a)}</div>`;
+  if (it.kind === "mx") return `<div><b>思路</b>　${md(o.hint)}</div><div><b>答案</b>　${md(o.ans)}</div>`;
   if (it.kind === "type") return `<div class="first">${md(o.first)}</div>${o.idea ? `<div class="idea"><p class="key">${md(o.idea.key)}</p><ol>${(o.idea.how || []).map(s => `<li>${md(s)}</li>`).join("")}</ol></div>` : ""}<div class="src">${esc(o.example.src)}</div>`;
   return `${o.ans ? `<div><b>答案</b>　${md(o.ans)}</div>` : ""}<div class="pf-wrong">✗ ${md(o.wrong)}</div><div>${md(o.why)}</div><div style="color:var(--ok)">${md(o.right)}</div>`;
 }
@@ -844,10 +947,11 @@ function gradeReview(ok) {
   if (ok) {
     const s = store.srs[it.key] || { box: 0 };
     if (rv.wrong.has(it.key)) { s.box = 0; s.due = addDays(1); rv.relearn++; }
-    else { s.box = (s.box || 0) + 1; s.due = addDays(INTERVALS[Math.min(s.box - 1, INTERVALS.length - 1)]); rv.firstOk++; }
+    else { s.box = (s.box || 0) + 1; s.due = addDays(INTERVALS[Math.min(s.box - 1, INTERVALS.length - 1)]); rv.firstOk++; delete s.lastWrong; }
     s.last = today(); store.srs[it.key] = s; save();
   } else {
     rv.wrong.add(it.key);
+    const w = store.srs[it.key] || { box: 0, due: addDays(1) }; w.lastWrong = today(); w.last = w.last || today(); store.srs[it.key] = w; save();
     rv.queue.splice(Math.min(3, rv.queue.length), 0, it);
   }
   showReviewCard();
@@ -857,9 +961,235 @@ function finishReview() {
   $("#main").innerHTML = `<div class="eyebrow">复习</div><h1>本轮结束</h1>
     <div class="stats"><span><b>${rv ? rv.firstOk : 0}</b>一次答对</span><span><b>${rv ? rv.relearn : 0}</b>答错后重学对</span><span><b>${left}</b>没做完</span></div>
     <p>一次答对的条目按 1、3、7、21 天往后排；答错过的明天再出现。没做完的条目没有记录，下次还会抽到。</p>
-    <p><a class="btn primary" href="#review" id="rvAgain">回复习首页</a></p>`;
+    <p><a class="btn primary" href="#spaced" id="rvAgain">回间隔复习首页</a> <a class="btn" href="#review">复习中心</a></p>`;
   rv = null; updateDot();
-  $("#rvAgain").addEventListener("click", e => { e.preventDefault(); renderReview(); });
+  $("#rvAgain").addEventListener("click", e => { e.preventDefault(); renderSpaced(); });
+}
+
+/* ===== 11b. 复习中心：复习首页、薄弱清单、速认、限时抽题、搜索 ===== */
+const REVIEW_KINDS = ["pt", "rel", "type", "pit"];
+const WHY = { star: "★ 不熟", bad: "✗ 不会", mid: "△ 看提示才对", rv: "复习答错" };
+function secRank(d) { const m = String(d.id).match(/^(\d+)\.(\d+)$/); if (m) return +m[1] * 100 + +m[2]; const e = String(d.id).match(/^c(\d+)-end$/); return e ? +e[1] * 100 + 99 : 9999; }
+function secById(id) { return KB.sections[id] || Object.values(KB.chapterEnds).find(x => x.id === id); }
+function secLabel(d) { return String(d.id).startsWith("c") ? "第" + CN[d.chapter] + "章末 · 考研难度提升" : d.id + " " + d.title; }
+function reasons(key) {
+  const r = []; if (store.stars[key]) r.push("star");
+  const l = lastMark(key); if (l && l.r === "bad") r.push("bad"); else if (l && l.r === "mid") r.push("mid");
+  const s = store.srs[key]; if (s && s.lastWrong) r.push("rv");
+  return r;
+}
+function weakItems() {
+  const out = [];
+  for (const it of allItems(true)) { const r = reasons(it.key); if (r.length) out.push(Object.assign({ why: r }, it)); }
+  for (const k in store.stars) { const m = k.match(/^(.+?)\/mm:(.*)$/); const d = m && secById(m[1]); if (d) out.push({ key: k, sec: d, kind: "mm", obj: { label: m[2] }, why: ["star"] }); }
+  return out;
+}
+function itemTitle(it) { const o = it.obj; return it.kind === "pt" || it.kind === "type" ? o.name : it.kind === "rel" ? o.q : it.kind === "pit" ? o.wrong : it.kind === "mx" ? o.q : o.label || ""; }
+function itemTarget(it) { return it.kind === "rel" || it.kind === "mm" ? "" : it.key.split("/")[1]; }
+function chipBtn(a, v, label, on) { return `<button class="chip" type="button" data-${a}="${qa(v)}" aria-pressed="${on}">${label}</button>`; }
+
+function renderHub() {
+  curSec = null;
+  const w = weakItems().length, due = dueSeenCount();
+  const card = (href, tag, title, desc, extra, id) => `<a class="ch-card panel" href="${href}"${id ? ` id="${id}"` : ""}><div class="eyebrow"><span>${tag}</span><span>${extra || ""}</span></div><h3>${title}</h3><div class="note">${desc}</div></a>`;
+  $("#main").innerHTML = `<div class="eyebrow">综合复习</div><h1>复习</h1>
+    <p class="intro">内容多的时候不要从头重读。先看薄弱清单，再用速认和抽题练「认出题型、说出第一步」。考试丢分多半不是不会算，而是没认出该用什么方法。</p>
+    <div class="home-grid">
+      ${card("#weak", "每天先看", "薄弱清单", "汇总标了 ☆、自评 ✗ △、间隔复习答错的条目，一条一行，点开才看详情。", w + " 条")}
+      ${card("#quick", "综合复习", "速认模式", "每张题型只显示「看到」和例题。先在心里说出方法和第一步，再点核对。", "")}
+      ${card("#sample", "周复盘", "限时抽题", "从题型、易错点、混合题里随机抽，每题限时，时间到自动翻出答案。", "")}
+      ${card("#spaced", "每天 22:30", "间隔复习", "按 1、3、7、21 天的间隔抽查，答错的当场重学。", due + " 到期")}
+      ${card("#c1-end", "考前一周", "闭卷思维导图", "章末页的导图会先模糊小节下的内容，先回忆再点开，不熟的点 ☆。", "", "mmGo")}
+    </div>
+    <div class="howto panel"><h3>怎么安排</h3>
+      <table class="tbl"><tr><th>时间</th><th>做什么</th><th>用时</th></tr>
+      <tr><td>每天 22:30 回顾</td><td>间隔复习里到期的条目，加上当天新增的薄弱清单</td><td>10–15 分钟</td></tr>
+      <tr><td>周日周复盘</td><td>薄弱清单过一遍，限时抽题 10 张</td><td>30 分钟</td></tr>
+      <tr><td>每章学完</td><td>章末混合自测</td><td>60 分钟</td></tr>
+      <tr><td>考前两周</td><td>每章：闭卷思维导图 → 速认模式 → 薄弱清单</td><td>每章约 1 小时</td></tr></table>
+      <p class="note" style="margin-top:10px">薄弱清单的规则：自评 ✓ 后，✗ △ 的条目自动离开；☆ 要你自己点掉；复习答错的条目在下次一次答对后离开。</p></div>`;
+  $("#mmGo").addEventListener("click", () => { store.ui.mmClosed = true; save(); });
+}
+
+let wkOpt = { why: "all", kind: "all" };
+function renderWeak() {
+  curSec = null;
+  const all = weakItems().sort((a, b) => secRank(a.sec) - secRank(b.sec));
+  const items = all.filter(it => (wkOpt.why === "all" || it.why.includes(wkOpt.why)) && (wkOpt.kind === "all" || it.kind === wkOpt.kind));
+  const cnt = w => all.filter(it => w === "all" || it.why.includes(w)).length;
+  const kinds = { all: "全部", pt: "知识点", type: "题型", pit: "易错点", mx: "混合题", rel: "要点", mm: "导图" };
+  let cur = "", html = "";
+  items.forEach(it => {
+    if (it.sec.id !== cur) { if (cur) html += "</section>"; cur = it.sec.id; html += `<section class="group"><h3>${esc(secLabel(it.sec))}</h3>`; }
+    const k = it.kind === "mm" ? "导图" : KIND_NAME[it.kind];
+    html += `<div class="wk panel" data-k="${qa(it.key)}"><div class="wk-top"><span class="rv-kind k-${it.kind}">${k}</span><span class="wk-t">${md(itemTitle(it))}</span><span class="wk-why">${it.why.map(w => `<i class="why-${w}">${WHY[w]}</i>`).join("")}</span><button class="btn wk-open" type="button" aria-expanded="false">展开</button></div><div class="wk-body" hidden></div></div>`;
+  });
+  if (cur) html += "</section>";
+  $("#main").innerHTML = `<div class="eyebrow">复习 · 薄弱清单</div><h1>薄弱清单</h1>
+    <p class="note" style="max-width:46em">来源：你标的 ☆、自评最近一次是 ✗ 或 △、间隔复习答错的条目。重新自评 ✓ 后，✗ △ 会自动离开；☆ 要自己点掉。</p>
+    <div class="toolbar"><div class="chips">${["all", "star", "bad", "mid", "rv"].map(w => chipBtn("why", w, (w === "all" ? "全部" : WHY[w]) + " " + cnt(w), wkOpt.why === w)).join("")}</div></div>
+    <div class="toolbar"><div class="chips">${Object.keys(kinds).map(k => chipBtn("kind", k, kinds[k], wkOpt.kind === k)).join("")}</div><span class="tally">${items.length} 条</span></div>
+    ${html || `<div class="empty panel"><h2>这里是空的</h2><p>没有符合条件的条目。在知识点、题型、易错点旁点 ☆，或自评 ✗ △，就会出现在这里。</p></div>`}`;
+  $$("[data-why]").forEach(b => b.addEventListener("click", () => { wkOpt.why = b.dataset.why; renderWeak(); }));
+  $$("[data-kind]").forEach(b => b.addEventListener("click", () => { wkOpt.kind = b.dataset.kind; renderWeak(); }));
+  const byKey = {}; items.forEach(it => byKey[it.key] = it);
+  $$(".wk-open").forEach(btn => btn.addEventListener("click", () => {
+    const row = btn.closest(".wk"), body = $(".wk-body", row), it = byKey[row.dataset.k];
+    if (body.hidden && !body.dataset.f) {
+      body.dataset.f = 1;
+      const link = it.kind === "mm" ? `#${it.sec.id}` : `#${it.sec.id}${itemTarget(it) ? ":" + itemTarget(it) : ""}`;
+      body.innerHTML = (it.kind === "mm" ? `<div class="note">导图里的这一项，回到这一页的思维导图对照。</div>` : answerHtml(it)) + `<div class="rate-box" data-k="${qa(it.key)}">${rateInner(it.key)}</div><div><a class="btn" href="${link}">去这一节</a></div>`;
+      bindRate(body); renderLz(row); typeset(body);
+    }
+    body.hidden = !body.hidden; btn.textContent = body.hidden ? "展开" : "收起"; btn.setAttribute("aria-expanded", String(!body.hidden));
+  }));
+  lazyTypeset($("#main"));
+}
+
+function renderQuick() {
+  curSec = null;
+  const o = Object.assign({ scope: "all" }, store.ui.qk || {});
+  let items = allItems(true).filter(it => it.kind === "type");
+  const secs = Array.from(new Set(items.map(it => it.sec.id))).sort((x, y) => secRank(secById(x)) - secRank(secById(y)));
+  if (o.scope === "weak") items = items.filter(it => reasons(it.key).length);
+  else if (o.scope !== "all") items = items.filter(it => it.sec.id === o.scope);
+  items.sort((a, b) => secRank(a.sec) - secRank(b.sec));
+  $("#main").innerHTML = `<div class="eyebrow">复习 · 速认模式</div><h1>速认模式</h1>
+    <p class="note" style="max-width:46em">只看「看到」和例题。先在心里说出：这是哪一类、用什么方法、第一步做什么，再点核对。说不出来就点 ☆。</p>
+    <div class="toolbar"><div class="chips">${chipBtn("scope", "all", "全部", o.scope === "all")}${chipBtn("scope", "weak", "只看薄弱", o.scope === "weak")}${secs.map(id => chipBtn("scope", id, id.startsWith("c") ? "章末" : id, o.scope === id)).join("")}</div><span class="tally">${items.length} 张</span></div>
+    ${items.map((it, i) => { const t = it.obj; return `<article class="qk panel" data-k="${qa(it.key)}"><div class="wk-top"><span class="tc-no">${i + 1}</span><span class="src">${esc(secLabel(it.sec))}</span></div>
+      <div class="row"><span class="lab">看到</span><div>${md(t.signal)}</div></div>
+      <div class="row"><span class="lab">例题</span><div>${md(t.example.q)}<div class="src">${esc(t.example.src)}</div></div></div>
+      <div><button class="btn qk-open" type="button">核对：方法和第一步</button></div><div class="qk-body" hidden></div></article>`; }).join("") || `<div class="empty panel"><h2>没有题型</h2><p>这个范围里没有符合条件的题型。</p></div>`}`;
+  $$("[data-scope]").forEach(b => b.addEventListener("click", () => { o.scope = b.dataset.scope; store.ui.qk = o; save(); renderQuick(); }));
+  const byKey = {}; items.forEach(it => byKey[it.key] = it);
+  $$(".qk-open").forEach(btn => btn.addEventListener("click", () => {
+    const row = btn.closest(".qk"), body = $(".qk-body", row), it = byKey[row.dataset.k];
+    if (!body.dataset.f) { body.dataset.f = 1; body.innerHTML = `<div><b>${md(it.obj.name)}</b></div>${answerHtml(it)}${rateBox(it.key)}<div><a class="btn" href="#${it.sec.id}:${itemTarget(it)}">去这张题型卡</a></div>`; bindRate(body); renderLz(row); typeset(body); }
+    body.hidden = !body.hidden; btn.textContent = body.hidden ? "核对：方法和第一步" : "收起";
+  }));
+  lazyTypeset($("#main"));
+}
+
+let sp = null, spTimer = null;
+function stopSampleTimer() { if (spTimer) { clearInterval(spTimer); spTimer = null; } }
+function renderSample() {
+  curSec = null; stopSampleTimer();
+  const o = Object.assign({ scope: "all", n: 10, sec: 30 }, store.ui.sp || {});
+  $("#main").innerHTML = `<div class="eyebrow">复习 · 限时抽题</div><h1>限时抽题</h1>
+    <div class="rv-setup panel">
+      <div class="line"><span>范围</span><div class="chips">${chipBtn("scope", "all", "全部", o.scope === "all")}${chipBtn("scope", "weak", "只看薄弱", o.scope === "weak")}${chipBtn("scope", "end", "只看章末", o.scope === "end")}</div></div>
+      <div class="line"><span>题数</span><div class="chips">${[10, 20].map(n => chipBtn("n", n, n + " 题", o.n === n)).join("")}</div></div>
+      <div class="line"><span>每题</span><div class="chips">${[20, 30, 60].map(n => chipBtn("sec", n, n + " 秒", o.sec === n)).join("")}</div></div>
+      <div class="line"><button class="btn primary" id="spStart" type="button">开始</button><span class="note">题型、易错点、混合题打乱抽。每题先在限定时间内说出方法和第一步，时间到自动翻出答案，再自评。</span></div>
+    </div>`;
+  const set = (a, f) => $$(`[data-${a}]`).forEach(b => b.addEventListener("click", () => { f(b.dataset[a]); store.ui.sp = o; save(); renderSample(); }));
+  set("scope", v => o.scope = v); set("n", v => o.n = +v); set("sec", v => o.sec = +v);
+  $("#spStart").addEventListener("click", () => startSample(o));
+}
+function startSample(o) {
+  let pool = allItems(true).filter(it => ["type", "mx", "pit"].includes(it.kind));
+  if (o.scope === "weak") pool = pool.filter(it => reasons(it.key).length);
+  else if (o.scope === "end") pool = pool.filter(it => String(it.sec.id).startsWith("c"));
+  const pick = shuffle(pool).slice(0, o.n);
+  if (!pick.length) { $("#main").insertAdjacentHTML("beforeend", `<p class="msg">这个范围里没有可抽的题。</p>`); return; }
+  sp = { q: pick, i: 0, sec: o.sec, before: {} };
+  pick.forEach(it => sp.before[it.key] = (store.marks[it.key] || []).length);
+  nextSample();
+}
+function samplePrompt(it) {
+  const o = it.obj;
+  if (it.kind === "type") return `<div class="note">看到</div><div>${md(o.signal)}</div><div class="note" style="margin-top:6px">例题</div><div>${md(o.example.q)}</div><div class="note">说出这类题的方法和第一步。</div>`;
+  if (it.kind === "mx") return `<div class="rv-q">${md(o.q)}</div><div class="note">先判断属于哪一类，第一步做什么。</div>`;
+  return `<div class="rv-q">${md(o.test || o.wrong)}</div><div class="note">先回答，再说清容易错在哪。</div>`;
+}
+function nextSample() {
+  stopSampleTimer();
+  if (sp.i >= sp.q.length) return finishSample();
+  const it = sp.q[sp.i]; let left = sp.sec, shown = false;
+  $("#main").innerHTML = `<div class="eyebrow">限时抽题 · 第 ${sp.i + 1} / ${sp.q.length} 题</div><h1>限时抽题</h1>
+    <div class="sp-bar" id="spBar"><i style="width:100%"></i></div>
+    <div class="rv-card panel"><div class="rv-tag"><span class="rv-kind k-${it.kind}">${KIND_NAME[it.kind]}</span><span class="src">${esc(secLabel(it.sec))}</span><span class="note" id="spLeft">${left} 秒</span></div>
+      ${samplePrompt(it)}
+      <div class="rv-acts" id="spRow"><button class="btn primary" id="spShow" type="button">现在翻答案</button></div>
+      <div class="rv-ans" id="spAns" hidden></div></div>
+    <p style="margin-top:14px"><button class="btn" id="spQuit" type="button">结束本轮</button></p>`;
+  typeset($("#main"));
+  const bar = $("#spBar i");
+  const reveal = late => {
+    if (shown) return; shown = true; stopSampleTimer();
+    $("#spRow").hidden = true; if (late) $("#spBar").classList.add("late");
+    const ans = $("#spAns"); ans.hidden = false;
+    ans.innerHTML = (late ? `<div class="note" style="color:var(--bad)">时间到</div>` : "") + (it.kind === "type" ? `<div><b>${md(it.obj.name)}</b></div>` : "") + answerHtml(it) + rateBox(it.key)
+      + `<div class="rv-acts"><button class="btn primary" id="spNext" type="button">${sp.i + 1 >= sp.q.length ? "看结果" : "下一题"}</button><a class="btn" href="#${it.sec.id}:${itemTarget(it)}">去这一节</a></div>`;
+    bindRate(ans); typeset(ans);
+    $("#spNext").addEventListener("click", () => { sp.i++; nextSample(); });
+  };
+  $("#spShow").addEventListener("click", () => reveal(false));
+  $("#spQuit").addEventListener("click", () => { stopSampleTimer(); finishSample(); });
+  requestAnimationFrame(() => { bar.style.transitionDuration = left + "s"; bar.style.width = "0%"; });
+  spTimer = setInterval(() => { left--; const el = $("#spLeft"); if (el) el.textContent = Math.max(left, 0) + " 秒"; if (left <= 0) reveal(true); }, 1000);
+}
+function finishSample() {
+  stopSampleTimer();
+  const rated = { ok: [], mid: [], bad: [], none: [] };
+  sp.q.forEach(it => { const h = store.marks[it.key] || []; if (h.length > sp.before[it.key]) rated[h[h.length - 1].r].push(it); else rated.none.push(it); });
+  const list = rated.bad.concat(rated.mid);
+  $("#main").innerHTML = `<div class="eyebrow">限时抽题</div><h1>本轮结束</h1>
+    <div class="stats"><span><b>${rated.ok.length}</b>✓</span><span><b>${rated.mid.length}</b>△</span><span><b>${rated.bad.length}</b>✗</span><span><b>${rated.none.length}</b>没评</span></div>
+    ${list.length ? `<h3 style="margin:16px 0 6px">需要回头看的</h3>${list.map(it => `<div class="wk panel"><div class="wk-top"><span class="rv-kind k-${it.kind}">${KIND_NAME[it.kind]}</span><span class="wk-t">${md(itemTitle(it))}</span><a class="btn" href="#${it.sec.id}:${itemTarget(it)}">去看</a></div></div>`).join("")}` : `<p>这一轮没有 ✗ 或 △。</p>`}
+    <p style="margin-top:14px"><a class="btn primary" href="#sample" id="spAgain">再来一轮</a> <a class="btn" href="#weak">看薄弱清单</a></p>`;
+  typeset($("#main")); sp = null; updateDot();
+  $("#spAgain").addEventListener("click", e => { e.preventDefault(); renderSample(); });
+}
+
+/* --- 搜索：知识点、题型、易错点、混合题、要点 --- */
+let sIdx = null;
+function plain(s) { return String(s || "").replace(/\$+/g, " ").replace(/\\[a-zA-Z]+/g, " ").replace(/[{}^_]/g, "").replace(/\*\*/g, ""); }
+function buildIndex() {
+  if (sIdx) return sIdx;
+  sIdx = allItems(true).map(it => {
+    const o = it.obj; let f = [];
+    if (it.kind === "pt") f = [o.name, o.body, ...(o.notes || []), o.quiz, o.kind];
+    else if (it.kind === "rel") f = [o.q, o.a];
+    else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.idea && o.idea.key, ...((o.idea && o.idea.how) || []), ...(((o.idea && o.idea.refs) || []).map(r => r.src + " " + r.text)), o.first, ...o.steps, o.pitfall, o.practice];
+    else if (it.kind === "pit") f = [o.wrong, o.test, o.ans, o.why, o.right, o.link];
+    else f = [o.q, o.hint, o.ans, o.src];
+    const raw = plain(f.filter(Boolean).join("　"));
+    return { it, title: plain(itemTitle(it)), raw, low: raw.toLowerCase() };
+  });
+  return sIdx;
+}
+function renderSearch(q) {
+  curSec = null;
+  $("#main").innerHTML = `<div class="eyebrow">全站搜索</div><h1>搜索</h1>
+    <input class="srbox" id="qIn" type="search" placeholder="搜题型名、知识点、关键词，空格分隔多个词" autocomplete="off">
+    <p class="note" id="srCount" style="margin:8px 0 12px"></p><div id="srOut"></div>`;
+  const inp = $("#qIn"); inp.value = q || "";
+  let tm = null;
+  const go = () => { runSearch(inp.value); history.replaceState(null, "", "#search:" + encodeURIComponent(inp.value)); };
+  inp.addEventListener("input", () => { clearTimeout(tm); tm = setTimeout(go, 150); });
+  runSearch(inp.value); if (!q) inp.focus();
+}
+function runSearch(q) {
+  const toks = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const out = $("#srOut"), cnt = $("#srCount");
+  if (!toks.length) { out.innerHTML = ""; cnt.textContent = "输入关键词开始搜索。"; return; }
+  const hits = [];
+  for (const e of buildIndex()) {
+    if (!toks.every(t => e.low.includes(t))) continue;
+    const tl = e.title.toLowerCase();
+    hits.push({ e, score: toks.reduce((a, t) => a + (tl.includes(t) ? 3 : 0), 0) });
+  }
+  hits.sort((a, b) => b.score - a.score || secRank(a.e.it.sec) - secRank(b.e.it.sec));
+  cnt.textContent = hits.length ? `${hits.length} 条结果` + (hits.length > 60 ? "，只显示前 60 条" : "") : "没有找到。换个词试试。";
+  const re = new RegExp("(" + toks.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|") + ")", "gi");
+  out.innerHTML = hits.slice(0, 60).map(({ e }) => {
+    const it = e.it, i = e.low.indexOf(toks[0]);
+    const snip = e.raw.slice(Math.max(0, i - 24), Math.max(0, i - 24) + 90);
+    const tg = itemTarget(it);
+    return `<a class="sr panel" href="#${it.sec.id}${tg ? ":" + tg : ""}"><div class="wk-top"><span class="rv-kind k-${it.kind}">${KIND_NAME[it.kind]}</span><span class="src">${esc(secLabel(it.sec))}</span></div><div class="t">${esc(e.title).replace(re, "<mark>$1</mark>")}</div><div class="snip">${esc(snip).replace(re, "<mark>$1</mark>")}</div></a>`;
+  }).join("");
 }
 
 /* ===== 12. 路由 ===== */
@@ -868,10 +1198,16 @@ function route() {
   const ci = h.indexOf(":");
   if (ci > 0) { tgt = h.slice(ci + 1); h = h.slice(0, ci); }
   $("#toc").classList.remove("open"); $("#tocBtn").setAttribute("aria-expanded", "false");
+  stopSampleTimer();
   let m;
   if (KB.sections[h]) { renderToc(h); renderSection(KB.sections[h]); }
   else if ((m = h.match(/^c(\d+)-end$/))) { renderToc(h); renderChapterEnd(+m[1]); }
-  else if (h === "review") { renderToc(null); renderReview(); }
+  else if (h === "review") { renderToc(null); renderHub(); }
+  else if (h === "spaced") { renderToc(null); renderSpaced(); }
+  else if (h === "weak") { renderToc(null); renderWeak(); }
+  else if (h === "quick") { renderToc(null); renderQuick(); }
+  else if (h === "sample") { renderToc(null); renderSample(); }
+  else if (h === "search") { renderToc(null); renderSearch(tgt); }
   else { renderToc(null); renderHome(); }
   updateDot();
   window.scrollTo(0, 0);
@@ -879,7 +1215,7 @@ function route() {
 }
 
 /* ===== 13. 记录面板 ===== */
-function openRec() { $("#recOut").value = JSON.stringify({ marks: store.marks, srs: store.srs, exported: today() }, null, 1); $("#recMsg").textContent = ""; $("#recWrap").hidden = false; }
+function openRec() { $("#recOut").value = JSON.stringify({ marks: store.marks, srs: store.srs, stars: store.stars, exported: today() }, null, 1); $("#recMsg").textContent = ""; $("#recWrap").hidden = false; }
 $("#recBtn").addEventListener("click", openRec);
 $("#recClose").addEventListener("click", () => { $("#recWrap").hidden = true; });
 $("#recWrap").addEventListener("click", e => { if (e.target.id === "recWrap") $("#recWrap").hidden = true; });
@@ -895,19 +1231,22 @@ $("#recImport").addEventListener("click", () => {
     for (const k in mk) { const seen = new Set((store.marks[k] || []).map(x => x.d + x.r)); for (const x of mk[k]) if (x && x.d && SYM[x.r] && !seen.has(x.d + x.r)) { (store.marks[k] = store.marks[k] || []).push(x); n++; } if (store.marks[k]) store.marks[k].sort((a, b) => a.d < b.d ? -1 : 1); }
     const sr = obj.srs || {};
     for (const k in sr) { const a = store.srs[k], b = sr[k]; if (b && b.due && (!a || (b.last || "") > (a.last || ""))) { store.srs[k] = b; n++; } }
+    const st = obj.stars || {}; for (const k in st) if (!store.stars[k]) { store.stars[k] = st[k]; n++; }
     save(); $("#recIn").value = ""; openRec(); $("#recMsg").textContent = "导入了 " + n + " 条"; route();
   } catch (e) { $("#recMsg").textContent = "导入失败：粘贴的不是完整的记录文字，请从「当前记录」整段复制"; }
 });
 $("#tocBtn").addEventListener("click", () => { const t = $("#toc"); t.classList.toggle("open"); $("#tocBtn").setAttribute("aria-expanded", String(t.classList.contains("open"))); });
 window.addEventListener("hashchange", route);
 
-/* ===== 14. 依次载入数据文件，再显示 ===== */
-(function loadAll(i) {
-  if (i >= DATA_FILES.length) { route(); return; }
-  const s = document.createElement("script");
-  s.src = DATA_FILES[i];
-  s.onload = () => loadAll(i + 1);
-  s.onerror = () => { console.warn("数据文件没载入：" + DATA_FILES[i]); loadAll(i + 1); };
-  document.body.appendChild(s);
-})(0);
+/* ===== 14. 并行载入数据文件，全部到齐再显示 ===== */
+(function loadAll() {
+  let left = DATA_FILES.length;
+  const done = () => { if (--left === 0) route(); };
+  DATA_FILES.forEach(f => {
+    const el = document.createElement("script");
+    el.src = f; el.onload = done;
+    el.onerror = () => { console.warn("数据文件没载入：" + f); done(); };
+    document.body.appendChild(el);
+  });
+})();
 </script>
