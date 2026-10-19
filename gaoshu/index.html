@@ -95,6 +95,8 @@ button { font: inherit; color: inherit; cursor: pointer; }
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 nav#toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 70px); align-self: start; max-height: calc(100vh - 96px); overflow-y: auto; padding-right: 4px; }
+.toc-head { display: none; }
+#tocMask { display: none; }
 .toc-ch { border-bottom: 1px solid var(--line); padding-block: 6px; }
 .toc-ch summary { list-style: none; cursor: pointer; display: flex; gap: 8px; align-items: baseline; padding: 4px 0; font-weight: 500; }
 .toc-ch summary::-webkit-details-marker { display: none; }
@@ -398,12 +400,19 @@ a.ch-card:hover { border-color: var(--accent); }
 @media (max-width: 900px) {
   .shell { grid-template-columns: minmax(0, 1fr); gap: 0; padding-block: 16px 48px; }
   #tocBtn { display: inline-flex; }
-  nav#toc { display: none; }
-  nav#toc.open {
-    display: block; position: fixed; z-index: 15; inset: calc(env(safe-area-inset-top, 0px) + 55px) 0 0 0; max-height: none;
-    background: var(--sheet); padding-block: 12px 24px;
-    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  /* 手机：目录是从左边滑出的抽屉，点遮罩、点 ✕、往左滑或按 Esc 收起 */
+  nav#toc {
+    display: block; position: fixed; align-self: stretch; z-index: 16; top: calc(env(safe-area-inset-top, 0px) + 55px); bottom: 0; left: 0;
+    width: min(86vw, 340px); max-height: none; overflow-y: auto; overscroll-behavior: contain;
+    background: var(--sheet); border-right: 1px solid var(--line); box-shadow: 6px 0 24px rgba(0, 0, 0, .18);
+    padding: 0 12px 24px max(14px, env(safe-area-inset-left, 0px));
+    transform: translateX(-104%); visibility: hidden; transition: transform .25s ease, visibility 0s .25s;
   }
+  nav#toc.open { transform: none; visibility: visible; transition: transform .25s ease; }
+  #tocMask { display: block; position: fixed; z-index: 15; inset: calc(env(safe-area-inset-top, 0px) + 55px) 0 0 0; background: rgba(10, 16, 22, .45); opacity: 0; pointer-events: none; transition: opacity .25s; }
+  nav#toc.open + #tocMask { opacity: 1; pointer-events: auto; }
+  .toc-head { display: flex !important; position: sticky; top: 0; z-index: 2; align-items: center; justify-content: space-between; padding: 10px 0 8px; background: var(--sheet); border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+  body:has(nav#toc.open) { overflow: hidden; }
   .pf-grid { grid-template-columns: minmax(0, 1fr); gap: 4px; }
 }
 @media (max-width: 560px) {
@@ -435,6 +444,7 @@ a.ch-card:hover { border-color: var(--accent); }
 
 <div class="shell">
   <nav id="toc" aria-label="章节目录"></nav>
+  <div id="tocMask"></div>
   <main id="main"><p class="note">正在载入……</p></main>
 </div>
 
@@ -683,6 +693,15 @@ function outlineHtml(d) {
   const top = `<a href="#${d.id}" data-ot="top">知识框架${d.mindmap ? "和思维导图" : ""}</a>`;
   return `<details class="toc-out" data-og="all"${o.all === false ? "" : " open"}><summary>本节大纲</summary>${top}${g("pts", "知识点", npts, pts, true)}${g("types", "题型梳理", (d.types || []).length, tys, false)}${g("pits", "易错点", (d.pitfalls || []).length, pits, false)}${g("mx", "混合自测", (d.mixed || []).length, mxs, false)}</details>`;
 }
+function closeToc() { $("#toc").classList.remove("open"); $("#tocBtn").setAttribute("aria-expanded", "false"); }
+(function bindDrawer() {
+  $("#tocMask").addEventListener("click", closeToc);
+  $("#toc").addEventListener("click", e => { if (e.target.closest("#tocClose") || (e.target.closest("a[href^='#']") && !e.target.closest("a[data-ot]") && innerWidth <= 900)) closeToc(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeToc(); });
+  let x0 = null, y0 = 0;
+  $("#toc").addEventListener("touchstart", e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  $("#toc").addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null; if (dx < -60 && Math.abs(dy) < Math.abs(dx)) closeToc(); }, { passive: true });
+})();
 (function bindOutline() {
   const nav = document.getElementById("toc");
   nav.addEventListener("toggle", e => {
@@ -700,7 +719,7 @@ function outlineHtml(d) {
 })();
 function renderToc(cur) {
   const nav = $("#toc");
-  nav.innerHTML = CATALOG.map(c => {
+  nav.innerHTML = `<div class="toc-head"><b>目录</b><button class="btn" id="tocClose" type="button" aria-label="收起目录">✕</button></div>` + CATALOG.map(c => {
     const have = c.sections.filter(s => KB.sections[s[0]]).length;
     const open = (cur && String(cur).split(/[.-]/)[0].replace("c", "") === String(c.n)) || (!cur && c.n === 1);
     const items = c.sections.map(s => KB.sections[s[0]]
