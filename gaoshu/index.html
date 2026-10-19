@@ -285,6 +285,7 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .rate { display: flex; gap: 6px; align-items: center; }
 .rate .lab { font-size: 12.5px; color: var(--muted); }
 .rbtn { border: 1px solid var(--line); background: var(--sheet); border-radius: var(--r); min-width: 36px; height: 30px; font-weight: 700; padding: 0 10px; }
+.r-bad.on { border-color: var(--bad); color: var(--bad); background: var(--bad-soft); }
 .r-ok:hover, .r-ok.on { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
 .r-mid:hover, .r-mid.on { border-color: var(--mid); color: var(--mid); background: var(--mid-soft); }
 .r-bad:hover { border-color: var(--bad); color: var(--bad); background: var(--bad-soft); }
@@ -507,12 +508,14 @@ function statusOf(key) {
 function qa(s) { return esc(s).replace(/"/g, "&quot;"); }
 function lastMark(key) { const h = (store.marks[key] || []).filter(x => x.r !== "mid"); return h[h.length - 1]; }
 /* △ = 重点记录的内容：开关，跟 ☆ 同样存法，键后加「!」 */
+/* 今天最后一次自评的结果；再点同一个按钮就取消这一次 */
+function curR(k) { const l = lastMark(k); return l && l.d === today() ? l.r : ""; }
 function isKey(k) { return !!store.stars[k + "!"]; }
 /* ★ 和自评：同一套按钮用在知识点、题型、易错点、混合题上；记录按 "节号/条目号" 存 */
 function rateInner(k) {
   const st = statusOf(k), star = !!store.stars[k];
   const hist = (store.marks[k] || []).filter(m => m.r !== "mid").slice(-3).map(m => `<i>${SYM[m.r]} ${m.d.slice(5)}</i>`).join("");
-  return `<button class="star${star ? " on" : ""}" type="button" data-act="star" aria-pressed="${star}" title="标为不熟（★）">${star ? "★" : "☆"}</button><span class="status ${st.cls}" data-sk="${qa(k)}">${esc(st.text)}</span><span class="rate"><span class="lab">自评</span><button class="rbtn r-ok" type="button" data-r="ok" title="独立做对">✓</button><button class="rbtn r-bad" type="button" data-r="bad" title="不会或看了答案">✗</button><button class="rbtn r-mid${isKey(k) ? " on" : ""}" type="button" data-act="key" aria-pressed="${isKey(k)}" title="重点记录的内容：点一下标记，再点取消">△</button></span><span class="hist">${hist}</span>`;
+  return `<button class="star${star ? " on" : ""}" type="button" data-act="star" aria-pressed="${star}" title="标为不熟（★）">${star ? "★" : "☆"}</button><span class="status ${st.cls}" data-sk="${qa(k)}">${esc(st.text)}</span><span class="rate"><span class="lab">自评</span><button class="rbtn r-ok${curR(k) === "ok" ? " on" : ""}" type="button" data-r="ok" title="${curR(k) === "ok" ? "今天已评 ✓，再点一次取消" : "独立做对"}">✓</button><button class="rbtn r-bad${curR(k) === "bad" ? " on" : ""}" type="button" data-r="bad" title="${curR(k) === "bad" ? "今天已评 ✗，再点一次取消" : "不会或看了答案"}">✗</button><button class="rbtn r-mid${isKey(k) ? " on" : ""}" type="button" data-act="key" aria-pressed="${isKey(k)}" title="重点记录的内容：点一下标记，再点取消">△</button></span><span class="hist">${hist}</span>`;
 }
 function rateBox(k) { return `<div class="rate-box" data-k="${qa(k)}">${rateInner(k)}</div>`; }
 function bindRate(root) {
@@ -524,7 +527,11 @@ function bindRate(root) {
       const k = box.dataset.k;
       if (b.dataset.act === "star") { toggleStar(k); }
       else if (b.dataset.act === "key") { toggleStar(k + "!"); }
-      else if (b.dataset.r) { const h = (store.marks[k] = store.marks[k] || []); h.push({ d: today(), r: b.dataset.r }); if (h.length > 20) store.marks[k] = h.slice(-20); }
+      else if (b.dataset.r) {
+        const h = (store.marks[k] = store.marks[k] || []);
+        if (curR(k) === b.dataset.r) { for (let i = h.length - 1; i >= 0; i--) if (h[i].r !== "mid") { h.splice(i, 1); break; } if (!h.length) delete store.marks[k]; }
+        else { h.push({ d: today(), r: b.dataset.r }); if (h.length > 20) store.marks[k] = h.slice(-20); }
+      }
       else return;
       save(); box.innerHTML = rateInner(k); onRated();
     });
