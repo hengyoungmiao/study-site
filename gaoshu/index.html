@@ -248,6 +248,12 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .pt-notes { margin: 6px 0 0; padding-left: 1.1em; font-size: 14px; }
 .pt-notes li { margin: 3px 0; }
 .pt-notes li::marker { color: var(--accent); }
+.cue-line { display: none; margin: 2px 0 4px; padding: 5px 10px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 var(--r) var(--r) 0; font-size: 14px; color: var(--ink); }
+.cover-on .ci:not(.show) .cue-line { display: block; }
+.cue-line b { color: var(--accent); font-weight: 600; margin-right: 6px; }
+.cue-q { display: none; font-size: 13.5px; color: var(--accent); font-weight: 600; margin-right: 6px; }
+.cover-on .ci:not(.show) .cue-q { display: inline; }
+.pt-notes li .cov.cov-block { display: inline; }
 .cue-n { display: none; font-size: 12px; color: var(--muted); font-weight: 400; }
 .cover-on .ci:not(.show) .cue-n { display: inline; }
 .cue { color: var(--ink); }
@@ -476,6 +482,7 @@ a.ch-card:hover { border-color: var(--accent); }
 /* ===== 1. 数据文件清单：加一节就在这里加一行 ===== */
 const DATA_FILES = [
   "数据/我的总结.js",
+  "数据/线索.js",
   "数据/第1章-第1节.js",
   "数据/第1章-第2节.js",
   "数据/第1章-第3节.js",
@@ -507,6 +514,7 @@ window.KB = {
   sections: {}, chapterEnds: {},
   add(d) { this.sections[d.id] = d; },
   seeds: {}, seedNotes(o) { Object.assign(this.seeds, o); },
+  cues: {}, seedCues(o) { Object.assign(this.cues, o); },
   addChapterEnd(d) { d.id = "c" + d.chapter + "-end"; this.chapterEnds[d.chapter] = d; }
 };
 
@@ -1048,6 +1056,16 @@ function cueHtml(raw) {
   if (!rest.trim()) return `<span class="cue">${md(c)}</span>`;
   return `<span class="cue">${md(c)}</span><span class="cov">${c ? "" : "…"}${md(rest)}</span>`;
 }
+/* 手写线索（数据/线索.js）：有就显示线索条 + 模糊的正文；没有就退回自动截取开头 */
+function bodyHtml(k, p) {
+  const e = KB.cues[k];
+  if (!e || !e.c) return `<div class="pt-body"><p>${cueHtml(p.body)}</p></div>
+        ${p.notes && p.notes.length ? `<ul class="pt-notes">${p.notes.map(n => `<li>${cueHtml(n)}</li>`).join("")}</ul>` : ""}`;
+  const ns = e.n || [];
+  return `<div class="cue-line"><b>线索</b>${md(e.c)}</div>
+        <div class="cov"><div class="pt-body"><p>${md(p.body)}</p></div></div>
+        ${p.notes && p.notes.length ? `<ul class="pt-notes">${p.notes.map((n, i) => `<li>${ns[i] ? `<span class="cue-q">${md(ns[i])}</span>` : ""}<span class="cov cov-block">${md(n)}</span></li>`).join("")}</ul>` : ""}`;
+}
 function pointsHtml(d) {
   const cover = uiFlag("coverPts", false);
   return `<div class="toolbar">${toggle("coverPts", "线索自测", cover, "每条只露出开头，先回忆后面的细节，再点击显示")}</div>
@@ -1056,8 +1074,7 @@ function pointsHtml(d) {
       <div class="pt-side"><span class="kind k-${esc(p.kind)}">${esc(p.kind)}</span><span class="pg-mono">${esc(p.page || "")}</span></div>
       <div>
         <div class="pt-name">${md(p.name)} <span class="reveal-hint">点击显示</span>${p.notes && p.notes.length ? `<span class="cue-n">　含 ${p.notes.length} 条补充</span>` : ""}</div>
-        <div class="pt-body"><p>${cueHtml(p.body)}</p></div>
-        ${p.notes && p.notes.length ? `<ul class="pt-notes">${p.notes.map(n => `<li>${cueHtml(n)}</li>`).join("")}</ul>` : ""}
+        ${bodyHtml(d.id + "/" + p.id, p)}
         ${p.quiz ? `<div class="quiz"><b>自测</b><span>${md(p.quiz)}</span></div>` : ""}
         ${rateBox(d.id + "/" + p.id)}
       </div>
