@@ -168,7 +168,7 @@
       {
         id: "t3", name: "用极限与无穷小的关系、倒数关系求简单极限",
         signal: R`分式可以拆成"常数 + 趋于 0 的项"，或者分母趋于 0、分子不趋于 0`,
-        example: { q: R`求下列极限并说明理由：(1) $\lim\limits_{x\to\infty}\dfrac{2x+1}{x}$；(2) $\lim\limits_{x\to0}\dfrac{1-x^2}{1-x}$；(3) $\lim\limits_{x\to1}\dfrac{x+1}{x-1}$。`, src: "教材习题1-4 第4题 p36（(1)(2)）；(3) 是同类改编（⚠️未核验）" },
+        example: { q: R`求下列极限并说明理由：(1) $\lim\limits_{x\to\infty}\dfrac{2x+1}{x}$；(2) $\lim\limits_{x\to0}\dfrac{1-x^2}{1-x}$；(3) $\lim\limits_{x\to1}\dfrac{x+1}{x-1}$。`, src: "教材习题1-4 第4题 p36（(1)(2)）；(3) 是同类改编" },
         idea: {
           key: R`能拆成"常数 + 无穷小"的，极限就是那个常数（定理 1）；分母是无穷小、分子不趋于 0 的，用倒数关系判成无穷大（定理 2）。`,
           how: [
@@ -225,7 +225,7 @@
       { wrong: R`$\lim\limits_{x\to0}\dfrac1x=+\infty$`, why: R`左侧趋于 $-\infty$`, right: R`两侧符号不同只能写 $\infty$；单侧才写 $\pm\infty$`, test: R`$\lim\limits_{x\to0^-}\dfrac1x=$？`, ans: R`$-\infty$`, link: "知识点 无穷大" },
       { wrong: R`无界函数就是无穷大`, why: R`无穷大要求所有足够靠近的点都大，无界只要求某些点大`, right: R`无穷大 $\Rightarrow$ 无界，反之不对（习题1-4 第6题）`, test: R`$x\cos x$ 在 $(-\infty,+\infty)$ 内无界，它是 $x\to+\infty$ 时的无穷大吗？`, ans: R`不是：$x=2k\pi+\frac{\pi}{2}$ 处函数值为 $0$`, link: "题型 1" },
       { wrong: R`$\dfrac1{x^2}\sin\dfrac1x$ 有 $\dfrac1{x^2}$，所以 $x\to0$ 时是无穷大`, why: R`$\sin\dfrac1x$ 有无数个零点趋于 $0$`, right: R`取 $\sin\dfrac1x=0$ 的点说明不是无穷大（吉米【35】p10–11）`, test: R`$x_k=\dfrac1{k\pi}$ 处 $\dfrac1{x^2}\sin\dfrac1x$ 等于多少？`, ans: R`$0$`, link: "题型 1" },
-      { wrong: R`$f$ 是无穷小，所以 $\dfrac1f$ 一定是无穷大`, why: R`$f$ 可能在 $x_0$ 附近取到 $0$，$\dfrac1f$ 没有定义`, right: R`定理 2 要求 $f(x)\neq0$（教材 p35）`, test: R`$x\to0$ 时 $f(x)=x\sin\dfrac1x$ 是无穷小，$\dfrac1f$ 是无穷大吗？`, ans: R`不是：$f$ 在 $x=\frac{1}{k\pi}$ 处为 $0$，$\dfrac1f$ 在 $0$ 的任何去心邻域内都有无定义的点（⚠️未核验：自编反例）`, link: "知识点 定理 2" },
+      { wrong: R`$f$ 是无穷小，所以 $\dfrac1f$ 一定是无穷大`, why: R`$f$ 可能在 $x_0$ 附近取到 $0$，$\dfrac1f$ 没有定义`, right: R`定理 2 要求 $f(x)\neq0$（教材 p35）`, test: R`$x\to0$ 时 $f(x)=x\sin\dfrac1x$ 是无穷小，$\dfrac1f$ 是无穷大吗？`, ans: R`不是：$f$ 在 $x=\frac{1}{k\pi}$ 处为 $0$，$\dfrac1f$ 在 $0$ 的任何去心邻域内都有无定义的点`, link: "知识点 定理 2" },
       { wrong: R`两个无穷小的商还是无穷小`, why: R`商的结果取决于两者趋于 $0$ 的快慢`, right: R`商要具体算（1.7 无穷小的比较）`, test: R`$x\to0$ 时 $\dfrac{2x}{3x}$ 是无穷小吗？`, ans: R`不是，等于 $\dfrac23$（习题全解 p20）`, link: "知识点 两个无穷小的商" },
       { wrong: R`$\lim x_ny_n=0$，所以 $x_n$、$y_n$ 中至少一个是无穷小`, why: R`可以两个都在"轮流取 0"`, right: R`举奇偶交替的反例（武忠祥 p14）`, test: R`$x_n=n,0,n,0,\cdots$，$y_n=0,n,0,n,\cdots$，$x_ny_n$ 是多少？两个是无穷小吗？`, ans: R`$x_ny_n\equiv0$；两个都无界，都不是无穷小`, link: "题型 2" },
       { wrong: R`$x_n$ 有界、$x_ny_n\to0$，所以 $y_n\to0$`, why: R`把"有界 × 无穷小 = 无穷小"倒过来用了`, right: R`反例 $x_n=\dfrac1{n^2},\ y_n=n$（吉米【37】p11）`, test: R`$x_n=\dfrac1{n^2}$，$y_n=n$，$x_ny_n\to$？$y_n$ 是无穷小吗？`, ans: R`$x_ny_n=\dfrac1n\to0$；$y_n\to\infty$，不是`, link: "题型 2" },

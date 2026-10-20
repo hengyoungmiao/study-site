@@ -96,7 +96,7 @@
           {
             id: "p7", kind: "结论", name: "存在与不存在的组合", page: "习题1-5 第5题（习题全解 p26–27）；武忠祥 p16；30讲 p83",
             body: R`存在 ± 存在 = 存在；存在 ± 不存在 = 不存在；不存在 ± 不存在 = 不一定。乘积：存在（极限 $\neq0$）× 不存在 = 不存在；存在（极限 $=0$）× 不存在 不一定；不存在 × 不存在 不一定。`,
-            notes: [R`反例：$\operatorname{sgn}x+(-\operatorname{sgn}x)\equiv0$；$x\cdot\sin\dfrac1x\to0$；$\operatorname{sgn}x\cdot\operatorname{sgn}x=1\ (x\neq0)$（习题全解 p26–27）`, R`存在 ± 不存在 = 不存在 的理由：若和存在，则 $g=(f+g)-f$ 也存在，矛盾`, R`乘积同理：$\lim f=A\neq0$ 且 $\lim fg$ 存在，则 $g=\dfrac{fg}{f}$ 的极限存在，矛盾；$A=0$ 时无此结论，如 $x\cdot\sin\dfrac1x\to0$（⚠️未核验：自己推导，与本节 p8 的结论一致）`],
+            notes: [R`反例：$\operatorname{sgn}x+(-\operatorname{sgn}x)\equiv0$；$x\cdot\sin\dfrac1x\to0$；$\operatorname{sgn}x\cdot\operatorname{sgn}x=1\ (x\neq0)$（习题全解 p26–27）`, R`存在 ± 不存在 = 不存在 的理由：若和存在，则 $g=(f+g)-f$ 也存在，矛盾`, R`乘积同理：$\lim f=A\neq0$ 且 $\lim fg$ 存在，则 $g=\dfrac{fg}{f}$ 的极限存在，矛盾；$A=0$ 时无此结论，如 $x\cdot\sin\dfrac1x\to0$`],
             quiz: R`$\lim f$ 存在、$\lim g$ 不存在，$\lim fg$ 一定不存在吗？举例。`
           },
           {
@@ -136,7 +136,7 @@
           {
             id: "p12", kind: "定理", name: "定理 6：复合函数的极限运算法则", page: "教材 p42–43",
             body: R`设 $\lim\limits_{x\to x_0}g(x)=u_0$，$\lim\limits_{u\to u_0}f(u)=A$，且在 $x_0$ 的某去心邻域内 $g(x)\neq u_0$，则 $\lim\limits_{x\to x_0}f[g(x)]=\lim\limits_{u\to u_0}f(u)=A$。`,
-            notes: [R`作用：换元 $u=g(x)$，把复杂极限化成简单极限（教材 p43）`, R`把 $u_0$ 换成 $\infty$ 也有类似结论（教材 p43）`, R`条件 $g(x)\neq u_0$ 不能丢：$f$ 在 $u_0$ 处的值可能和极限不同（⚠️未核验：反例见易错点）`],
+            notes: [R`作用：换元 $u=g(x)$，把复杂极限化成简单极限（教材 p43）`, R`把 $u_0$ 换成 $\infty$ 也有类似结论（教材 p43）`, R`条件 $g(x)\neq u_0$ 不能丢：$f$ 在 $u_0$ 处的值可能和极限不同`],
             quiz: R`求 $\lim\limits_{x\to1}\sqrt{\dfrac{x^2-1}{x-1}}$ 时，用定理 6 怎么换元？`
           }
         ]
@@ -414,7 +414,7 @@
       { wrong: R`$\varphi>\psi$，所以 $\lim\varphi>\lim\psi$`, why: R`取极限后严格不等号可能变成等号`, right: R`只能得到 $\lim\varphi\geqslant\lim\psi$（教材 p40 定理5）`, test: R`$x>0$ 时 $\dfrac1x>0$，$\lim\limits_{x\to+\infty}\dfrac1x>0$ 吗？`, ans: R`不是，等于 $0$`, link: "知识点 定理 5" },
       { wrong: R`极限为 $0$ 的因子也可以先求出来`, why: R`先求因子要求它的极限不为 $0$；为 $0$ 时剩下部分可能趋于 $\infty$`, right: R`只把极限非零的因子先算掉（武忠祥 p16）`, test: R`$\lim\limits_{x\to0}x\cdot\dfrac{1}{x}$，先算 $\lim x=0$，得 $0$，对吗？`, ans: R`不对，原式恒为 $1$，极限是 $1$`, link: "知识点 极限非零的因子先求出来" },
       { wrong: R`含参数的极限，直接代入解方程`, why: R`分母 $\to0$ 时直接代入没有意义`, right: R`先用"分母 $\to0$、极限有限 $\Rightarrow$ 分子 $\to0$"（30讲 p46）`, test: R`$\lim\limits_{x\to1}\dfrac{x^2+ax-2}{x-1}=3$，$a=$？`, ans: R`分子在 $1$ 处为 $0$：$1+a-2=0$，$a=1$；此时 $\frac{(x-1)(x+2)}{x-1}\to3$，符合`, link: "题型 8" },
-      { wrong: R`复合函数的极限一律等于"外层在内层极限处的值"`, why: R`定理 6 给的是外层的极限 $\lim\limits_{u\to u_0}f(u)$，不是 $f(u_0)$；还要求 $g(x)\neq u_0$`, right: R`$\lim f[g(x)]=\lim\limits_{u\to u_0}f(u)$；$f$ 连续时才等于 $f(u_0)$（1.9）`, test: R`$f(u)=0\ (u\neq0)$，$f(0)=1$；$g(x)\equiv0$。$\lim\limits_{x\to0}f[g(x)]$ 等于 $\lim\limits_{u\to0}f(u)=0$ 吗？`, ans: R`不等：$f[g(x)]\equiv1$，极限是 $1$。因为 $g(x)=u_0=0$，不满足定理 6 的条件（⚠️未核验：自编反例）`, link: "知识点 定理 6" },
+      { wrong: R`复合函数的极限一律等于"外层在内层极限处的值"`, why: R`定理 6 给的是外层的极限 $\lim\limits_{u\to u_0}f(u)$，不是 $f(u_0)$；还要求 $g(x)\neq u_0$`, right: R`$\lim f[g(x)]=\lim\limits_{u\to u_0}f(u)$；$f$ 连续时才等于 $f(u_0)$（1.9）`, test: R`$f(u)=0\ (u\neq0)$，$f(0)=1$；$g(x)\equiv0$。$\lim\limits_{x\to0}f[g(x)]$ 等于 $\lim\limits_{u\to0}f(u)=0$ 吗？`, ans: R`不等：$f[g(x)]\equiv1$，极限是 $1$。因为 $g(x)=u_0=0$，不满足定理 6 的条件`, link: "知识点 定理 6" },
       { wrong: R`约分时 $x-x_0$ 可能为 $0$，所以不能约`, why: R`$x\to x_0$ 时 $x\neq x_0$`, right: R`求极限时可以约去 $x-x_0$（教材 p41 例3）`, test: R`$\lim\limits_{x\to3}\dfrac{x-3}{x^2-9}$ 约分后等于多少？`, ans: R`$\lim\dfrac1{x+3}=\dfrac16$`, link: "题型 5" }
     ]
   });

@@ -139,7 +139,7 @@
           {
             id: "p10", kind: "结论", name: "满足 |f(x)−f(y)| ≤ L|x−y| 的函数连续", page: "习题1-10 第7题（习题全解 p42）",
             body: R`若对 $[a,b]$ 上任意 $x,y$ 有 $|f(x)-f(y)|\leqslant L|x-y|$（$L$ 为正常数），则 $f$ 在 $[a,b]$ 上连续。`,
-            notes: [R`$0\leqslant|f(x)-f(x_0)|\leqslant L|x-x_0|\to0$，由夹逼得 $\lim\limits_{x\to x_0}f(x)=f(x_0)$（⚠️未核验：习题全解用 $\varepsilon$–$\delta$ 写，这里改用夹逼准则，考试不考定义证明）`, R`再加上 $f(a)f(b)<0$ 就能用零点定理（习题1-10 第7题）`],
+            notes: [R`$0\leqslant|f(x)-f(x_0)|\leqslant L|x-x_0|\to0$，由夹逼得 $\lim\limits_{x\to x_0}f(x)=f(x_0)$`, R`再加上 $f(a)f(b)<0$ 就能用零点定理（习题1-10 第7题）`],
             quiz: R`$f(x)=|x|$ 满足这个条件吗？$L$ 取多少？`
           },
           {

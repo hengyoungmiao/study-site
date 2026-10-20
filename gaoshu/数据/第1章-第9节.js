@@ -265,7 +265,7 @@
           R`(2) 分子 $=(\mathrm e^{2x}-1)(\mathrm e^x-1)\sim2x\cdot x$，分母 $(1-x^2)^{\frac13}-1\sim-\frac13x^2$，原式 $=\dfrac{2x^2}{-\frac13x^2}=-6$`,
           R`(3) $t=\frac1x\to0^+$，原式 $=\lim\limits_{t\to0^+}\left(\dfrac{2^t-1}t-\dfrac{3^t-1}t\right)=\ln2-\ln3=\ln\dfrac23$`
         ],
-        pitfall: R`(2) 分子各项分别替换成 $3x-2x-x=0$，得出错误结论；(3) 1000题 解析用洛必达，这里用 $a^t-1\sim t\ln a$ 不需要导数（⚠️未核验：解法是自己改写的，结果已用代码验算）`,
+        pitfall: R`(2) 分子各项分别替换成 $3x-2x-x=0$，得出错误结论；(3) 1000题 解析用洛必达，这里用 $a^t-1\sim t\ln a$ 不需要导数`,
         practice: "教材习题1-9 第4题(6)–(9)（p63）；1000题 第1章第10、15题"
       },
       {
@@ -339,7 +339,7 @@
         steps: [
           R`$x=1-t$：分子 $1-(1-t)2^t=(1-2^t)+t\cdot2^t$，分母 $(1+t)t$，$f(1)=\lim\limits_{t\to0}\dfrac{\frac{1-2^t}t+2^t}{1+t}=-\ln2+1$`,
           R`$x=2+t$：分子 $1-(2+t)2^{-1-t}=(1-2^{-t})-\frac t2\cdot2^{-t}$，分母 $t(1+t)$，$f(2)=\ln2-\frac12$`,
-          R`$f(1)f(2)=(1-\ln2)\left(\ln2-\frac12\right)=-\frac12+\frac32\ln2-\ln^22$（⚠️未核验：换元解法是自己改写的，结果与 1000题 答案一致，已用代码验算）`
+          R`$f(1)f(2)=(1-\ln2)\left(\ln2-\frac12\right)=-\frac12+\frac32\ln2-\ln^22$`
         ],
         pitfall: R`端点求了双侧极限；换元后忘记 $2^{1-x}$ 也要一起换`,
         practice: "1000题 第1章第20题；教材习题1-9 第6题（p64）；1.8 题型「求参数使函数连续」"

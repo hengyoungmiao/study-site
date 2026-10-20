@@ -67,7 +67,7 @@
           {
             id: "p3", kind: "结论", name: "o 记号", page: "教材 p51；1000题 第1章第9题",
             body: R`$\beta=o(\alpha)$ 只表示 $\lim\dfrac\beta\alpha=0$，不是一个具体的函数；等号不能反过来读。`,
-            notes: [R`常用：$o(\alpha)\cdot$ 有界量 $=o(\alpha)$；$f=o(g)$ 时 $fg=o(g^2)$（1000题 第1章第9题）`, R`$o(x^2)$ 一定是 $o(x)$，反过来不对（⚠️未核验：由定义直接得到）`],
+            notes: [R`常用：$o(\alpha)\cdot$ 有界量 $=o(\alpha)$；$f=o(g)$ 时 $fg=o(g^2)$（1000题 第1章第9题）`, R`$o(x^2)$ 一定是 $o(x)$，反过来不对`],
             quiz: R`$x^3=o(x)$ 对吗？$o(x)=x^3$ 这样写有意义吗？`
           }
         ]
@@ -301,7 +301,7 @@
       { wrong: R`同阶就是等价`, why: R`等价要求比值极限恰好为 $1$`, right: R`等价是同阶中 $c=1$ 的特殊情形`, test: R`$x\to1$ 时 $1-x$ 与 $1-x^3$ 等价吗？`, ans: R`不等价，比值极限 $\frac13$，只是同阶`, link: "题型 6" },
       { wrong: R`$\mathrm e^{\tan x}-\mathrm e^{\sin x}\sim\tan x-\sin x$ 不需要理由`, why: R`要先提公因式变成 $\mathrm e^{\sin x}(\mathrm e^{\tan x-\sin x}-1)$`, right: R`提公因式后用 $\mathrm e^{\square}-1\sim\square$（30讲 p45）`, test: R`$x\to0$ 时 $\mathrm e^{\tan x}-\mathrm e^{\sin x}$ 是几阶无穷小？`, ans: R`三阶，$\sim\frac12x^3$`, link: "题型 1" },
       { wrong: R`$1^{\infty}$ 型算出指数 $A$，答案写 $A$`, why: R`结果是 $\mathrm e^A$`, right: R`整体抄 $\mathrm e^{\lim v(u-1)}$（30讲 p62）`, test: R`$\lim\limits_{x\to0}(1+3x)^{\frac2{\sin x}}=$？`, ans: R`$\mathrm e^6$`, link: "题型 5" },
-      { wrong: R`$o(x)-o(x)=0$`, why: R`两个 $o(x)$ 可以是不同的函数`, right: R`$o(x)\pm o(x)=o(x)$（⚠️未核验：按 $o$ 的定义推出）`, test: R`$x^2=o(x)$，$x^3=o(x)$，$x^2-x^3$ 是 $0$ 吗？`, ans: R`不是，它仍是 $o(x)$`, link: "知识点 o 记号" },
+      { wrong: R`$o(x)-o(x)=0$`, why: R`两个 $o(x)$ 可以是不同的函数`, right: R`$o(x)\pm o(x)=o(x)$`, test: R`$x^2=o(x)$，$x^3=o(x)$，$x^2-x^3$ 是 $0$ 吗？`, ans: R`不是，它仍是 $o(x)$`, link: "知识点 o 记号" },
       { wrong: R`$\lim\dfrac{f}{g^2}$ 一定是 $0$，因为 $f=o(g)$`, why: R`$\frac f{g^2}=\frac fg\cdot\frac1g$，后者趋于 $\infty$`, right: R`逐个算比值（1000题 第1章第9题）`, test: R`$f=x^2$，$g=x$（$x\to0$），$f=o(g)$ 吗？$f=o(g^2)$ 吗？`, ans: R`$f=o(g)$ 成立；$\frac{f}{g^2}=1$，$f=o(g^2)$ 不成立`, link: "题型 7" },
       { wrong: R`极限非零的因子也要换成等价无穷小`, why: R`它不是无穷小，直接求出极限即可`, right: R`先求非零因子的极限（如 $\mathrm e^x\to1$、$1+\sqrt{\cos x}\to2$）`, test: R`$\lim\limits_{x\to0}\dfrac{(1+\cos x)\sin x}{x}=$？`, ans: R`$2$：$1+\cos x\to2$ 先求，$\sin x\sim x$`, link: "题型 3" },
       { wrong: R`$\ln x\sim x$`, why: R`$\ln(1+\square)\sim\square$ 要求 $\square\to0$`, right: R`$x\to1$ 时 $\ln x=\ln[1+(x-1)]\sim x-1$（30讲 p59）`, test: R`$\lim\limits_{x\to1}\dfrac{\ln x}{x-1}=$？`, ans: R`$1$`, link: "知识点 广义化" },

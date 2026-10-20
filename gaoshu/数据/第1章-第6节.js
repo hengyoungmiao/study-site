@@ -85,7 +85,7 @@
           {
             id: "p5", kind: "公式", name: "推广形式和常用结果", page: "教材 p46 例1–3；习题1-6 第1题",
             body: R`若 $\square\to0$（且 $\square\neq0$），则 $\dfrac{\sin\square}{\square}\to1$。常用：$\lim\limits_{x\to0}\dfrac{\tan x}{x}=1$，$\lim\limits_{x\to0}\dfrac{1-\cos x}{x^2}=\dfrac12$，$\lim\limits_{x\to0}\dfrac{\arcsin x}{x}=1$，$\lim\limits_{x\to0}\dfrac{\sin\omega x}{x}=\omega$。`,
-            notes: [R`方法：凑成 $\dfrac{\sin\square}{\square}$ 的样子，分母要和 $\sin$ 里的式子一模一样（习题全解 p28）`, R`$\lim\limits_{x\to0}\dfrac{\arctan x}{x}=1$：令 $t=\arctan x$，同 $\arcsin$ 的做法（⚠️未核验：教材只做了 $\arcsin$）`],
+            notes: [R`方法：凑成 $\dfrac{\sin\square}{\square}$ 的样子，分母要和 $\sin$ 里的式子一模一样（习题全解 p28）`, R`$\lim\limits_{x\to0}\dfrac{\arctan x}{x}=1$：令 $t=\arctan x$，同 $\arcsin$ 的做法`],
             quiz: R`$\lim\limits_{x\to0}\dfrac{\sin2x}{\sin5x}$ 怎么凑？`
           }
         ]
@@ -364,8 +364,8 @@
       { wrong: R`$\lim\limits_{x\to0}\dfrac{1-\cos x}{x^2}=1$`, why: R`$1-\cos x=2\sin^2\frac x2$，比 $x^2$ 少一半`, right: R`结果是 $\dfrac12$（教材 p46 例2）`, test: R`$\lim\limits_{x\to0}\dfrac{1-\cos2x}{x^2}=$？`, ans: R`$2$`, link: "题型 3" },
       { wrong: R`$1^{\infty}=1$`, why: R`底数只是趋于 $1$，指数趋于 $\infty$，结果不定`, right: R`$1^{\infty}$ 是未定式，用 $\mathrm e^{\lim v(u-1)}$（30讲 p62）`, test: R`$\lim\limits_{x\to0}(1+2x)^{\frac1x}=$？`, ans: R`$\mathrm e^2$`, link: "题型 4" },
       { wrong: R`$\lim\limits_{x\to\infty}\left(1+\dfrac1x\right)^{2x}=\mathrm e$`, why: R`指数是 $2x$，要凑成 $\left[\left(1+\frac1x\right)^x\right]^2$`, right: R`结果 $\mathrm e^2$（习题全解 p28）`, test: R`$\lim\limits_{x\to\infty}\left(1-\dfrac1x\right)^{kx}=$？`, ans: R`$\mathrm e^{-k}$`, link: "题型 4" },
-      { wrong: R`$(1+x)^{\frac1x}\to\mathrm e$ 对任何过程都成立`, why: R`要求 $x\to0$`, right: R`标准形式是"$\square\to0$，指数 $\frac1\square$"`, test: R`$\lim\limits_{x\to\infty}(1+x)^{\frac1x}$ 是 $\mathrm e$ 吗？`, ans: R`不是，这是 $\infty^0$ 型，结果为 $1$（⚠️未核验：要用 1.9 的方法：$\mathrm e^{\frac{\ln(1+x)}{x}}\to\mathrm e^0$）`, link: "知识点 第二个重要极限" },
-      { wrong: R`没证存在，直接对递推式取极限`, why: R`极限不存在时解出的"$a$"没有意义`, right: R`先证单调有界（习题全解 p30 注）`, test: R`$x_1=2$，$x_{n+1}=-x_n$，直接取极限得 $a=-a$，$a=0$，对吗？`, ans: R`不对，$x_n=2,-2,2,\cdots$ 发散（⚠️未核验：自编反例）`, link: "题型 2" },
+      { wrong: R`$(1+x)^{\frac1x}\to\mathrm e$ 对任何过程都成立`, why: R`要求 $x\to0$`, right: R`标准形式是"$\square\to0$，指数 $\frac1\square$"`, test: R`$\lim\limits_{x\to\infty}(1+x)^{\frac1x}$ 是 $\mathrm e$ 吗？`, ans: R`不是，这是 $\infty^0$ 型，结果为 $1$（要用 1.9 的方法：$\mathrm e^{\frac{\ln(1+x)}{x}}\to\mathrm e^0$）`, link: "知识点 第二个重要极限" },
+      { wrong: R`没证存在，直接对递推式取极限`, why: R`极限不存在时解出的"$a$"没有意义`, right: R`先证单调有界（习题全解 p30 注）`, test: R`$x_1=2$，$x_{n+1}=-x_n$，直接取极限得 $a=-a$，$a=0$，对吗？`, ans: R`不对，$x_n=2,-2,2,\cdots$ 发散`, link: "题型 2" },
       { wrong: R`解 $a=f(a)$ 得到两个根，都写上`, why: R`极限唯一`, right: R`用数列的范围（如 $x_n>0$）舍根`, test: R`$x_{n+1}=\sqrt{2+x_n}$ 得 $a^2-a-2=0$，答案写什么？`, ans: R`$a=2$（$a=-1$ 舍去，因 $x_n>0$）`, link: "题型 2" },
       { wrong: R`单调增加的数列，证"有下界"就收敛`, why: R`单调增加要配上界`, right: R`增 + 上界，或减 + 下界（30讲 p89）`, test: R`$x_n=n$ 单调增加、有下界 $0$，收敛吗？`, ans: R`不收敛`, link: "知识点 准则 II" },
       { wrong: R`收敛数列一定单调`, why: R`单调有界只是充分条件`, right: R`收敛 $\Rightarrow$ 有界，但不一定单调（教材 p49）`, test: R`$\dfrac{(-1)^n}{n}$ 收敛吗？单调吗？`, ans: R`收敛于 $0$，不单调`, link: "知识点 准则 II" },
@@ -373,7 +373,7 @@
       { wrong: R`取整题 $x<0$ 时乘以 $x$ 不等号不变`, why: R`乘负数不等号反向`, right: R`$x<0$ 时 $10-x>x\left[\frac{10}{x}\right]\geqslant10$（30讲 p59）`, test: R`$\lim\limits_{x\to0}x\left[\dfrac{10}{x}\right]=$？`, ans: R`$10$`, link: "题型 6" },
       { wrong: R`$\sqrt[n]{a^n+b^n}=a+b$`, why: R`开方不能对和逐项开`, right: R`结果是 $\max\{a,b\}$（30讲 例2.10 p88）`, test: R`$\lim\limits_{n\to\infty}\sqrt[n]{2^n+3^n}=$？`, ans: R`$3$`, link: "题型 7" },
       { wrong: R`$\lim(ax+b+\alpha)=0$ 只需常数项为 0`, why: R`$x$ 的系数不为 0 时整体趋于 $\infty$`, right: R`$x$ 的系数和常数项都要为 0（吉米【63】p18）`, test: R`$\lim\limits_{x\to\infty}\left(\dfrac{x^2}{x+1}-ax-b\right)=0$，$a,b$？`, ans: R`$a=1$，$b=-1$`, link: "题型 5" },
-      { wrong: R`$\dfrac{\sin\square}{\square}\to1$ 不管 $\square$ 是否为 $0$`, why: R`$\square=0$ 时分式无意义`, right: R`要求 $\square\to0$ 且 $\square\neq0$`, test: R`$\lim\limits_{x\to0}\dfrac{\sin\left(x\sin\frac1x\right)}{x\sin\frac1x}$ 能直接写 $1$ 吗？`, ans: R`不能：$x\sin\frac1x$ 在 $x=\frac1{k\pi}$ 处为 $0$，函数在 $0$ 的任何去心邻域内都有无定义的点（⚠️未核验：自编反例）`, link: "知识点 第一个重要极限" }
+      { wrong: R`$\dfrac{\sin\square}{\square}\to1$ 不管 $\square$ 是否为 $0$`, why: R`$\square=0$ 时分式无意义`, right: R`要求 $\square\to0$ 且 $\square\neq0$`, test: R`$\lim\limits_{x\to0}\dfrac{\sin\left(x\sin\frac1x\right)}{x\sin\frac1x}$ 能直接写 $1$ 吗？`, ans: R`不能：$x\sin\frac1x$ 在 $x=\frac1{k\pi}$ 处为 $0$，函数在 $0$ 的任何去心邻域内都有无定义的点`, link: "知识点 第一个重要极限" }
     ]
   });
 })();

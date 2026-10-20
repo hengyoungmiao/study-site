@@ -95,7 +95,7 @@
           {
             id: "p7", kind: "定义", name: "水平渐近线", page: "教材 p30",
             body: R`若 $\lim\limits_{x\to\infty}f(x)=A$，则直线 $y=A$ 是 $y=f(x)$ 图形的水平渐近线。`,
-            notes: [R`例：$\lim\limits_{x\to\infty}\dfrac1x=0$，$y=0$ 是 $y=\dfrac1x$ 的水平渐近线（教材 p30 例7）`, R`只有一侧存在时，也说那一侧有水平渐近线（⚠️未核验：教材这里只写了 $x\to\infty$ 的情形，单侧渐近线在第三章讲）`],
+            notes: [R`例：$\lim\limits_{x\to\infty}\dfrac1x=0$，$y=0$ 是 $y=\dfrac1x$ 的水平渐近线（教材 p30 例7）`, R`只有一侧存在时，也说那一侧有水平渐近线（单侧渐近线在第三章讲）`],
             quiz: R`$y=\dfrac{2x+1}{x}$ 有没有水平渐近线？是哪条？`
           }
         ]
@@ -239,7 +239,7 @@
       {
         id: "t4", name: "判断 x→∞ 时的极限（分 ±∞）",
         signal: R`$x\to\infty$（不带正负号），式子里有 $\mathrm e^x$、$a^x$、$\arctan x$`,
-        example: { q: R`判断下列极限是否存在：(1) $\lim\limits_{x\to\infty}\mathrm e^x$；(2) $\lim\limits_{x\to\infty}\arctan x$；(3) $\lim\limits_{x\to\infty}\dfrac{\mathrm e^x}{\mathrm e^x+1}$。`, src: "30讲 p37 ①③；(3) 是同类改编（⚠️未核验）" },
+        example: { q: R`判断下列极限是否存在：(1) $\lim\limits_{x\to\infty}\mathrm e^x$；(2) $\lim\limits_{x\to\infty}\arctan x$；(3) $\lim\limits_{x\to\infty}\dfrac{\mathrm e^x}{\mathrm e^x+1}$。`, src: "30讲 p37 ①③；(3) 是同类改编" },
         idea: {
           key: R`$x\to\infty$ 是双向的：分别求 $x\to+\infty$ 和 $x\to-\infty$，两个都存在且相等才存在。`,
           how: [
