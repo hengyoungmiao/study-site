@@ -1,0 +1,147 @@
+/*
+类型: 题型
+标题: C语言 第3章 第3节 常量与变量 —— 知识点和例题代码
+科目: C语言
+写入者: C语言科目项目
+创建日期: 2026-10-21
+状态: 完成
+
+页码一律是印刷页。教材 =《新编C语言程序设计》第2版；辅导 = 配套《实验与学习辅导》第2版。
+本文件程序都用 gcc -Wall -Wextra -std=c17 实际编译运行过。
+写法：字符串用 R`...`；代码块写 ~~~c ... ~~~，行内代码写 ‹x›。
+*/
+(function () {
+  const R = String.raw;
+  KB.add({
+    id: "3.3",
+    chapter: 3,
+    title: "常量与变量",
+    pages: "教材 p35–36",
+    sources: ["教材 3.3 p35–36（例3-2）", "辅导 实验3 改错题(1) p45"],
+    updated: "2026-10-21",
+
+    framework: {
+      main: R`值不变的是常量，值可变的是变量。常量有三种写法：直接写出来的字面常量、‹#define› 的符号常量、‹const› 的常变量；变量要有名字、值和地址三个概念。`,
+      nodes: [
+        { id: "K", go: "p1", col: 0, row: 0, kind: "map", label: "常量", sub: "运行中值不变" },
+        { id: "D", go: "p2", col: 0, row: 1, kind: "build", label: "直接常量", sub: "12 · 4.6 · 'a'" },
+        { id: "S", go: "p3", col: 1, row: 1, kind: "func", label: "符号常量", sub: "#define 名 值，不占内存" },
+        { id: "CV", go: "p4", col: 2, row: 1, kind: "func", label: "常变量", sub: "const，占内存、只读" },
+        { id: "V", go: "p5", col: 1, row: 0, kind: "map", label: "变量", sub: "先定义后使用" },
+        { id: "N", go: "p5", col: 1, row: 2, kind: "prop", label: "名 · 值 · 地址", sub: "sum · 100 · &sum" }
+      ],
+      edges: [
+        { from: "K", to: "D", label: "直接写" },
+        { from: "K", to: "S", label: "起名字" },
+        { from: "K", to: "CV", label: "const" },
+        { from: "V", to: "N", label: "三个概念" }
+      ],
+      keys: [
+        { q: R`符号常量和常变量有什么区别？`, a: R`符号常量在编译前被替换掉，不分配内存、不做类型检查；常变量像普通变量一样分配内存，编译器做类型检查，只是值不允许再改（教材 p35–36）。` },
+        { q: R`变量的名、值、地址分别是什么？`, a: R`以变量 sum 为例：名是 sum，值假设为 100，地址用 &sum 取得（教材 p36）。` }
+      ]
+    },
+
+    points: [
+      {
+        group: "一、常量",
+        items: [
+          {
+            id: "p1", kind: "定义", name: "常量与变量", page: "教材 p35",
+            body: R`程序执行过程中值不发生改变的量叫常量，值可变的量叫变量。常量可以不经说明直接引用，变量必须先定义后使用。常量和变量都可以和数据类型结合分类，如整型常量、整型变量、实型常量、字符变量等。`,
+            notes: [R`常变量按常量看待（p35）`],
+            quiz: R`常量和变量在“使用前要不要定义”上有什么区别？`
+          },
+          {
+            id: "p2", kind: "定义", name: "三种常量：直接常量、符号常量、常变量", page: "教材 p35",
+            body: R`常量分为直接常量（字面常量，如 ‹12›、‹-3›、‹4.6›、‹'a'›）、符号常量（用标识符代表的常量）、常变量（用 ‹const› 声明的只读变量）。`,
+            notes: [R`标识符：用来标识变量名、符号常量名、函数名、数组名、类型名、文件名的有效字符序列（p35）`],
+            quiz: R`‹'a'›、‹PRICE›（由 ‹#define› 定义）、‹const int num=10› 中的 ‹num› 各是哪种常量？`
+          },
+          {
+            id: "p3", kind: "定义", name: "符号常量：#define", page: "教材 p35–36",
+            body: R`一般形式：
+~~~c
+#define 标识符 常量
+~~~
+‹#define› 是预处理命令（以 ‹#› 开头），作用是把标识符定义为其后的常量值；此后程序里所有出现该标识符的地方都换成这个常量。习惯上符号常量用大写字母，变量用小写字母。`,
+            notes: [
+              R`符号常量在编译时被全部替换成它代表的常量而不再存在，所以它的值在作用域内不能改变，更不能被赋值（p36）`,
+              R`好处：含义清楚；能做到“一改全改”；只读不写（p36）`,
+              R`‹#define› 这一行末尾不写分号（推断：依据是它是预处理命令，不是语句；下面易错点有实测）`
+            ],
+            quiz: R`写出把 PI 定义为 3.14159 的符号常量命令。它占不占内存？`
+          },
+          {
+            id: "p4", kind: "定义", name: "常变量：const", page: "教材 p35–36",
+            body: R`又叫只读变量，由 ‹const› 声明：
+~~~c
+const 类型名 常变量名 = 常量;
+~~~
+定义时初始化，之后值一直不变。它实质上是变量，占内存空间，又有值不变的常量特性。`,
+            notes: [
+              R`和符号常量的区别之一：编译时编译器会对常变量做类型检查（p35–36）`,
+              R`例3-2：‹const int num=10;› 之后 ‹num› 不能再被赋值（p36）`
+            ],
+            quiz: R`‹const int num=10; num=20;› 能通过编译吗？`
+          }
+        ]
+      },
+      {
+        group: "二、变量",
+        items: [
+          {
+            id: "p5", kind: "定义", name: "变量的名、值、地址", page: "教材 p36、图3-3",
+            body: R`一个变量有名字，在内存中占一个或若干连续存储单元，存放变量值。要区分三个概念：变量名、变量值、存储单元的地址（变量地址，用 ‹&变量名› 获取）。以 ‹sum› 为例：变量名是 ‹sum›，值假设为 100，地址 ‹&sum› 可能是 1250000。`,
+            notes: [
+              R`编译系统按数据类型自动分配内存，并把内存地址与变量名关联；程序按变量名使用变量，运行时按地址读写数据（p36）`,
+              R`教材规定变量定义要放在使用之前，一般放在函数体的开头，即第一条可执行语句前，否则语法错（p36）。这是 C89 / VC++ 的规则；C99 起允许在块内较后的位置定义（实测：gcc -std=c17 通过，gcc -std=c89 -pedantic-errors 报 ‹ISO C90 forbids mixed declarations and code›）。考试按教材写：先定义，放在最前`
+            ],
+            quiz: R`变量 ‹a› 值为 5，‹a›、‹&a›、‹5› 各叫什么？`
+          }
+        ]
+      }
+    ],
+
+    types: [
+      {
+        id: "t1", name: "符号常量和常变量的计算（例3-2）",
+        signal: R`程序里有 ‹#define› 或 ‹const› 定义的量，要求写出输出或指出错误`,
+        example: {
+          q: R`写出下面程序的输出：
+~~~c
+#define PRICE 30
+#include <stdio.h>
+int main(void)
+{
+    int total;
+    const int num = 10;
+    total = num * PRICE;
+    printf("total=%d", total);
+}
+~~~`,
+          src: "教材 例3-2 p36"
+        },
+        idea: {
+          key: R`符号常量先“文本替换”，再按普通表达式算；常变量当作值不能改的变量。`,
+          how: [R`把 ‹PRICE› 换成 ‹30›，得 ‹total = num * 30›`, R`‹num› 的值是 10，按整型乘法计算`, R`看有没有对符号常量或常变量赋值（有就是错）`],
+          refs: [{ src: "教材 p36", text: R`符号常量在编译时，就被全部替换成它代表的常量而不存在了……常变量如普通变量一样分配内存空间而一直存在，只是其值不允许改变而已` }]
+        },
+        first: R`‹PRICE› 就是 30，‹num› 就是 10`,
+        steps: [
+          R`‹total = num * PRICE = 10 * 30 = 300›`,
+          R`输出：‹total=300›（gcc 实测）`
+        ],
+        pitfall: R`在 ‹#define PRICE 30› 后面再写 ‹PRICE = 40;›：PRICE 已经被替换成 30，变成 ‹30 = 40;›，gcc 报 ‹lvalue required as left operand of assignment›`,
+        practice: "教材 例3-2（p36）；辅导 实验3 改错题(1)（p45）：圆锥体积程序中 ‹V›、‹r^2›、‹1/3› 的错误"
+      }
+    ],
+
+    pitfalls: [
+      { wrong: R`‹#define PI 3.14159;› 末尾加分号更保险`, why: R`‹#define› 是预处理命令，分号会被当作替换内容的一部分；‹area = PI * r * r;› 会被替换成 ‹area = 3.14159; * r * r;›`, right: R`‹#define PI 3.14159›，行末不写分号`, test: R`‹#define PI 3.14;› 之后写 ‹double s = PI * 2;›，编译会怎样？`, ans: R`替换成 ‹double s = 3.14; * 2;›，gcc 报错 ‹invalid type argument of unary '*'›`, link: "知识点 符号常量：#define" },
+      { wrong: R`‹const int n = 10; n = 20;› 只是把 n 改成 20`, why: R`常变量定义初始化后值一直不变，对它赋值是错误`, right: R`需要变的量用普通变量；需要固定的量才用 ‹const› 或 ‹#define›`, test: R`gcc 编译 ‹const int n=10; n=20;› 报什么错？`, ans: R`‹assignment of read-only variable 'n'›（只读变量不能被赋值）`, link: "知识点 常变量：const" },
+      { wrong: R`符号常量和常变量是一回事，都占内存`, why: R`符号常量被替换后不存在；常变量像变量一样占内存并由编译器检查类型`, right: R`区分：#define 不占内存、不查类型；const 占内存、查类型`, test: R`哪一种常量会被编译器做类型检查？`, ans: R`常变量（const）；符号常量只是文本替换`, link: "题型 1" },
+      { wrong: R`变量的值和变量的地址是同一个东西`, why: R`值是存放的内容，地址是存放位置；‹scanf› 要的是地址 ‹&a›，赋值号左边写的是变量名`, right: R`值用 ‹a›，地址用 ‹&a›`, test: R`‹int sum = 100;› 里 ‹sum›、‹&sum› 分别代表什么？`, ans: R`‹sum› 的值是 100；‹&sum› 是存放 sum 的存储单元的地址`, link: "知识点 变量的名、值、地址" }
+    ]
+  });
+})();
