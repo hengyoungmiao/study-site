@@ -1112,6 +1112,15 @@ function tallyHtml(d) {
   (d.types || []).forEach(t => { const k = d.id + "/" + t.id, m = lastMark(k); if (isKey(k)) cnt.mid++; if (!m) cnt.none++; else cnt[m.r]++; });
   return `<span>✓ ${cnt.ok}</span><span>△ 重点 ${cnt.mid}</span><span>✗ ${cnt.bad}</span><span>未做 ${cnt.none}</span>`;
 }
+/* 题型卡背面：点「看背面」才生成，没点开时页面里没有第一步、解答和易错 */
+function backHtml(t) {
+  return `
+          <div class="row"><span class="lab">第一步</span><div class="first">${md(t.first)}</div></div>
+          <div class="row"><span class="lab">解答</span><div><ol class="steps">${t.steps.map(s => `<li>${md(s)}</li>`).join("")}</ol></div></div>
+          <div class="row"><span class="lab">易错</span><div class="warnline">${md(t.pitfall)}</div></div>
+          <div class="row"><span class="lab">练习</span><div style="font-size:13px;color:var(--muted)">${md(t.practice || "")}</div></div>
+  `;
+}
 function typesHtml(d) {
   const types = d.types || [];
   const key = t => d.id + "/" + t.id;
@@ -1134,12 +1143,7 @@ function typesHtml(d) {
         <div class="row"><span class="lab">看到</span><div>${md(t.signal)}</div></div>
         <div class="row"><span class="lab">例题</span><div>${md(t.example.q)}<div class="src">${esc(t.example.src)}</div></div></div>
         ${ideaHtml(t)}
-        <div class="back" hidden>
-          <div class="row"><span class="lab">第一步</span><div class="first">${md(t.first)}</div></div>
-          <div class="row"><span class="lab">解答</span><div><ol class="steps">${t.steps.map(s => `<li>${md(s)}</li>`).join("")}</ol></div></div>
-          <div class="row"><span class="lab">易错</span><div class="warnline">${md(t.pitfall)}</div></div>
-          <div class="row"><span class="lab">练习</span><div style="font-size:13px;color:var(--muted)">${md(t.practice || "")}</div></div>
-        </div>
+        <div class="back" hidden></div>
       </div>
       <div class="tc-foot"><button class="btn flip" type="button" aria-expanded="false">看背面</button>
         ${rateBox(k)}
@@ -1171,7 +1175,9 @@ function bindPane(d) {
   $$(".chip[data-f]").forEach(b => b.addEventListener("click", () => { filter = b.dataset.f; showTab(d); }));
   $$(".tcard").forEach(card => {
     const back = $(".back", card), flip = $(".flip", card);
-    flip.addEventListener("click", () => { back.hidden = !back.hidden; flip.textContent = back.hidden ? "看背面" : "收起背面"; flip.setAttribute("aria-expanded", String(!back.hidden)); });
+    flip.addEventListener("click", () => {
+      if (!back.dataset.f) { const t = (d.types || []).find(x => d.id + "/" + x.id === card.dataset.key); if (t) { back.innerHTML = backHtml(t); back.dataset.f = 1; typeset(back); } }
+      back.hidden = !back.hidden; flip.textContent = back.hidden ? "看背面" : "收起背面"; flip.setAttribute("aria-expanded", String(!back.hidden)); });
   });
 }
 
@@ -1462,7 +1468,7 @@ function buildIndex() {
     const o = it.obj; let f = [];
     if (it.kind === "pt") f = [o.name, o.body, ...(o.notes || []), o.quiz, o.kind];
     else if (it.kind === "rel") f = [o.q, o.a];
-    else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.idea && o.idea.key, ...((o.idea && o.idea.how) || []), ...(((o.idea && o.idea.refs) || []).map(r => r.src + " " + r.text)), o.first, ...o.steps, o.pitfall, o.practice];
+    else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.practice]; /* 通法和背面不进搜索：否则结果片段会漏出第一步、解答 */
     else if (it.kind === "pit") f = [o.wrong, o.test, o.ans, o.why, o.right, o.link];
     else f = [o.q, o.hint, o.ans, o.src];
     f.push(noteOf(it.key));
