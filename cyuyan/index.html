@@ -1468,7 +1468,7 @@ function buildIndex() {
     const o = it.obj; let f = [];
     if (it.kind === "pt") f = [o.name, o.body, ...(o.notes || []), o.quiz, o.kind];
     else if (it.kind === "rel") f = [o.q, o.a];
-    else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.practice]; /* 通法和背面不进搜索：否则结果片段会漏出第一步、解答 */
+    else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.idea && o.idea.key, ...((o.idea && o.idea.how) || []), ...(((o.idea && o.idea.refs) || []).map(r => r.src + " " + r.text)), o.first, ...o.steps, o.pitfall, o.practice];
     else if (it.kind === "pit") f = [o.wrong, o.test, o.ans, o.why, o.right, o.link];
     else f = [o.q, o.hint, o.ans, o.src];
     f.push(noteOf(it.key));
