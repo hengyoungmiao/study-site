@@ -4,7 +4,7 @@
 科目: 线性代数
 写入者: 线性代数科目项目
 创建日期: 2026-10-21
-更新日期: 2026-10-21
+更新日期: 2026-10-25
 状态: 完成
 
 页码一律是印刷页。教材 = 学校教材《线性代数》第1章（转换稿识别有错，公式以纸质书为准）；
@@ -20,7 +20,7 @@
     title: "矩阵概述",
     pages: "教材 p1–10",
     sources: ["教材 1.1 p1–10", "30讲 第2讲 二「矩阵的定义与基本运算」p51–56，例2.1–2.3", "李永乐 第2章「矩阵运算」p39–42，例2.1–2.4", "1000题基础篇 第2章 第1、2、3、18题"],
-    updated: "2026-10-21",
+    updated: "2026-10-25",
 
     framework: {
       main: R`矩阵是一张按位置排好的数表。同型才能相加，左边的列数等于右边的行数才能相乘；乘法没有交换律和消去律，所以幂、转置、展开式都要守住先后顺序。`,
@@ -205,9 +205,10 @@ $$A=\frac{A+A^{\mathrm T}}{2}+\frac{A-A^{\mathrm T}}{2}.$$`,
         },
         first: R`$A$ 是 $2\times3$，$B^{\mathrm T}$ 是 $3\times2$，所以 $AB^{\mathrm T}$ 是 $2\times2$；$A^{\mathrm T}$ 是 $3\times2$，$B$ 是 $2\times3$，所以 $A^{\mathrm T}B$ 是 $3\times3$`,
         steps: [
-          R`$B^{\mathrm T}=\begin{pmatrix}-3&2\\2&0\\0&1\end{pmatrix}$。$AB^{\mathrm T}$ 的 $(1,1)$ 元 $=0\cdot(-3)+(-2)\cdot2+1\cdot0=-4$，同理得 $AB^{\mathrm T}=\begin{pmatrix}-4&1\\-1&5\end{pmatrix}$`,
-          R`$A^{\mathrm T}=\begin{pmatrix}0&3\\-2&4\\1&-1\end{pmatrix}$，$A^{\mathrm T}B=\begin{pmatrix}6&0&3\\14&-4&4\\-5&2&-1\end{pmatrix}$`,
-          R`检查：$BA^{\mathrm T}=(AB^{\mathrm T})^{\mathrm T}=\begin{pmatrix}-4&-1\\1&5\end{pmatrix}$，$B^{\mathrm T}A=(A^{\mathrm T}B)^{\mathrm T}$`
+          R`**先定型再算**：矩阵乘法要求「左边的列数 = 右边的行数」。$A$ 是 $2\times3$，$B^{\mathrm T}$ 是 $3\times2$，中间都是 3，所以 $AB^{\mathrm T}$ 可乘，结果是 $2\times2$。先写出 $B^{\mathrm T}$：$B$ 的第 $j$ 行变成 $B^{\mathrm T}$ 的第 $j$ 列，$B^{\mathrm T}=\begin{pmatrix}-3&2\\2&0\\0&1\end{pmatrix}$`,
+          R`**逐个填 $AB^{\mathrm T}$**：$c_{ij}$ 等于 $A$ 的第 $i$ 行与 $B^{\mathrm T}$ 的第 $j$ 列对应相乘再相加。$c_{11}=0\cdot(-3)+(-2)\cdot2+1\cdot0=-4$；$c_{12}=0\cdot2+(-2)\cdot0+1\cdot1=1$；$c_{21}=3\cdot(-3)+4\cdot2+(-1)\cdot0=-1$；$c_{22}=3\cdot2+4\cdot0+(-1)\cdot1=5$。所以 $AB^{\mathrm T}=\begin{pmatrix}-4&1\\-1&5\end{pmatrix}$`,
+          R`**再算 $A^{\mathrm T}B$**：$A^{\mathrm T}$ 是 $3\times2$（$A$ 的第 $i$ 行变成它的第 $i$ 列），$A^{\mathrm T}=\begin{pmatrix}0&3\\-2&4\\1&-1\end{pmatrix}$，乘 $B$（$2\times3$）得 $3\times3$。第 1 行：$(0,3)$ 分别乘 $B$ 的三列 $(-3,2)^{\mathrm T}$、$(2,0)^{\mathrm T}$、$(0,1)^{\mathrm T}$，得 $6,\ 0,\ 3$；第 2 行 $(-2,4)$ 得 $14,\ -4,\ 4$；第 3 行 $(1,-1)$ 得 $-5,\ 2,\ -1$。所以 $A^{\mathrm T}B=\begin{pmatrix}6&0&3\\14&-4&4\\-5&2&-1\end{pmatrix}$`,
+          R`**检验**：由 $(XY)^{\mathrm T}=Y^{\mathrm T}X^{\mathrm T}$，$(AB^{\mathrm T})^{\mathrm T}=BA^{\mathrm T}$，所以 $BA^{\mathrm T}$ 应等于上面结果的转置 $\begin{pmatrix}-4&-1\\1&5\end{pmatrix}$。抽查一个元素：$BA^{\mathrm T}$ 的 $(1,1)$ 元是 $B$ 第 1 行 $(-3,2,0)$ 与 $A$ 第 1 行 $(0,-2,1)$ 的内积 $=-4$，与 $c_{11}$ 一致`
         ],
         pitfall: R`顺序不能换：$AB^{\mathrm T}$ 是 $2\times2$，$A^{\mathrm T}B$ 是 $3\times3$，结果连大小都不同`,
         practice: "教材 练习题1.1 第1、2题（p9）；1000题基础篇 第2章 第1题（p48）"
@@ -226,17 +227,19 @@ $$A=\frac{A+A^{\mathrm T}}{2}+\frac{A-A^{\mathrm T}}{2}.$$`,
         },
         first: R`按行乘列直接算出 $AB$、$BA$`,
         steps: [
-          R`$AB=\begin{pmatrix}0&0\\0&0\end{pmatrix}=O$，$BA=\begin{pmatrix}-2&-2\\2&2\end{pmatrix}$`,
-          R`$AB\neq BA$：乘法不满足交换律`,
-          R`$A\neq O$，$B\neq O$，但 $AB=O$：$AB=O$ 推不出 $A=O$ 或 $B=O$`,
-          R`取 $C=O$，有 $AB=CB$、$B\neq O$ 却 $A\neq C$：不满足消去律（教材 p6 注）`
+          R`**思路**：题目问「说明了乘法的哪些性质」，就是让你先算 $AB$、$BA$，再把结果和数的乘法规律一条条对照。先按「行乘列」算 $AB$`,
+          R`**算 $AB$**：$c_{11}=1\cdot(-1)+1\cdot1=0$，$c_{12}=1\cdot1+1\cdot(-1)=0$，$c_{21}=(-1)(-1)+(-1)\cdot1=0$，$c_{22}=(-1)\cdot1+(-1)(-1)=0$，所以 $AB=O$`,
+          R`**算 $BA$**：$c_{11}=(-1)\cdot1+1\cdot(-1)=-2$，$c_{12}=(-1)\cdot1+1\cdot(-1)=-2$，$c_{21}=1\cdot1+(-1)(-1)=2$，$c_{22}=1\cdot1+(-1)(-1)=2$，所以 $BA=\begin{pmatrix}-2&-2\\2&2\end{pmatrix}$`,
+          R`**性质一，不满足交换律**：$AB=O\neq BA$，同样两个矩阵换个顺序结果就不同（连「是否为零」都不同）`,
+          R`**性质二，有零因子**：$A\neq O$，$B\neq O$（都有非零元），乘积却是 $O$。所以「$AB=O\Rightarrow A=O$ 或 $B=O$」对矩阵不成立；数的这条性质来自「$ab=0$ 时不为零的数可以除掉」，矩阵不一定能除`,
+          R`**性质三，不满足消去律**：取 $C=O$，则 $AB=O=CB$，$B\neq O$，但 $A\neq C$。数的「$ab=cb,\ b\neq0\Rightarrow a=c$」在这里不成立（要消去，必须 $B$ 可逆，见 1.2 节）（教材 p6 注）`
         ],
         pitfall: R`看到 $AB=O$ 就写「所以 $A=O$ 或 $B=O$」；看到 $(A+B)^2$ 就写 $2AB$`,
         practice: "教材 例1.3（p6）；李永乐 第2章 p39 的三组反例"
       },
       {
         id: "t3", name: "求 Aⁿ：秩为 1 的矩阵（αβᵀ 型）",
-        signal: R`各行（列）成比例，能写成「一列乘一行」；或者题目直接给 $A=\alpha\beta^{\mathrm T}$、$\alpha^{\mathrm T}\beta$`,
+        signal: R`求高次幂 $A^n$，且各行（列）成比例；或者题目直接给 $A=\alpha\beta^{\mathrm T}$、$\alpha^{\mathrm T}\beta$`,
         example: { q: R`已知 $\alpha=(1,2,3)$，$\beta=\left(1,\frac12,\frac13\right)$，$A=\alpha^{\mathrm T}\beta$，求 $A^n$。`, src: "教材 练习题1.1 第3题 p9；同 30讲 例2.1 注(2) p55" },
         idea: {
           key: R`写成「列 × 行」，用结合律把中间的「行 × 列」变成数：$A^n=l^{n-1}A$，$l=\beta^{\mathrm T}\alpha=\operatorname{tr}(A)$。`,
@@ -248,9 +251,11 @@ $$A=\frac{A+A^{\mathrm T}}{2}+\frac{A-A^{\mathrm T}}{2}.$$`,
         },
         first: R`这里 $\alpha,\beta$ 是行向量，所以 $A=\alpha^{\mathrm T}\beta$ 是「列 × 行」，中间的数是 $\beta\alpha^{\mathrm T}$`,
         steps: [
-          R`$A=\begin{pmatrix}1\\2\\3\end{pmatrix}\left(1,\frac12,\frac13\right)=\begin{pmatrix}1&\frac12&\frac13\\2&1&\frac23\\3&\frac32&1\end{pmatrix}$`,
-          R`$\beta\alpha^{\mathrm T}=1\cdot1+\frac12\cdot2+\frac13\cdot3=3$（也就是 $\operatorname{tr}(A)=1+1+1=3$）`,
-          R`由结合律，$A^n=\alpha^{\mathrm T}(\beta\alpha^{\mathrm T})^{n-1}\beta=3^{n-1}A=3^{n-1}\begin{pmatrix}1&\frac12&\frac13\\2&1&\frac23\\3&\frac32&1\end{pmatrix}$`
+          R`**思路**：每行都是第一行的倍数（2 倍、3 倍），所以 $A=\alpha^{\mathrm T}\beta$ 是「列乘行」，秩为 1。这类矩阵的高次幂不用硬乘，利用结合律把中间的「行乘列」变成一个数`,
+          R`**写出 $A$**：$\alpha^{\mathrm T}$ 是 $3\times1$，$\beta$ 是 $1\times3$，乘积是 $3\times3$，$a_{ij}=\alpha_i\beta_j$：$A=\begin{pmatrix}1&\frac12&\frac13\\2&1&\frac23\\3&\frac32&1\end{pmatrix}$`,
+          R`**抓住中间那个数**：$A^n=\alpha^{\mathrm T}\beta\cdot\alpha^{\mathrm T}\beta\cdots\alpha^{\mathrm T}\beta$，相邻两个因子之间是 $\beta\alpha^{\mathrm T}$（$1\times3$ 乘 $3\times1$，是一个数），一共 $n-1$ 个。$\beta\alpha^{\mathrm T}=1\cdot1+\frac12\cdot2+\frac13\cdot3=3$，也等于 $\operatorname{tr}(A)=1+1+1=3$`,
+          R`**用结合律合并**：$A^n=\alpha^{\mathrm T}(\beta\alpha^{\mathrm T})(\beta\alpha^{\mathrm T})\cdots(\beta\alpha^{\mathrm T})\beta=\alpha^{\mathrm T}\cdot3^{n-1}\cdot\beta=3^{n-1}A$。数可以提到前面，所以最后是 $3^{n-1}$ 乘原矩阵`,
+          R`**检验**：$n=1$ 时 $3^0A=A$ 对；$n=2$ 时 $A^2=3A$，抽查 $(1,1)$ 元：$A$ 第 1 行 $(1,\frac12,\frac13)$ 乘第 1 列 $(1,2,3)^{\mathrm T}$ 得 $1+1+1=3=3a_{11}$ ✓。结果写成 $A^n=3^{n-1}\begin{pmatrix}1&\frac12&\frac13\\2&1&\frac23\\3&\frac32&1\end{pmatrix}$`
         ],
         pitfall: R`指数是 $n-1$ 不是 $n$；分清哪个乘积是数、哪个是矩阵`,
         practice: "30讲 例2.1（p54）；李永乐 第2章 例2.1、例2.2（p40–41）；教材 例1.6（p8）"
@@ -269,16 +274,18 @@ $$A=\frac{A+A^{\mathrm T}}{2}+\frac{A-A^{\mathrm T}}{2}.$$`,
         },
         first: R`$A=E+B$，$B=\begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix}$`,
         steps: [
-          R`$B^2=\begin{pmatrix}0&0&1\\0&0&0\\0&0&0\end{pmatrix}$，$B^3=O$，所以 $k\geqslant3$ 时 $B^k=O$`,
-          R`$E$ 与 $B$ 可交换，二项式定理成立：$A^n=E+nB+\frac{n(n-1)}{2}B^2$`,
-          R`$A^n=\begin{pmatrix}1&n&\frac{n(n-1)}{2}\\0&1&n\\0&0&1\end{pmatrix}$（$n=5$ 时为 $\begin{pmatrix}1&5&10\\0&1&5\\0&0&1\end{pmatrix}$，可代入验算）`
+          R`**思路**：$A$ 的主对角元全是 1，把对角部分拆出来：$A=E+B$，$B$ 只在主对角线上方一格有非零元（主对角线及其下方全是 0）。拆成 $E$ 加一块是因为 $E$ 和任何矩阵可交换，二项式定理 $(E+B)^n=\sum\mathrm C_n^kB^k$ 才能用；而 $B$ 的幂会越来越「靠边」，很快变成 $O$`,
+          R`**算 $B$ 的幂**：$B^2$ 的 $(1,3)$ 元是 $B$ 第 1 行 $(0,1,0)$ 乘 $B$ 第 3 列 $(0,1,0)^{\mathrm T}$，等于 1，其余元素都是 0，所以 $B^2=\begin{pmatrix}0&0&1\\0&0&0\\0&0&0\end{pmatrix}$；再乘一次，$B^3=B^2B=O$（非零元 1 在第 3 列，而 $B$ 的第 3 行全是 0）。因此 $k\geqslant3$ 时 $B^k=O$`,
+          R`**用二项式定理**：因为 $EB=BE$，$A^n=(E+B)^n=E+nB+\frac{n(n-1)}{2}B^2+\cdots$，从 $B^3$ 起全是 $O$，只剩前三项`,
+          R`**代入**：$A^n=\begin{pmatrix}1&0&0\\0&1&0\\0&0&1\end{pmatrix}+n\begin{pmatrix}0&1&0\\0&0&1\\0&0&0\end{pmatrix}+\frac{n(n-1)}{2}\begin{pmatrix}0&0&1\\0&0&0\\0&0&0\end{pmatrix}=\begin{pmatrix}1&n&\frac{n(n-1)}{2}\\0&1&n\\0&0&1\end{pmatrix}$`,
+          R`**检验**：$n=1$ 得 $A$；$n=5$ 得 $\begin{pmatrix}1&5&10\\0&1&5\\0&0&1\end{pmatrix}$，与直接连乘 5 次一致（已用代码验算）`
         ],
         pitfall: R`拆出来的两部分必须可交换才能用二项式；拆成两个一般矩阵（都不是 $kE$）时不能直接展开`,
         practice: "教材 例1.5（p7）、练习题1.1 第7题（p10）；李永乐 第2章 例2.4（p42）；1000题基础篇 第2章 第2题（p48）"
       },
       {
         id: "t5", name: "求 Aⁿ：算 A²、A³ 找规律",
-        signal: R`元素很规则（全是 $\pm1$、旋转矩阵、置换矩阵），或者看起来 $A^2$ 会很简单`,
+        signal: R`方阵的元素很规则（全是 $\pm1$、旋转矩阵、置换矩阵），要求高次幂 $A^n$，又不是秩为 1 型、也不是三角型`,
         example: { q: R`设 $A=\begin{pmatrix}1&-1&-1&-1\\-1&1&-1&-1\\-1&-1&1&-1\\-1&-1&-1&1\end{pmatrix}$，求 $A^9$。`, src: "30讲 第2讲 例2.2 p55" },
         idea: {
           key: R`先算 $A^2$（必要时 $A^3$），出现 $kE$、$kA$ 或 $E$，再按指数拆开。`,
@@ -290,8 +297,11 @@ $$A=\frac{A+A^{\mathrm T}}{2}+\frac{A-A^{\mathrm T}}{2}.$$`,
         },
         first: R`先算 $A^2$`,
         steps: [
-          R`$A^2=4E$（第 $i$ 行与第 $i$ 列点乘得 $1+1+1+1=4$，与其他列点乘得 $0$）`,
-          R`$A^9=(A^2)^4A=(4E)^4A=4^4A=256A$`
+          R`**思路**：这个矩阵元素全是 $\pm1$，很规则，直接算 $A^9$ 不现实。先算 $A^2$，看是否出现 $kE$ 这类「一碰就简单」的结果，再用 $A^9=(A^2)^4A$ 降幂`,
+          R`**算 $A^2$ 的对角元**：$A$ 的第 $i$ 行与第 $i$ 列相同（$A$ 对称），对应相乘是 $1^2+(\pm1)^2+\cdots$，四项都是 1，所以 $(A^2)_{ii}=4$`,
+          R`**算 $A^2$ 的非对角元**：例如第 1 行 $(1,-1,-1,-1)$ 乘第 2 列 $(-1,1,-1,-1)^{\mathrm T}$：$-1-1+1+1=0$。其他位置同理，四项里恰有两项为 $+1$、两项为 $-1$，所以全为 0。于是 $A^2=4E$`,
+          R`**另一种看法**（核对用）：$A=2E-J$，$J$ 是元素全为 1 的 4 阶矩阵，$J^2=4J$，所以 $A^2=4E-4J+J^2=4E-4J+4J=4E$`,
+          R`**降幂**：$A^9=A\cdot(A^2)^4=A(4E)^4=4^4A=256A$。也就是 $A^9=256A$，所有元素是 $\pm256$，对角元 $256$、其余 $-256$`
         ],
         pitfall: R`试算出规律后要写清用了哪一个等式（$A^2=4E$），不要直接猜答案；用归纳法时要写出归纳步骤`,
         practice: "教材 练习题1.1 第4题（p10，旋转矩阵）；1000题基础篇 第2章 第3题（p48）"
@@ -310,9 +320,11 @@ $$A=\frac{A+A^{\mathrm T}}{2}+\frac{A-A^{\mathrm T}}{2}.$$`,
         },
         first: R`设 $A=\begin{pmatrix}a&b\\b&c\end{pmatrix}$，把 $A^2$ 算出来`,
         steps: [
-          R`$A^2=\begin{pmatrix}a^2+b^2&ab+bc\\ab+bc&b^2+c^2\end{pmatrix}=O$`,
-          R`$(1,1)$ 元：$a^2+b^2=0$，$a,b$ 是实数，所以 $a=b=0$`,
-          R`$(2,2)$ 元：$b^2+c^2=0$，得 $c=0$。所以 $A=O$`
+          R`**思路**：「二阶对称矩阵」给出了形状——对称就是 $a_{12}=a_{21}$，所以可以只设 3 个字母；「$A^2=O$」是矩阵等式，展开后每个元素都是 0，得到关于 $a,b,c$ 的方程组`,
+          R`**设出 $A$ 并算 $A^2$**：$A=\begin{pmatrix}a&b\\b&c\end{pmatrix}$（$a,b,c$ 为实数），$A^2=\begin{pmatrix}a^2+b^2&ab+bc\\ab+bc&b^2+c^2\end{pmatrix}$（$(1,1)$ 元是 $(a,b)\cdot(a,b)$，$(1,2)$ 元是 $(a,b)\cdot(b,c)$，其余同理）`,
+          R`**令每个元素为 0**：$A^2=O$ 给出 $a^2+b^2=0$，$ab+bc=0$，$b^2+c^2=0$`,
+          R`**用「实数平方和为 0」**：由 $a^2+b^2=0$，两个实数的平方都不小于 0，和为 0 只能都等于 0，所以 $a=b=0$；再由 $b^2+c^2=0$ 得 $c=0$。于是 $A=O$。这里**用到了 $a,b,c$ 是实数**，不是对任意矩阵都成立`,
+          R`**反例核对条件**：去掉「对称」，$\begin{pmatrix}0&1\\0&0\end{pmatrix}^2=O$ 但它不是 $O$，说明对称这个条件不能丢`
         ],
         pitfall: R`不对称的矩阵结论不成立：$\begin{pmatrix}0&1\\0&0\end{pmatrix}^2=O$ 但它不是 $O$；用到的是「实数平方和为 0」`,
         practice: "教材 例1.7（p9）、练习题1.1 第8题（p10）"
@@ -331,8 +343,9 @@ $$A=\frac{A+A^{\mathrm T}}{2}+\frac{A-A^{\mathrm T}}{2}.$$`,
         },
         first: R`系数矩阵 $A=\begin{pmatrix}3&5\\2&7\end{pmatrix}$，$x=\begin{pmatrix}x\\y\end{pmatrix}$，$\beta=\begin{pmatrix}7\\4\end{pmatrix}$`,
         steps: [
-          R`矩阵形式：$\begin{pmatrix}3&5\\2&7\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}7\\4\end{pmatrix}$`,
-          R`向量形式：$x\begin{pmatrix}3\\2\end{pmatrix}+y\begin{pmatrix}5\\7\end{pmatrix}=\begin{pmatrix}7\\4\end{pmatrix}$`
+          R`**读出系数矩阵、未知列、常数列**：第一个方程系数 $3,5$，第二个 $2,7$，按原来的位置排成 $A=\begin{pmatrix}3&5\\2&7\end{pmatrix}$；未知数排成列 $x=\begin{pmatrix}x\\y\end{pmatrix}$；右边排成 $\beta=\begin{pmatrix}7\\4\end{pmatrix}$`,
+          R`**矩阵形式**：$Ax=\beta$，即 $\begin{pmatrix}3&5\\2&7\end{pmatrix}\begin{pmatrix}x\\y\end{pmatrix}=\begin{pmatrix}7\\4\end{pmatrix}$。可以乘开核对：第 1 行得 $3x+5y=7$，第 2 行得 $2x+7y=4$，就是原方程组`,
+          R`**向量形式**：把 $Ax$ 按列看，$Ax=x\cdot(\text{第 1 列})+y\cdot(\text{第 2 列})$，即 $x\begin{pmatrix}3\\2\end{pmatrix}+y\begin{pmatrix}5\\7\end{pmatrix}=\begin{pmatrix}7\\4\end{pmatrix}$。每个未知数乘的是它的**整列系数**，不是某个方程的那一行`
         ],
         pitfall: R`向量形式里 $\alpha_j$ 取的是列（每个未知数的系数），不是每个方程的那一行`,
         practice: "教材 练习题1.1 第6题（p10）"
@@ -351,9 +364,10 @@ $$A=\frac{A+A^{\mathrm T}}{2}+\frac{A-A^{\mathrm T}}{2}.$$`,
         },
         first: R`$A$ 与 $E$ 可交换，按二项式展开 $(A-2E)^3$`,
         steps: [
-          R`$(A-2E)^3=A^3-6A^2+12A-8E$`,
-          R`由 $A^2=A$ 得 $A^3=A$，代入：$A-6A+12A-8E=7A-8E$`,
-          R`$(A-2E)^3-3A=4A-8E$`
+          R`**思路**：条件 $A^2=A$ 能把高次幂降成一次，但前提是先把 $(A-2E)^3$ 展开。$A$ 与 $E$ 一定可交换，所以可以像 $(a-2)^3$ 那样用二项式展开；常数项要写成 $-8E$，不能写 $-8$`,
+          R`**展开**：$(A-2E)^3=A^3+3A^2(-2E)+3A(-2E)^2+(-2E)^3=A^3-6A^2+12A-8E$`,
+          R`**降次**：$A^2=A$，所以 $A^3=A\cdot A^2=A\cdot A=A^2=A$。代入：$A-6A+12A-8E=7A-8E$`,
+          R`**写出答案**：原式 $=(7A-8E)-3A=4A-8E$（展开式已用代码核对）`
         ],
         pitfall: R`常数项写成 $-8$ 而不是 $-8E$；含两个不同矩阵 $A,B$ 时不能这样展开`,
         practice: "1000题基础篇 第2章 第18题（p50）"
