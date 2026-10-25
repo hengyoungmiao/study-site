@@ -142,6 +142,7 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .cover-on .ci:not(.show) .cov * { pointer-events: none; }
 .cover-on .ci:not(.show) { cursor: pointer; }
 .cov { transition: filter .2s, opacity .2s; }
+.cover-on .tcard:not(:has(.ci.show)) .nm-tail { filter: blur(6px); opacity: .55; user-select: none; }
 .reveal-hint { display: none; font-size: 12px; color: var(--accent); font-weight: 400; }
 .cover-on .ci:not(.show) .reveal-hint { display: inline; }
 
@@ -1081,6 +1082,11 @@ function pointsHtml(d) {
       </div>
     </div>`).join("")}</section>`).join("")}</div>`;
 }
+// 卡名里"："后面常是方法，遮住通法时一并模糊，翻开通法后恢复
+function nameHtml(n) {
+  const m = /^([^：]*：)(.+)$/.exec(n);
+  return m ? `${md(m[1])}<span class="nm-tail">${md(m[2])}</span>` : md(n);
+}
 function ideaHtml(t) {
   const i = t.idea; if (!i) return "";
   return `<div class="row ci"><span class="lab">通法</span><div class="idea"><span class="reveal-hint">先说出这类题的通法，再点击显示</span><div class="cov">
@@ -1108,7 +1114,7 @@ function typesHtml(d) {
   <div class="cards ${cover ? "cover-on" : ""}" data-cover="coverIdea">${show.length ? show.map(t => {
     const i = types.indexOf(t) + 1, k = key(t);
     return `<article class="tcard panel" data-key="${k}">
-      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${md(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "研" ? `<span class="badge-t yan">研</span>` : ""}</div>
+      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${nameHtml(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "研" ? `<span class="badge-t yan">研</span>` : ""}</div>
       <div class="tc-body">
         <div class="row"><span class="lab">看到</span><div>${md(t.signal)}</div></div>
         <div class="row"><span class="lab">例题</span><div>${md(t.example.q)}<div class="src">${esc(t.example.src)}</div></div></div>

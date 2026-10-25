@@ -517,7 +517,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
       },
       {
         id: "t13", name: "求值域",
-        signal: R`问值域，选择题给几个区间`,
+        signal: R`问"值域是多少"，函数是几层复合（如 $\sin\dfrac{\pi x}{2(1+x^2)}$），或选择题给出几个区间`,
         example: { q: R`求 $y=\sin\dfrac{\pi x}{2(1+x^2)}$ 的值域。`, src: "吉米 第1章【25】p6" },
         idea: {
           key: R`由内向外传范围；单个函数用配方、基本不等式或单调性。`,
