@@ -130,11 +130,14 @@
             { src: "武忠祥 第1章第二节 p12", text: R`数列是无穷大量：$\forall M>0,\exists N$，当 $n>N$ 时，恒有 $|x_n|>M$。数列是无界变量：$\forall M>0,\exists N$，使 $|x_N|>M$。无穷大量一定是无界变量，但无界变量不一定是无穷大量` }
           ]
         },
+        think: R`四个选项的区别在"有界"和"趋于无穷"两个层次。$\sin\dfrac1x$ 在 $x\to0$ 时无穷次穿过 $0$，乘上 $\dfrac{1}{x^2}$ 后，在 $\sin=0$ 的点函数值是 0，在 $\sin=1$ 的点函数值巨大。所以取两串点分别检验：一串证明"不是无穷大"，一串证明"无界"。`,
         first: R`令 $u=\dfrac1x$，$x\to0$ 时 $u\to\infty$；分别取 $\sin u=0$ 和 $\sin u=1$ 的点`,
         steps: [
-          R`取 $x_k=\dfrac1{2k\pi}\to0$：$f(x_k)=(2k\pi)^2\sin2k\pi=0$，所以不是无穷大，排除 (B)`,
-          R`取 $y_k=\dfrac{1}{2k\pi+\frac{\pi}{2}}\to0$：$f(y_k)=\left(2k\pi+\dfrac{\pi}{2}\right)^2\to\infty$，所以在 $0$ 的任何去心邻域内无界。无穷小在 $0$ 附近有界（局部有界性），所以也不是无穷小，排除 (A)(C)`,
-          R`选 (D)`
+          R`换元看清结构：令 $u=\dfrac1x$，$x\to0$ 时 $u\to\infty$，变量为 $u^2\sin u$`,
+          R`取 $\sin u=0$ 的点：$x_k=\dfrac{1}{2k\pi}\to0$，$f(x_k)=(2k\pi)^2\sin2k\pi=0$。无穷大要求 $x$ 足够靠近 0 时 $|f|$ 都大于任意 $M$，而这些点上 $f=0$，所以不是无穷大，排除 (B)`,
+          R`取 $\sin u=1$ 的点：$y_k=\dfrac{1}{2k\pi+\frac{\pi}{2}}\to0$，$f(y_k)=\left(2k\pi+\dfrac{\pi}{2}\right)^2\to+\infty$。在 $0$ 的任何去心邻域里都有这样的点，所以无界，排除 (C)`,
+          R`无穷小在 $0$ 附近一定有界（有极限 ⇒ 局部有界），现在无界，所以也不是无穷小，排除 (A)`,
+          R`选 (D)：无界，但不是无穷大`
         ],
         pitfall: R`看到 $\dfrac1{x^2}\to\infty$ 就选"无穷大"；看到 $|\sin|\leqslant1$ 就选"有界"`,
         practice: "吉米【35】【36】（p10–11）；教材习题1-4 第6、7题（p36，答案 习题全解 p22–23）"
@@ -155,12 +158,14 @@
             { src: "吉米【37】p11", text: R`若 $x_n$ 有界，且 $y_n$ 无穷小，则 $\lim x_ny_n=0$，但反之不一定` }
           ]
         },
+        think: R`已知只有"乘积 $\to0$"，四个选项各推一个因子的性质。能把 $y_n$ 写成"已知量 × 已知量"的就能推出结论：(D) 里 $y_n=(x_ny_n)\cdot\dfrac1{x_n}$ 正好是两个无穷小相乘。其余选项都推不出来，用最简单的数列举反例。`,
         first: R`先试 (D)：$y_n=(x_ny_n)\cdot\dfrac1{x_n}$`,
         steps: [
-          R`(D)：$\dfrac1{x_n}\to0$，$x_ny_n\to0$，两个无穷小相乘仍是无穷小，$y_n\to0$，正确`,
-          R`(A)：$x_n=n$，$y_n=\dfrac1{n^2}$，$x_n$ 发散但 $y_n$ 收敛，错`,
-          R`(B)：$x_n=n,0,n,0,\cdots$，$y_n=0,n,0,n,\cdots$，乘积恒为 $0$，两个都无界，错`,
-          R`(C)：$x_n=\dfrac1{n^2}$（有界），$y_n=n$，乘积 $\to0$，但 $y_n$ 不是无穷小，错。选 (D)`
+          R`(D)：写成 $y_n=(x_ny_n)\cdot\dfrac{1}{x_n}$，两个因子都是无穷小，由"有限个无穷小的积是无穷小"（教材 1.5 推论），$y_n\to0$，正确`,
+          R`(A) 反例：$x_n=n$ 发散，$y_n=\dfrac1{n^2}$，乘积 $\dfrac1n\to0$，但 $y_n$ 收敛，错`,
+          R`(B) 反例：让两个数列错开：$x_n=n,0,n,0,\cdots$，$y_n=0,n,0,n,\cdots$，每项乘积都是 $0$，但两个都无界，错`,
+          R`(C) 反例：$x_n=\dfrac1{n^2}$ 有界，$y_n=n$，乘积 $\dfrac1n\to0$，但 $y_n$ 不是无穷小，错`,
+          R`选 (D)`
         ],
         pitfall: R`把"有界 × 无穷小 = 无穷小"倒过来用；以为乘积趋于 0 就一定有一个因子趋于 0`,
         practice: "吉米【37】（p11）；武忠祥 题型一 例3（p14）；学完 1.5 运算法则后再做一遍"
@@ -181,11 +186,13 @@
             { src: "30讲 p41", text: R`（脱帽法）$\lim\limits_{x\to\bullet}f(x)=A\Leftrightarrow f(x)=A+\alpha$，这里 $\lim\limits_{x\to\bullet}\alpha=0$` }
           ]
         },
+        think: R`本节两个定理就是工具：定理 1"$f\to A\iff f=A+\alpha$（$\alpha$ 无穷小）"，所以能拆成"常数 + 无穷小"就得到极限；定理 2"无穷大与无穷小互为倒数"，所以分母 $\to0$、分子不 $\to0$ 时，先看倒数是不是无穷小。`,
         first: R`(1) 拆成 $2+\dfrac1x$；(2) 约去 $1-x$；(3) 先看倒数`,
         steps: [
-          R`(1) $\dfrac{2x+1}{x}=2+\dfrac1x$，$\dfrac1x$ 是 $x\to\infty$ 时的无穷小（定理 2），由定理 1 极限为 $2$`,
-          R`(2) $x\neq1$ 时 $\dfrac{1-x^2}{1-x}=1+x=1+\alpha$，$\alpha=x$ 是 $x\to0$ 时的无穷小，极限为 $1$`,
-          R`(3) $\dfrac{x-1}{x+1}\to\dfrac02=0$ 且 $x\neq1$ 附近不为 $0$，由定理 2，$\lim\limits_{x\to1}\dfrac{x+1}{x-1}=\infty$（极限不存在）`
+          R`(1) 拆分：$\dfrac{2x+1}{x}=2+\dfrac1x$。$x\to\infty$ 时 $\dfrac1x$ 是 $x$ 这个无穷大的倒数，是无穷小（定理 2）；由定理 1，极限为 $2$`,
+          R`(2) $x\to0$ 时分母 $1-x\to1\neq0$，可以直接代；也可以先约分：$x\neq1$ 时 $\dfrac{1-x^2}{1-x}=1+x$，$x\to0$ 时 $x$ 是无穷小，由定理 1 极限为 $1$`,
+          R`(3) $x\to1$ 时分母 $\to0$、分子 $\to2\neq0$，不能用商的法则。看倒数：$\dfrac{x-1}{x+1}\to\dfrac{0}{2}=0$，是无穷小，且在 $x=1$ 附近（$x\neq1$）不为 $0$`,
+          R`由定理 2，无穷小（不为零）的倒数是无穷大，所以 $\lim\limits_{x\to1}\dfrac{x+1}{x-1}=\infty$，按定义这个极限不存在`
         ],
         pitfall: R`(3) 写成"$=\dfrac20=\infty$"——$0$ 不能当分母，要用倒数关系说明；结果是 $\infty$ 也要知道"极限不存在"`,
         practice: "教材习题1-4 第4题（p36；答案 习题全解 p21–22）"
@@ -206,11 +213,13 @@
             { src: "教材 p30", text: R`$\lim\limits_{x\to\infty}f(x)=A$ 时，直线 $y=A$ 是函数 $y=f(x)$ 的图形的水平渐近线` }
           ]
         },
+        think: R`水平渐近线看 $x\to\infty$ 时函数是否趋于常数；铅直渐近线看函数在哪些点趋于无穷，有理分式就是分母为零、分子不为零的点。两件事分开做。`,
         first: R`分 $x\to\infty$ 和分母零点 $x=\pm\sqrt2$ 两部分`,
         steps: [
-          R`$\lim\limits_{x\to\infty}\dfrac{4}{2-x^2}=0$，$y=0$ 是水平渐近线（习题全解 p23 印成"$x\to0$"，应为 $x\to\infty$）`,
-          R`$x\to\pm\sqrt2$ 时分母 $\to0$、分子为 $4$，$f(x)\to\infty$`,
-          R`所以 $x=-\sqrt2$、$x=\sqrt2$ 是铅直渐近线`
+          R`水平渐近线：$x\to\infty$ 时分母 $2-x^2\to-\infty$，分子是常数 4，所以 $f(x)\to0$，$y=0$ 是水平渐近线（习题全解 p23 印成"$x\to0$"，应为 $x\to\infty$）`,
+          R`找候选点：分母 $2-x^2=0$，得 $x=\pm\sqrt2$；这两点分子都是 $4\neq0$`,
+          R`验证：$x\to\pm\sqrt2$ 时分母 $\to0$，倒数 $\dfrac{2-x^2}{4}\to0$ 是无穷小，所以 $f(x)\to\infty$（定理 2）`,
+          R`结论：水平渐近线 $y=0$；铅直渐近线 $x=-\sqrt2$ 和 $x=\sqrt2$`
         ],
         pitfall: R`把所有分母零点都当铅直渐近线；水平渐近线去算 $x\to0$`,
         practice: "教材习题1-4 第8题（p36；答案 习题全解 p23）；渐近线的完整讲法在第三章"

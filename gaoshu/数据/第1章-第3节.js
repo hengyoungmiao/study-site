@@ -177,10 +177,14 @@
             { src: "30讲 例1.16 方法总结 p38", text: R`分段函数在分段点处的极限要考虑左、右极限；若 $\lim\limits_{x\to x_0^+}f(x)\neq\lim\limits_{x\to x_0^-}f(x)$，则 $\lim\limits_{x\to x_0}f(x)$ 不存在` }
           ]
         },
+        think: R`分段点两侧用的是不同的表达式，函数在那一点的极限要看两侧是否趋于同一个数：分别算左、右极限，相等才存在（教材 1.3 左右极限与极限的关系）。先把 $|x|>1$ 拆成 $x>1$、$x<-1$，弄清每个分段点两侧各是哪个式子。`,
         first: R`把 $|x|>1$ 拆开：$x<-1$ 和 $x>1$ 时 $f=x-2$；$-1\leqslant x\leqslant1$ 时 $f=x$`,
         steps: [
-          R`$x\to1$：$f(1^+)=\lim\limits_{x\to1^+}(x-2)=-1$，$f(1^-)=\lim\limits_{x\to1^-}x=1$，不相等，$\lim\limits_{x\to1}f(x)$ 不存在`,
-          R`$x\to-1$：$f(-1^+)=\lim\limits_{x\to-1^+}x=-1$，$f(-1^-)=\lim\limits_{x\to-1^-}(x-2)=-3$，不相等，$\lim\limits_{x\to-1}f(x)$ 也不存在（吉米转换稿最后一句印成"存在"，按计算应为不存在）`
+          R`拆条件：$|x|\leqslant1$ 即 $-1\leqslant x\leqslant1$，$f=x$；$|x|>1$ 即 $x>1$ 或 $x<-1$，$f=x-2$`,
+          R`$x=1$ 处：右侧 $x>1$ 用 $x-2$，$f(1^+)=1-2=-1$；左侧 $x<1$（靠近 1）用 $x$，$f(1^-)=1$`,
+          R`$f(1^+)\neq f(1^-)$，所以 $\lim\limits_{x\to1}f(x)$ 不存在`,
+          R`$x=-1$ 处：右侧 $x>-1$（靠近 $-1$）用 $x$，$f(-1^+)=-1$；左侧 $x<-1$ 用 $x-2$，$f(-1^-)=-3$`,
+          R`$f(-1^+)\neq f(-1^-)$，$\lim\limits_{x\to-1}f(x)$ 也不存在（吉米转换稿最后一句印成"存在"，按计算应为不存在）`
         ],
         pitfall: R`把分段点处的函数值当成极限；$|x|>1$ 只想到 $x>1$ 一侧`,
         practice: "吉米【32】（p9–10）；教材例6（p29）；30讲 例1.16（p38）"
@@ -202,11 +206,14 @@
             { src: "武忠祥 第1章第二节 p10–11", text: R`需要分左、右极限求极限的问题主要有三种：分段函数在分界点处的极限（包括带有绝对值的函数）；$\mathrm e^{\infty}$ 型极限；$\arctan\infty$ 型极限` }
           ]
         },
+        think: R`$\dfrac{|x|}{x}$ 和 $a^{\frac1x}$ 在 $x=0$ 两侧表现完全不同：$|x|$ 在两侧去绝对值的符号不同；$\dfrac1x$ 在右侧 $\to+\infty$、左侧 $\to-\infty$，使 $a^{\frac1x}$ 一边爆炸、一边趋于 0。所以必须分左右算。`,
         first: R`$x\to0^+$ 时 $\dfrac1x\to+\infty$，$a^{\frac1x}\to+\infty$；$x\to0^-$ 时 $\dfrac1x\to-\infty$，$a^{\frac1x}\to0$`,
         steps: [
-          R`$f(0^+)=\lim\limits_{x\to0^+}\dfrac{x}{x}=1$，$f(0^-)=\lim\limits_{x\to0^-}\dfrac{-x}{x}=-1$，不相等，$\lim\limits_{x\to0}f(x)$ 不存在`,
-          R`$g(0^+)=\lim\limits_{x\to0^+}\dfrac{a^{-\frac1x}-1}{a^{-\frac1x}+1}=\dfrac{0-1}{0+1}=-1$（分子分母同除 $a^{\frac1x}$）`,
-          R`$g(0^-)=\dfrac{1-0}{1+0}=1$，与右极限不等，$\lim\limits_{x\to0}g(x)$ 不存在`
+          R`$f$ 的右极限：$x>0$ 时 $|x|=x$，$f(x)=1$，$f(0^+)=1$`,
+          R`$f$ 的左极限：$x<0$ 时 $|x|=-x$，$f(x)=-1$，$f(0^-)=-1$；左右不等，$\lim\limits_{x\to0}f(x)$ 不存在`,
+          R`$g$ 的右极限：$x\to0^+$ 时 $\dfrac1x\to+\infty$，$a>1$ 所以 $a^{\frac1x}\to+\infty$，是 $\frac\infty\infty$ 型；分子分母同除 $a^{\frac1x}$：$g=\dfrac{a^{-\frac1x}-1}{a^{-\frac1x}+1}\to\dfrac{0-1}{0+1}=-1$`,
+          R`$g$ 的左极限：$x\to0^-$ 时 $\dfrac1x\to-\infty$，$a^{\frac1x}\to0$，直接代入：$g\to\dfrac{1-0}{1+0}=1$`,
+          R`$g(0^+)=-1\neq g(0^-)=1$，$\lim\limits_{x\to0}g(x)$ 不存在`
         ],
         pitfall: R`把 $\mathrm e^{\frac1x}$（$x\to0$）一律写成 $\infty$；忘了 $a^{\frac1x}$ 在左侧趋于 $0$`,
         practice: R`吉米【34】（p10）；教材习题1-3 第4题（p32，答案 习题全解 p17）；30讲 例1.15（p37–38）；1000题 第1章第6题（要用 1.6 的 $\frac{\sin x}{x}\to1$，学完 1.6 再做）`
@@ -227,11 +234,13 @@
             { src: "30讲 第2讲 例2.7 p84", text: R`取 $x_n=\dfrac1{n\pi}$ 得 $f(x_n)=0$；取 $x_n'=\dfrac{1}{(2n+\frac12)\pi}$ 得 $f(x_n')\to+\infty$。根据归结原则，$\lim\limits_{x\to0}\dfrac1x\sin\dfrac1x$ 不存在` }
           ]
         },
+        think: R`$x\sin x$ 中 $\sin x$ 在 $-1$ 到 $1$ 之间不停振荡，乘上 $x$ 后时而为 0、时而很大，猜极限不存在。依据海涅定理（教材 1.3 定理 4）：若极限存在，沿任何趋于 $+\infty$ 的数列函数值都趋于同一个数；所以只要找两条数列让函数值极限不同。挑让 $\sin x$ 取 $0$ 和 $1$ 的点最好算。`,
         first: R`让 $\sin x$ 分别等于 $0$ 和 $1$：取 $x_n=n\pi$，$y_n=2n\pi+\dfrac{\pi}{2}$`,
         steps: [
-          R`$x_n=n\pi\to+\infty$，$f(x_n)=n\pi\sin n\pi=0\to0$`,
-          R`$y_n=2n\pi+\dfrac{\pi}{2}\to+\infty$，$f(y_n)=2n\pi+\dfrac{\pi}{2}\to+\infty$`,
-          R`两条数列的函数值极限不同，由定理 4，$\lim\limits_{x\to+\infty}x\sin x$ 不存在`
+          R`第一条：让 $\sin x=0$，取 $x_n=n\pi\to+\infty$，$f(x_n)=n\pi\cdot\sin n\pi=0$，极限为 $0$`,
+          R`第二条：让 $\sin x=1$，取 $y_n=2n\pi+\dfrac{\pi}{2}\to+\infty$，$f(y_n)=\left(2n\pi+\dfrac{\pi}{2}\right)\cdot1\to+\infty$`,
+          R`两条数列都趋于 $+\infty$，但函数值的极限一个是 $0$、一个是 $+\infty$，不相同`,
+          R`由定理 4（函数极限与数列极限的关系），$\lim\limits_{x\to+\infty}x\sin x$ 不存在`
         ],
         pitfall: R`只取一条数列算出某个值，就说函数极限等于它；取的数列没有趋于目标点`,
         practice: "吉米【33】（p10）；30讲 第2讲 例2.7（p84）"
@@ -252,11 +261,14 @@
             { src: "武忠祥 p10", text: R`在函数极限中 $x\to\infty$ 是指 $|x|\to+\infty$，而在数列极限中，$n\to\infty$ 是指 $n\to+\infty$` }
           ]
         },
+        think: R`$x\to\infty$ 包含 $x\to+\infty$ 和 $x\to-\infty$ 两个方向，极限存在要求两个方向趋于同一个数。$\mathrm e^x$、$\arctan x$ 在正负两端的表现完全不同，所以分两路算再比较。`,
         first: R`分 $x\to+\infty$ 和 $x\to-\infty$ 两路`,
         steps: [
-          R`(1) $x\to+\infty$ 时 $\mathrm e^x\to+\infty$，$x\to-\infty$ 时 $\mathrm e^x\to0$，不存在`,
-          R`(2) 两侧分别趋于 $\dfrac{\pi}{2}$ 和 $-\dfrac{\pi}{2}$，不存在`,
-          R`(3) $x\to+\infty$：$\dfrac{1}{1+\mathrm e^{-x}}\to1$；$x\to-\infty$：分子 $\to0$，分母 $\to1$，结果 $\to0$。不相等，不存在`
+          R`(1) $x\to+\infty$ 时 $\mathrm e^x\to+\infty$；$x\to-\infty$ 时 $\mathrm e^x\to0$。两路不同，$\lim\limits_{x\to\infty}\mathrm e^x$ 不存在`,
+          R`(2) $\arctan x$ 的图像有两条水平渐近线：$x\to+\infty$ 时 $\to\dfrac{\pi}{2}$，$x\to-\infty$ 时 $\to-\dfrac{\pi}{2}$。两路不同，不存在`,
+          R`(3) $x\to+\infty$：分子分母同除 $\mathrm e^x$，$\dfrac{1}{1+\mathrm e^{-x}}\to\dfrac{1}{1+0}=1$`,
+          R`$x\to-\infty$：$\mathrm e^x\to0$，直接代入 $\dfrac{0}{0+1}=0$`,
+          R`两路分别是 $1$ 和 $0$，不相等，$\lim\limits_{x\to\infty}\dfrac{\mathrm e^x}{\mathrm e^x+1}$ 不存在`
         ],
         pitfall: R`把 $x\to\infty$ 当成 $x\to+\infty$；数列里 $n\to\infty$ 不用分，函数里要分`,
         practice: "30讲 p36–37 唯一性说明的五个例子；武忠祥 p11"
@@ -277,11 +289,13 @@
             { src: "吉米【28】点评 p8", text: R`验证法：把可供选择的备选项代入题目中已知条件进行验算，从而得到正确选项` }
           ]
         },
+        think: R`夹逼准则要求两边的函数极限都存在且相等。题目只给"差趋于 0"，两边自己可能都趋于无穷，夹逼用不上。所以结论"不一定"，要用两个例子：一个极限不存在，一个极限存在。`,
         first: R`注意题目没说 $\varphi$、$g$ 的极限存在`,
         steps: [
-          R`取 $\varphi=x$，$f=x+\mathrm e^{-|x|}$，$g=x+2\mathrm e^{-|x|}$：满足条件，$g-\varphi=\mathrm e^{-|x|}\to0$，但 $f\to\infty$，极限不存在，排除 (A)(B)`,
-          R`取 $\varphi=0$，$f=\mathrm e^{-|x|}$，$g=2\mathrm e^{-|x|}$：$f\to0$，极限存在，排除 (C)`,
-          R`选 (D)`
+          R`对照夹逼准则（教材 1.6 准则 I'）：需要 $\lim\varphi=\lim g=A$。题目只有 $\lim(g-\varphi)=0$，少了"两边各自有极限"`,
+          R`反例一（极限不存在）：$\varphi=x$，$f=x+\mathrm e^{-|x|}$，$g=x+2\mathrm e^{-|x|}$。因为 $0<\mathrm e^{-|x|}<2\mathrm e^{-|x|}$，有 $\varphi\leqslant f\leqslant g$；$g-\varphi=2\mathrm e^{-|x|}\to0$；但 $f\to\infty$，排除 (A)(B)`,
+          R`例二（极限存在）：$\varphi=0$，$f=\mathrm e^{-|x|}$，$g=2\mathrm e^{-|x|}$，满足条件且 $f\to0$，排除 (C)`,
+          R`选 (D)：不一定存在`
         ],
         pitfall: R`看到"夹着"就用夹逼准则；夹逼准则（1.6）要求两边极限存在且相等`,
         practice: "吉米【31】（p9）；学完 1.6 夹逼准则后再回看"
@@ -302,11 +316,13 @@
             { src: "30讲 p40", text: R`$\lim f>0\Rightarrow f>0$（脱帽严格不等）；$f\geqslant0\Rightarrow\lim f\geqslant0$（戴帽非严格不等）` }
           ]
         },
+        think: R`要判断 $f$ 在 $0$ 附近的符号，已知的是分式 $\dfrac{f(x)}{1-\cos x}$ 的极限是负数。局部保号性说：极限为负，则附近函数值为负。所以对整个分式用保号性，再看分母的符号，就能推出 $f$ 的符号。`,
         first: R`对整个分式 $\dfrac{f(x)}{1-\cos x}$ 用局部保号性`,
         steps: [
-          R`极限 $-1<0$，由局部保号性，存在 $\delta>0$，当 $0<|x|<\delta$ 时 $\dfrac{f(x)}{1-\cos x}<0$`,
-          R`$0<|x|<\delta$（$\delta$ 取小于 $2\pi$）时 $1-\cos x>0$`,
-          R`所以两侧都有 $f(x)<0$，选 (D)（30讲 用等价无穷小 $1-\cos x\sim\frac{x^2}{2}$ 先化成 $\frac{f}{x^2}$，结论相同）`
+          R`对分式用局部保号性（教材 1.3 定理 3）：极限 $-1<0$，所以存在 $\delta>0$，当 $0<|x|<\delta$ 时 $\dfrac{f(x)}{1-\cos x}<0$`,
+          R`分母的符号：$\cos x\leqslant1$，且只在 $x=2k\pi$ 处等于 1；取 $\delta<2\pi$，则 $0<|x|<\delta$ 时 $1-\cos x>0$`,
+          R`分式为负、分母为正，所以分子 $f(x)<0$，左右两侧都成立`,
+          R`选 (D)。另一种做法（30讲）：$1-\cos x\sim\dfrac{x^2}{2}$，原极限化为 $\lim\dfrac{2f(x)}{x^2}=-1$，同样得两侧 $f<0$`
         ],
         pitfall: R`只看到"极限是 $-1$"就以为 $f$ 在 $0$ 处变号；保号性只在去心邻域内成立，$f(0)$ 要另外用连续性说（$f(0)=0$）`,
         practice: "30讲 例1.18（p40–41）"

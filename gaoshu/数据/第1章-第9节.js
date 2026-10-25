@@ -179,12 +179,15 @@
             { src: "吉米【79】p22", text: R`$f(x)=\ln(9-x^2)$ 的连续区间：由 $9-x^2>0$ 得 $(-3,3)$` }
           ]
         },
+        think: R`$f$ 是有理分式，属于初等函数，在定义区间内处处连续（教材 1.9），所以连续区间就是定义域拆成的几个区间；求极限时，点在定义区间内就直接代入，在区间外（无定义的点）就先约分或看倒数。关键是先把分子分母因式分解。`,
         first: R`先分解因式找出无定义的点`,
         steps: [
-          R`$x^2+x-6=(x+3)(x-2)$，$x=-3$、$x=2$ 无定义，连续区间为 $(-\infty,-3)$、$(-3,2)$、$(2,+\infty)$（初等函数在定义区间内连续）`,
-          R`$x\neq-3$ 时 $f(x)=\dfrac{(x^2-1)(x+3)}{(x+3)(x-2)}=\dfrac{x^2-1}{x-2}$`,
-          R`$0$ 在定义区间内，代入：$\lim\limits_{x\to0}f(x)=\frac12$；$x\to-3$ 用化简式：$\lim\limits_{x\to-3}f(x)=\dfrac{9-1}{-5}=-\dfrac85$`,
-          R`$x\to2$：分子 $\to3$，分母 $\to0$，$\lim\limits_{x\to2}f(x)=\infty$`
+          R`分母分解：$x^2+x-6=(x+3)(x-2)$，所以 $x=-3$、$x=2$ 无定义`,
+          R`连续区间：初等函数在定义区间内连续，连续区间为 $(-\infty,-3)$、$(-3,2)$、$(2,+\infty)$`,
+          R`分子分解（分组）：$x^3+3x^2-x-3=x^2(x+3)-(x+3)=(x^2-1)(x+3)$。$x\neq-3$ 时 $f(x)=\dfrac{x^2-1}{x-2}$`,
+          R`$x\to0$：$0$ 在定义区间内，直接代入 $f(0)=\dfrac{-3}{-6}=\dfrac12$`,
+          R`$x\to-3$：$-3$ 处无定义，但极限只看附近，用约分后的式子：$\dfrac{9-1}{-3-2}=-\dfrac85$（$x=-3$ 是可去间断点）`,
+          R`$x\to2$：分子 $\to3\neq0$，分母 $\to0$，倒数 $\to0$，所以 $\lim\limits_{x\to2}f(x)=\infty$（$x=2$ 是无穷间断点）`
         ],
         pitfall: R`把 $x=-3$ 也当成"能代入"的点（它不在定义域里，求的是极限，用化简后的式子）；把"$=\infty$"写成"$=f(2)$"`,
         practice: "教材习题1-9 第1题（p63）；吉米【79】（p22）"
@@ -205,12 +208,15 @@
             { src: "吉米【91】p25", text: R`讨论 $x=-1$ 及 $x=8$ 处的左、右极限，$f^{-1}(x)$ 在 $x=-1$ 及 $x=8$ 均连续，故 $f^{-1}(x)$ 无间断点` }
           ]
         },
+        think: R`分段函数的反函数要逐段求：每段在自己的定义区间上单调，可以反解；反函数的各段自变量范围就是原函数各段的值域。反函数的连续性只可能在新的分段点（原函数分段点的函数值）出问题，所以先求每段值域，再在新分段点比较左右极限和函数值。`,
         first: R`先求每段的值域：$(-\infty,-1)$、$[-1,8]$、$(8,+\infty)$`,
         steps: [
-          R`$x<-1$：$y=1-2x^2<-1$，$x=-\sqrt{\dfrac{1-y}2}$（$x<0$ 取负号）`,
-          R`$-1\leqslant x\leqslant2$：$y=x^3\in[-1,8]$，$x=\sqrt[3]y$；$x>2$：$y=12x-16>8$，$x=\dfrac{y+16}{12}$`,
-          R`$f^{-1}(x)=\begin{cases}-\sqrt{\frac{1-x}2},&x<-1\\\sqrt[3]x,&-1\leqslant x\leqslant8\\\frac{x+16}{12},&x>8\end{cases}$`,
-          R`$x=-1$：左极限 $-\sqrt1=-1$，函数值 $\sqrt[3]{-1}=-1$；$x=8$：右极限 $\frac{24}{12}=2=\sqrt[3]8$。反函数没有间断点`
+          R`各段值域：$x<-1$ 时 $x^2>1$，$y=1-2x^2<-1$；$-1\leqslant x\leqslant2$ 时 $y=x^3\in[-1,8]$；$x>2$ 时 $y=12x-16>8$。三段值域恰好拼成 $\mathbb R$，互不重叠`,
+          R`第一段反解：$x^2=\dfrac{1-y}{2}$，因为 $x<-1<0$ 取负根，$x=-\sqrt{\dfrac{1-y}{2}}$，$y<-1$`,
+          R`第二段：$x=\sqrt[3]y$，$-1\leqslant y\leqslant8$；第三段：$x=\dfrac{y+16}{12}$，$y>8$`,
+          R`交换记号：$f^{-1}(x)=\begin{cases}-\sqrt{\frac{1-x}{2}},&x<-1\\\sqrt[3]x,&-1\leqslant x\leqslant8\\\frac{x+16}{12},&x>8\end{cases}$`,
+          R`连续性：各段内部是初等函数，连续；查新分段点。$x=-1$：左极限 $-\sqrt{\frac{2}{2}}=-1$，函数值 $\sqrt[3]{-1}=-1$，相等；$x=8$：函数值 $\sqrt[3]8=2$，右极限 $\dfrac{8+16}{12}=2$，相等`,
+          R`所以 $f^{-1}$ 处处连续，没有间断点（原函数本身也连续：$f(-1^-)=-1=f(-1)$，$f(2^+)=8=f(2)$）`
         ],
         pitfall: R`开方漏负号（$x<-1$ 时 $x$ 是负的）；反函数的分段点还写成原来的 $-1$、$2$`,
         practice: "吉米【91】（p25）；1.1 题型「求分段函数的反函数」"
@@ -232,12 +238,14 @@
             { src: "教材 第九节 p61", text: R`在定理 3 的条件下，求复合函数 $f[g(x)]$ 的极限时，函数符号 $f$ 与极限号 $\lim\limits_{x\to x_0}$ 可以交换次序` }
           ]
         },
+        think: R`外层是连续函数时，极限号可以移进去：$\lim f[g(x)]=f[\lim g(x)]$（复合函数的连续性，教材 1.9 定理 3）。所以先认出外层函数（$\ln$、$\mathrm e^u$、根号），只求里面的极限，再代进外层。(4) 不是复合形式，是 $\frac00$，先有理化。`,
         first: R`认出外层函数，先算里面的极限`,
         steps: [
-          R`(1) $\ln$ 连续：$=\ln\left(2\cos\frac\pi3\right)=\ln1=0$`,
-          R`(2) $\dfrac{\sin x}x\to1$，$\ln$ 在 $1$ 处连续：$=\ln1=0$`,
-          R`(3) $\frac1x\to0$，$\mathrm e^u$ 在 $0$ 连续：$=\mathrm e^0=1$`,
-          R`(4) 分子有理化：$\dfrac{\sqrt{x+1}-1}x=\dfrac1{\sqrt{x+1}+1}\to\dfrac12$（$\sqrt{\ }$ 连续，代入）`
+          R`(1) 外层 $\ln$，里面 $2\cos2x$ 在 $\frac{\pi}{6}$ 连续：$2\cos\frac{\pi}{3}=1$，原式 $=\ln1=0$`,
+          R`(2) 里面 $\dfrac{\sin x}{x}\to1$（重要极限），$\ln u$ 在 $u=1$ 处连续，极限号移进去：$\ln1=0$`,
+          R`(3) 里面 $\dfrac1x\to0$，$\mathrm e^u$ 在 $u=0$ 处连续：$\mathrm e^0=1$`,
+          R`(4) $\frac00$ 型，分子有理化：$\dfrac{\sqrt{x+1}-1}{x}=\dfrac{(x+1)-1}{x(\sqrt{x+1}+1)}=\dfrac{1}{\sqrt{x+1}+1}$`,
+          R`(4) 现在根号连续，直接代 $x=0$：$\dfrac{1}{1+1}=\dfrac12$`
         ],
         pitfall: R`外层在 $u_0$ 不连续时也交换（见易错点）；(2) 写成 $\ln\sin x-\ln x$ 再分别求极限，两项都不存在`,
         practice: "教材习题1-9 第3题、第4题(1)–(3)（p63）；答案对照习题全解 p37–39"
@@ -259,11 +267,14 @@
             { src: "教材 第九节 例 6 p62", text: R`$\lim\limits_{x\to0}\dfrac{a^x-1}x=\ln a$` }
           ]
         },
+        think: R`本节由连续性推出三个等价：$\ln(1+\square)\sim\square$，$\mathrm e^\square-1\sim\square$，$a^\square-1\sim\square\ln a$。用它们的前提是式子变形成"$\square\to0$"的标准样子：(1) 趋于 $\mathrm e$ 而非 0，平移 $t=x-\mathrm e$；(2) 分子四项相加，因式分解成乘积；(3) $x\to+\infty$，倒代换 $t=\frac1x$。`,
         first: R`(1) 令 $t=x-\mathrm e$；(2) 分子因式分解；(3) 令 $t=\frac1x$`,
         steps: [
-          R`(1) $\ln x-1=\ln\left(1+\frac t{\mathrm e}\right)\sim\frac t{\mathrm e}$，原式 $=\frac1{\mathrm e}$`,
-          R`(2) 分子 $=(\mathrm e^{2x}-1)(\mathrm e^x-1)\sim2x\cdot x$，分母 $(1-x^2)^{\frac13}-1\sim-\frac13x^2$，原式 $=\dfrac{2x^2}{-\frac13x^2}=-6$`,
-          R`(3) $t=\frac1x\to0^+$，原式 $=\lim\limits_{t\to0^+}\left(\dfrac{2^t-1}t-\dfrac{3^t-1}t\right)=\ln2-\ln3=\ln\dfrac23$`
+          R`(1) 令 $t=x-\mathrm e\to0$：$\ln x-1=\ln x-\ln\mathrm e=\ln\dfrac{\mathrm e+t}{\mathrm e}=\ln\left(1+\dfrac t{\mathrm e}\right)\sim\dfrac{t}{\mathrm e}$，原式 $=\lim\dfrac{t/\mathrm e}{t}=\dfrac1{\mathrm e}$`,
+          R`(2) 分子分组：$\mathrm e^{3x}-\mathrm e^{2x}-\mathrm e^x+1=\mathrm e^{2x}(\mathrm e^x-1)-(\mathrm e^x-1)=(\mathrm e^{2x}-1)(\mathrm e^x-1)\sim2x\cdot x=2x^2$`,
+          R`(2) 分母：$(1-x)(1+x)=1-x^2$，$(1-x^2)^{\frac13}-1\sim\dfrac13(-x^2)=-\dfrac{x^2}{3}$。原式 $=\dfrac{2x^2}{-x^2/3}=-6$`,
+          R`(3) 令 $t=\dfrac1x\to0^+$：原式 $=\lim\limits_{t\to0^+}\dfrac{2^t-3^t}{t}=\lim\left(\dfrac{2^t-1}{t}-\dfrac{3^t-1}{t}\right)$（加一项减一项 1，拆成两个标准形式）`,
+          R`(3) $a^t-1\sim t\ln a$，两项分别 $\to\ln2$、$\ln3$，原式 $=\ln2-\ln3=\ln\dfrac23$`
         ],
         pitfall: R`(2) 分子各项分别替换成 $3x-2x-x=0$，得出错误结论；(3) 1000题 解析用洛必达，这里用 $a^t-1\sim t\ln a$ 不需要导数`,
         practice: "教材习题1-9 第4题(6)–(9)（p63）；1000题 第1章第10、15题"
@@ -285,11 +296,14 @@
             { src: "30讲 第1讲 例1.33 p62", text: R`如果 $\lim u^v$ 属于"$1^\infty$"型，则 $\lim u^v=\mathrm e^{\lim(u-1)v}$。整体"抄"，不要只算指数部分` }
           ]
         },
+        think: R`三个底数都 $\to1$、指数都 $\to\infty$，是 $1^\infty$ 型，统一用 $\lim u^v=\mathrm e^{\lim v(u-1)}$。差别在 $u-1$ 怎么写得简单：(2) 分式减 1 通分；(3) 底数是和，直接减 1 不好算，平方后变成 $1+\sin\frac2x$ 更简洁（指数跟着减半）。`,
         first: R`三题的底数都 $\to1$、指数 $\to\infty$，都是 $1^\infty$ 型`,
         steps: [
-          R`(1) 指数：$\frac x2\cdot\frac1x=\frac12$，原式 $=\mathrm e^{\frac12}=\sqrt{\mathrm e}$`,
-          R`(2) $u-1=\dfrac{-3}{6+x}$，$v(u-1)=\dfrac{-3(x-1)}{2(6+x)}\to-\dfrac32$，原式 $=\mathrm e^{-\frac32}$`,
-          R`(3) 平方：$\left(\cos\frac1x+\sin\frac1x\right)^2=1+\sin\frac2x$，原式 $=\left(1+\sin\frac2x\right)^{\frac x4}$，指数 $\frac x4\sin\frac2x\to\frac12$，原式 $=\sqrt{\mathrm e}$`
+          R`(1) $u-1=\dfrac1x$，$v=\dfrac x2$，$v(u-1)=\dfrac12$，原式 $=\mathrm e^{\frac12}=\sqrt{\mathrm e}$`,
+          R`(2) 通分：$u-1=\dfrac{3+x}{6+x}-1=\dfrac{-3}{6+x}$；$v(u-1)=\dfrac{x-1}{2}\cdot\dfrac{-3}{6+x}=\dfrac{-3(x-1)}{2(x+6)}\to-\dfrac32$（同除 $x$），原式 $=\mathrm e^{-\frac32}$`,
+          R`(3) 平方底数：$\left(\cos\frac1x+\sin\frac1x\right)^2=\cos^2\frac1x+\sin^2\frac1x+2\sin\frac1x\cos\frac1x=1+\sin\frac2x$`,
+          R`(3) 所以原式 $=\left(1+\sin\frac2x\right)^{\frac x4}$。$v(u-1)=\dfrac x4\sin\dfrac2x$，令 $t=\frac2x\to0$，$=\dfrac{\sin t}{2t}\to\dfrac12$`,
+          R`(3) 原式 $=\mathrm e^{\frac12}=\sqrt{\mathrm e}$`
         ],
         pitfall: R`$1^\infty$ 型写成 $1^\infty=1$；算出指数 $A$ 后忘了写成 $\mathrm e^A$`,
         practice: "教材习题1-9 第4题(3)–(5)（p63）；1000题 第1章第16题；30讲 例1.33（p62）"
@@ -309,12 +323,13 @@
             { src: "习题全解 习题1-9 第5题 p40", text: R`(1) 错，$\varphi=\operatorname{sgn}x$，$f=\mathrm e^x$，$\varphi[f(x)]\equiv1$；(2) 错；(3) 对，$f=|x|+1$，$f[\varphi(x)]\equiv2$；(4) 对，若 $F=\frac\varphi f$ 处处连续，则 $\varphi=F\cdot f$ 也处处连续，矛盾` }
           ]
         },
+        think: R`"必有间断点"要么反证（假设连续，推出 $\varphi$ 也连续，矛盾），要么举反例否定。能反证的关键是能从新函数里用连续运算"解出"$\varphi$：$\frac\varphi f$ 乘 $f$ 就回到 $\varphi$；而复合、平方会丢失信息（平方丢符号，外层只取到某些值），解不回去，常常能举出处处连续的反例。`,
         first: R`逐条想：能不能从这个函数"解出"$\varphi$？`,
         steps: [
-          R`(1) 错：$\varphi=\operatorname{sgn}x$，$f=\mathrm e^x>0$，$\varphi[f(x)]\equiv1$ 处处连续`,
-          R`(2) 错：$\varphi=1\ (x\in\mathbb Q)$、$-1\ (x\notin\mathbb Q)$，$\varphi^2\equiv1$`,
-          R`(3) 对：同上 $\varphi$，$f=|x|+1$，$f[\varphi(x)]\equiv2$ 处处连续`,
-          R`(4) 对：若 $\frac\varphi f$ 处处连续，则 $\varphi=\frac\varphi f\cdot f$ 是两个连续函数之积，也处处连续，与已知矛盾`
+          R`(1) 错。$\varphi=\operatorname{sgn}x$ 在 0 处间断；取 $f=\mathrm e^x>0$，$f$ 的值都是正数，$\varphi[f(x)]=\operatorname{sgn}(\mathrm e^x)\equiv1$，处处连续。外层只用到了 $\varphi$ 连续的那一部分`,
+          R`(2) 错。$\varphi=\begin{cases}1,&x\in\mathbb Q\\-1,&x\notin\mathbb Q\end{cases}$ 处处间断，但 $\varphi^2\equiv1$ 连续。平方把符号抹掉了`,
+          R`(3) 对（"未必"）。同一个 $\varphi$，取 $f=|x|+1$（连续且不为 0），$f[\varphi(x)]=|\pm1|+1\equiv2$，处处连续`,
+          R`(4) 对。反证：若 $\dfrac{\varphi}{f}$ 处处连续，则 $\varphi=\dfrac{\varphi}{f}\cdot f$ 是两个连续函数之积，也处处连续，与 $\varphi$ 有间断点矛盾`
         ],
         pitfall: R`以为"有间断点的函数参与运算，结果一定间断"`,
         practice: "教材习题1-9 第2、5题（p63–64）；答案对照习题全解 p37、p40"
@@ -335,11 +350,15 @@
             { src: "教材 第八节 p55", text: R`$f$ 在 $x_0$ 连续即 $\lim\limits_{x\to x_0}f(x)=f(x_0)$；区间端点只要求单侧连续` }
           ]
         },
+        think: R`$f$ 在 $x=1,2$ 处无定义，要在 $[1,2]$ 上连续，就要补定义：$f(1)$ 取右极限，$f(2)$ 取左极限。两个极限都是 $\frac00$ 型，含 $2^{1-x}$，平移让 $\square\to0$ 后可以用 $a^\square-1\sim\square\ln a$。`,
         first: R`$f(1)=\lim\limits_{x\to1^+}f(x)$，令 $t=1-x$`,
         steps: [
-          R`$x=1-t$：分子 $1-(1-t)2^t=(1-2^t)+t\cdot2^t$，分母 $(1+t)t$，$f(1)=\lim\limits_{t\to0}\dfrac{\frac{1-2^t}t+2^t}{1+t}=-\ln2+1$`,
-          R`$x=2+t$：分子 $1-(2+t)2^{-1-t}=(1-2^{-t})-\frac t2\cdot2^{-t}$，分母 $t(1+t)$，$f(2)=\ln2-\frac12$`,
-          R`$f(1)f(2)=(1-\ln2)\left(\ln2-\frac12\right)=-\frac12+\frac32\ln2-\ln^22$`
+          R`连续的要求：$f(1)=\lim\limits_{x\to1^+}f(x)$，$f(2)=\lim\limits_{x\to2^-}f(x)$；两点都是 $\frac00$ 型`,
+          R`求 $f(1)$：令 $x=1-t$（$t\to0$），$2^{1-x}=2^t$。分子 $1-(1-t)2^t=(1-2^t)+t\cdot2^t$，分母 $(2-x)(1-x)=(1+t)t$`,
+          R`$f(1)=\lim\dfrac{\frac{1-2^t}{t}+2^t}{1+t}$；$2^t-1\sim t\ln2$，所以 $\dfrac{1-2^t}{t}\to-\ln2$，$f(1)=1-\ln2$`,
+          R`求 $f(2)$：令 $x=2+t$，$2^{1-x}=2^{-1-t}=\frac12\cdot2^{-t}$。分子 $1-(2+t)\cdot\frac12\cdot2^{-t}=(1-2^{-t})-\frac t2\cdot2^{-t}$，分母 $(-t)(-1-t)=t(1+t)$`,
+          R`$f(2)=\lim\dfrac{\frac{1-2^{-t}}{t}-\frac12\cdot2^{-t}}{1+t}$；$1-2^{-t}\sim t\ln2$，所以 $f(2)=\ln2-\dfrac12$`,
+          R`$f(1)f(2)=(1-\ln2)\left(\ln2-\dfrac12\right)=\dfrac32\ln2-\ln^22-\dfrac12$`
         ],
         pitfall: R`端点求了双侧极限；换元后忘记 $2^{1-x}$ 也要一起换`,
         practice: "1000题 第1章第20题；教材习题1-9 第6题（p64）；1.8 题型「求参数使函数连续」"
