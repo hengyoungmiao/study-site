@@ -168,12 +168,14 @@
             { src: "吉米【93】点评 p27", text: R`若函数 $f(x)$ 在闭区间 $[a,b]$ 上连续，则 $f(x)$ 在 $[a,b]$ 上有界；若函数 $f(x)$ 在开区间 $(a,b)$ 内连续，$\lim\limits_{x\to a^+}f(x)$ 与 $\lim\limits_{x\to b^-}f(x)$ 存在，则函数 $f(x)$ 在 $(a,b)$ 内有界` }
           ]
         },
+        think: R`$f$ 是初等函数，在每个选项的开区间内部连续（间断点只有 $0,1,2$）。开区间上连续函数是否有界，只取决于两个端点处的单侧极限：都有限就有界（补上端点值后在闭区间上连续，用有界性定理），有一个是 $\infty$ 就无界。所以逐个端点求单侧极限。`,
         first: R`间断点是 $x=0,1,2$，看各区间端点的单侧极限`,
         steps: [
-          R`$x\to0^-$：$\frac{|x|}x=-1$，$f\to\dfrac{-\sin(-2)}{(-1)\cdot4}=-\dfrac{\sin2}4$；$x\to-1^+$：$f\to-\dfrac{\sin3}{18}$，都有限`,
-          R`$x\to1$：分母 $\to0$、分子 $\to\sin(-1)\neq0$，$f\to\infty$，排除 (B)(C)`,
-          R`$x\to2$：$\dfrac{\sin(x-2)}{(x-2)^2}\sim\dfrac1{x-2}\to\infty$，排除 (C)(D)`,
-          R`$(-1,0)$ 内连续且两端极限存在，有界。选 (A)`
+          R`找间断点：分母 $x(x-1)(x-2)^2=0$，得 $x=0,1,2$；四个区间内部都不含间断点，$f$ 连续`,
+          R`$x\to1$（(B)(C) 的端点）：分母 $\to0$，分子 $\to1\cdot\sin(-1)\neq0$，$f\to\infty$，排除 (B)(C)`,
+          R`$x\to2$（(C)(D) 的端点）：$\dfrac{\sin(x-2)}{(x-2)^2}\sim\dfrac{1}{x-2}\to\infty$，其余因子 $\to\dfrac{2}{2\cdot1}=1$，$f\to\infty$，排除 (D)`,
+          R`(A) 的两端：$x\to0^-$ 时 $\dfrac{|x|}{x}=-1$，$f\to\dfrac{-\sin(-2)}{(-1)\cdot4}=-\dfrac{\sin2}{4}$；$x\to-1^+$ 时 $f\to\dfrac{1\cdot\sin(-3)}{(-1)(-2)\cdot9}=-\dfrac{\sin3}{18}$，都有限`,
+          R`$(-1,0)$ 内连续、两端单侧极限有限，补定义后在 $[-1,0]$ 上连续，由有界性定理有界。选 (A)`
         ],
         pitfall: R`只看区间里面"有没有间断点"：(B)(C)(D) 内部也都连续，关键是端点极限`,
         practice: "吉米【93】（p26–27）；1.4 题型「判断有界、无界」"
@@ -195,12 +197,14 @@
             { src: "吉米【96】p27", text: R`$(-3,-2)$、$(-2,0)$、$(0,4)$ 各区间内至少有一零点，又因为它是一元三次方程，至多有 3 个实根，所以方程恰有 3 个实根` }
           ]
         },
+        think: R`"恰有 $n$ 个根" = 至少 $n$ 个 + 至多 $n$ 个。至少：零点定理，找 $n+1$ 个函数值正负交替的点；至多：$n$ 次多项式最多 $n$ 个实根（或用单调性）。找点时试一些整数，看符号变化。`,
         first: R`令 $f(x)=x^3-9x-1$，试 $x=-3,-2,0,4$`,
         steps: [
-          R`$f$ 在 $\mathbb R$ 上连续（多项式）`,
-          R`$f(-3)=-1<0$，$f(-2)=9>0$，$f(0)=-1<0$，$f(4)=27>0$`,
-          R`由零点定理，$(-3,-2)$、$(-2,0)$、$(0,4)$ 内各至少有一个根，共至少 3 个`,
-          R`三次方程至多 3 个实根，所以恰有 3 个`
+          R`令 $f(x)=x^3-9x-1$，多项式在 $\mathbb R$ 上连续`,
+          R`试值找符号变化：$f(-3)=-27+27-1=-1<0$；$f(-2)=-8+18-1=9>0$；$f(0)=-1<0$；$f(4)=64-36-1=27>0$`,
+          R`符号交替三次，在 $[-3,-2]$、$[-2,0]$、$[0,4]$ 上分别用零点定理，$(-3,-2)$、$(-2,0)$、$(0,4)$ 内各至少有一个根；三个区间不重叠，所以至少 3 个不同的根`,
+          R`至多：三次方程在复数范围内恰有 3 个根，实根至多 3 个`,
+          R`所以恰有 3 个实根`
         ],
         pitfall: R`只证了"至少 3 个"就说"恰有 3 个"；忘记写"$f$ 在闭区间上连续"`,
         practice: "吉米【96】（p27）；教材例 1（p66）；教材习题1-10 第2、5题（p68）"
@@ -222,11 +226,13 @@
             { src: "习题全解 习题1-10 第1题 p40", text: R`设 $F(x)=f(x)-x$，$F(0)\geqslant0$，$F(1)\leqslant0$。若 $F(0)=0$ 或 $F(1)=0$，则 $0$ 或 $1$ 即为不动点；若 $F(0)>0$ 且 $F(1)<0$，由零点定理必存在 $c\in(0,1)$` }
           ]
         },
+        think: R`要证的是"存在 $\xi$ 使某等式成立"，而条件只有连续和端点的大小关系，这是零点定理的信号。把要证的等式移项成"$=0$"：$f(\xi)-\xi=0$，左边换成 $x$ 就是辅助函数 $F(x)=f(x)-x$；条件 $f(a)<a$、$f(b)>b$ 正好说明 $F$ 在两端异号。`,
         first: R`令 $F(x)=f(x)-x$`,
         steps: [
-          R`$F(x)$ 在 $[a,b]$ 上连续（连续函数之差）`,
-          R`$F(a)=f(a)-a<0$，$F(b)=f(b)-b>0$`,
-          R`由零点定理，存在 $\xi\in(a,b)$，使 $F(\xi)=0$，即 $f(\xi)=\xi$`
+          R`构造：要证 $f(\xi)-\xi=0$，令 $F(x)=f(x)-x$`,
+          R`连续性：$f(x)$ 与 $x$ 都在 $[a,b]$ 上连续，差 $F(x)$ 也连续`,
+          R`端点异号：$F(a)=f(a)-a<0$，$F(b)=f(b)-b>0$`,
+          R`由零点定理（教材 1.10 定理 2），存在 $\xi\in(a,b)$，使 $F(\xi)=0$，即 $f(\xi)=\xi$`
         ],
         pitfall: R`条件带等号（$0\leqslant f(x)\leqslant1$）时直接写"由零点定理"，漏了端点等号的情形；区间选错（证"正根不超过 $a+b$"要取 $[0,a+b]$）`,
         practice: "吉米【97】（p27）；教材习题1-10 第1、3题（p67–68）；答案对照习题全解 p40"
@@ -248,12 +254,14 @@
             { src: "武忠祥 题型二 例1 p52–53", text: R`几何平均同理：$m=\sqrt[n]{m^n}\leqslant\sqrt[n]{f(x_1)\cdots f(x_n)}\leqslant\sqrt[n]{M^n}=M$，由介值定理知存在 $\xi$` }
           ]
         },
+        think: R`要证 $f(\xi)$ 等于某个数 $C$（这里是平均值），用介值定理：只要证明 $C$ 夹在 $f$ 的最小值 $m$ 和最大值 $M$ 之间。闭区间上连续函数一定有最值（最值定理），而平均值一定在最小和最大之间。`,
         first: R`在 $[a,b]$ 上取最大值 $M$、最小值 $m$`,
         steps: [
-          R`$f$ 在 $[a,b]$ 上连续，由最值定理存在 $m$、$M$，使 $m\leqslant f(x)\leqslant M$`,
-          R`$m\leqslant f(x_i)\leqslant M\ (i=1,\cdots,n)$，相加得 $nm\leqslant\sum f(x_i)\leqslant nM$`,
-          R`所以 $m\leqslant\dfrac{f(x_1)+\cdots+f(x_n)}n\leqslant M$`,
-          R`由介值定理的推论（值域是 $[m,M]$），存在 $\xi\in[a,b]$ 使 $f(\xi)$ 等于这个平均值`
+          R`最值定理：$f$ 在 $[a,b]$ 上连续，存在最小值 $m$、最大值 $M$，即对一切 $x\in[a,b]$，$m\leqslant f(x)\leqslant M$`,
+          R`每个 $x_i\in[a,b]$，所以 $m\leqslant f(x_i)\leqslant M$，$i=1,\cdots,n$`,
+          R`$n$ 个不等式相加：$nm\leqslant f(x_1)+\cdots+f(x_n)\leqslant nM$，除以 $n$：$m\leqslant C\leqslant M$，$C=\dfrac{f(x_1)+\cdots+f(x_n)}{n}$`,
+          R`介值定理的推论（教材 1.10）：闭区间上的连续函数取得介于 $m$ 与 $M$ 之间的任何值。所以存在 $\xi\in[a,b]$，使 $f(\xi)=C$`,
+          R`说明：若 $C$ 恰好等于 $m$ 或 $M$，$\xi$ 是最值点，可能是端点，所以结论写闭区间 $[a,b]$`
         ],
         pitfall: R`直接用定理 3（要求 $C$ 在 $f(a)$、$f(b)$ 之间），但平均值不一定在 $f(a)$、$f(b)$ 之间；要求 $\xi\in(x_1,x_n)$ 时还在 $[a,b]$ 上取最值`,
         practice: "吉米【99】（p28）；教材习题1-10 第6题（p68）；武忠祥 题型二 例1（p52–53）"
@@ -274,12 +282,14 @@
             { src: "习题全解 习题1-10 第4题 p40–41", text: R`当 $x$ 的绝对值充分大时，$f(x)$ 的符号取决于 $a_0$ 的符号：$x$ 为正时与 $a_0$ 同号，$x$ 为负时与 $a_0$ 异号` }
           ]
         },
+        think: R`没给具体区间，零点定理需要先找到一个函数值为负的点和一个为正的点。奇次多项式的最高次项 $a_0x^{2n+1}$ 在 $x\to+\infty$ 和 $x\to-\infty$ 时符号相反，而其余项相对它可以忽略，所以利用 $x\to\pm\infty$ 的极限找到两个异号点。`,
         first: R`不妨设 $a_0>0$，把 $x^{2n+1}$ 提出来`,
         steps: [
-          R`$p(x)=x^{2n+1}\left(a_0+\dfrac{a_1}x+\cdots+\dfrac{a_{2n+1}}{x^{2n+1}}\right)$，括号 $\to a_0>0$`,
-          R`$x\to+\infty$ 时 $x^{2n+1}\to+\infty$，$p\to+\infty$；$x\to-\infty$ 时 $x^{2n+1}\to-\infty$（奇次），$p\to-\infty$`,
-          R`存在 $X>0$，$p(X)>0$，$p(-X)<0$`,
-          R`$p$ 在 $[-X,X]$ 上连续，由零点定理，存在 $\xi\in(-X,X)$ 使 $p(\xi)=0$`
+          R`不妨设 $a_0>0$（$a_0<0$ 时考虑 $-p(x)$）`,
+          R`提出最高次项：$p(x)=x^{2n+1}\left(a_0+\dfrac{a_1}{x}+\cdots+\dfrac{a_{2n+1}}{x^{2n+1}}\right)$，$x\to\infty$ 时括号 $\to a_0>0$`,
+          R`$x\to+\infty$：$x^{2n+1}\to+\infty$，$p(x)\to+\infty$；$x\to-\infty$：奇次幂 $x^{2n+1}\to-\infty$，$p(x)\to-\infty$`,
+          R`由极限定义（或保号性），存在 $X>0$，使 $p(X)>0$，$p(-X)<0$`,
+          R`$p$ 是多项式，在 $[-X,X]$ 上连续，由零点定理，存在 $\xi\in(-X,X)$，$p(\xi)=0$`
         ],
         pitfall: R`说"$p(+\infty)>0$、$p(-\infty)<0$，所以有零点"：$\pm\infty$ 不是点，零点定理要用在有限闭区间上`,
         practice: "吉米【98】（p27–28）；教材习题1-10 第4题（p68）"
@@ -300,11 +310,13 @@
             { src: "吉米【95】p27", text: R`$f(x)$ 在 $[a,+\infty)$ 上连续且 $\lim\limits_{x\to+\infty}f(x)$ 存在，则 $f(x)$ 在 $[a,+\infty)$ 上有界：远处 $A-1<f(x)<A+1$，近处在闭区间上取最大、最小值` }
           ]
         },
+        think: R`有界性定理只管闭区间，$\mathbb R$ 不是闭区间。思路是"远处靠极限，近处靠闭区间"：$|x|$ 很大时，$f$ 接近极限 $A$，自然有界（局部有界性）；剩下的部分是一个闭区间 $[-X,X]$，用有界性定理。两个界取较大的。`,
         first: R`设 $\lim\limits_{x\to\infty}f(x)=A$，把 $\mathbb R$ 分成 $|x|>X$ 和 $[-X,X]$ 两段`,
         steps: [
-          R`由函数极限的局部有界性，存在 $X>0$、$M_1>0$，当 $|x|>X$ 时 $|f(x)|\leqslant M_1$`,
-          R`$f$ 在 $[-X,X]$ 上连续，由有界性定理，存在 $M_2>0$，使 $|f(x)|\leqslant M_2$`,
-          R`取 $M=\max\{M_1,M_2\}$，则对一切 $x\in\mathbb R$，$|f(x)|\leqslant M$`
+          R`设 $\lim\limits_{x\to\infty}f(x)=A$。取 $\varepsilon=1$，存在 $X>0$，当 $|x|>X$ 时 $|f(x)-A|<1$，所以 $|f(x)|<|A|+1=M_1$（函数极限的局部有界性）`,
+          R`中间段：$f$ 在闭区间 $[-X,X]$ 上连续，由有界性定理，存在 $M_2>0$，$|f(x)|\leqslant M_2$`,
+          R`合起来：$\mathbb R=\{|x|>X\}\cup[-X,X]$，取 $M=\max\{M_1,M_2\}$，对一切 $x$ 都有 $|f(x)|\leqslant M$`,
+          R`所以 $f$ 在 $(-\infty,+\infty)$ 内有界`
         ],
         pitfall: R`以为"$\mathbb R$ 上连续就有界"（$f(x)=x$ 无界）；只证了远处有界，忘了中间那段`,
         practice: "教材习题1-10 第8题（p68）；吉米【94】【95】（p27）"
@@ -325,12 +337,14 @@
             { src: "武忠祥 题型二 例2 p53", text: R`令 $F(x)=f(x+l)-f(x)$，$x\in[0,1-l]$。若端点值有等号，结论显然；否则由零点定理` }
           ]
         },
+        think: R`要证 $f(\xi+\frac14)-f(\xi)=0$，辅助函数就是 $F(x)=f(x+\frac14)-f(x)$。但只知道 $f(0)=f(1)$，单看 $F$ 的两个端点不能确定异号。把 $F$ 在 $0,\frac14,\frac12,\frac34$ 四个点的值相加，中间项错位抵消，正好得到 $f(1)-f(0)=0$；几个数的和为 0，要么有一个为 0，要么有正有负。`,
         first: R`令 $F(x)=f\left(x+\frac14\right)-f(x)$，$x\in\left[0,\frac34\right]$`,
         steps: [
-          R`$F$ 在 $\left[0,\frac34\right]$ 上连续`,
-          R`$F(0)+F\left(\frac14\right)+F\left(\frac12\right)+F\left(\frac34\right)=f(1)-f(0)=0$`,
-          R`若其中有一个为 $0$，对应的点就是 $\xi$；否则四个数中必有一正一负，在这两点之间用零点定理，得 $F(\xi)=0$`,
-          R`即 $f\left(\xi+\frac14\right)=f(\xi)$，$\xi\in\left[0,\frac34\right]\subset[0,1]$`
+          R`构造：$F(x)=f\left(x+\frac14\right)-f(x)$。要 $x$ 和 $x+\frac14$ 都在 $[0,1]$ 里，所以 $F$ 定义在 $\left[0,\frac34\right]$ 上，且连续`,
+          R`错位相加：$F(0)=f\left(\frac14\right)-f(0)$，$F\left(\frac14\right)=f\left(\frac12\right)-f\left(\frac14\right)$，$F\left(\frac12\right)=f\left(\frac34\right)-f\left(\frac12\right)$，$F\left(\frac34\right)=f(1)-f\left(\frac34\right)$`,
+          R`四式相加，中间项全部抵消：和 $=f(1)-f(0)=0$`,
+          R`分情况：若某个 $F$ 值为 0，那个点就是 $\xi$；若都不为 0，它们的和为 0，必有一正一负，在这两点之间用零点定理，存在 $\xi$ 使 $F(\xi)=0$`,
+          R`所以 $f\left(\xi+\frac14\right)=f(\xi)$，$\xi\in\left[0,\frac34\right]\subset[0,1]$`
         ],
         pitfall: R`$F$ 的定义区间还写 $[0,1]$（$x+\frac14$ 会超出 $[0,1]$）；只算 $F(0)$、$F\left(\frac34\right)$ 两个值，它们不一定异号`,
         practice: "武忠祥 题型二 例2、例3（p53–54）"
@@ -350,10 +364,13 @@
             { src: "武忠祥 题型二 例4 p54", text: R`令 $F(x)=f(x)+x$，则 $\lim\limits_{x\to\infty}\frac{F(x)}x=1>0$。由极限的保号性知，存在 $X>0$，当 $|x|>X$ 时 $\frac{F(x)}x>0$；取 $a>X$，则 $F(-a)<0$，$F(a)>0$，由零点定理知存在 $\xi\in(-a,a)$` }
           ]
         },
+        think: R`要证 $f(\xi)+\xi=0$，辅助函数 $F(x)=f(x)+x$，但区间是整个 $\mathbb R$，没有现成的端点。条件 $\frac{f(x)}{x}\to0$ 说明 $|x|$ 大时 $f$ 相对 $x$ 可以忽略，$F(x)$ 的符号跟着 $x$ 走：正方向为正，负方向为负。用保号性把这件事写严格，就找到了异号点。`,
         first: R`令 $F(x)=f(x)+x$，算 $\lim\limits_{x\to\infty}\dfrac{F(x)}x=0+1=1$`,
         steps: [
-          R`由保号性，存在 $X>0$，当 $|x|>X$ 时 $\dfrac{F(x)}x>0$`,
-          R`取 $a>X$：$\dfrac{F(a)}a>0\Rightarrow F(a)>0$；$\dfrac{F(-a)}{-a}>0\Rightarrow F(-a)<0$`,
+          R`构造：$F(x)=f(x)+x$，在 $\mathbb R$ 上连续`,
+          R`求比值的极限：$\dfrac{F(x)}{x}=\dfrac{f(x)}{x}+1\to0+1=1>0$（$x\to\infty$）`,
+          R`保号性：存在 $X>0$，当 $|x|>X$ 时 $\dfrac{F(x)}{x}>0$，即 $F(x)$ 与 $x$ 同号`,
+          R`取 $a>X$：$F(a)$ 与 $a$ 同号，$F(a)>0$；$F(-a)$ 与 $-a$ 同号，$F(-a)<0$`,
           R`$F$ 在 $[-a,a]$ 上连续，由零点定理，存在 $\xi\in(-a,a)$，$F(\xi)=0$，即 $f(\xi)+\xi=0$`
         ],
         pitfall: R`由 $\frac{F(-a)}{-a}>0$ 得 $F(-a)<0$ 时符号弄反；直接说"$F(\pm\infty)$ 异号"`,

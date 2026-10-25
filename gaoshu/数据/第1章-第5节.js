@@ -160,11 +160,13 @@
             { src: "武忠祥 p10–11", text: R`需要分左、右极限求极限的问题主要有三种：分段函数在分界点处、$\mathrm e^{\infty}$ 型、$\arctan\infty$ 型` }
           ]
         },
+        think: R`分段点 $0$ 两侧是不同的表达式，左侧还有 $\mathrm e^{\frac1x}$（$\frac1x$ 在两侧趋于 $\pm\infty$，表现不同），所以必须分左右极限。每一侧内部用四则运算法则；右侧 $x\sin\frac1x$ 不能拆成 $\lim x\cdot\lim\sin\frac1x$（后者不存在），要用"无穷小 × 有界"。`,
         first: R`分左右：左侧用 $\mathrm e^{\frac1x}+1$，右侧用 $1+x\sin\dfrac1x$`,
         steps: [
-          R`左极限：$x\to0^-$ 时 $\dfrac1x\to-\infty$，$\mathrm e^{\frac1x}\to0$，$f(0^-)=0+1=1$`,
-          R`右极限：$|\sin\frac1x|\leqslant1$ 有界，$x\to0$，由定理 2 得 $x\sin\dfrac1x\to0$，$f(0^+)=1$`,
-          R`左右相等，$\lim\limits_{x\to0}f(x)=1$`
+          R`左极限：$x\to0^-$ 时 $\dfrac1x\to-\infty$，所以 $\mathrm e^{\frac1x}\to0$，$f(0^-)=0+1=1$`,
+          R`右极限的难点：$\sin\dfrac1x$ 在 $x\to0^+$ 时没有极限，不能用积的运算法则`,
+          R`改用定理：$x\to0$ 是无穷小，$\left|\sin\dfrac1x\right|\leqslant1$ 有界，有界函数与无穷小的乘积是无穷小（教材 1.5 定理 2 前的定理），所以 $x\sin\dfrac1x\to0$，$f(0^+)=1+0=1$`,
+          R`左右极限都是 $1$，所以 $\lim\limits_{x\to0}f(x)=1$（$f(0)=1$ 与极限无关）`
         ],
         pitfall: R`以为 $x\sin\dfrac1x$ 因 $\sin\dfrac1x$ 振荡而没有极限；忘记 $\mathrm e^{\frac1x}$ 在左侧趋于 $0$`,
         practice: R`吉米【38】【39】（p12）；吉米【40】要用 $\frac{\sin x}{x}\to1$，学完 1.6 再做`
@@ -186,10 +188,14 @@
             { src: "武忠祥 题型二 p27", text: R`"$\infty-\infty$"型极限常用方法：(1) 通分化为 $\frac00$（适用于分式差）；(2) 根式有理化（适用于根式差）` }
           ]
         },
+        think: R`两个根式相减，各自都 $\to\infty$，是 $\infty-\infty$ 型，不能直接相减。根式之差的标准处理是乘共轭有理化：$(\sqrt A-\sqrt B)(\sqrt A+\sqrt B)=A-B$，把根号差变成普通的差，再用"同除最高次"处理 $\frac\infty\infty$。`,
         first: R`分子分母同乘 $\sqrt{n+3\sqrt n}+\sqrt{n-\sqrt n}$`,
         steps: [
-          R`原式 $=\lim\dfrac{(n+3\sqrt n)-(n-\sqrt n)}{\sqrt{n+3\sqrt n}+\sqrt{n-\sqrt n}}=\lim\dfrac{4\sqrt n}{\sqrt{n+3\sqrt n}+\sqrt{n-\sqrt n}}$`,
-          R`分子分母同除以 $\sqrt n$：$=\lim\dfrac{4}{\sqrt{1+\frac{3}{\sqrt n}}+\sqrt{1-\frac{1}{\sqrt n}}}=\dfrac42=2$`
+          R`判断类型：$\sqrt{n+3\sqrt n}\to\infty$，$\sqrt{n-\sqrt n}\to\infty$，是 $\infty-\infty$ 型`,
+          R`乘共轭：分子分母同乘 $\sqrt{n+3\sqrt n}+\sqrt{n-\sqrt n}$，分子变成 $(n+3\sqrt n)-(n-\sqrt n)=4\sqrt n$，原式 $=\lim\dfrac{4\sqrt n}{\sqrt{n+3\sqrt n}+\sqrt{n-\sqrt n}}$`,
+          R`现在是 $\frac\infty\infty$：分母中每个根式的主导部分是 $\sqrt n$，所以分子分母同除 $\sqrt n$。$\dfrac{\sqrt{n+3\sqrt n}}{\sqrt n}=\sqrt{1+\dfrac{3}{\sqrt n}}$，$\dfrac{\sqrt{n-\sqrt n}}{\sqrt n}=\sqrt{1-\dfrac{1}{\sqrt n}}$`,
+          R`代入极限：$\dfrac{4}{\sqrt{1+0}+\sqrt{1-0}}=2$`,
+          R`数量级检验：$\sqrt{n+3\sqrt n}\approx\sqrt n+\dfrac32$，$\sqrt{n-\sqrt n}\approx\sqrt n-\dfrac12$，差约为 $2$，一致`
         ],
         pitfall: R`把 $\infty-\infty$ 直接写成 $0$；$x\to-\infty$ 时把 $\sqrt{x^2}$ 写成 $x$（吉米【43】$\lim\limits_{x\to-\infty}x(\sqrt{x^2+100}+x)=-50$，这里分母要写成 $\sqrt{x^2+100}-x$）`,
         practice: "吉米【41】–【45】（p12–13）；武忠祥 p27"
@@ -211,10 +217,14 @@
             { src: "30讲 第2讲 p78", text: R`裂项相消：$\sum_{k=1}^n\dfrac1{k(k+1)}=1-\dfrac1{n+1}\to1$` }
           ]
         },
+        think: R`项数随 $n$ 增加，不能逐项取极限再相加（无穷多个 0 相加不一定是 0）。所以先把和算成一个闭式。通项分母 $4k^2-1=(2k-1)(2k+1)$ 是两个相邻奇数的积，提示裂项相消。`,
         first: R`裂项：$\dfrac1{4k^2-1}=\dfrac12\left(\dfrac1{2k-1}-\dfrac1{2k+1}\right)$`,
         steps: [
-          R`$x_n=\dfrac12\left[\left(1-\dfrac13\right)+\left(\dfrac13-\dfrac15\right)+\cdots+\left(\dfrac1{2n-1}-\dfrac1{2n+1}\right)\right]=\dfrac12\left(1-\dfrac1{2n+1}\right)$`,
-          R`$\lim\limits_{n\to\infty}x_n=\dfrac12$`
+          R`通项因式分解：$4k^2-1=(2k-1)(2k+1)$`,
+          R`裂项：设 $\dfrac{1}{(2k-1)(2k+1)}=\dfrac{A}{2k-1}-\dfrac{A}{2k+1}$，右边通分得 $\dfrac{2A}{(2k-1)(2k+1)}$，所以 $A=\dfrac12$`,
+          R`求和：$x_n=\dfrac12\left[\left(1-\dfrac13\right)+\left(\dfrac13-\dfrac15\right)+\cdots+\left(\dfrac1{2n-1}-\dfrac1{2n+1}\right)\right]$，中间项两两抵消，剩 $x_n=\dfrac12\left(1-\dfrac1{2n+1}\right)$`,
+          R`求极限：$\dfrac{1}{2n+1}\to0$，所以 $\lim\limits_{n\to\infty}x_n=\dfrac12$`,
+          R`检验：$n=1$ 时 $x_1=\dfrac13$，公式给 $\dfrac12\cdot\dfrac23=\dfrac13$，一致`
         ],
         pitfall: R`每项都 $\to0$，就说和 $\to0$（无穷多个无穷小的和不一定是无穷小）`,
         practice: "吉米【46】–【48】（p13–14）；教材习题1-5 第1题(11)(12)（p43，答案 习题全解 p24）"
@@ -235,11 +245,14 @@
             { src: "30讲 p54", text: R`拿到极限计算的问题，先做一些化简：提出极限不为 0 的因式、恒等变形（提公因式、拆项、合并……）` }
           ]
         },
+        think: R`因子数随 $n$ 增加，不能逐个求极限。各因子是 $1+x^{2^k}$，指数逐次翻倍，和平方差 $(1-a)(1+a)=1-a^2$ 正好配套：乘一个 $1-x$，就能一路"滚雪球"合并下去。`,
         first: R`分子分母同乘 $1-x$`,
         steps: [
-          R`$(1-x)(1+x)=1-x^2$，$(1-x^2)(1+x^2)=1-x^4$，……，连锁合并得 $(1-x)\cdot\text{原积}=1-x^{2^{n+1}}$`,
-          R`原式 $=\lim\limits_{n\to\infty}\dfrac{1-x^{2^{n+1}}}{1-x}$；$|x|<1$ 时 $x^{2^{n+1}}\to0$`,
-          R`结果 $\dfrac1{1-x}$`
+          R`记 $P_n=(1+x)(1+x^2)\cdots(1+x^{2^n})$，因为 $|x|<1$，$1-x\neq0$，可以乘 $1-x$ 再除回去`,
+          R`连锁合并：$(1-x)(1+x)=1-x^2$；再乘 $(1+x^2)$ 得 $1-x^4$；再乘 $(1+x^4)$ 得 $1-x^8$；……乘完最后一个 $(1+x^{2^n})$ 得 $1-x^{2^{n+1}}$`,
+          R`所以 $P_n=\dfrac{1-x^{2^{n+1}}}{1-x}$`,
+          R`求极限：$|x|<1$ 时 $|x|^{2^{n+1}}\to0$，所以 $\lim P_n=\dfrac{1}{1-x}$`,
+          R`检验：$x=0$ 时每个因子都是 1，结果 $1$，公式给 $\dfrac{1}{1}=1$，一致`
         ],
         pitfall: R`对无穷多个因子逐个求极限再相乘；忘记 $|x|<1$ 这个条件的作用`,
         practice: "吉米【51】（p15）"
@@ -262,12 +275,14 @@
             { src: "30讲 例1.25 p56", text: R`有理函数的极限问题，抓主要矛盾。找"带头大哥"，若"带头大哥"次数一致，结果就是系数比` }
           ]
         },
+        think: R`有理分式求极限，第一步永远是把 $x_0$ 代进分母：不为 0 直接代；分子分母同为 0，说明有公因子 $x-x_0$，约掉；分母为 0、分子不为 0，取倒数得 $\infty$；$x\to\infty$ 时比较最高次。两个分式相减先通分，再回到上面几种情况。`,
         first: R`逐个把 $x_0$ 代入分母判断类型`,
         steps: [
-          R`(1) $x=4$ 时分子分母都为 $0$：$\dfrac{(x-4)(x-2)}{(x-4)(x-1)}=\dfrac{x-2}{x-1}\to\dfrac23$`,
-          R`(2) 分母 $\to0$、分子 $\to16$：$\dfrac{(x-2)^2}{x^3+2x^2}\to0$，所以原极限 $=\infty$`,
-          R`(3) 次数相同，系数比 $\dfrac12$`,
-          R`(4) 通分：$\dfrac{1+x+x^2-3}{1-x^3}=\dfrac{(x-1)(x+2)}{(1-x)(1+x+x^2)}=-\dfrac{x+2}{1+x+x^2}\to-1$`
+          R`(1) 代 $x=4$：分子 $16-24+8=0$，分母 $16-20+4=0$，是 $\frac00$，有公因子 $x-4$。分解 $\dfrac{(x-4)(x-2)}{(x-4)(x-1)}$，约去后 $\dfrac{x-2}{x-1}\to\dfrac{2}{3}$`,
+          R`(2) 代 $x=2$：分母 $0$，分子 $8+8=16\neq0$。看倒数 $\dfrac{(x-2)^2}{x^3+2x^2}\to\dfrac{0}{16}=0$，由无穷小与无穷大的倒数关系，原极限 $=\infty$`,
+          R`(3) $x\to\infty$，分子分母都是二次：同除 $x^2$，$\dfrac{1-\frac{1}{x^2}}{2-\frac1x-\frac{1}{x^2}}\to\dfrac12$`,
+          R`(4) 两项各自 $\to\infty$，是 $\infty-\infty$，先通分。$1-x^3=(1-x)(1+x+x^2)$，所以公分母是 $1-x^3$：$\dfrac{1+x+x^2-3}{1-x^3}=\dfrac{x^2+x-2}{1-x^3}$`,
+          R`(4) 续：分子 $x^2+x-2=(x-1)(x+2)$，分母 $(1-x)(1+x+x^2)=-(x-1)(1+x+x^2)$，约去 $x-1$ 得 $-\dfrac{x+2}{1+x+x^2}\to-\dfrac{3}{3}=-1$`
         ],
         pitfall: R`分母为 $0$ 时还用商的法则写 $\frac{16}{0}$；约零因子时忘了约的是 $x-x_0$（$x\neq x_0$ 才能约）；$\infty-\infty$ 直接得 $0$`,
         practice: "教材例2–7（p40–42）；习题1-5 第1、2题（p43，答案 习题全解 p24–25）；1000题 第2章第2题（$n$ 的高次差，用二项式展开后抓大头）"
@@ -288,11 +303,13 @@
             { src: "30讲 p42", text: R`★有界函数与无穷小的乘积是无穷小：$0\leqslant|\alpha_1\alpha_2|\leqslant m|\alpha_2|\to0$` }
           ]
         },
+        think: R`三个式子都是"一个因子趋于 0，另一个因子没有极限但有界"。这时积的运算法则用不了（要求每个因子都有极限），而"有界函数 × 无穷小 = 无穷小"不要求有界因子有极限，正好适用。`,
         first: R`拆成"有界 × 无穷小"`,
         steps: [
-          R`(1) $x^2\to0$，$\left|\sin\dfrac1x\right|\leqslant1$，结果 $0$`,
-          R`(2) $\dfrac1x\to0$，$|\arctan x|<\dfrac{\pi}{2}$，结果 $0$`,
-          R`(3) $\dfrac1x\to0$，$|\sin x|\leqslant1$，结果 $0$（注意和 1.6 的 $\lim\limits_{x\to0}\dfrac{\sin x}{x}=1$ 区分）`
+          R`(1) $x\to0$ 时 $x^2\to0$；$\left|\sin\dfrac1x\right|\leqslant1$ 有界（但 $\sin\frac1x$ 没有极限）。有界 × 无穷小 = 无穷小，结果 $0$`,
+          R`(2) 写成 $\dfrac1x\cdot\arctan x$：$x\to\infty$ 时 $\dfrac1x\to0$；$|\arctan x|<\dfrac{\pi}{2}$ 有界，结果 $0$`,
+          R`(3) 写成 $\dfrac1x\cdot\sin x$：$\dfrac1x\to0$，$|\sin x|\leqslant1$，结果 $0$`,
+          R`区分：$\lim\limits_{x\to0}\dfrac{\sin x}{x}=1$ 是 1.6 的重要极限，那里 $\sin x$ 和 $x$ 同时趋于 0；这里是 $x\to\infty$，$\sin x$ 只是有界`
         ],
         pitfall: R`写成 $\lim x^2\cdot\lim\sin\dfrac1x$——后一个极限不存在，乘法法则不能用；把 $x\to\infty$ 的 $\dfrac{\sin x}{x}$ 和 $x\to0$ 的混淆`,
         practice: "教材习题1-5 第3题（p43，答案 习题全解 p25–26）；吉米【39】（p12）"
@@ -312,12 +329,13 @@
             { src: "武忠祥 题型二 方法1 注 p16", text: R`若 $\lim f(x)$ 存在，$\lim g(x)$ 不存在，则 $\lim[f(x)\pm g(x)]$ 一定不存在；若都不存在，则 $\lim[f(x)\pm g(x)]$ 不一定存在` }
           ]
         },
+        think: R`"存在 + 不存在"能反证：若和存在，用减法法则把不存在的那个表示成两个存在的极限之差，矛盾。其余三种情况都没有这样的等式可用，不能断定，要用反例：常用 $\operatorname{sgn}x$（左右极限不同）和 $\sin\frac1x$（振荡）。`,
         first: R`先判断哪些能用反证法证明`,
         steps: [
-          R`(1) 对：若 $\lim(f+g)$ 存在，则 $\lim g=\lim(f+g)-\lim f$ 存在，矛盾`,
-          R`(2) 错：$f=\operatorname{sgn}x$，$g=-\operatorname{sgn}x$，$x\to0$ 时都不存在，和恒为 $0$`,
-          R`(3) 错：$f=x\to0$，$g=\sin\dfrac1x$ 不存在，乘积 $\to0$`,
-          R`(4) 错：$f=g=\operatorname{sgn}x$，乘积在 $x\neq0$ 时恒为 $1$`
+          R`(1) 对。反证：设 $\lim(f+g)$ 存在，又 $\lim f$ 存在，由差的运算法则 $\lim g=\lim[(f+g)-f]$ 存在，与已知矛盾`,
+          R`(2) 错。$x\to0$ 时 $f=\operatorname{sgn}x$、$g=-\operatorname{sgn}x$ 左右极限都不等，极限不存在；但 $f+g\equiv0$，极限为 $0$`,
+          R`(3) 错。$f=x\to0$，$g=\sin\dfrac1x$ 不存在；$fg=x\sin\dfrac1x$ 是无穷小乘有界，$\to0$。(3) 不能像 (1) 那样反证，因为 $g=\dfrac{fg}{f}$ 要除以 $f$，而 $\lim f$ 可能是 $0$`,
+          R`(4) 错。$f=g=\operatorname{sgn}x$，$x\to0$ 时都不存在；$fg=\operatorname{sgn}^2x=1$（$x\neq0$），极限为 $1$`
         ],
         pitfall: R`把"存在 × 不存在 = 不存在"当成对的（存在的那个是 $0$ 时会出问题）`,
         practice: "教材习题1-5 第4、5题（p43–44，答案 习题全解 p26–27）；30讲 例2.6（p83）"
@@ -338,11 +356,14 @@
             { src: "武忠祥 题型二 方法1 推论 p16", text: R`(2) 若 $\lim\frac{f(x)}{g(x)}$ 存在，且 $\lim g(x)=0$，则 $\lim f(x)=0$；(3) 若 $\lim\frac{f(x)}{g(x)}=A\neq0$，且 $\lim f(x)=0$，则 $\lim g(x)=0$` }
           ]
         },
+        think: R`分母 $x+2\to0$，而极限是有限数 $b$。如果分子不趋于 0，商会趋于 $\infty$，所以分子必须也趋于 0（"分母 → 0 且极限有限 ⇒ 分子 → 0"）。这给出关于 $a$ 的第一个方程；再约去零因子 $x+2$ 求出 $b$。`,
         first: R`$x\to-2$ 时分母 $\to0$，所以分子在 $x=-2$ 处为 $0$`,
         steps: [
-          R`$2(-8)+4a+6+6=4a-4=0$，得 $a=1$`,
-          R`分子 $2x^3+x^2-3x+6=(x+2)(2x^2-3x+3)$`,
-          R`$b=\lim\limits_{x\to-2}(2x^2-3x+3)=8+6+3=17$，$ab=17$`
+          R`推出分子 $\to0$：分子 $=\dfrac{\text{分子}}{x+2}\cdot(x+2)\to b\cdot0=0$。分子是多项式（连续），所以它在 $x=-2$ 处的值为 0`,
+          R`代入 $x=-2$：$2(-8)+4a-3(-2)+6=-16+4a+6+6=4a-4=0$，得 $a=1$`,
+          R`分子变成 $2x^3+x^2-3x+6$，它有因子 $x+2$，做多项式除法：$2x^3+x^2-3x+6=(x+2)(2x^2-3x+3)$（展开核对：$2x^3-3x^2+3x+4x^2-6x+6$）`,
+          R`约去 $x+2$：$b=\lim\limits_{x\to-2}(2x^2-3x+3)=8+6+3=17$`,
+          R`$ab=1\times17=17$`
         ],
         pitfall: R`忘了先用"分子必须趋于 0"这一步，直接代入得 $\frac{\text{非零}}{0}$ 就卡住`,
         practice: "1000题 基础篇 第1章第13题；30讲 例1.20（p46）；30讲 例1.21 要用等价无穷小，学完 1.7 再做"
@@ -363,11 +384,13 @@
             { src: "教材 p39 推论1", text: R`如果 $\lim f(x)$ 存在，而 $c$ 为常数，那么 $\lim[cf(x)]=c\lim f(x)$` }
           ]
         },
+        think: R`$\lim\limits_{x\to1}f(x)$ 是一个确定的常数，只是暂时不知道。把它设成 $A$，$f(x)$ 就成了已知表达式 $x^2+A\mathrm e^x$；再对这个表达式取同一个极限，又得到 $A$，于是得到关于 $A$ 的方程。`,
         first: R`设 $A=\lim\limits_{x\to1}f(x)$，则 $f(x)=x^2+A\mathrm e^x$`,
         steps: [
-          R`两边令 $x\to1$：$A=1+A\mathrm e$`,
-          R`解得 $A=\dfrac1{1-\mathrm e}$`,
-          R`$f(x)=x^2+\dfrac{\mathrm e^x}{1-\mathrm e}$`
+          R`设 $A=\lim\limits_{x\to1}f(x)$（常数），则 $f(x)=x^2+A\mathrm e^x$`,
+          R`两边同时令 $x\to1$：左边极限是 $A$；右边 $x^2+A\mathrm e^x$ 连续，极限是 $1+A\mathrm e$。所以 $A=1+A\mathrm e$`,
+          R`解方程：$A(1-\mathrm e)=1$，$A=\dfrac{1}{1-\mathrm e}$`,
+          R`代回：$f(x)=x^2+\dfrac{\mathrm e^x}{1-\mathrm e}$。检验：$\lim\limits_{x\to1}f=1+\dfrac{\mathrm e}{1-\mathrm e}=\dfrac{1}{1-\mathrm e}=A$，一致`
         ],
         pitfall: R`把 $\lim f(x)$ 当成随 $x$ 变化的量；取极限时只对一边取`,
         practice: "1000题 基础篇 第1章第18题；30讲 例1.14 要用等价无穷小，学完 1.7 再做"
@@ -388,11 +411,13 @@
             { src: "30讲 例1.26 分析 p57", text: R`抓带头大哥，$n$ 在变，$x$ 在求极限过程中视为常数` }
           ]
         },
+        think: R`对 $n$ 取极限时 $x$ 是常数。分子分母里 $n$ 的系数都含 $\sin^2\pi x$：它为 0 时 $n$ 项消失；不为 0 时 $n$ 项占主导，同除 $n$。所以按 $\sin\pi x$ 是否为 0（即 $x$ 是否为整数）分类。`,
         first: R`$n$ 的系数含 $\sin^2\pi x$，按它是否为 $0$ 分类`,
         steps: [
-          R`$x$ 为整数时 $\sin\pi x=0$：$f(x)=\dfrac{x^2+0}{1+0}=x^2$`,
-          R`$x$ 不是整数时：分子分母同除以 $n$，$f(x)=\lim\dfrac{\frac{x^2}{n}+x(1-x)\sin^2\pi x}{\frac1n+\sin^2\pi x}=x(1-x)$`,
-          R`$f(x)=\begin{cases}x^2,&x\text{ 为整数}\\x(1-x),&\text{其他}\end{cases}$`
+          R`分类依据：$\sin\pi x=0\iff x$ 是整数`,
+          R`$x$ 为整数：$\sin^2\pi x=0$，分子是 $x^2$，分母是 $1$，与 $n$ 无关，$f(x)=x^2$`,
+          R`$x$ 不是整数：$\sin^2\pi x>0$ 是正常数，分子分母都是 $n$ 的一次式。同除 $n$：$\dfrac{\frac{x^2}{n}+x(1-x)\sin^2\pi x}{\frac1n+\sin^2\pi x}\to\dfrac{x(1-x)\sin^2\pi x}{\sin^2\pi x}=x(1-x)$`,
+          R`结果：$f(x)=\begin{cases}x^2,&x\text{ 为整数}\\x(1-x),&x\text{ 不是整数}\end{cases}$`
         ],
         pitfall: R`忘记讨论系数为 0 的情形；把 $x$ 也当成变量去求极限`,
         practice: "30讲 例1.26（p57）；1.8 判断间断点时还会用到这类函数"

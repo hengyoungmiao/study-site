@@ -179,12 +179,15 @@
             { src: "习题全解 习题2-2 第2(4)题 p58", text: R`$y'=\left(\dfrac12\sin2x\right)'=\dfrac12\cdot2\cos2x=\cos2x$` }
           ]
         },
+        think: R`对数里套了根号和分式，直接求导要用多层链式法则，很繁。对数有"积商变和差、幂移到前面"的性质，先化简成简单的和差，再逐项求导，计算量小得多。`,
         first: R`把 $\ln\sqrt{\cdots}$ 拆开：$=\frac12\ln\mathrm e^{2x}-\frac12\ln(\mathrm e^{2x}+1)$`,
         steps: [
-          R`化简：$y=\arctan\mathrm e^x-x+\dfrac12\ln(\mathrm e^{2x}+1)$（$\ln\mathrm e^{2x}=2x$）`,
-          R`$(\arctan\mathrm e^x)'=\dfrac{\mathrm e^x}{1+\mathrm e^{2x}}$（复合：外层 $\arctan u$，内层 $\mathrm e^x$）`,
-          R`$\left[\dfrac12\ln(\mathrm e^{2x}+1)\right]'=\dfrac12\cdot\dfrac{2\mathrm e^{2x}}{\mathrm e^{2x}+1}=\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}$`,
-          R`$y'=\dfrac{\mathrm e^x}{1+\mathrm e^{2x}}-1+\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}=\dfrac{\mathrm e^x-1}{1+\mathrm e^{2x}}$，所以 $y'(1)=\dfrac{\mathrm e-1}{\mathrm e^2+1}$`
+          R`化简对数：$\ln\sqrt{\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}}=\dfrac12\left[\ln\mathrm e^{2x}-\ln(\mathrm e^{2x}+1)\right]=x-\dfrac12\ln(\mathrm e^{2x}+1)$（根号是 $\frac12$ 次幂，商的对数是对数之差，$\ln\mathrm e^{2x}=2x$）`,
+          R`所以 $y=\arctan\mathrm e^x-x+\dfrac12\ln(\mathrm e^{2x}+1)$，前面有减号，别漏掉：减去 $x-\frac12\ln(\cdots)$ 就是 $-x+\frac12\ln(\cdots)$`,
+          R`第一项：外层 $\arctan u$、内层 $u=\mathrm e^x$，链式法则 $(\arctan u)'\cdot u'=\dfrac{1}{1+u^2}\cdot\mathrm e^x=\dfrac{\mathrm e^x}{1+\mathrm e^{2x}}$`,
+          R`第三项：外层 $\ln v$、内层 $v=\mathrm e^{2x}+1$，$v'=2\mathrm e^{2x}$，所以 $\dfrac12\cdot\dfrac{2\mathrm e^{2x}}{\mathrm e^{2x}+1}=\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}$`,
+          R`合并：$y'=\dfrac{\mathrm e^x}{1+\mathrm e^{2x}}-1+\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}$。后两项通分：$-1+\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}=\dfrac{-1}{\mathrm e^{2x}+1}$，所以 $y'=\dfrac{\mathrm e^x-1}{1+\mathrm e^{2x}}$`,
+          R`代入 $x=1$：$y'(1)=\dfrac{\mathrm e-1}{\mathrm e^2+1}$`
         ],
         pitfall: R`不化简直接对 $\ln\sqrt{\frac{\cdots}{\cdots}}$ 用三层复合，算错率很高；拆 $\ln\sqrt{\ }$ 时漏了系数 $\frac12$`,
         practice: "吉米【164】【165】（p48）；教材习题2-2 第2、3题（p92，答案习题全解 p58–59）；检验：1000题基础篇第4章 6题"
@@ -207,12 +210,14 @@
             { src: "吉米【166】点评 p48", text: R`这是一道有多重复合关系的函数的求导问题，要求读者熟悉基本初等函数的导数公式和复合函数求导法则` }
           ]
         },
+        think: R`$y$ 是两个函数的乘积，先用乘积法则拆成两项；每一项里 $\frac1x$ 在最里层，链式法则从外向里一层层剥，每剥一层就乘上那一层的导数，最后一层是 $\left(\frac1x\right)'=-\frac1{x^2}$。`,
         first: R`先用乘积法则拆成两项，两项里都有 $\frac1x$ 这一层`,
         steps: [
-          R`乘积法则：$y'=\left(\mathrm e^{\tan\frac1x}\right)'\sin\dfrac1x+\mathrm e^{\tan\frac1x}\left(\sin\dfrac1x\right)'$`,
-          R`$\left(\mathrm e^{\tan\frac1x}\right)'=\mathrm e^{\tan\frac1x}\cdot\sec^2\dfrac1x\cdot\left(-\dfrac1{x^2}\right)$（三层：$\mathrm e^u$、$\tan v$、$\frac1x$）`,
-          R`$\left(\sin\dfrac1x\right)'=\cos\dfrac1x\cdot\left(-\dfrac1{x^2}\right)$`,
-          R`合并：$y'=-\dfrac1{x^2}\mathrm e^{\tan\frac1x}\left(\cos\dfrac1x+\sin\dfrac1x\sec^2\dfrac1x\right)=-\dfrac1{x^2}\mathrm e^{\tan\frac1x}\left(\cos\dfrac1x+\tan\dfrac1x\sec\dfrac1x\right)$`
+          R`乘积法则 $(uv)'=u'v+uv'$：令 $u=\mathrm e^{\tan\frac1x}$，$v=\sin\dfrac1x$`,
+          R`求 $u'$：三层复合 $\mathrm e^{(\cdot)}$ → $\tan(\cdot)$ → $\frac1x$。从外向里：$\mathrm e^{w}$ 的导数是它自己，$w=\tan\frac1x$ 的导数是 $\sec^2\frac1x$ 乘里层 $\frac1x$ 的导数 $-\frac1{x^2}$。所以 $u'=\mathrm e^{\tan\frac1x}\cdot\sec^2\dfrac1x\cdot\left(-\dfrac1{x^2}\right)$`,
+          R`求 $v'$：两层 $\sin(\cdot)$ → $\frac1x$，$v'=\cos\dfrac1x\cdot\left(-\dfrac1{x^2}\right)$`,
+          R`代回 $y'=u'v+uv'$，两项都有公因子 $-\dfrac1{x^2}\mathrm e^{\tan\frac1x}$，提出：$y'=-\dfrac{1}{x^2}\mathrm e^{\tan\frac1x}\left(\sec^2\dfrac1x\sin\dfrac1x+\cos\dfrac1x\right)$`,
+          R`化简：$\sec^2\dfrac1x\sin\dfrac1x=\sec\dfrac1x\cdot\tan\dfrac1x$（$\sec\cdot\dfrac{\sin}{\cos}$），所以 $y'=-\dfrac1{x^2}\mathrm e^{\tan\frac1x}\left(\cos\dfrac1x+\tan\dfrac1x\sec\dfrac1x\right)$`
         ],
         pitfall: R`剥到中间就停，漏乘最里层 $\left(\frac1x\right)'=-\frac1{x^2}$；$\left(\mathrm e^u\right)'$ 写成 $u\mathrm e^{u-1}$`,
         practice: "教材 例13、14（p89）、习题2-2 第6、7、8、11题（p92–93，答案习题全解 p59–64）；30讲 例4.2（p122）；检验：1000题强化篇第4章 1题"
@@ -234,12 +239,14 @@
             { src: "习题全解 习题2-2 第10(1)题 p63", text: R`$y'=f'(x^2)\,2x=2xf'(x^2)$` }
           ]
         },
+        think: R`$f$ 没有表达式，只知道 $f'$。$y=f(u)$，$u$ 是 $x$ 的函数，链式法则给 $y'=f'(u)\cdot u'$，其中 $f'(u)$ 就是把已知的 $f'(x)=\arctan x^2$ 里的 $x$ 换成 $u$。只要求 $x=0$ 处的值，所以不用化简，直接算 $u(0)$、$u'(0)$。`,
         first: R`内层 $u=\dfrac{3x-2}{3x+2}$，$x=0$ 时 $u=-1$`,
         steps: [
-          R`$\dfrac{\mathrm dy}{\mathrm dx}=f'(u)\cdot\dfrac{\mathrm du}{\mathrm dx}$，$u=\dfrac{3x-2}{3x+2}$（链式法则，教材 p87）`,
-          R`$\dfrac{\mathrm du}{\mathrm dx}=\dfrac{3(3x+2)-3(3x-2)}{(3x+2)^2}=\dfrac{12}{(3x+2)^2}$，$x=0$ 时为 $3$`,
-          R`$x=0$ 时 $u=-1$，$f'(-1)=\arctan(-1)^2=\arctan1=\dfrac\pi4$`,
-          R`$\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=0}=\dfrac\pi4\cdot3=\dfrac{3\pi}4$`
+          R`设 $u=\dfrac{3x-2}{3x+2}$，则 $y=f(u)$，链式法则 $\dfrac{\mathrm dy}{\mathrm dx}=f'(u)\cdot\dfrac{\mathrm du}{\mathrm dx}$`,
+          R`$u'$ 用商法则：$\dfrac{3(3x+2)-3(3x-2)}{(3x+2)^2}=\dfrac{12}{(3x+2)^2}$，$x=0$ 时 $=\dfrac{12}{4}=3$`,
+          R`$x=0$ 时 $u=\dfrac{-2}{2}=-1$`,
+          R`$f'(u)$ 是把 $f'(x)=\arctan x^2$ 里的 $x$ 换成 $u$：$f'(-1)=\arctan(-1)^2=\arctan1=\dfrac\pi4$。注意 $x^2$ 是先平方再 $\arctan$，$(-1)^2=1$`,
+          R`$\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=0}=\dfrac\pi4\cdot3=\dfrac{3\pi}{4}$`
         ],
         pitfall: R`把 $f'$ 的表达式里的 $x$ 直接代 0（$\arctan0=0$），没换成内层的值 $-1$；漏乘 $u'$`,
         practice: "吉米【168】【169】（p49）；教材习题2-2 第9、10题（p93，答案习题全解 p62–63）；武忠祥 题型三(一)例2（p68）；30讲 习题4.1（p135）；检验：1000题基础篇第4章 1、4题"
@@ -261,12 +268,13 @@
             { src: "吉米【171】p49", text: R`由已知得 $af\left(\frac1x\right)+bf(x)=cx$，解方程组 … 得 $f(x)=\dfrac{\frac{ac}x-bcx}{a^2-b^2}$` }
           ]
         },
+        think: R`$f$ 只由一个函数方程给出，其中 $f(1+x)$ 和 $f(1-x)$ 两个未知量互相缠着。$x\to-x$ 会把两者对调，得到第二个方程，当二元一次方程组消元，先解出 $f$ 的表达式再求导。`,
         first: R`把 $x$ 换成 $-x$，再得一个方程`,
         steps: [
-          R`原式 ①：$2f(1+x)+f(1-x)=\mathrm e^x$；$x$ 换成 $-x$ 得 ②：$2f(1-x)+f(1+x)=\mathrm e^{-x}$`,
-          R`$2\times$① $-$ ②：$3f(1+x)=2\mathrm e^x-\mathrm e^{-x}$`,
-          R`令 $t=1+x$：$f(t)=\dfrac{2\mathrm e^{t-1}-\mathrm e^{1-t}}3$，即 $f(x)=\dfrac{2\mathrm e^{x-1}-\mathrm e^{1-x}}3$`,
-          R`$f'(x)=\dfrac{2\mathrm e^{x-1}+\mathrm e^{1-x}}3$（$(\mathrm e^{1-x})'=-\mathrm e^{1-x}$）`
+          R`原式 ①：$2f(1+x)+f(1-x)=\mathrm e^x$。把 $x$ 换成 $-x$（对任意实数成立）得 ②：$2f(1-x)+f(1+x)=\mathrm e^{-x}$，两个未知量 $f(1+x)$、$f(1-x)$ 的位置对调了`,
+          R`消去 $f(1-x)$：① 里它的系数是 $1$，② 里是 $2$，所以做 $2\times$① $-$ ②：$4f(1+x)+2f(1-x)-2f(1-x)-f(1+x)=2\mathrm e^x-\mathrm e^{-x}$，即 $3f(1+x)=2\mathrm e^x-\mathrm e^{-x}$`,
+          R`把括号里的整体换成新变量：令 $t=1+x$，$x=t-1$，$f(t)=\dfrac{2\mathrm e^{t-1}-\mathrm e^{1-t}}{3}$，即 $f(x)=\dfrac{2\mathrm e^{x-1}-\mathrm e^{1-x}}{3}$`,
+          R`求导：$(\mathrm e^{x-1})'=\mathrm e^{x-1}$；$(\mathrm e^{1-x})'=\mathrm e^{1-x}\cdot(-1)$（内层 $1-x$ 的导数是 $-1$）。所以 $f'(x)=\dfrac{2\mathrm e^{x-1}+\mathrm e^{1-x}}{3}$`
         ],
         pitfall: R`消元时系数配错；$(\mathrm e^{1-x})'$ 漏了内层导数 $-1$，结果符号写成减号`,
         practice: "吉米【167】【171】【172】（p48–50）；30讲 习题4.2（p135）；检验：1000题基础篇第4章 12、13题"
@@ -288,12 +296,15 @@
             { src: "吉米【174】点评 p51", text: R`确定参数的值使分段函数可导的问题，通常一要利用函数在一点处可导的充要条件是在该点的左导数与右导数均存在且相等；二要利用函数可导必连续` }
           ]
         },
+        think: R`分段点 $x=0$ 两侧是不同表达式，要可导必须同时满足两件事：连续、左右导数相等，两个未知数 $a,b$ 正好对应这两个方程。左边 $\ln(1-2x)$ 可以直接算，右边含 $a,b$，先用连续条件消掉一个。`,
         first: R`$x=0$ 处先保连续：$f(0)=1$，右极限 $a+b$`,
         steps: [
-          R`连续：$\lim\limits_{x\to0^+}(a+b\mathrm e^x)=a+b=f(0)=1$`,
-          R`$f'_-(0)=\lim\limits_{x\to0^-}\dfrac{\ln(1-2x)}x=-2$（等价无穷小 $\ln(1-2x)\sim-2x$）`,
-          R`$f'_+(0)=\lim\limits_{x\to0^+}\dfrac{a+b\mathrm e^x-1}x=\lim\limits_{x\to0^+}\dfrac{b(\mathrm e^x-1)}x=b$（用了 $a=1-b$）`,
-          R`$b=-2$，$a=3$，$f'(0)=-2$；$f'(x)=\begin{cases}-\dfrac2{1-2x},&x\leqslant0\\-2\mathrm e^x,&x>0\end{cases}$`
+          R`函数值：$f(0)=1+\ln1=1$（$x\leqslant0$ 用上式）`,
+          R`第一个方程，连续：右极限 $\lim\limits_{x\to0^+}(a+b\mathrm e^x)=a+b$ 必须等于 $f(0)=1$，所以 $a+b=1$，即 $a=1-b$`,
+          R`左导数：$f'_-(0)=\lim\limits_{x\to0^-}\dfrac{1+\ln(1-2x)-1}{x}=\lim\dfrac{\ln(1-2x)}{x}$，$\ln(1-2x)\sim-2x$，所以 $=-2$`,
+          R`右导数：$f'_+(0)=\lim\limits_{x\to0^+}\dfrac{a+b\mathrm e^x-1}{x}$，代入 $a=1-b$：分子 $=b\mathrm e^x-b=b(\mathrm e^x-1)\sim bx$，所以 $=b$`,
+          R`第二个方程，可导 ⇔ 左右导数相等：$b=-2$，再由 $a=1-b$ 得 $a=3$`,
+          R`导函数：$x<0$ 时 $f'=\dfrac{-2}{1-2x}$（链式法则，内层 $1-2x$ 导数 $-2$）；$x=0$ 时 $f'(0)=-2$；$x>0$ 时 $f'=b\mathrm e^x=-2\mathrm e^x$。注意 $x\leqslant0$ 与公式 $-\dfrac2{1-2x}$ 在 $x=0$ 也成立（值 $-2$）`
         ],
         pitfall: R`分段点处直接把某一段的公式代进去当导数；没先用连续定出 $a+b=1$，右导数的分子就写不对`,
         practice: "吉米【174】（p50–51）、【173】（p50，要用洛必达，学完 3.2 再做）；教材习题2-1 第19题（p82）；检验：1000题基础篇第4章 14题"
@@ -315,12 +326,14 @@
             { src: "吉米【175】p51", text: R`当 $\lambda>1$，有 $f'(x)=\lambda x^{\lambda-1}\cos\frac1x+x^{\lambda-2}\sin\frac1x\ (x\neq0)$，$f'(0)=0$ … 显然当 $\lambda>2$ 时，$\lim\limits_{x\to0}f'(x)=0=f'(0)$` }
           ]
         },
+        think: R`问的是"导函数在 0 处是否连续"，即 $\lim\limits_{x\to0}f'(x)$ 是否等于 $f'(0)$。分段点处的 $f'(0)$ 只能用定义求，$x\neq0$ 处的 $f'(x)$ 用公式求，再比较两者。`,
         first: R`先用定义求 $f'(0)$`,
         steps: [
-          R`$f'(0)=\lim\limits_{x\to0}\dfrac{x\arctan\frac1{x^2}-0}{x}=\lim\limits_{x\to0}\arctan\dfrac1{x^2}=\dfrac\pi2$（$\frac1{x^2}\to+\infty$）`,
-          R`$x\neq0$：$f'(x)=\arctan\dfrac1{x^2}+x\cdot\dfrac1{1+\frac1{x^4}}\cdot\left(-\dfrac2{x^3}\right)=\arctan\dfrac1{x^2}-\dfrac{2x^2}{1+x^4}$`,
-          R`$\lim\limits_{x\to0}f'(x)=\dfrac\pi2-0=\dfrac\pi2$`,
-          R`$\lim\limits_{x\to0}f'(x)=f'(0)$，所以 $f'(x)$ 在 $x=0$ 处连续`
+          R`$f'(0)$ 用定义：$\dfrac{f(x)-f(0)}{x-0}=\dfrac{x\arctan\frac1{x^2}}{x}=\arctan\dfrac1{x^2}$（约去 $x$）。$x\to0$ 时 $\dfrac1{x^2}\to+\infty$，$\arctan\to\dfrac\pi2$，所以 $f'(0)=\dfrac\pi2$`,
+          R`$x\neq0$ 时用公式（乘积 + 链式）：$f'(x)=\arctan\dfrac1{x^2}+x\cdot\dfrac{1}{1+\left(\frac1{x^2}\right)^2}\cdot\left(\dfrac1{x^2}\right)'$，其中 $\left(\dfrac1{x^2}\right)'=-\dfrac2{x^3}$`,
+          R`化简第二项：$x\cdot\dfrac{x^4}{x^4+1}\cdot\left(-\dfrac2{x^3}\right)=-\dfrac{2x^2}{1+x^4}$（$\dfrac{1}{1+x^{-4}}=\dfrac{x^4}{x^4+1}$）。所以 $f'(x)=\arctan\dfrac1{x^2}-\dfrac{2x^2}{1+x^4}$`,
+          R`取极限：$x\to0$ 时第一项 $\to\dfrac\pi2$，第二项 $\to0$，$\lim\limits_{x\to0}f'(x)=\dfrac\pi2$`,
+          R`$\lim\limits_{x\to0}f'(x)=\dfrac\pi2=f'(0)$，所以 $f'(x)$ 在 $x=0$ 处连续`
         ],
         pitfall: R`用 $\lim\limits_{x\to0}f'(x)$ 代替 $f'(0)$：这个极限不存在时就说 $f'(0)$ 不存在（$x^2\sin\frac1x$ 就是反例）`,
         practice: "吉米【175】【176】（p51）、【177】（p51–52，要用洛必达和二阶导数，后做）；检验：1000题基础篇第3章 10题，强化篇第3章 3、12题"
@@ -342,11 +355,13 @@
             { src: "教材 例6 p86", text: R`$\cos y=\sqrt{1-\sin^2y}=\sqrt{1-x^2}$（因为当 $-\frac\pi2<y<\frac\pi2$ 时，$\cos y>0$，所以根号前只取正号）` }
           ]
         },
+        think: R`反函数的导数公式 $g'(y_0)=\dfrac{1}{f'(x_0)}$ 要求的是对应点 $x_0$：$f(x_0)=y_0$。$f$ 是 $\mathrm e^x+2x+1$，没法解出 $x$ 的显式，但我们只要 $y_0=2$ 时的 $x_0$，试几个简单值就能找到。`,
         first: R`找对应点：$f(x_0)=2$，试 $x_0=0$`,
         steps: [
-          R`$f'(x)=\mathrm e^x+2>0$，$f$ 单调增加、可导、导数不为 0，反函数存在且可导（定理 2，教材 p85）`,
-          R`$f(0)=1+0+1=2$，所以 $y=2$ 对应 $x=0$，$g(2)=0$`,
-          R`$g'(2)=\dfrac1{f'(0)}=\dfrac1{1+2}=\dfrac13$`
+          R`先说明反函数存在且可导：$f'(x)=\mathrm e^x+2>0$，$f$ 严格单调增加，可导且导数不为 0，所以反函数 $g$ 存在、可导（教材 p85）`,
+          R`找对应点：解 $f(x_0)=2$，试 $x_0=0$：$f(0)=\mathrm e^0+0+1=2$ ✓。由单调性，$x_0=0$ 是唯一解，$g(2)=0$`,
+          R`反函数求导公式：$g'(2)=\dfrac{1}{f'(g(2))}=\dfrac{1}{f'(0)}$`,
+          R`$f'(0)=\mathrm e^0+2=3$，所以 $g'(2)=\dfrac13$`
         ],
         pitfall: R`写成 $g'(2)=\dfrac1{f'(2)}$：倒数要在对应点 $x_0=0$ 处取，不是在 $y_0=2$ 处`,
         practice: "教材 例6–例8（p86–87）；18讲 例4.9（p41，二阶部分学完 2.3 再做）；30讲 例4.7（p126，同上）；检验：1000题基础篇第4章 5题"
@@ -368,12 +383,13 @@
             { src: "习题全解 习题2-2 第1题 p58", text: R`$(\csc x)'=\left(\dfrac1{\sin x}\right)'=\dfrac{-\cos x}{\sin^2x}=-\csc x\cot x$` }
           ]
         },
+        think: R`$\cot x$、$\csc x$ 是 $\sin x$、$\cos x$ 的商，已知 $\sin$、$\cos$ 的导数，用商法则 $\left(\dfrac uv\right)'=\dfrac{u'v-uv'}{v^2}$ 就能推出新公式，不必再回到导数定义。`,
         first: R`$\cot x=\dfrac{\cos x}{\sin x}$，$\csc x=\dfrac1{\sin x}$，用商法则`,
         steps: [
-          R`$(\cot x)'=\dfrac{(\cos x)'\sin x-\cos x(\sin x)'}{\sin^2x}=\dfrac{-\sin^2x-\cos^2x}{\sin^2x}$（商法则，教材 p83）`,
-          R`$=-\dfrac1{\sin^2x}=-\csc^2x$`,
-          R`$(\csc x)'=\dfrac{0\cdot\sin x-1\cdot\cos x}{\sin^2x}=-\dfrac{\cos x}{\sin^2x}$`,
-          R`$=-\dfrac1{\sin x}\cdot\dfrac{\cos x}{\sin x}=-\csc x\cot x$`
+          R`$\cot x=\dfrac{\cos x}{\sin x}$，商法则：分子 $u=\cos x$，分母 $v=\sin x$，$u'=-\sin x$，$v'=\cos x$`,
+          R`$(\cot x)'=\dfrac{(-\sin x)\sin x-\cos x\cdot\cos x}{\sin^2x}=\dfrac{-(\sin^2x+\cos^2x)}{\sin^2x}=-\dfrac1{\sin^2x}=-\csc^2x$`,
+          R`$\csc x=\dfrac{1}{\sin x}$，商法则：$u=1$，$u'=0$，$v=\sin x$：$(\csc x)'=\dfrac{0\cdot\sin x-1\cdot\cos x}{\sin^2x}=-\dfrac{\cos x}{\sin^2x}$`,
+          R`拆成两个因子，凑出已知函数：$-\dfrac{\cos x}{\sin^2x}=-\dfrac1{\sin x}\cdot\dfrac{\cos x}{\sin x}=-\csc x\cot x$`
         ],
         pitfall: R`商法则分子顺序写反（$uv'-u'v$），结果差一个负号`,
         practice: "教材 例4、例5（p84–85）、例16（p91，带 * 了解）、习题2-2 第1题（p92，答案习题全解 p58）、第12题（p93，带 *）"
@@ -395,11 +411,13 @@
             { src: "习题全解 习题2-2 第5题 p59", text: R`$y'=2\cos x+2x$，$y'|_{x=0}=2$，$y|_{x=0}=0$，因此曲线在点 $(0,0)$ 处的切线方程为 $y-0=2(x-0)$` }
           ]
         },
+        think: R`$y=f[f(x)]$，只求 $x=\mathrm e$ 一点的导数，不需要写出复合函数的整体表达式。链式法则：外层的导数在内层的值处取，再乘内层的导数。关键是判断每一层的点落在 $f$ 的哪一段，以及是不是分段点。`,
         first: R`先算内层：$f(\mathrm e)=\ln\sqrt{\mathrm e}=\dfrac12$`,
         steps: [
-          R`$\mathrm e>1$，内层用 $\ln\sqrt x=\frac12\ln x$：$f(\mathrm e)=\dfrac12$，$f'(\mathrm e)=\dfrac1{2x}\Big|_{x=\mathrm e}=\dfrac1{2\mathrm e}$`,
-          R`$\frac12<1$，外层落在 $2x-1$ 这一段，而且不是分段点：$f'\left(\frac12\right)=2$`,
-          R`$\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=\mathrm e}=f'(f(\mathrm e))\cdot f'(\mathrm e)=2\cdot\dfrac1{2\mathrm e}=\dfrac1{\mathrm e}$（链式法则）`
+          R`链式法则：$y'(\mathrm e)=f'\big(f(\mathrm e)\big)\cdot f'(\mathrm e)$，先算内层在 $x=\mathrm e$ 处的值和导数`,
+          R`$\mathrm e\geqslant1$，用上一段 $f(x)=\ln\sqrt x=\dfrac12\ln x$：$f(\mathrm e)=\dfrac12$，$f'(x)=\dfrac1{2x}$，$f'(\mathrm e)=\dfrac1{2\mathrm e}$`,
+          R`外层在 $u=f(\mathrm e)=\dfrac12$ 处：$\dfrac12<1$，落在下一段 $f(u)=2u-1$，而且 $\frac12$ 不是分段点（分段点是 $u=1$），可以直接求导：$f'(u)=2$`,
+          R`$y'(\mathrm e)=2\cdot\dfrac1{2\mathrm e}=\dfrac1{\mathrm e}$`
         ],
         pitfall: R`外层也用 $\ln\sqrt x$ 那一段求 $f'\left(\frac12\right)$；或者先把 $f[f(x)]$ 分四种情况写出来，费时又容易错`,
         practice: "30讲 例4.3（p122–123）；教材习题2-2 第3、4、5题（p92，答案习题全解 p58–59）；吉米【164】（p48）；检验：1000题基础篇第4章 2、4题"
@@ -421,12 +439,14 @@
             { src: "30讲 p124", text: R`$\ln|x|$ 求导时，可视"绝对值符号"而不见` }
           ]
         },
+        think: R`含绝对值的函数先去绝对值：$\mathrm e^{-x}>0$ 恒成立，所以 $|x\mathrm e^{-x}|=|x|\mathrm e^{-x}$，只需看 $x$ 的符号，变成分段函数。分段点 $x=0$ 处两侧的函数不同，要用左右导数的定义判断；其余点直接求导。`,
         first: R`$\mathrm e^{-x}>0$，绝对值只看 $x$ 的符号`,
         steps: [
-          R`去绝对值：$y=\begin{cases}-x\mathrm e^{-x},&x<0\\x\mathrm e^{-x},&x\geqslant0\end{cases}$`,
-          R`$x>0$：$y'=\mathrm e^{-x}-x\mathrm e^{-x}=\mathrm e^{-x}(1-x)$；$x<0$：$y'=\mathrm e^{-x}(x-1)$`,
-          R`$x=0$：$y'_-(0)=\lim\limits_{x\to0^-}\dfrac{-x\mathrm e^{-x}}x=-1$，$y'_+(0)=1$，不可导`,
-          R`$y'=\begin{cases}\mathrm e^{-x}(x-1),&x<0\\\mathrm e^{-x}(1-x),&x>0\end{cases}$，$x=0$ 处不可导`
+          R`去绝对值：$x\geqslant0$ 时 $x\mathrm e^{-x}\geqslant0$，$y=x\mathrm e^{-x}$；$x<0$ 时 $x\mathrm e^{-x}<0$，$y=-x\mathrm e^{-x}$`,
+          R`$x>0$：乘积法则 $y'=\mathrm e^{-x}+x\cdot(-\mathrm e^{-x})=\mathrm e^{-x}(1-x)$；$x<0$：整体差个负号，$y'=-\mathrm e^{-x}(1-x)=\mathrm e^{-x}(x-1)$`,
+          R`分段点 $x=0$：$y(0)=0$。左导数 $y'_-(0)=\lim\limits_{x\to0^-}\dfrac{-x\mathrm e^{-x}-0}{x}=\lim(-\mathrm e^{-x})=-1$`,
+          R`右导数 $y'_+(0)=\lim\limits_{x\to0^+}\dfrac{x\mathrm e^{-x}}{x}=\lim\mathrm e^{-x}=1$。$-1\neq1$，所以 $x=0$ 处不可导（图像上是尖角）`,
+          R`结论：$y'=\begin{cases}\mathrm e^{-x}(x-1),&x<0\\\mathrm e^{-x}(1-x),&x>0\end{cases}$，$x=0$ 处不存在`
         ],
         pitfall: R`去绝对值后在 $x=0$ 处也用公式代值；把 $(\ln|x|)'$ 写成 $\frac1{|x|}$`,
         practice: "30讲 例4.5、4.6（p124–125，4.6 求 $y''$ 的部分学完 2.3 再做）；18讲 例3.6（p31–32）；检验：1000题基础篇第4章 3题"
@@ -448,12 +468,15 @@
             { src: "武忠祥 题型三(一)例4 注 p69", text: R`这是一种"经典"的错误，原因是极限 $\lim\limits_{x\to0}\dfrac{f(x^3\sin\frac1x)-f(0)}{x^3\sin\frac1x}$ 不存在，因为求极限的函数在 $x=0$ 的任何去心邻域内都有没定义的点 $x=\frac1{n\pi}$` }
           ]
         },
+        think: R`链式法则要求两层在各自的点都可导。$x=1$ 处 $g$ 和 $f$ 都光滑，直接用；$x=0$ 处 $g$ 的右半边是 $-\sqrt x$，在 0 处导数是 $-\infty$，不可导，链式法则用不了，只能先把复合函数 $f[g(x)]$ 的表达式写出来再求导。`,
         first: R`$x=1$ 处两层都可导，直接用链式法则；$x=0$ 处 $g'(0)$ 不存在，要写出复合表达式`,
         steps: [
-          R`$x=1$：$g(1)=-1$，$g'(1)=-\dfrac1{2\sqrt x}\Big|_{x=1}=-\dfrac12$，$f'(-1)=4x^3|_{x=-1}=-4$，$\left.\frac{\mathrm dy}{\mathrm dx}\right|_{x=1}=(-4)\cdot\left(-\dfrac12\right)=2$，排除 (A)(B)`,
-          R`$x=0$：$g'_+(0)$ 不存在（$-\sqrt x$ 的差商 $\to-\infty$），链式法则用不了`,
-          R`写表达式：$x>0$ 时 $g=-\sqrt x<0$，$y=g^4=x^2$；$x\leqslant0$ 时 $g=x^2\geqslant0$，$y=g^2=x^4$`,
-          R`$y=\begin{cases}x^2,&x>0\\x^4,&x\leqslant0\end{cases}$，$y'_\pm(0)=0$，所以 $\left.\frac{\mathrm dy}{\mathrm dx}\right|_{x=0}=0$，选 (C)`
+          R`$x=1$：$g(1)=-\sqrt1=-1$（$x>0$ 用 $-\sqrt x$），$g'(x)=-\dfrac1{2\sqrt x}$，$g'(1)=-\dfrac12$`,
+          R`外层在 $u=-1$ 处：$-1<0$ 用 $f(u)=u^4$，$f'(u)=4u^3$，$f'(-1)=-4$`,
+          R`$y'(1)=f'(g(1))\cdot g'(1)=(-4)\cdot\left(-\dfrac12\right)=2$，所以 (A)(B) 都错`,
+          R`$x=0$：$g'_+(0)=\lim\limits_{x\to0^+}\dfrac{-\sqrt x}{x}=-\infty$，不存在，链式法则用不了。改成先写表达式`,
+          R`写 $y=f[g(x)]$：$x>0$ 时 $g=-\sqrt x<0$，外层用 $u^4$：$y=(-\sqrt x)^4=x^2$；$x\leqslant0$ 时 $g=x^2\geqslant0$，外层用 $u^2$：$y=(x^2)^2=x^4$`,
+          R`$y=\begin{cases}x^2,&x>0\\x^4,&x\leqslant0\end{cases}$，$y(0)=0$。$y'_+(0)=\lim\dfrac{x^2}{x}=0$，$y'_-(0)=\lim\dfrac{x^4}{x}=0$，相等，所以 $y'(0)=0$，选 (C)`
         ],
         pitfall: R`看到 $g'(0)$ 不存在就选 (D)；反过来，内层导数为 0 时机械地写 $F'(0)=f'(0)\cdot0$，忽略了差商的分母可能为 0（武忠祥例 4 注）`,
         practice: "武忠祥 题型三(一)例3、例4（p68–69）"

@@ -167,11 +167,14 @@
             { src: "吉米【52】点评 p16", text: R`本题不能使用求极限的四则运算法则求解，因为 $n\to\infty$ 时，本题实际为无穷项相加求和` }
           ]
         },
+        think: R`$n$ 项相加、项数随 $n$ 变，而且每项分母都不同（$n^2+n+k$），无法直接求和。但分母变化的部分 $k$ 相对 $n^2$ 很小，把分母统一放大成最大的、缩小成最小的，分子就能用等差数列求和；两边极限相同，就用夹逼准则（教材 1.6 准则 I）。`,
         first: R`分子 $1+2+\cdots+n$ 保留，分母统一成 $n^2+n+n$ 和 $n^2+n+1$`,
         steps: [
-          R`$\dfrac{1+2+\cdots+n}{n^2+n+n}\leqslant\text{原式}\leqslant\dfrac{1+2+\cdots+n}{n^2+n+1}$`,
-          R`$1+2+\cdots+n=\dfrac{n(n+1)}2$，两边都 $\to\dfrac12$（抓大头）`,
-          R`由夹逼准则，原式 $=\dfrac12$`
+          R`观察：第 $k$ 项是 $\dfrac{k}{n^2+n+k}$，$k=1,\cdots,n$，分母在 $n^2+n+1$ 到 $n^2+n+n$ 之间`,
+          R`放缩：分母换成最大的 $n^2+2n$，每项变小；换成最小的 $n^2+n+1$，每项变大。所以 $\dfrac{1+2+\cdots+n}{n^2+2n}\leqslant\text{原式}\leqslant\dfrac{1+2+\cdots+n}{n^2+n+1}$`,
+          R`分子求和：$1+2+\cdots+n=\dfrac{n(n+1)}{2}$`,
+          R`两边求极限（分子分母都是二次，看最高次系数）：左边 $\dfrac{n^2+n}{2(n^2+2n)}\to\dfrac12$；右边 $\dfrac{n^2+n}{2(n^2+n+1)}\to\dfrac12$`,
+          R`两边极限都是 $\dfrac12$，由夹逼准则，原式 $=\dfrac12$`
         ],
         pitfall: R`逐项求极限得 $0$；放缩后两边极限不同还硬下结论`,
         practice: "吉米【52】【53】（p15–16）；教材习题1-6 第4题(2)（p50，答案 习题全解 p29）；30讲 例2.9（p87–88）；1000题 第2章第3题"
@@ -193,11 +196,14 @@
             { src: "30讲 例2.12 分析 p90", text: R`证明这种由递推形式给出的数列的收敛性，一般都是根据"单调有界数列必收敛"这一准则进行证明；在证明了极限存在的前提下再求极限` }
           ]
         },
+        think: R`数列由递推 $x_{n+1}=\sqrt{2+x_n}$ 给出，没有通项公式，无法直接求极限。这类题先用单调有界准则（教材 1.6 准则 II）证明极限存在，再对递推式两边取极限解方程。单调、有界都用数学归纳法证。`,
         first: R`写成 $x_1=\sqrt2$，$x_{n+1}=\sqrt{2+x_n}$`,
         steps: [
-          R`有界：$x_1<2$；设 $x_k<2$，则 $x_{k+1}=\sqrt{2+x_k}<\sqrt4=2$，所以 $0<x_n<2$`,
-          R`单调：$x_2=\sqrt{2+\sqrt2}>\sqrt2=x_1$；设 $x_k>x_{k-1}$，则 $x_{k+1}=\sqrt{2+x_k}>\sqrt{2+x_{k-1}}=x_k$，单调增加`,
-          R`由准则 II 极限存在，设为 $a$；$a=\sqrt{2+a}$，$a^2-a-2=0$，$a=2$ 或 $a=-1$（$x_n>0$，舍去），极限为 $2$`
+          R`写成递推：$x_1=\sqrt2$，$x_{n+1}=\sqrt{2+x_n}$。先猜极限：若 $x_n\to a$，则 $a=\sqrt{2+a}$，得 $a=2$，所以猜"有上界 2、单调增加"`,
+          R`有界（归纳）：$x_1=\sqrt2<2$；设 $x_k<2$，则 $x_{k+1}=\sqrt{2+x_k}<\sqrt{2+2}=2$。所以对一切 $n$，$0<x_n<2$`,
+          R`单调（归纳）：$x_2=\sqrt{2+\sqrt2}>\sqrt2=x_1$；设 $x_k>x_{k-1}$，则 $2+x_k>2+x_{k-1}$，开方得 $x_{k+1}>x_k$。所以单调增加`,
+          R`单调增加且有上界，由准则 II 极限存在，记为 $a$`,
+          R`对 $x_{n+1}=\sqrt{2+x_n}$ 两边取极限：$a=\sqrt{2+a}$，平方 $a^2-a-2=0$，$(a-2)(a+1)=0$。因为 $x_n>0$，$a\geqslant0$，舍去 $-1$，极限为 $2$`
         ],
         pitfall: R`没证存在就对递推式取极限；解出两个根不取舍；证单调时只验证了前两项`,
         practice: "吉米【54】–【56】（p16–17）；教材习题1-6 第5、6题（p50，答案 习题全解 p29–30）；30讲 例2.12（p90）；1000题 第2章第4题"
@@ -219,11 +225,13 @@
             { src: "教材 p46 例2", text: R`$\lim\limits_{x\to0}\dfrac{1-\cos x}{x^2}=\lim\left(\dfrac{\sin^2x}{x^2}\cdot\dfrac1{1+\cos x}\right)=\dfrac12$` }
           ]
         },
+        think: R`$x\to\infty$ 时 $\dfrac2x\to0$，$\sin\dfrac2x$ 是"$\sin$ 一个趋于 0 的量"，这是第一个重要极限 $\dfrac{\sin\square}{\square}\to1$ 的信号。把 $\sin\frac2x$ 凑成 $\dfrac{\sin\frac2x}{\frac2x}\cdot\dfrac2x$，剩下的部分是有理分式，抓大头即可。`,
         first: R`$x\to\infty$ 时 $\frac2x\to0$，凑 $\dfrac{\sin\frac2x}{\frac2x}$`,
         steps: [
-          R`原式 $=\lim\dfrac{3x^2+5}{5x+3}\cdot\dfrac2x\cdot\dfrac{\sin\frac2x}{\frac2x}$`,
-          R`$\dfrac{(3x^2+5)\cdot2}{(5x+3)x}\to\dfrac65$（抓大头），$\dfrac{\sin\frac2x}{\frac2x}\to1$`,
-          R`原式 $=\dfrac65$`
+          R`凑形：$\sin\dfrac2x=\dfrac{\sin\frac2x}{\frac2x}\cdot\dfrac2x$，所以原式 $=\lim\dfrac{3x^2+5}{5x+3}\cdot\dfrac2x\cdot\dfrac{\sin\frac2x}{\frac2x}$`,
+          R`重要极限：令 $\square=\dfrac2x$，$x\to\infty$ 时 $\square\to0$，所以 $\dfrac{\sin\square}{\square}\to1$`,
+          R`有理部分：$\dfrac{2(3x^2+5)}{x(5x+3)}=\dfrac{6x^2+10}{5x^2+3x}$，分子分母都是二次，极限是最高次系数之比 $\dfrac65$`,
+          R`由积的运算法则（两个因子极限都存在），原式 $=\dfrac65\times1=\dfrac65$`
         ],
         pitfall: R`看到 $x\to\infty$ 就说 $\sin$ 这部分用不了重要极限——关键是 $\square\to0$，不是 $x\to0$；分母和 $\sin$ 里的式子不一致`,
         practice: "吉米【57】（p17）；教材习题1-6 第1题（p50，答案 习题全解 p28）；吉米【58】要用 $\ln(1+x)\sim x$，学完 1.7 再做"
@@ -245,11 +253,13 @@
             { src: "习题全解 习题1-6 第2题 p28", text: R`$\lim\limits_{x\to0}(1+2x)^{\frac1x}=\lim\left[(1+2x)^{\frac1{2x}}\right]^2=\mathrm e^2$；$\lim\limits_{x\to\infty}\left(1-\frac1x\right)^{kx}=\mathrm e^{-k}$` }
           ]
         },
+        think: R`$x\to\infty$ 时底数 $\dfrac{x+2a}{x-a}\to1$，指数 $x\to\infty$，是 $1^\infty$ 型，用第二个重要极限 $(1+\square)^{\frac1\square}\to\mathrm e$。做法是把底数写成 $1+\square$，再在指数上凑出 $\frac1\square$。`,
         first: R`底数 $\dfrac{x+2a}{x-a}=1+\dfrac{3a}{x-a}$`,
         steps: [
-          R`$\left(1+\dfrac{3a}{x-a}\right)^x=\left[\left(1+\dfrac{3a}{x-a}\right)^{\frac{x-a}{3a}}\right]^{\frac{3ax}{x-a}}$`,
-          R`方括号 $\to\mathrm e$，指数 $\dfrac{3ax}{x-a}\to3a$，所以极限 $=\mathrm e^{3a}$`,
-          R`$\mathrm e^{3a}=8$，$a=\ln2$`
+          R`底数写成 $1+\square$：$\dfrac{x+2a}{x-a}=1+\dfrac{(x+2a)-(x-a)}{x-a}=1+\dfrac{3a}{x-a}$，$\square=\dfrac{3a}{x-a}\to0$`,
+          R`指数凑 $\frac1\square$：$\left(1+\dfrac{3a}{x-a}\right)^x=\left[\left(1+\dfrac{3a}{x-a}\right)^{\frac{x-a}{3a}}\right]^{\frac{3a}{x-a}\cdot x}$（指数相乘回到 $x$）`,
+          R`方括号是 $(1+\square)^{\frac1\square}\to\mathrm e$；外指数 $\dfrac{3ax}{x-a}\to3a$（同除 $x$）。所以极限 $=\mathrm e^{3a}$（$a\neq0$；$a=0$ 时极限为 $1\neq8$）`,
+          R`$\mathrm e^{3a}=8=2^3$，取对数 $3a=3\ln2$，$a=\ln2$`
         ],
         pitfall: R`把 $1^{\infty}$ 当成 $1$；凑 $\mathrm e$ 时指数没凑对（差一个常数倍）；对 $a=0$ 的情形没想（此时不是 $1^\infty$ 型，题目已排除）`,
         practice: "吉米【59】–【61】（p17–18）；教材习题1-6 第2题（p50，答案 习题全解 p28）；1000题 第2章第1题（要用 arctan 的差化积，卡住先看提示）"
@@ -271,11 +281,14 @@
             { src: "吉米【64】点评 p18", text: R`讨论极限的问题，首先要确定极限的类型……由此可确定参数的值` }
           ]
         },
+        think: R`$x\to\infty$ 时式子由"$x$ 的一次项 + 常数 + 无穷小"组成。极限要等于 0，一次项系数必须为 0（否则趋于 $\infty$），常数项必须为 0。所以先把 $\dfrac{x^2}{x+1}$ 用多项式除法拆成"多项式 + 真分式"。`,
         first: R`拆：$\dfrac{x^2}{x+1}=x-1+\dfrac1{x+1}$`,
         steps: [
-          R`原式 $=\lim\left[(1-a)x-(1+b)+\dfrac1{x+1}\right]$`,
-          R`$\dfrac1{x+1}\to0$；要极限为 $0$，必须 $1-a=0$ 且 $1+b=0$`,
-          R`$a=1$，$b=-1$`
+          R`多项式除法：$x^2=(x+1)(x-1)+1$，所以 $\dfrac{x^2}{x+1}=x-1+\dfrac{1}{x+1}$`,
+          R`整理：原式 $=\lim\limits_{x\to\infty}\left[(1-a)x-(1+b)+\dfrac{1}{x+1}\right]$，其中 $\dfrac{1}{x+1}\to0$`,
+          R`一次项：若 $1-a\neq0$，$(1-a)x\to\infty$，极限不可能是 0，所以 $a=1$`,
+          R`常数项：$a=1$ 后极限是 $-(1+b)$，要等于 0，所以 $b=-1$`,
+          R`几何意义：$y=x-1$ 是曲线 $y=\dfrac{x^2}{x+1}$ 的斜渐近线`
         ],
         pitfall: R`只令常数项为 0，忘了 $x$ 的系数也必须为 0`,
         practice: "吉米【62】【63】【65】（p18）；吉米【64】要用等价无穷小，学完 1.7 再做"
@@ -296,10 +309,14 @@
             { src: "30讲 例1.29 p59", text: R`对于 $[\infty]$，想到极限计算的利器——夹逼准则。根据 $x-1<[x]\leqslant x$……无论 $x>0$ 还是 $x<0$，不等式两边均可趋于同一极限` }
           ]
         },
+        think: R`(1) 根式 $\sqrt[n]{1+x}$ 不好直接求极限，但它和 $1$、$1+x$ 有简单的大小关系，可以夹逼；注意 $x$ 正负时不等号方向不同，要分开。(2) 取整函数 $[t]$ 没有表达式，只能用它的基本不等式 $t-1<[t]\leqslant t$ 夹逼。`,
         first: R`(1) 分 $x>0$、$-1<x<0$；(2) 用 $\frac1x-1<\left[\frac1x\right]\leqslant\frac1x$`,
         steps: [
-          R`(1) $x>0$ 时 $1<\sqrt[n]{1+x}<1+x$；$-1<x<0$ 时 $1+x<\sqrt[n]{1+x}<1$。两边都 $\to1$，结论成立`,
-          R`(2) $x>0$ 时乘以 $x$：$1-x<x\left[\dfrac1x\right]\leqslant1$，两边 $\to1$，结论成立`
+          R`(1) $x>0$ 时：$1<1+x$，开 $n$ 次方 $1<\sqrt[n]{1+x}$；又 $1+x<(1+x)^n$（$n\geqslant2$），所以 $\sqrt[n]{1+x}<1+x$。得 $1<\sqrt[n]{1+x}<1+x$`,
+          R`(1) $-1<x<0$ 时：$0<1+x<1$，开方后反而变大但仍小于 1：$1+x<\sqrt[n]{1+x}<1$`,
+          R`(1) 两种情况两边都 $\to1$（$x\to0$），由夹逼准则 $\lim\limits_{x\to0}\sqrt[n]{1+x}=1$`,
+          R`(2) 取整不等式：$\dfrac1x-1<\left[\dfrac1x\right]\leqslant\dfrac1x$。$x>0$，两边乘 $x$ 不变号：$1-x<x\left[\dfrac1x\right]\leqslant1$`,
+          R`(2) $x\to0^+$ 时 $1-x\to1$，由夹逼准则 $\lim\limits_{x\to0^+}x\left[\dfrac1x\right]=1$`
         ],
         pitfall: R`$x<0$ 时乘以 $x$ 忘了不等号反向（30讲 例1.29 里 $x<0$ 一侧方向是反的）`,
         practice: "教材习题1-6 第4题（p50，答案 习题全解 p29）；30讲 例1.29（p59）"
@@ -320,11 +337,14 @@
             { src: "30讲 例2.10 注 p88", text: R`当 $0\leqslant x\leqslant\frac{\pi}{2}$ 时，$\lim\sqrt[n]{\sin^nx+\cos^nx}=\cos x\ \left(0\leqslant x\leqslant\frac{\pi}{4}\right)$，$\sin x\ \left(\frac{\pi}{4}<x\leqslant\frac{\pi}{2}\right)$` }
           ]
         },
+        think: R`$\sqrt[n]{a^n+b^n}$（$a,b\geqslant0$）的极限是较大的那个数，因为开 $n$ 次方后最大项占主导：$\max\leqslant\sqrt[n]{\cdots}\leqslant\max\cdot2^{\frac1n}$，而 $2^{\frac1n}\to1$。这里 $a=\sin x$、$b=\cos x$，谁大取决于 $x$ 和 $\frac{\pi}{4}$ 的关系，所以分段。`,
         first: R`比较 $\sin x$ 和 $\cos x$ 谁大：分界点 $x=\dfrac{\pi}{4}$`,
         steps: [
-          R`$0\leqslant x\leqslant\dfrac{\pi}{4}$ 时 $\cos x\geqslant\sin x$：$\cos x\leqslant\sqrt[n]{\sin^nx+\cos^nx}\leqslant2^{\frac1n}\cos x$，极限 $\cos x$`,
-          R`$\dfrac{\pi}{4}<x\leqslant\dfrac{\pi}{2}$ 时同理，极限 $\sin x$`,
-          R`即 $\max\{\sin x,\cos x\}$`
+          R`比大小：在 $\left[0,\dfrac{\pi}{2}\right]$ 上 $\sin x$、$\cos x\geqslant0$；$x\leqslant\dfrac{\pi}{4}$ 时 $\cos x\geqslant\sin x$，$x>\dfrac{\pi}{4}$ 时 $\sin x>\cos x$`,
+          R`$0\leqslant x\leqslant\dfrac{\pi}{4}$：$\cos^nx\leqslant\sin^nx+\cos^nx\leqslant2\cos^nx$，开 $n$ 次方 $\cos x\leqslant\sqrt[n]{\sin^nx+\cos^nx}\leqslant2^{\frac1n}\cos x$`,
+          R`$2^{\frac1n}\to1$，两边都 $\to\cos x$，由夹逼准则极限为 $\cos x$`,
+          R`$\dfrac{\pi}{4}<x\leqslant\dfrac{\pi}{2}$：同理 $\sin x\leqslant\sqrt[n]{\cdots}\leqslant2^{\frac1n}\sin x$，极限为 $\sin x$`,
+          R`合起来：极限 $=\max\{\sin x,\cos x\}$`
         ],
         pitfall: R`把 $\sqrt[n]{a^n+b^n}$ 拆成 $a+b$；忘记 $m^{\frac1n}\to1$ 这一步`,
         practice: "30讲 例2.10（p88）；1000题 第2章第5、6题"
@@ -345,11 +365,14 @@
             { src: "30讲 例2.13 p91", text: R`对于③，……依次类推，便知数列 $\{x_n\}$ 是摆动的，不单调` }
           ]
         },
+        think: R`$x_{n+1}=f(x_n)$ 意味着相邻两项的大小关系会经过 $f$ 传给下一对：$f$ 增时保持方向，$f$ 减时反转方向。所以从 $x_1,x_2$ 的关系出发，把它代进 $f$ 往下传一两步就能看出整体规律。`,
         first: R`对 $f$ 增、$f$ 减分别把大小关系往下传两步`,
         steps: [
-          R`① 正确：$x_1<x_2\Rightarrow x_2=f(x_1)<f(x_2)=x_3$，依次类推`,
-          R`② 正确：同理得单调减少`,
-          R`③④ 错误：$f$ 减时大小关系交替反转，数列摆动。选 (A)`
+          R`① $f$ 增、$x_1<x_2$：两边作用 $f$ 不改变方向，$f(x_1)<f(x_2)$，即 $x_2<x_3$；归纳：$x_n<x_{n+1}\Rightarrow x_{n+1}<x_{n+2}$，单调增加，正确`,
+          R`② $f$ 增、$x_1>x_2$：同理 $x_2=f(x_1)>f(x_2)=x_3$，依次传下去，单调减少，正确`,
+          R`③ $f$ 减、$x_1<x_2$：作用 $f$ 后方向反转，$x_2=f(x_1)>f(x_2)=x_3$。于是 $x_1<x_2>x_3$，数列先增后减，不单调，错误`,
+          R`④ 同理，$x_1>x_2$ 推出 $x_2<x_3$，也是摆动，错误`,
+          R`选 (A)。$f$ 减时奇数项、偶数项各自单调，方向相反`
         ],
         pitfall: R`以为 $f$ 减少时数列就减少`,
         practice: R`30讲 例2.13（p91）；第三章学了导数后，用 $f'>0$ 判断更方便`
