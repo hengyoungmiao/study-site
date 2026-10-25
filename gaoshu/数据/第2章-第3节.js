@@ -359,7 +359,7 @@
           R`倍角：$\sin x\cos x=\dfrac12\sin2x$，所以 $y=\dfrac34\sin x-\dfrac14\sin3x+\dfrac12\sin2x$`,
           R`逐项套 $[\sin kx]^{(n)}=k^n\sin\left(kx+\frac{n\pi}2\right)$（30讲 p130）：$(\sin x)^{(n)}=\sin\left(x+\frac{n\pi}2\right)$，$(\sin3x)^{(n)}=3^n\sin\left(3x+\frac{n\pi}2\right)$，$(\sin2x)^{(n)}=2^n\sin\left(2x+\frac{n\pi}2\right)$`,
           R`合并（和差、数乘法则）：$y^{(n)}=\dfrac34\sin\left(x+\dfrac{n\pi}2\right)-\dfrac{3^n}4\sin\left(3x+\dfrac{n\pi}2\right)+2^{n-1}\sin\left(2x+\dfrac{n\pi}2\right)$`,
-          R`检验 $n=1$：$\dfrac34\cos x-\dfrac34\cos3x+\cos2x$；直接求导 $3\sin^2x\cos x+\cos2x$，把 $\cos3x=4\cos^3x-3\cos x$ 代入前者可得同样结果`
+          R`检验 $n=1$：公式给出 $\dfrac34\cos x-\dfrac34\cos3x+\cos2x$；把 $\cos3x=4\cos^3x-3\cos x$ 代入，前两项 $=3\cos x-3\cos^3x=3\sin^2x\cos x$，正好等于直接求导的 $3\sin^2x\cos x+\cos2x$`
         ],
         pitfall: R`$\frac12\cdot2^n$ 写成 $2^n$；三倍角公式记错符号（$\sin3x=3\sin x-4\sin^3x$）；把 $\sin^2x$ 的 $n$ 阶导数写成 $[(\sin x)^{(n)}]^2$`,
         practice: "教材习题2-3 第10(2)题（p98，答案习题全解 p69）；吉米【184】【185】（p54）；武忠祥 题型三(六)例3（p73）"
@@ -523,7 +523,7 @@
         steps: [
           R`令 $g(x)=\dfrac1{2^x+1}-\dfrac12=\dfrac{1-2^x}{2(2^x+1)}$，则 $f(x)=g(x)+\dfrac12$，$f^{(4)}(x)=g^{(4)}(x)$`,
           R`验证奇偶：$g(-x)=\dfrac{1-2^{-x}}{2(2^{-x}+1)}$，分子分母同乘 $2^x$ 得 $\dfrac{2^x-1}{2(1+2^x)}=-g(x)$，所以 $g$ 是 $\mathbf R$ 上的奇函数`,
-          R`奇函数求导：$g'$ 偶、$g''$ 奇、$g'''$ 偶、$g^{(4)}$ 奇（两边对 $g(-x)=-g(x)$ 求导即得）`,
+          R`奇偶性怎么传下去：对 $g(-x)=-g(x)$ 两边求导，左边是复合函数要乘 $(-x)'=-1$，得 $-g'(-x)=-g'(x)$，即 $g'(-x)=g'(x)$，$g'$ 是偶函数；同理每求一次导奇偶互换，所以 $g''$ 奇、$g'''$ 偶、$g^{(4)}$ 奇`,
           R`$g^{(4)}$ 是奇函数且在 0 处有定义，所以 $g^{(4)}(0)=0$，即 $f^{(4)}(0)=0$`,
           R`检验：直接算 $f'(0)=-\dfrac{\ln2}4\neq0$、$f''(0)=0$，与"$g$ 奇 ⇒ 偶数阶在 0 处为 0"一致`
         ],
@@ -575,9 +575,9 @@
         first: R`思路：$\sin^2x\sim x^2$，所以 $f\approx|x|x^2=|x|^3$，预计 2 阶可导、3 阶不可导；严格做法是写成 $\pm\sin^2x\cdot x$ 两段，逐阶用定义`,
         steps: [
           R`分段：$x\geqslant0$ 时 $f=x\sin^2x$；$x<0$ 时 $f=-x\sin^2x$`,
-          R`一阶：$f'_\pm(0)=\lim\limits_{x\to0^\pm}\dfrac{\pm x\sin^2x}{x}=0$，所以 $f'(0)=0$；两侧 $f'(x)=\pm(\sin^2x+x\sin2x)$`,
+          R`一阶：$f'_\pm(0)=\lim\limits_{x\to0^\pm}\dfrac{\pm x\sin^2x}{x}=0$，所以 $f'(0)=0$；两侧用乘积法则：$(x\sin^2x)'=\sin^2x+x\cdot2\sin x\cos x=\sin^2x+x\sin2x$，所以 $x>0$ 时 $f'(x)=\sin^2x+x\sin2x$，$x<0$ 时取相反数`,
           R`二阶：$f''_+(0)=\lim\limits_{x\to0^+}\dfrac{\sin^2x+x\sin2x}{x}=\lim(\sin x\cdot\dfrac{\sin x}{x}+\sin2x)=0$，同理 $f''_-(0)=0$，所以 $f''(0)=0$`,
-          R`两侧二阶导函数：$x>0$ 时 $f''(x)=\sin2x+\sin2x+2x\cos2x=2\sin2x+2x\cos2x$；$x<0$ 时取相反数`,
+          R`两侧二阶导函数：$x>0$ 时 $f''(x)=(\sin^2x)'+(x\sin2x)'=\sin2x+(\sin2x+2x\cos2x)=2\sin2x+2x\cos2x$；$x<0$ 时取相反数`,
           R`三阶：$f'''_+(0)=\lim\limits_{x\to0^+}\dfrac{2\sin2x+2x\cos2x}{x}=4+2=6$，$f'''_-(0)=-6$，不相等，$f'''(0)$ 不存在。最大值 $n=2$`
         ],
         pitfall: R`以为有绝对值就在 0 处不可导；只看到 $\sin^2x$ 处处任意阶可导就以为乘积也任意阶可导`,
