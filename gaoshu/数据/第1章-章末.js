@@ -667,7 +667,7 @@
         think: R`底数 $x^{\frac1x}-1\to0$，指数 $\frac{1}{\ln x}\to0$，是 $0^0$ 型，统一化成 $\mathrm e^{v\ln u}$，求 $\lim\frac{\ln u}{\ln x}$。难点在 $\ln(x^{\frac1x}-1)$：$x^{\frac1x}-1=\mathrm e^{w}-1$，$w=\frac{\ln x}{x}\to0$，用 $\mathrm e^w-1=w\cdot\frac{\mathrm e^w-1}{w}$ 把对数拆开。`,
         first: R`$x^{\frac1x}-1=\mathrm e^{\frac{\ln x}x}-1$，$\frac{\ln x}x\to0$`,
         steps: [
-          R`设 $y$ 为原式，$\ln y=\dfrac{\ln\left(x^{\frac1x}-1\right)}{\ln x}$`,
+          R`++设 $y$ 为原式++，$\ln y=\dfrac{\ln\left(x^{\frac1x}-1\right)}{\ln x}$`,
           R`++$x^{\frac1x}=\mathrm e^{w}$++，$w=\dfrac{\ln x}{x}\to0$。写 $\mathrm e^w-1=w\cdot\dfrac{\mathrm e^w-1}{w}$，取对数：$\ln(\mathrm e^w-1)=\ln\dfrac{\mathrm e^w-1}{w}+\ln w$`,
           R`++$\dfrac{\mathrm e^w-1}{w}\to1$++，第一项 $\to\ln1=0$；$\ln w=\ln\ln x-\ln x$`,
           R`++$\lim\ln y=\lim\dfrac{\ln\ln x-\ln x}{\ln x}=\lim\left(\dfrac{\ln\ln x}{\ln x}-1\right)=0-1=-1$++（令 $s=\ln x\to+\infty$，$\frac{\ln s}{s}\to0$）`,
@@ -752,7 +752,7 @@
       },
       {
         id: "t16", block: "b4", name: "n 项和：夹逼还是定积分定义",
-        signal: R`$\sum\limits_{k=1}^n\frac{n}{n^2+\square}$ 一类的和`,
+        signal: R`$\sum\limits_{k=1}^n\frac{n}{n^2+\square}$ 一类==的和==`,
         example: { q: R`求极限 $\lim\limits_{n\to\infty}\left(\dfrac n{n^2+1^2}+\dfrac n{n^2+2^2}+\cdots+\dfrac n{n^2+n^2}\right)$。`, src: "武忠祥 第1章 n项和 例2 p35（对照 例1 p35）" },
         idea: {
           key: R`看分母中的"变化部分"与"主体部分"：==变化部分是次要量就夹逼；与主体同阶就提 $\frac1n$ 凑 $\frac1n\sum f\left(\frac kn\right)$==。`,
@@ -776,7 +776,7 @@
       },
       {
         id: "t17", block: "b4", name: "n 项连乘：取对数",
-        signal: R`$\sqrt[n]{(n+1)(n+2)\cdots(2n)}$、$\sqrt[n]{n!}$ 一类`,
+        signal: R`$\sqrt[n]{(n+1)(n+2)\cdots(2n)}$、$\sqrt[n]{n!}$ ==一类==`,
         example: { q: R`求 $\lim\limits_{n\to\infty}\dfrac1n\sqrt[n]{(n+1)(n+2)\cdots(n+n)}$。`, src: "武忠祥 第1章 n项连乘 例2 p38" },
         idea: {
           key: R`==取对数把连乘变成 $n$ 项和，再用定积分定义（或夹逼），最后取指数==。`,
@@ -920,10 +920,10 @@
       /* ---------- ⑥ 无穷小比阶 ---------- */
       {
         id: "t23", block: "b6", name: "变限积分型无穷小排序",
-        signal: R`几个 $\int_0^{g(x)}f(t)\mathrm dt$ 形式的无穷小，排阶数或选最高阶`,
+        signal: R`几个 $\int_0^{g(x)}f(t)\mathrm dt$ 形式的无穷小，==排阶数或选最高阶==`,
         example: { q: R`把 $x\to0^+$ 时的无穷小 $\alpha=\int_0^x\cos t^2\mathrm dt$，$\beta=\int_0^{x^2}\tan\sqrt t\,\mathrm dt$，$\gamma=\int_0^{\sqrt x}\sin t^3\mathrm dt$ 排序，使排在后面的是前一个的高阶无穷小。(A) $\alpha,\beta,\gamma$　(B) $\alpha,\gamma,\beta$　(C) $\beta,\alpha,\gamma$　(D) $\beta,\gamma,\alpha$`, src: "武忠祥 第1章 题型四 例1 p44–45" },
         idea: {
-          key: R`被积函数 $f\sim at^m$、上限 $g\sim bx^n$，则积分是 $x$ 的 $n(m+1)$ 阶；也可以求导定阶（导数 $k$ 阶 ⇒ 原函数 $k+1$ 阶）。`,
+          key: R`被积函数 $f\sim at^m$、上限 $g\sim bx^n$，则积分是 $x$ 的 ==$n(m+1)$ 阶==；也可以求导定阶（导数 $k$ 阶 ⇒ 原函数 $k+1$ 阶）。`,
           how: [R`被积函数在 $t\to0$ 时等价成 $at^m$`, R`上限等价成 $bx^n$`, R`阶数 $=n(m+1)$；或直接积分 $\int_0^{bx^n}at^m\mathrm dt$`],
           refs: [
             { src: "武忠祥 题型四 例1 方法五 p45", text: R`若 $f(x)$ 在 $x=0$ 的某邻域内连续，且 $f(x)$ 是 $x$ 的 $m$ 阶无穷小，$\varphi(x)$ 是 $x$ 的 $n$ 阶无穷小，则 $F(x)=\int_0^{\varphi(x)}f(t)\mathrm dt$ 是 $x$ 的 $n(m+1)$ 阶无穷小` },
@@ -993,7 +993,7 @@
       /* ---------- ⑦ 连续与间断 ---------- */
       {
         id: "t26", block: "b7", name: "由极限定义的函数：先求表达式，再判间断",
-        signal: R`$f(x)=\lim\limits_{n\to\infty}\frac{\cdots x^n\cdots}{\cdots}$ 或 $\lim\limits_{t\to x}(\cdots)$，问间断点`,
+        signal: R`$f(x)=\lim\limits_{n\to\infty}\frac{\cdots x^n\cdots}{\cdots}$ 或 $\lim\limits_{t\to x}(\cdots)$，==问间断点==`,
         example: { q: R`求函数 $f(x)=\lim\limits_{n\to\infty}\dfrac{x^{n+2}-x^{-n}}{x^n+x^{-n}}$ 的间断点并指出其类型。`, src: "武忠祥 第1章 第三节 题型一 例6 p52" },
         idea: {
           key: R`==求极限时 $x$ 当常数==，按 $|x|<1$、$|x|=1$、$|x|>1$（或 $x$ 的符号）分段，写出分段表达式，再看无定义点和分段点。`,
@@ -1067,7 +1067,7 @@
       /* ---------- ⑧ 闭区间证明 ---------- */
       {
         id: "t29", block: "b8", name: "方程唯一根 + 递推数列收敛到它",
-        signal: R`第 (1) 问证方程在区间内有唯一实根 $\xi$，第 (2) 问证 $x_{n+1}=f(x_n)$ 收敛到 $\xi$`,
+        signal: R`第 (1) 问证==方程在区间内有唯一实根== $\xi$，第 (2) 问证 $x_{n+1}=f(x_n)$ 收敛到 $\xi$`,
         example: { q: R`(1) 证明方程 $x=2\ln(1+x)$ 在 $(0,+\infty)$ 内有唯一实根 $\xi$；(2) 任取 $x_1>\xi$，定义 $x_{n+1}=2\ln(1+x_n)$，证明 $\lim x_n$ 存在，并求其值。`, src: "30讲 第2讲 例2.14 p91–92；1000题 基础篇 第2章第11、12题（同题拆分）" },
         idea: {
           key: R`第 (1) 问：==零点定理给存在，导数定单调给唯一==；第 (2) 问：用 $\xi=f(\xi)$ 和 $f$ 的单调性，归纳证明 $x_n>x_{n+1}>\xi$，单调有界后取极限，由唯一性得极限就是 $\xi$。`,
@@ -1080,7 +1080,7 @@
         first: R`$F(x)=x-2\ln(1+x)$，$F'(x)=\dfrac{x-1}{1+x}$`,
         steps: [
           R`++(1)++ $F(x)=x-2\ln(1+x)$，$F'(x)=1-\dfrac{2}{1+x}=\dfrac{x-1}{1+x}$：$(0,1)$ 上 $F'<0$，$(1,+\infty)$ 上 $F'>0$`,
-          R`(1) $F(0)=0$ 且 $(0,1]$ 上单调减，所以 $F<0$ 在 $(0,1]$ 上，这里没有根；$F(1)=1-2\ln2<0$，$\lim\limits_{x\to+\infty}F(x)=+\infty$，由零点定理 $(1,+\infty)$ 内有根，又单调增加，根唯一，记为 $\xi$`,
+          R`(1) $F(0)=0$ 且 $(0,1]$ 上单调减，所以 $F<0$ 在 $(0,1]$ 上，这里没有根；$F(1)=1-2\ln2<0$，$\lim\limits_{x\to+\infty}F(x)=+\infty$，++由零点定理 $(1,+\infty)$ 内有根++，又单调增加，根唯一，记为 $\xi$`,
           R`++(2) $F$ 在 $(\xi,+\infty)$ 上为正++：$x_1>\xi$ 时 $F(x_1)>0$，即 $x_1>2\ln(1+x_1)=x_2$`,
           R`++(2) 下界++：$2\ln(1+x)$ 单调增加，$x_1>\xi\Rightarrow x_2=2\ln(1+x_1)>2\ln(1+\xi)=\xi$。归纳得 $x_n>\xi$ 且 $x_n>x_{n+1}$ 对一切 $n$ 成立`,
           R`++(2) 单调减少、有下界 $\xi$++，极限 $a$ 存在且 $a\geqslant\xi>0$；递推式取极限 $a=2\ln(1+a)$，即 $F(a)=0$，由 (1) 的唯一性 $a=\xi$`
