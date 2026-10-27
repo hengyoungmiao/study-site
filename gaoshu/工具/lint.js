@@ -8,6 +8,8 @@ for(const [p,s] of strs){
   // check bold rule
   for(const m of s.matchAll(/\*\*(.+?)\*\*/g)){ if(/^[，。、；：！？,.;:（）()“”"]|[，。、；：！？,.;:（）()“”"]$/.test(m[1])){console.log('BOLD',p,m[1]);bad++} }
   if((s.match(/==/g)||[]).length%2){console.log('MARK ODD',p);bad++}
+  if((s.match(/\+\+/g)||[]).length%2){console.log('ACT ODD',p);bad++}
+  if((s.match(/!!/g)||[]).length%2){console.log('WARN ODD',p);bad++}
   const re=/\$\$([\s\S]+?)\$\$|\$([^$]+?)\$/g;let m;
   let rest=s;
   while((m=re.exec(s))){n++;const tex=m[1]||m[2];try{katex.renderToString(tex,{displayMode:!!m[1],throwOnError:true,strict:'ignore'})}catch(e){bad++;console.log('ERR',p,tex,'\n  ',e.message)}}
