@@ -54,19 +54,19 @@
         items: [
           {
             id: "p1", kind: "定义", name: "高阶、低阶、同阶、k 阶、等价", page: "教材 p51",
-            body: R`设 $\alpha,\beta$ 是同一过程中的无穷小，$\alpha\neq0$。$\lim\dfrac\beta\alpha=0$：$\beta$ 是比 $\alpha$ 高阶的无穷小，$\beta=o(\alpha)$；$=\infty$：低阶；$=c\neq0$：同阶；$\lim\dfrac{\beta}{\alpha^k}=c\neq0\ (k>0)$：$\beta$ 是关于 $\alpha$ 的 $k$ 阶无穷小；$=1$：等价，$\alpha\sim\beta$。`,
+            body: R`设 $\alpha,\beta$ 是同一过程中的无穷小，$\alpha\neq0$。==$\lim\dfrac\beta\alpha=0$：$\beta$ 是比 $\alpha$ 高阶的无穷小，$\beta=o(\alpha)$==；$=\infty$：低阶；$=c\neq0$：同阶；$\lim\dfrac{\beta}{\alpha^k}=c\neq0\ (k>0)$：$\beta$ 是关于 $\alpha$ 的 $k$ 阶无穷小；$=1$：等价，$\alpha\sim\beta$。`,
             notes: [R`等价是同阶的特殊情形（$c=1$）`, R`例：$x\to0$ 时 $1-\cos x$ 是关于 $x$ 的二阶无穷小；$x\to3$ 时 $x^2-9$ 与 $x-3$ 同阶（教材 p51）`],
             quiz: R`$x\to0$ 时 $x^2-x^3$ 与 $2x-x^2$ 谁是高阶无穷小？`
           },
           {
             id: "p2", kind: "结论", name: "比值没有极限时无法比较", page: "30讲 p43",
-            body: R`若 $\dfrac\beta\alpha$ 的极限不存在、也不是 $\infty$，两者不能比较阶数。例：$x\to0$ 时 $\dfrac{x\sin\frac1x}{x^2}=\dfrac1x\sin\dfrac1x$ 没有极限，$x\sin\dfrac1x$ 与 $x^2$ 不能比较。`,
+            body: R`若 $\dfrac\beta\alpha$ 的极限不存在、也不是 $\infty$，==两者不能比较阶数==。例：$x\to0$ 时 $\dfrac{x\sin\frac1x}{x^2}=\dfrac1x\sin\dfrac1x$ 没有极限，$x\sin\dfrac1x$ 与 $x^2$ 不能比较。`,
             notes: [R`所以"任意两个无穷小都能比出高低"是错的`],
             quiz: R`$x\to0$ 时，$x\sin\dfrac1x$ 与 $x$ 能比较吗？`
           },
           {
             id: "p3", kind: "结论", name: "o 记号", page: "教材 p51；1000题 第1章第9题",
-            body: R`$\beta=o(\alpha)$ 只表示 $\lim\dfrac\beta\alpha=0$，不是一个具体的函数；等号不能反过来读。`,
+            body: R`$\beta=o(\alpha)$ ==只表示 $\lim\dfrac\beta\alpha=0$，不是一个具体的函数==；==等号不能反过来读==。`,
             notes: [R`常用：$o(\alpha)\cdot$ 有界量 $=o(\alpha)$；$f=o(g)$ 时 $fg=o(g^2)$（1000题 第1章第9题）`, R`$o(x^2)$ 一定是 $o(x)$，反过来不对`],
             quiz: R`$x^3=o(x)$ 对吗？$o(x)=x^3$ 这样写有意义吗？`
           }
@@ -77,31 +77,31 @@
         items: [
           {
             id: "p4", kind: "公式", name: "常用等价无穷小（x→0）", page: "教材 p51–53、p63；习题1-7 第4题；30讲 p44",
-            body: R`$\sin x\sim x$，$\tan x\sim x$，$\arcsin x\sim x$，$\arctan x\sim x$，$\ln(1+x)\sim x$，$\mathrm e^x-1\sim x$，$a^x-1\sim x\ln a$，$1-\cos x\sim\dfrac12x^2$，$(1+x)^\alpha-1\sim\alpha x$，$\sqrt[n]{1+x}-1\sim\dfrac1nx$。`,
+            body: R`$\sin x\sim x$，$\tan x\sim x$，$\arcsin x\sim x$，$\arctan x\sim x$，$\ln(1+x)\sim x$，$\mathrm e^x-1\sim x$，$a^x-1\sim x\ln a$，==$1-\cos x\sim\dfrac12x^2$==，==$(1+x)^\alpha-1\sim\alpha x$==，$\sqrt[n]{1+x}-1\sim\dfrac1nx$。`,
             notes: [R`$\sqrt[n]{1+x}-1\sim\frac xn$ 是教材例 1（p52）；$\arctan x\sim x$、$\sec x-1\sim\frac{x^2}2$ 是习题1-7 第4题（习题全解 p30–31）`, R`$\ln(1+x)$、$\mathrm e^x-1$、$(1+x)^\alpha-1$ 在 1.9 证明（教材 p63）`, R`$1-\cos x$ 是表里唯一的二次（30讲 p44）`],
             quiz: R`$x\to0$ 时 $\sqrt{1+x^2}-1$ 等价于什么？`
           },
           {
             id: "p5", kind: "结论", name: "广义化：把 x 换成趋于 0 的式子", page: "30讲 p44",
-            body: R`上面的 $x$ 可以换成任何趋于 $0$ 的函数 $\square$：$\square\to0$ 时 $\sin\square\sim\square$，$\ln(1+\square)\sim\square$，$1-\cos\square\sim\dfrac12\square^2$，…`,
+            body: R`上面的 ==$x$ 可以换成任何趋于 $0$ 的函数 $\square$==：$\square\to0$ 时 $\sin\square\sim\square$，$\ln(1+\square)\sim\square$，$1-\cos\square\sim\dfrac12\square^2$，…`,
             notes: [R`例：$x\to1$ 时 $\ln x=\ln[1+(x-1)]\sim x-1$（30讲 p59）`, R`换之前一定要确认 $\square\to0$：$x\to\infty$ 时 $\sin x\not\sim x$`],
             quiz: R`$x\to\infty$ 时 $\sin\dfrac{2x}{x^2+1}$ 等价于什么？`
           },
           {
             id: "p6", kind: "定理", name: "定理 1：等价的充要条件", page: "教材 p52",
-            body: R`$\beta$ 与 $\alpha$ 是等价无穷小 $\Leftrightarrow$ $\beta=\alpha+o(\alpha)$。`,
+            body: R`$\beta$ 与 $\alpha$ 是等价无穷小 $\Leftrightarrow$ ==$\beta=\alpha+o(\alpha)$==。`,
             notes: [R`例 2：$\sin x=x+o(x)$，$1-\cos x=\frac12x^2+o(x^2)$（教材 p52）`, R`意思是：等价无穷小只差一个更高阶的量，主要部分相同`],
             quiz: R`$\tan x=x+o(x)$ 说明了什么？`
           },
           {
             id: "p7", kind: "定理", name: "定理 2：等价无穷小替换", page: "教材 p52–53",
-            body: R`设 $\alpha\sim\tilde\alpha$，$\beta\sim\tilde\beta$，且 $\lim\dfrac{\tilde\beta}{\tilde\alpha}$ 存在，则 $\lim\dfrac\beta\alpha=\lim\dfrac{\tilde\beta}{\tilde\alpha}$。`,
+            body: R`设 $\alpha\sim\tilde\alpha$，$\beta\sim\tilde\beta$，且 ==$\lim\dfrac{\tilde\beta}{\tilde\alpha}$ 存在==，则 ==$\lim\dfrac\beta\alpha=\lim\dfrac{\tilde\beta}{\tilde\alpha}$==。`,
             notes: [R`求两个无穷小之比的极限时，分子分母都可以用等价无穷小代替（教材 p53）`, R`只对乘除中的因子成立；加减中的项不能直接换（习题全解 p31 注）`, R`无穷小与它本身等价：$x^3+3x$ 不必换（教材 例4 p53）`],
             quiz: R`$\lim\limits_{x\to0}\dfrac{\tan x-\sin x}{x^3}$，把 $\tan x$、$\sin x$ 都换成 $x$ 得 $0$，错在哪？`
           },
           {
             id: "p8", kind: "结论", name: "等价关系的性质", page: "习题1-7 第6题（习题全解 p32）",
-            body: R`自反：$\alpha\sim\alpha$；对称：$\alpha\sim\beta\Rightarrow\beta\sim\alpha$；传递：$\alpha\sim\beta,\beta\sim\gamma\Rightarrow\alpha\sim\gamma$。`,
+            body: R`==自反==：$\alpha\sim\alpha$；==对称==：$\alpha\sim\beta\Rightarrow\beta\sim\alpha$；==传递==：$\alpha\sim\beta,\beta\sim\gamma\Rightarrow\alpha\sim\gamma$。`,
             notes: [R`传递性让我们可以连续替换：$\ln(1+\sin x)\sim\sin x\sim x$`],
             quiz: R`$x\to0$ 时 $\ln(1+\tan x)$ 等价于什么？用了哪条性质？`
           }
@@ -112,15 +112,15 @@
     types: [
       {
         id: "t1", name: "确定无穷小的阶（与 xⁿ 同阶求 n）",
-        signal: R`"当 $x\to0$ 时，$\cdots$ 与 $x^n$ 是同阶无穷小，则 $n=$"；或比较几个无穷小谁阶最高`,
+        signal: R`"当 $x\to0$ 时，$\cdots$ 与 $x^n$ 是==同阶无穷小，则 $n=$=="；或比较几个无穷小谁阶最高`,
         example: { q: R`设 $x\to0$ 时，$\mathrm e^{x\cos x^2}-\mathrm e^x$ 与 $x^n$ 是同阶无穷小，则 $n$ 为（ ）。(A) 5　(B) 4　(C) $\frac52$　(D) 2`, src: "吉米【68】p19–20" },
         idea: {
-          key: R`==把式子一步步换成等价的幂函数 $cx^k$，$k$ 就是阶数==；两个指数函数相减先提公因式变成 $\mathrm e^{\square}-1$。`,
+          key: R`==把式子一步步换成等价的幂函数 $cx^k$，$k$ 就是阶数==；两个指数函数相减先==提公因式变成 $\mathrm e^{\square}-1$==。`,
           how: [
-            R`差的形式先变成积：$\mathrm e^A-\mathrm e^B=\mathrm e^B(\mathrm e^{A-B}-1)$；$\tan x-\sin x=\tan x(1-\cos x)$`,
-            R`极限非零的因子（如 $\mathrm e^B\to1$）不影响阶数，直接去掉`,
-            R`用等价无穷小逐层替换，化成 $cx^k$`,
-            R`与 $x^n$ 同阶即 $n=k$`
+            R`++差的形式先变成积++：$\mathrm e^A-\mathrm e^B=\mathrm e^B(\mathrm e^{A-B}-1)$；$\tan x-\sin x=\tan x(1-\cos x)$`,
+            R`++极限非零的因子（如 $\mathrm e^B\to1$）不影响阶数，直接去掉++`,
+            R`++用等价无穷小逐层替换，化成 $cx^k$++`,
+            R`++与 $x^n$ 同阶即 $n=k$++`
           ],
           refs: [
             { src: "30讲 例1.19 方法总结 p45", text: R`$\mathrm e^{\tan x}-\mathrm e^{\sin x}$，通常要提公因式出现 $\mathrm e^{\square}-1$ 的形式；当 $x\to0$ 时，$\tan x-\sin x=\tan x(1-\cos x)\sim\frac12x^3$` },
@@ -130,25 +130,25 @@
         think: R`求阶数，就是把式子一步步换成等价的 $cx^k$。两个指数函数相减不能直接代换，先提公因式 $\mathrm e^x$，把差变成"$\mathrm e^{\square}-1$"的形式，才能用 $\mathrm e^\square-1\sim\square$；里面的 $\cos x^2-1$ 再用 $1-\cos\square\sim\frac{\square^2}{2}$。`,
         first: R`提公因式：$\mathrm e^x\left[\mathrm e^{x(\cos x^2-1)}-1\right]$`,
         steps: [
-          R`提公因式：$\mathrm e^{x\cos x^2}-\mathrm e^x=\mathrm e^x\left[\mathrm e^{x\cos x^2-x}-1\right]=\mathrm e^x\left[\mathrm e^{x(\cos x^2-1)}-1\right]$`,
-          R`==$\mathrm e^x\to1$，是极限非零的因子，不影响阶数，可以直接换成 1==`,
-          R`令 $\square=x(\cos x^2-1)$，$x\to0$ 时 $\square\to0$，所以 $\mathrm e^\square-1\sim\square=x(\cos x^2-1)$`,
-          R`$1-\cos\square\sim\dfrac{\square^2}{2}$，这里 $\square=x^2$：$\cos x^2-1\sim-\dfrac{(x^2)^2}{2}=-\dfrac{x^4}{2}$`,
-          R`整体 $\sim x\cdot\left(-\dfrac{x^4}{2}\right)=-\dfrac{x^5}{2}$，与 $x^5$ 同阶，$n=5$，选 (A)`
+          R`++提公因式++：$\mathrm e^{x\cos x^2}-\mathrm e^x=\mathrm e^x\left[\mathrm e^{x\cos x^2-x}-1\right]=\mathrm e^x\left[\mathrm e^{x(\cos x^2-1)}-1\right]$`,
+          R`++$\mathrm e^x\to1$，是极限非零的因子++，不影响阶数，可以直接换成 1`,
+          R`++令 $\square=x(\cos x^2-1)$++，$x\to0$ 时 $\square\to0$，所以 $\mathrm e^\square-1\sim\square=x(\cos x^2-1)$`,
+          R`++$1-\cos\square\sim\dfrac{\square^2}{2}$，这里 $\square=x^2$++：$\cos x^2-1\sim-\dfrac{(x^2)^2}{2}=-\dfrac{x^4}{2}$`,
+          R`++整体 $\sim x\cdot\left(-\dfrac{x^4}{2}\right)=-\dfrac{x^5}{2}$++，与 $x^5$ 同阶，$n=5$，选 (A)`
         ],
-        pitfall: R`$1-\cos x^2$ 写成 $\frac12x^2$（应为 $\frac12(x^2)^2$）；两个指数直接相减当成 $x\cos x^2-x$ 而不提公因式`,
+        pitfall: R`!!$1-\cos x^2$ 写成 $\frac12x^2$（应为 $\frac12(x^2)^2$）!!；两个指数直接相减当成 $x\cos x^2-x$ 而!!不提公因式!!`,
         practice: "吉米【66】–【69】（p19–20）；30讲 例1.19（p45）；1000题 第1章第5、7题"
       },
       {
         id: "t2", name: "由等价、同阶关系反求参数",
-        signal: R`"若 $x\to0$ 时 $f(x)$ 与 $g(x)$ 是等价无穷小，则 $a=$"`,
+        signal: R`"若 $x\to0$ 时 $f(x)$ 与 $g(x)$ ==是等价无穷小，则 $a=$=="`,
         example: { q: R`若 $x\to0$ 时，$(1-ax^2)^{\frac14}-1$ 与 $x\sin x$ 是等价无穷小，则 $a=$ ____。`, src: "吉米【67】p19" },
         idea: {
           key: R`==两边分别换成等价的 $cx^k$，等价就要求次数相同、系数相等==。`,
           how: [
-            R`把每个无穷小换成最简的等价形式 $cx^k$`,
-            R`等价：比值极限为 $1$，列出系数方程；同阶：只要次数相同`,
-            R`解方程求参数`
+            R`++把每个无穷小换成最简的等价形式 $cx^k$++`,
+            R`++等价：比值极限为 $1$，列出系数方程；同阶：只要次数相同++`,
+            R`++解方程求参数++`
           ],
           refs: [
             { src: "吉米【67】p19", text: R`当 $x\to0$ 时，$(1-ax^2)^{\frac14}-1\sim-\frac14ax^2$，$x\sin x\sim x^2$，于是 $\lim\dfrac{-\frac14ax^2}{x^2}=-\frac14a=1$，所以 $a=-4$` },
@@ -158,25 +158,25 @@
         think: R`等价无穷小意味着两者之比的极限是 1。左边是"$(1+\square)^\alpha-1$"型（$\square=-ax^2$，$\alpha=\frac14$），用 $(1+\square)^\alpha-1\sim\alpha\square$；右边 $x\sin x\sim x^2$。两边都化成 $cx^2$，比较系数得 $a$。`,
         first: R`$(1-ax^2)^{\frac14}-1\sim\dfrac14(-ax^2)$（$\sqrt[4]{1+\square}-1\sim\frac\square4$，$\square=-ax^2$）`,
         steps: [
-          R`左边：$\square=-ax^2\to0$，$(1+\square)^{\frac14}-1\sim\dfrac14\square=-\dfrac{a}{4}x^2$`,
-          R`右边：$\sin x\sim x$，所以 $x\sin x\sim x^2$`,
-          R`==等价要求比值 $\to1$：$\lim\dfrac{-\frac a4x^2}{x^2}=-\dfrac a4=1$==`,
-          R`$a=-4$。检验：$a=-4$ 时左边是 $(1+4x^2)^{\frac14}-1\sim x^2$，与 $x\sin x\sim x^2$ 等价`
+          R`++左边++：$\square=-ax^2\to0$，$(1+\square)^{\frac14}-1\sim\dfrac14\square=-\dfrac{a}{4}x^2$`,
+          R`++右边++：$\sin x\sim x$，所以 $x\sin x\sim x^2$`,
+          R`++等价要求比值 $\to1$++：$\lim\dfrac{-\frac a4x^2}{x^2}=-\dfrac a4=1$`,
+          R`++$a=-4$。检验++：$a=-4$ 时左边是 $(1+4x^2)^{\frac14}-1\sim x^2$，与 $x\sin x\sim x^2$ 等价`
         ],
-        pitfall: R`忘了 $\square=-ax^2$ 里的负号；把等价当成同阶，只比次数不比系数`,
+        pitfall: R`!!忘了 $\square=-ax^2$ 里的负号!!；!!把等价当成同阶，只比次数不比系数!!`,
         practice: "吉米【67】（p19）；30讲 例1.21（p46–47，先用 1.5 的结论定 $a$，再用等价求 $b$）"
       },
       {
         id: "t3", name: "等价无穷小代换求极限",
-        signal: R`$\frac00$ 型，分子分母是乘积形式，因子里有 $\sin\square$、$1-\cos\square$、$\ln(1+\square)$、根式减 1`,
+        signal: R`$\frac00$ 型，==分子分母是乘积形式==，因子里有 $\sin\square$、$1-\cos\square$、$\ln(1+\square)$、根式减 1`,
         example: { q: R`求 $\lim\limits_{x\to0^+}\dfrac{1-\sqrt{\cos x}}{x(1-\cos\sqrt x)}$。`, src: "吉米【73】p20" },
         idea: {
-          key: R`==把分子分母里的每个乘除因子换成最简的等价无穷小==；根式差先有理化变成乘积。`,
+          key: R`==把分子分母里的每个乘除因子换成最简的等价无穷小==；==根式差先有理化变成乘积==。`,
           how: [
-            R`分子分母分别写成乘积，找出趋于 0 的因子`,
-            R`根式差：$1-\sqrt{u}=\dfrac{1-u}{1+\sqrt u}$；或用 $(1+\square)^\alpha-1\sim\alpha\square$`,
-            R`每个因子换成等价的 $cx^k$，极限非零的因子先求出来`,
-            R`约分得结果`
+            R`++分子分母分别写成乘积，找出趋于 0 的因子++`,
+            R`++根式差++：$1-\sqrt{u}=\dfrac{1-u}{1+\sqrt u}$；或用 $(1+\square)^\alpha-1\sim\alpha\square$`,
+            R`++每个因子换成等价的 $cx^k$，极限非零的因子先求出来++`,
+            R`++约分得结果++`
           ],
           refs: [
             { src: "教材 定理2 后 p53", text: R`求两个无穷小之比的极限时，分子及分母都可用等价无穷小来代替。因此，如果用来代替的无穷小选得适当的话，就可以使计算简化` },
@@ -186,24 +186,24 @@
         think: R`分子分母都是乘积形式，适合等价代换。但分子 $1-\sqrt{\cos x}$ 不是标准形式（不是 $1-\cos\square$），先有理化把它变成 $\dfrac{1-\cos x}{1+\sqrt{\cos x}}$；分母里 $1-\cos\sqrt x$ 是标准的 $1-\cos\square$，$\square=\sqrt x$。`,
         first: R`分子有理化：$1-\sqrt{\cos x}=\dfrac{1-\cos x}{1+\sqrt{\cos x}}$`,
         steps: [
-          R`分子有理化：$1-\sqrt{\cos x}=\dfrac{(1-\sqrt{\cos x})(1+\sqrt{\cos x})}{1+\sqrt{\cos x}}=\dfrac{1-\cos x}{1+\sqrt{\cos x}}$`,
-          R`非零因子先求：$1+\sqrt{\cos x}\to2$`,
-          R`==等价代换：$1-\cos x\sim\dfrac12x^2$；$1-\cos\sqrt x\sim\dfrac12(\sqrt x)^2=\dfrac12x$（$x\to0^+$，$\sqrt x\to0$）==`,
-          R`代入：原式 $=\lim\dfrac{\frac12x^2}{2\cdot x\cdot\frac12x}=\lim\dfrac{\frac12x^2}{x^2}=\dfrac12$`
+          R`++分子有理化++：$1-\sqrt{\cos x}=\dfrac{(1-\sqrt{\cos x})(1+\sqrt{\cos x})}{1+\sqrt{\cos x}}=\dfrac{1-\cos x}{1+\sqrt{\cos x}}$`,
+          R`++非零因子先求++：$1+\sqrt{\cos x}\to2$`,
+          R`++等价代换++：$1-\cos x\sim\dfrac12x^2$；$1-\cos\sqrt x\sim\dfrac12(\sqrt x)^2=\dfrac12x$（$x\to0^+$，$\sqrt x\to0$）`,
+          R`++代入++：原式 $=\lim\dfrac{\frac12x^2}{2\cdot x\cdot\frac12x}=\lim\dfrac{\frac12x^2}{x^2}=\dfrac12$`
         ],
-        pitfall: R`$1-\cos\sqrt x$ 写成 $\frac12x^2$（应为 $\frac12(\sqrt x)^2$）；在有加减的地方直接替换`,
+        pitfall: R`!!$1-\cos\sqrt x$ 写成 $\frac12x^2$（应为 $\frac12(\sqrt x)^2$）!!；!!在有加减的地方直接替换!!`,
         practice: "教材例3–5（p53）；习题1-7 第5题(1)(2)（p54，答案 习题全解 p31）；吉米【70】【71】【73】【74】（p20）"
       },
       {
         id: "t4", name: "分子是加减：先变成乘积再代换",
-        signal: R`分子（或分母）是两项相减，如 $\tan x-\sin x$、$\sin x-\tan x$，每项都等价于 $x$`,
+        signal: R`==分子（或分母）是两项相减==，如 $\tan x-\sin x$、$\sin x-\tan x$，每项都等价于 $x$`,
         example: { q: R`求：(1) $\lim\limits_{x\to0}\dfrac{\tan x-\sin x}{\sin^3x}$；(2) $\lim\limits_{x\to0}\dfrac{\sin x-\tan x}{(\sqrt[3]{1+x^2}-1)(\sqrt{1+\sin x}-1)}$。`, src: "教材习题1-7 第5题(3)(4) p54" },
         idea: {
-          key: R`==加减项不能各自替换（会把主要部分抵消掉）==；先提公因式、通分或用三角恒等式把差变成积，再对因子替换。`,
+          key: R`==加减项不能各自替换==（会把主要部分抵消掉）；==先提公因式、通分或用三角恒等式把差变成积，再对因子替换==。`,
           how: [
-            R`检查分子是不是"几项的和差"；若各项等价于同一个量，直接换会得到 0，必错`,
-            R`提公因式：$\tan x-\sin x=\tan x(1-\cos x)$，$\sin x-\tan x=\sin x(1-\sec x)$`,
-            R`变成乘积后，每个因子再用等价替换`
+            R`++检查分子是不是"几项的和差"++；若各项等价于同一个量，直接换会得到 0，必错`,
+            R`++提公因式++：$\tan x-\sin x=\tan x(1-\cos x)$，$\sin x-\tan x=\sin x(1-\sec x)$`,
+            R`++变成乘积后，每个因子再用等价替换++`
           ],
           refs: [
             { src: "习题全解 习题1-7 第5题注 p31", text: R`在作等价无穷小的替换求极限时，可以对分子或分母中的一个或若干个因子作替换，但不能对分子或分母中的某个加项作替换。例如，本题中若将分子中的 $\tan x,\sin x$ 均换成 $x$，那么分子成为 0，得出极限为 0，这就导致错误的结果` },
@@ -213,26 +213,26 @@
         think: R`等价代换只能用于乘除因子，不能对加减中的某一项单独代换：$\tan x-\sin x$ 如果直接换成 $x-x=0$ 就错了。所以先把差变成乘积：提公因式 $\sin x$，剩下 $\sec x-1=\dfrac{1-\cos x}{\cos x}$ 就能代换了。`,
         first: R`(1) 分子提出 $\sin x$：$\tan x-\sin x=\sin x(\sec x-1)$，约去一个 $\sin x$ 得 $\dfrac{\sec x-1}{\sin^2x}$`,
         steps: [
-          R`(1) 变乘积：$\tan x-\sin x=\sin x\left(\dfrac{1}{\cos x}-1\right)=\sin x\cdot\dfrac{1-\cos x}{\cos x}$`,
-          R`==(1) 约去一个 $\sin x$：原式 $=\lim\dfrac{1-\cos x}{\cos x\cdot\sin^2x}$；$\cos x\to1$，$1-\cos x\sim\dfrac{x^2}{2}$，$\sin^2x\sim x^2$，极限 $\dfrac12$==`,
-          R`(2) 分子同样变乘积：$\sin x-\tan x=-\sin x\cdot\dfrac{1-\cos x}{\cos x}\sim-x\cdot\dfrac{x^2}{2}=-\dfrac{x^3}{2}$`,
-          R`(2) 分母两个因子：$\sqrt[3]{1+x^2}-1\sim\dfrac13x^2$；$\sqrt{1+\sin x}-1\sim\dfrac12\sin x\sim\dfrac12x$。所以分母 $\sim\dfrac16x^3$`,
-          R`(2) 原式 $=\lim\dfrac{-\frac12x^3}{\frac16x^3}=-3$`
+          R`++(1) 变乘积++：$\tan x-\sin x=\sin x\left(\dfrac{1}{\cos x}-1\right)=\sin x\cdot\dfrac{1-\cos x}{\cos x}$`,
+          R`++(1) 约去一个 $\sin x$++：原式 $=\lim\dfrac{1-\cos x}{\cos x\cdot\sin^2x}$；$\cos x\to1$，$1-\cos x\sim\dfrac{x^2}{2}$，$\sin^2x\sim x^2$，极限 $\dfrac12$`,
+          R`++(2) 分子同样变乘积++：$\sin x-\tan x=-\sin x\cdot\dfrac{1-\cos x}{\cos x}\sim-x\cdot\dfrac{x^2}{2}=-\dfrac{x^3}{2}$`,
+          R`++(2) 分母两个因子++：$\sqrt[3]{1+x^2}-1\sim\dfrac13x^2$；$\sqrt{1+\sin x}-1\sim\dfrac12\sin x\sim\dfrac12x$。所以分母 $\sim\dfrac16x^3$`,
+          R`++(2) 原式++ $=\lim\dfrac{-\frac12x^3}{\frac16x^3}=-3$`
         ],
-        pitfall: R`把 $\tan x$、$\sin x$ 都换成 $x$，分子变成 $0$，得到错误答案 $0$`,
+        pitfall: R`!!把 $\tan x$、$\sin x$ 都换成 $x$，分子变成 $0$!!，得到错误答案 $0$`,
         practice: "教材习题1-7 第5题(3)(4)（p54，答案 习题全解 p31）"
       },
       {
         id: "t5", name: "幂指函数 1^∞ 型（配合等价无穷小）",
-        signal: R`$u(x)^{v(x)}$，$u\to1$，$v\to\infty$`,
+        signal: R`$u(x)^{v(x)}$，==$u\to1$，$v\to\infty$==`,
         example: { q: R`求 $\lim\limits_{x\to0}(1+3x)^{\frac{2}{\sin x}}$。`, src: "吉米【72】p20" },
         idea: {
-          key: R`==$\lim u^v=\mathrm e^{\lim v(u-1)}$==；指数部分 $v(u-1)$ 用等价无穷小化简。`,
+          key: R`==$\lim u^v=\mathrm e^{\lim v(u-1)}$==；==指数部分 $v(u-1)$ 用等价无穷小化简==。`,
           how: [
-            R`确认 $1^{\infty}$ 型`,
-            R`写成 $\mathrm e^{\lim v(u-1)}$（或取对数 $\mathrm e^{\lim v\ln u}$，再用 $\ln u=\ln[1+(u-1)]\sim u-1$）`,
-            R`指数里的乘除因子用等价替换`,
-            R`整个结果带上 $\mathrm e$`
+            R`++确认 $1^{\infty}$ 型++`,
+            R`++写成 $\mathrm e^{\lim v(u-1)}$++（或取对数 $\mathrm e^{\lim v\ln u}$，再用 $\ln u=\ln[1+(u-1)]\sim u-1$）`,
+            R`++指数里的乘除因子用等价替换++`,
+            R`++整个结果带上 $\mathrm e$++`
           ],
           refs: [
             { src: "30讲 p62", text: R`如果 $\lim u^v$ 属于"$1^{\infty}$"型，则有一个重要且简单的计算方法：$\lim u^v=\mathrm e^{\lim(u-1)v}$。整体"抄"，不要只算指数部分` },
@@ -242,24 +242,24 @@
         think: R`底数 $1+3x\to1$、指数 $\dfrac{2}{\sin x}\to\infty$，是 $1^\infty$ 型。用公式 $\lim u^v=\mathrm e^{\lim v(u-1)}$（由第二个重要极限得来），把问题变成求指数 $v(u-1)$ 的极限，这个极限用等价无穷小算。`,
         first: R`$u-1=3x$，$v=\dfrac{2}{\sin x}$`,
         steps: [
-          R`识别：$u=1+3x\to1$，$v=\dfrac{2}{\sin x}\to\infty$，是 $1^\infty$ 型`,
-          R`==公式依据：$u^v=\left[(1+(u-1))^{\frac{1}{u-1}}\right]^{v(u-1)}$，方括号 $\to\mathrm e$，所以 $\lim u^v=\mathrm e^{\lim v(u-1)}$==`,
-          R`求指数：$v(u-1)=\dfrac{2}{\sin x}\cdot3x=\dfrac{6x}{\sin x}$；$\sin x\sim x$，极限为 $6$`,
-          R`原式 $=\mathrm e^6$`
+          R`++识别++：$u=1+3x\to1$，$v=\dfrac{2}{\sin x}\to\infty$，是 $1^\infty$ 型`,
+          R`++公式依据++：$u^v=\left[(1+(u-1))^{\frac{1}{u-1}}\right]^{v(u-1)}$，方括号 $\to\mathrm e$，所以 $\lim u^v=\mathrm e^{\lim v(u-1)}$`,
+          R`++求指数++：$v(u-1)=\dfrac{2}{\sin x}\cdot3x=\dfrac{6x}{\sin x}$；$\sin x\sim x$，极限为 $6$`,
+          R`==原式 $=\mathrm e^6$==`
         ],
-        pitfall: R`只算出指数 $6$ 就写答案；$1^{\infty}$ 当成 $1$`,
+        pitfall: R`!!只算出指数 $6$ 就写答案!!；$1^{\infty}$ 当成 $1$`,
         practice: "吉米【72】（p20）、【75】–【77】（p21，要用 $\ln(1+x)\sim x$）；30讲 例1.33（p62）"
       },
       {
         id: "t6", name: "比较两个无穷小：哪个高阶，是否等价",
-        signal: R`问"$x\to x_0$ 时 $\alpha$ 与 $\beta$ 相比，哪一个是高阶无穷小""是否同阶、是否等价"`,
+        signal: R`问"$x\to x_0$ 时 $\alpha$ 与 $\beta$ 相比，==哪一个是高阶无穷小==""是否同阶、是否等价"`,
         example: { q: R`(1) 当 $x\to0$ 时，$(1-\cos x)^2$ 与 $\sin^2x$ 相比，哪一个是高阶无穷小？(2) 当 $x\to1$ 时，无穷小 $1-x$ 和 $1-x^3$、$\frac12(1-x^2)$ 是否同阶，是否等价？`, src: "教材习题1-7 第2、3题 p53" },
         idea: {
-          key: R`==求两者之比的极限：$0$ 则分子高阶，$\infty$ 则分母高阶，非零常数同阶，$1$ 等价==。`,
+          key: R`求两者之比的极限：==$0$ 则分子高阶，$\infty$ 则分母高阶，非零常数同阶，$1$ 等价==。`,
           how: [
-            R`确认两者在同一过程中都是无穷小`,
-            R`作比值，用约分或等价无穷小化简`,
-            R`按极限值下结论；注意说清"谁比谁高阶"`
+            R`++确认两者在同一过程中都是无穷小++`,
+            R`++作比值，用约分或等价无穷小化简++`,
+            R`++按极限值下结论++；注意说清"谁比谁高阶"`
           ],
           refs: [
             { src: "习题全解 习题1-7 第3题 p30", text: R`$\dfrac{1-x}{1-x^3}=\dfrac{1}{1+x+x^2}\to\dfrac13$，同阶，不等价；$\dfrac{1-x}{\frac12(1-x^2)}=\dfrac{2}{1+x}\to1$，同阶，等价` },
@@ -269,24 +269,24 @@
         think: R`比较两个无穷小，就是求它们之比的极限：$0$ 说明分子高阶，常数 $c\neq0$ 说明同阶，$c=1$ 说明等价。(1) 是 $x\to0$，用等价代换化简比值；(2) 是 $x\to1$，用因式分解约去零因子 $1-x$。`,
         first: R`(1) 作比 $\dfrac{(1-\cos x)^2}{\sin^2x}$`,
         steps: [
-          R`(1) 分别化简：$1-\cos x\sim\dfrac{x^2}{2}$，所以 $(1-\cos x)^2\sim\dfrac{x^4}{4}$；$\sin^2x\sim x^2$`,
-          R`==(1) 作比：$\dfrac{(1-\cos x)^2}{\sin^2x}\to\lim\dfrac{x^4/4}{x^2}=0$，所以 $(1-\cos x)^2$ 是比 $\sin^2x$ 高阶的无穷小==`,
-          R`(2) 和 $1-x^3$ 比：$1-x^3=(1-x)(1+x+x^2)$，$\dfrac{1-x}{1-x^3}=\dfrac{1}{1+x+x^2}\to\dfrac13$，不为 0 也不为 1，同阶但不等价`,
-          R`(2) 和 $\frac12(1-x^2)$ 比：$1-x^2=(1-x)(1+x)$，$\dfrac{1-x}{\frac12(1-x)(1+x)}=\dfrac{2}{1+x}\to1$，等价`
+          R`++(1) 分别化简++：$1-\cos x\sim\dfrac{x^2}{2}$，所以 $(1-\cos x)^2\sim\dfrac{x^4}{4}$；$\sin^2x\sim x^2$`,
+          R`++(1) 作比++：$\dfrac{(1-\cos x)^2}{\sin^2x}\to\lim\dfrac{x^4/4}{x^2}=0$，所以 $(1-\cos x)^2$ 是比 $\sin^2x$ 高阶的无穷小`,
+          R`++(2) 和 $1-x^3$ 比++：$1-x^3=(1-x)(1+x+x^2)$，$\dfrac{1-x}{1-x^3}=\dfrac{1}{1+x+x^2}\to\dfrac13$，不为 0 也不为 1，同阶但不等价`,
+          R`++(2) 和 $\frac12(1-x^2)$ 比++：$1-x^2=(1-x)(1+x)$，$\dfrac{1-x}{\frac12(1-x)(1+x)}=\dfrac{2}{1+x}\to1$，等价`
         ],
-        pitfall: R`比值趋于 $0$ 时把"谁高阶"说反；$x\to1$ 的题也套 $x\to0$ 的等价公式`,
+        pitfall: R`!!比值趋于 $0$ 时把"谁高阶"说反!!；$x\to1$ 的题!!也套 $x\to0$ 的等价公式!!`,
         practice: "教材习题1-7 第1–3题（p53，答案 习题全解 p30）"
       },
       {
         id: "t7", name: "o 记号的运算判断", tag: "研",
-        signal: R`已知 $f=o(g)$，判断 $f+g=o(f)$、$fg=o(g^2)$ 一类结论`,
+        signal: R`==已知 $f=o(g)$==，判断 $f+g=o(f)$、$fg=o(g^2)$ 一类结论`,
         example: { q: R`设 $x\to0$ 时 $f(x)$ 是 $g(x)$ 的高阶无穷小（$f,g$ 在去心邻域内不为零），判断：① $f+g=o(f)$；② $fg=o(g^2)$；③ $f=o(\ln[1+g])$；④ $f=o(g^2)$。正确的个数是（ ）。(A) 1　(B) 2　(C) 3　(D) 4`, src: "1000题 基础篇 第1章第9题" },
         idea: {
-          key: R`==把每个"$A=o(B)$"翻译成"$\lim\frac AB=0$"，再用已知的 $\lim\frac fg=0$ 去算==。`,
+          key: R`==把每个"$A=o(B)$"翻译成"$\lim\frac AB=0$"==，再用已知的 $\lim\frac fg=0$ 去算。`,
           how: [
-            R`写出每个结论对应的比值`,
-            R`约分、换等价（$\ln(1+g)\sim g$），化成 $\frac fg$ 的式子`,
-            R`算出极限：为 $0$ 才对；含 $\frac1g$ 之类可能不趋于 $0$`
+            R`++写出每个结论对应的比值++`,
+            R`++约分、换等价++（$\ln(1+g)\sim g$），化成 $\frac fg$ 的式子`,
+            R`++算出极限：为 $0$ 才对++；含 $\frac1g$ 之类可能不趋于 $0$`
           ],
           refs: [
             { src: "1000题 第1章第9题 解析", text: R`$\lim\dfrac{f+g}{f}=\infty$，①不成立；$\lim\dfrac{fg}{g^2}=\lim\dfrac fg=0$，②成立；$\lim\dfrac{f}{\ln(1+g)}=\lim\dfrac fg=0$，③成立；$\lim\dfrac{f}{g^2}=\lim\dfrac fg\cdot\dfrac1g$ 不一定为 0，④不成立` },
@@ -296,13 +296,13 @@
         think: R`$A=o(B)$ 的定义是 $\lim\dfrac AB=0$。所以每一条都翻译成一个比值，再用已知的 $\dfrac fg\to0$（以及 $g\to0$）去算。凡是比值里出现"$\frac fg\cdot\frac1g$"这种 $0\cdot\infty$ 的，结论都不确定。`,
         first: R`逐条写比值`,
         steps: [
-          R`已知：$\lim\dfrac fg=0$，且 $f,g\to0$`,
-          R`==① $\dfrac{f+g}{f}=1+\dfrac gf$；$\dfrac fg\to0$ 所以 $\dfrac gf\to\infty$，比值不趋于 0，错==`,
-          R`② $\dfrac{fg}{g^2}=\dfrac fg\to0$，对`,
-          R`③ $g\to0$，$\ln(1+g)\sim g$，所以 $\dfrac{f}{\ln(1+g)}\sim\dfrac fg\to0$，对`,
-          R`④ $\dfrac{f}{g^2}=\dfrac fg\cdot\dfrac1g$，是 $0\cdot\infty$ 型，不确定：$f=x^2,g=x$ 时比值为 1，不是 0，错。正确的有 ②③，选 (B)`
+          R`++已知++：$\lim\dfrac fg=0$，且 $f,g\to0$`,
+          R`++①++ $\dfrac{f+g}{f}=1+\dfrac gf$；$\dfrac fg\to0$ 所以 $\dfrac gf\to\infty$，比值不趋于 0，错`,
+          R`++②++ $\dfrac{fg}{g^2}=\dfrac fg\to0$，对`,
+          R`++③++ $g\to0$，$\ln(1+g)\sim g$，所以 $\dfrac{f}{\ln(1+g)}\sim\dfrac fg\to0$，对`,
+          R`++④++ $\dfrac{f}{g^2}=\dfrac fg\cdot\dfrac1g$，是 $0\cdot\infty$ 型，不确定：$f=x^2,g=x$ 时比值为 1，不是 0，错。正确的有 ②③，==选 (B)==`
         ],
-        pitfall: R`把 $o(\cdot)$ 当成具体的数做代数运算`,
+        pitfall: R`!!把 $o(\cdot)$ 当成具体的数做代数运算!!`,
         practice: "1000题 第1章第9题"
       }
     ],
