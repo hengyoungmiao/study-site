@@ -178,7 +178,7 @@
         signal: R`"设 $y=y(x)$ 由方程 $F(x,y)=0$ 确定"，求 $\dfrac{\mathrm dy}{\mathrm dx}$ 或 $\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=x_0}$`,
         example: { q: R`设函数 $y=y(x)$ 由方程 $\ln(x^2+y)=x^3y+\sin x$ 确定，则 $\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=0}=$ ____。`, src: "吉米【189】p55" },
         idea: {
-          key: R`把 $y$ 看作 $x$ 的函数，方程两边同时对 $x$ 求导，含 $y$ 的项按复合函数求导（多乘 $y'$），得到关于 $y'$ 的一次方程，解出 $y'$；求某一点的值时，先由原方程求出 $y_0$，再把 $(x_0,y_0)$ 代入。`,
+          key: R`==把 $y$ 看作 $x$ 的函数，方程两边同时对 $x$ 求导，含 $y$ 的项按复合函数求导（多乘 $y'$），得到关于 $y'$ 的一次方程，解出 $y'$==；求某一点的值时，先由原方程求出 $y_0$，再把 $(x_0,y_0)$ 代入。`,
           how: [
             R`求某点的值时，先把 $x_0$ 代入原方程，求出 $y_0$`,
             R`方程两边对 $x$ 求导：含 $y$ 的项是复合函数，乘 $y'$；$xy$ 这类乘积用乘积法则`,
@@ -196,7 +196,7 @@
         first: R`把 $x=0$ 代入原方程，求出 $y(0)$`,
         steps: [
           R`求 $y_0$：$x=0$ 代入，$\ln y=0+\sin0=0$，所以 $y(0)=1$`,
-          R`两边对 $x$ 求导。左边外层 $\ln u$、内层 $u=x^2+y$，链式法则：$\dfrac{1}{x^2+y}\cdot(2x+y')$；右边 $x^3y$ 用乘积法则：$3x^2y+x^3y'$，$\sin x$ 求导得 $\cos x$`,
+          R`==两边对 $x$ 求导。左边外层 $\ln u$、内层 $u=x^2+y$，链式法则：$\dfrac{1}{x^2+y}\cdot(2x+y')$；右边 $x^3y$ 用乘积法则：$3x^2y+x^3y'$，$\sin x$ 求导得 $\cos x$==`,
           R`**得到等式** $\dfrac{2x+y'}{x^2+y}=3x^2y+x^3y'+\cos x$`,
           R`代入 $x=0$、$y=1$：左边 $\dfrac{0+y'(0)}{0+1}=y'(0)$，右边 $0+0+\cos0=1$`,
           R`所以 $\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=0}=1$`
@@ -209,7 +209,7 @@
         signal: R`由方程 $F(x,y)=0$ 确定 $y=y(x)$，求 $\dfrac{\mathrm d^2y}{\mathrm dx^2}$ 或 $y''(x_0)$`,
         example: { q: R`已知函数 $y=y(x)$ 由方程 $\mathrm e^y+6xy+x^2-1=0$ 确定，则 $y''(0)=$ ____。`, src: "吉米【192】p56" },
         idea: {
-          key: R`先求一阶（得到含 $x$、$y$、$y'$ 的等式），再对这个等式两边对 $x$ 求导一次；求导时 $y$ 和 $y'$ 都是 $x$ 的函数。求一般式时把 $y'$ 的结果代回，最后只含 $x$、$y$；求某点时依次算出 $y_0$、$y'_0$，再代入求 $y''_0$。`,
+          key: R`==先求一阶（得到含 $x$、$y$、$y'$ 的等式），再对这个等式两边对 $x$ 求导一次==；求导时 $y$ 和 $y'$ 都是 $x$ 的函数。求一般式时把 $y'$ 的结果代回，最后只含 $x$、$y$；求某点时依次算出 $y_0$、$y'_0$，再代入求 $y''_0$。`,
           how: [
             R`由原方程求 $y_0$（只求某点时）`,
             R`两边对 $x$ 求导一次，求出 $y'$（或某点的 $y'_0$）`,
@@ -228,7 +228,7 @@
           R`求 $y_0$：$x=0$ 时 $\mathrm e^y-1=0$，所以 $y(0)=0$`,
           R`两边对 $x$ 求导一次：$\mathrm e^y\cdot y'+6y+6xy'+2x=0$（$\mathrm e^y$ 是复合函数乘 $y'$；$6xy$ 用乘积法则）①`,
           R`代入 $x=0$、$y=0$：$y'(0)+0+0+0=0$，所以 $y'(0)=0$`,
-          R`**① 式两边再对 $x$ 求导**：$\mathrm e^y y'\cdot y'+\mathrm e^yy''$（$\mathrm e^y\cdot y'$ 用乘积法则，$\mathrm e^y$ 的导数是 $\mathrm e^yy'$）$+6y'+6y'+6xy''+2=0$，即 $\mathrm e^y(y')^2+\mathrm e^yy''+12y'+6xy''+2=0$`,
+          R`==**① 式两边再对 $x$ 求导**：$\mathrm e^y y'\cdot y'+\mathrm e^yy''$（$\mathrm e^y\cdot y'$ 用乘积法则，$\mathrm e^y$ 的导数是 $\mathrm e^yy'$）$+6y'+6y'+6xy''+2=0$，即 $\mathrm e^y(y')^2+\mathrm e^yy''+12y'+6xy''+2=0$==`,
           R`代入 $x=0$、$y=0$、$y'(0)=0$：$0+y''(0)+0+0+2=0$，所以 $y''(0)=-2$`,
           R`检验（吉米的做法）：先解出 $y'=-\dfrac{6y+2x}{\mathrm e^y+6x}$，再用商法则求导后代点，同样得 $-2$（吉米【192】p56）`
         ],
@@ -240,7 +240,7 @@
         signal: R`方程里含 $f(\square)$，$\square$ 里有 $y$（如 $y=f(x+y)$、$x\mathrm e^{f(y)}=\mathrm e^y$），题目说"$f$ 具有二阶导数，且 $f'\neq1$"`,
         example: { q: R`$y=f(x+y)$，其中 $f$ 具有二阶导数，且其一阶导数不等于 1，求 $\dfrac{\mathrm d^2y}{\mathrm dx^2}$。`, src: "吉米【194】p56" },
         idea: {
-          key: R`$f$ 的括号里是 $x$ 和 $y$ 的式子，对 $x$ 求导时 $f'(\square)$ 要乘括号里的式子对 $x$ 的导数（里面含 $y'$）；解出 $y'$ 后再求一次导，$f'(\square)$ 求导还要乘一次括号的导数，最后把 $y'$ 代掉。方程里有指数、乘积时，先取对数化简。`,
+          key: R`==$f$ 的括号里是 $x$ 和 $y$ 的式子，对 $x$ 求导时 $f'(\square)$ 要乘括号里的式子对 $x$ 的导数（里面含 $y'$）==；解出 $y'$ 后再求一次导，$f'(\square)$ 求导还要乘一次括号的导数，最后把 $y'$ 代掉。方程里有指数、乘积时，先取对数化简。`,
           how: [
             R`有乘积、指数（如 $x\mathrm e^{f(y)}=\mathrm e^y$）先两边取对数，化成和差`,
             R`两边对 $x$ 求导：$[f(\square)]'=f'(\square)\cdot\square'$，$\square'$ 里含 $y'$`,
@@ -257,7 +257,7 @@
         steps: [
           R`一阶：链式法则，外层 $f$、内层 $x+y$，$y'=f'\cdot(1+y')$（$f'$ 简写 $f'(x+y)$）`,
           R`解出 $y'$：$y'-f'y'=f'$，$y'=\dfrac{f'}{1-f'}$（题设 $f'\neq1$ 保证分母不为 0）；顺便得 $1+y'=\dfrac{1}{1-f'}$`,
-          R`**对 $y'=f'\cdot(1+y')$ 两边再对 $x$ 求导**：右边是乘积，$[f'(x+y)]'=f''\cdot(1+y')$，所以 $y''=f''(1+y')^2+f'y''$`,
+          R`==**对 $y'=f'\cdot(1+y')$ 两边再对 $x$ 求导**：右边是乘积，$[f'(x+y)]'=f''\cdot(1+y')$，所以 $y''=f''(1+y')^2+f'y''$==`,
           R`解出 $y''$：$y''(1-f')=f''(1+y')^2$，$y''=\dfrac{f''(1+y')^2}{1-f'}$`,
           R`代入 $1+y'=\dfrac1{1-f'}$：$\dfrac{\mathrm d^2y}{\mathrm dx^2}=\dfrac{f''(x+y)}{[1-f'(x+y)]^3}$`
         ],
@@ -269,7 +269,7 @@
         signal: R`函数是一长串因式相乘、相除，外面套根号或幂次，如 $\sqrt{\dfrac{(x-1)(x-2)}{(x-3)(x-4)}}$、$\sqrt{x\sin x\sqrt{1-\mathrm e^x}}$`,
         example: { q: R`设 $y=\sqrt{\mathrm e^{\frac1x}\sqrt{x\sqrt{\sin x}}}$，求 $y'$。`, src: "吉米【196】p57" },
         idea: {
-          key: R`两边取对数，用对数性质把乘除变加减、乘方开方变系数，然后两边对 $x$ 求导（左边 $\frac{y'}{y}$），最后乘回 $y$。`,
+          key: R`==两边取对数，用对数性质把乘除变加减、乘方开方变系数，然后两边对 $x$ 求导（左边 $\frac{y'}{y}$），最后乘回 $y$==。`,
           how: [
             R`两边取对数：$\ln y=\ln f(x)$`,
             R`用 $\ln(ab)=\ln a+\ln b$、$\ln\frac ab=\ln a-\ln b$、$\ln a^k=k\ln a$ 拆成和差，根号是分数次幂`,
@@ -286,7 +286,7 @@
         first: R`两边取对数，把根号和乘积拆开`,
         steps: [
           R`由内往外数根号：$\mathrm e^{\frac1x}$ 在一层根号里，指数 $\frac12$；$x$ 在两层根号里，指数 $\frac14$；$\sin x$ 在三层根号里，指数 $\frac18$。所以 $y=\mathrm e^{\frac1{2x}}\cdot x^{\frac14}\cdot(\sin x)^{\frac18}$`,
-          R`取对数：$\ln y=\dfrac1{2x}+\dfrac14\ln x+\dfrac18\ln\sin x$（$\ln\mathrm e^{\frac1{2x}}=\frac1{2x}$）`,
+          R`==取对数：$\ln y=\dfrac1{2x}+\dfrac14\ln x+\dfrac18\ln\sin x$（$\ln\mathrm e^{\frac1{2x}}=\frac1{2x}$）==`,
           R`两边对 $x$ 求导，左边 $y$ 是 $x$ 的函数：$\dfrac{y'}{y}=-\dfrac1{2x^2}+\dfrac1{4x}+\dfrac18\cdot\dfrac{\cos x}{\sin x}$`,
           R`**乘回 $y$**：$y'=\dfrac18\left(\dfrac2x-\dfrac4{x^2}+\cot x\right)\sqrt{\mathrm e^{\frac1x}\sqrt{x\sqrt{\sin x}}}$（括号里通分提出 $\frac18$）`
         ],
@@ -298,7 +298,7 @@
         signal: R`底和指数都含 $x$：$x^{\sin x}$、$\left(\dfrac x{1+x}\right)^x$、$x^{x^x}$、$(1+x)^{\frac1x}$`,
         example: { q: R`设 $y=x^{x^x}$，求 $y'$。`, src: "吉米【197】p57" },
         idea: {
-          key: R`幂指函数 $u^v$ 既不是幂函数也不是指数函数：写成 $\mathrm e^{v\ln u}$ 按复合函数求导，或两边取对数再求导；指数里又有幂指函数时，再取一次对数（或再化一次 $\mathrm e$）。`,
+          key: R`==幂指函数 $u^v$ 既不是幂函数也不是指数函数：写成 $\mathrm e^{v\ln u}$ 按复合函数求导，或两边取对数再求导==；指数里又有幂指函数时，再取一次对数（或再化一次 $\mathrm e$）。`,
           how: [
             R`写成 $u^v=\mathrm e^{v\ln u}$，或两边取对数 $\ln y=v\ln u$`,
             R`对 $v\ln u$ 用乘积法则：$(v\ln u)'=v'\ln u+v\cdot\dfrac{u'}{u}$`,
@@ -314,7 +314,7 @@
         first: R`两边取对数：$\ln y=x^x\ln x$`,
         steps: [
           R`取对数：$\ln y=x^x\cdot\ln x$（$\ln a^b=b\ln a$）`,
-          R`两边对 $x$ 求导，右边用乘积法则：$\dfrac{y'}{y}=(x^x)'\ln x+x^x\cdot\dfrac1x$`,
+          R`==两边对 $x$ 求导，右边用乘积法则：$\dfrac{y'}{y}=(x^x)'\ln x+x^x\cdot\dfrac1x$==`,
           R`**求 $(x^x)'$**：$x^x=\mathrm e^{x\ln x}$，$(x^x)'=\mathrm e^{x\ln x}(x\ln x)'=x^x(\ln x+1)$（30讲 例4.12 p129）`,
           R`代回：$\dfrac{y'}{y}=x^x(\ln x+1)\ln x+x^{x-1}=x^{x-1}\left(x\ln^2x+x\ln x+1\right)$（提出 $x^{x-1}$：$x^x=x^{x-1}\cdot x$）`,
           R`乘回 $y=x^{x^x}$：$y'=x^{x^x+x-1}\left(x\ln^2x+x\ln x+1\right)$`
@@ -327,7 +327,7 @@
         signal: R`曲线由 $\begin{cases}x=\varphi(t)\\y=\psi(t)\end{cases}$ 给出，求 $\dfrac{\mathrm dy}{\mathrm dx}$、某参数值或某点处的切线、法线`,
         example: { q: R`曲线 $\begin{cases}x=\mathrm e^t\sin2t,\\y=\mathrm e^t\cos t\end{cases}$ 在点 $(0,1)$ 处的法线方程为 ____。`, src: "吉米【198】p57" },
         idea: {
-          key: R`$\dfrac{\mathrm dy}{\mathrm dx}=\dfrac{\psi'(t)}{\varphi'(t)}$；给的是点（或 $x_0$）时，先求出这点对应的参数 $t_0$；切线斜率是 $\left.\frac{\mathrm dy}{\mathrm dx}\right|_{t_0}$，法线斜率是它的负倒数。`,
+          key: R`==$\dfrac{\mathrm dy}{\mathrm dx}=\dfrac{\psi'(t)}{\varphi'(t)}$==；给的是点（或 $x_0$）时，先求出这点对应的参数 $t_0$；切线斜率是 $\left.\frac{\mathrm dy}{\mathrm dx}\right|_{t_0}$，法线斜率是它的负倒数。`,
           how: [
             R`由给定的点或 $x_0$ 解出对应的 $t_0$（多个解时检查哪个使 $y$ 有意义、对得上点）`,
             R`分别求 $\dfrac{\mathrm dx}{\mathrm dt}$、$\dfrac{\mathrm dy}{\mathrm dt}$，相除`,
@@ -343,7 +343,7 @@
         first: R`由点 $(0,1)$ 求出对应的参数 $t=0$`,
         steps: [
           R`找 $t_0$：$t=0$ 时 $x=\mathrm e^0\sin0=0$，$y=\mathrm e^0\cos0=1$，正是点 $(0,1)$，所以 $t_0=0$`,
-          R`求导（乘积法则）：$\dfrac{\mathrm dx}{\mathrm dt}=\mathrm e^t\sin2t+2\mathrm e^t\cos2t$，$\dfrac{\mathrm dy}{\mathrm dt}=\mathrm e^t\cos t-\mathrm e^t\sin t$`,
+          R`==求导（乘积法则）：$\dfrac{\mathrm dx}{\mathrm dt}=\mathrm e^t\sin2t+2\mathrm e^t\cos2t$，$\dfrac{\mathrm dy}{\mathrm dt}=\mathrm e^t\cos t-\mathrm e^t\sin t$==`,
           R`**相除**：$\dfrac{\mathrm dy}{\mathrm dx}=\dfrac{\cos t-\sin t}{\sin2t+2\cos2t}$（约去 $\mathrm e^t$）`,
           R`代 $t=0$：切线斜率 $k=\dfrac{1-0}{0+2}=\dfrac12$，法线斜率 $-\dfrac1k=-2$`,
           R`法线：$y-1=-2(x-0)$，即 $2x+y-1=0$`
@@ -356,7 +356,7 @@
         signal: R`由参数方程确定 $y=y(x)$，求 $\dfrac{\mathrm d^2y}{\mathrm dx^2}$（或某个 $t$ 处的值），有时求三阶`,
         example: { q: R`设函数 $y=y(x)$ 由参数方程 $\begin{cases}x=t-\ln(1+t),\\y=t^3+t^2\end{cases}$ 所确定，则 $\dfrac{\mathrm d^2y}{\mathrm dx^2}=$ ____。`, src: "吉米【200】p58" },
         idea: {
-          key: R`一阶 $\dfrac{\mathrm dy}{\mathrm dx}$ 先化成最简的 $t$ 的函数，再"对 $t$ 求导、除以 $\dfrac{\mathrm dx}{\mathrm dt}$"：$\dfrac{\mathrm d^2y}{\mathrm dx^2}=\dfrac{\frac{\mathrm d}{\mathrm dt}\left(\frac{\mathrm dy}{\mathrm dx}\right)}{\frac{\mathrm dx}{\mathrm dt}}$。三阶同理再做一次。`,
+          key: R`==一阶 $\dfrac{\mathrm dy}{\mathrm dx}$ 先化成最简的 $t$ 的函数，再"对 $t$ 求导、除以 $\dfrac{\mathrm dx}{\mathrm dt}$"：$\dfrac{\mathrm d^2y}{\mathrm dx^2}=\dfrac{\frac{\mathrm d}{\mathrm dt}\left(\frac{\mathrm dy}{\mathrm dx}\right)}{\frac{\mathrm dx}{\mathrm dt}}$==。三阶同理再做一次。`,
           how: [
             R`求 $\dfrac{\mathrm dy}{\mathrm dx}=\dfrac{\psi'(t)}{\varphi'(t)}$，化成最简`,
             R`把 $\dfrac{\mathrm dy}{\mathrm dx}$ 对 $t$ 求导`,
@@ -374,7 +374,7 @@
         steps: [
           R`$\dfrac{\mathrm dx}{\mathrm dt}=1-\dfrac1{1+t}=\dfrac t{1+t}$，$\dfrac{\mathrm dy}{\mathrm dt}=3t^2+2t=t(3t+2)$`,
           R`一阶：$\dfrac{\mathrm dy}{\mathrm dx}=t(3t+2)\cdot\dfrac{1+t}t=(t+1)(3t+2)=3t^2+5t+2$（约去 $t$，$t\neq0$）`,
-          R`一阶对 $t$ 求导：$\dfrac{\mathrm d}{\mathrm dt}(3t^2+5t+2)=6t+5$`,
+          R`==一阶对 $t$ 求导：$\dfrac{\mathrm d}{\mathrm dt}(3t^2+5t+2)=6t+5$==`,
           R`**除以 $\dfrac{\mathrm dx}{\mathrm dt}$**：$\dfrac{\mathrm d^2y}{\mathrm dx^2}=\dfrac{6t+5}{\frac t{1+t}}=\dfrac{(6t+5)(t+1)}t$`,
           R`检验：用公式 $\dfrac{\psi''\varphi'-\psi'\varphi''}{\varphi'^3}$，$\psi''=6t+2$，$\varphi''=\dfrac1{(1+t)^2}$，代入化简结果相同（教材式 (4-5) p103）`
         ],
@@ -386,7 +386,7 @@
         signal: R`方程组里一个是 $x=\varphi(t)$，另一个是含 $y$、$t$ 的方程（如 $2y-ty^2+\mathrm e^t=5$），求 $\dfrac{\mathrm dy}{\mathrm dx}$ 或 $\left.\dfrac{\mathrm d^2y}{\mathrm dx^2}\right|_{t=0}$`,
         example: { q: R`设 $y=y(x)$ 由 $\begin{cases}x=\arctan t,\\2y-ty^2+\mathrm e^t=5\end{cases}$ 所确定，求 $\dfrac{\mathrm dy}{\mathrm dx}$。`, src: "吉米【219】p64；30讲 例4.10 p127" },
         idea: {
-          key: R`先把隐式的那个方程看成 $y$ 关于 $t$ 的隐函数，两边对 $t$ 求导求出 $\dfrac{\mathrm dy}{\mathrm dt}$，再套参数方程公式 $\dfrac{\mathrm dy}{\mathrm dx}=\dfrac{\mathrm dy/\mathrm dt}{\mathrm dx/\mathrm dt}$；结果里既有 $t$ 又有 $y$ 是正常的。`,
+          key: R`==先把隐式的那个方程看成 $y$ 关于 $t$ 的隐函数，两边对 $t$ 求导求出 $\dfrac{\mathrm dy}{\mathrm dt}$，再套参数方程公式 $\dfrac{\mathrm dy}{\mathrm dx}=\dfrac{\mathrm dy/\mathrm dt}{\mathrm dx/\mathrm dt}$==；结果里既有 $t$ 又有 $y$ 是正常的。`,
           how: [
             R`显式那个方程直接求 $\dfrac{\mathrm dx}{\mathrm dt}$`,
             R`隐式那个方程两边对 $t$ 求导（$y$ 是 $t$ 的函数，要乘 $\frac{\mathrm dy}{\mathrm dt}$），解出 $\dfrac{\mathrm dy}{\mathrm dt}$`,
@@ -403,7 +403,7 @@
         first: R`第二个方程两边对 $t$ 求导，解出 $\dfrac{\mathrm dy}{\mathrm dt}$`,
         steps: [
           R`$\dfrac{\mathrm dx}{\mathrm dt}=\dfrac1{1+t^2}$`,
-          R`**$2y-ty^2+\mathrm e^t=5$ 两边对 $t$ 求导**（$y$ 是 $t$ 的函数；$ty^2$ 用乘积法则，$(y^2)'=2y\frac{\mathrm dy}{\mathrm dt}$）：$2\dfrac{\mathrm dy}{\mathrm dt}-y^2-2ty\dfrac{\mathrm dy}{\mathrm dt}+\mathrm e^t=0$`,
+          R`==**$2y-ty^2+\mathrm e^t=5$ 两边对 $t$ 求导**（$y$ 是 $t$ 的函数；$ty^2$ 用乘积法则，$(y^2)'=2y\frac{\mathrm dy}{\mathrm dt}$）：$2\dfrac{\mathrm dy}{\mathrm dt}-y^2-2ty\dfrac{\mathrm dy}{\mathrm dt}+\mathrm e^t=0$==`,
           R`解出：$\dfrac{\mathrm dy}{\mathrm dt}(2-2ty)=y^2-\mathrm e^t$，$\dfrac{\mathrm dy}{\mathrm dt}=\dfrac{y^2-\mathrm e^t}{2(1-ty)}$`,
           R`相除：$\dfrac{\mathrm dy}{\mathrm dx}=\dfrac{y^2-\mathrm e^t}{2(1-ty)}\cdot(1+t^2)=\dfrac{(y^2-\mathrm e^t)(1+t^2)}{2(1-ty)}$`
         ],
@@ -415,7 +415,7 @@
         signal: R`曲线由方程 $F(x,y)=0$ 给出，求某点处的切线、法线方程，或找有水平切线、铅直切线的点`,
         example: { q: R`设函数 $y=f(x)$ 由方程 $\mathrm e^{2x+y}-\cos(xy)=\mathrm e-1$ 确定，则曲线 $y=f(x)$ 在点 $(0,1)$ 处的法线方程为 ____。`, src: "吉米【223】p65" },
         idea: {
-          key: R`用隐函数求导求出 $y'$，代入切点得切线斜率 $k$；法线斜率 $-\frac1k$。水平切线：$y'$ 的分子为 0；铅直切线：$y'$ 的分母为 0，都要和原方程联立求点。`,
+          key: R`==用隐函数求导求出 $y'$，代入切点得切线斜率 $k$==；法线斜率 $-\frac1k$。水平切线：$y'$ 的分子为 0；铅直切线：$y'$ 的分母为 0，都要和原方程联立求点。`,
           how: [
             R`确认点在曲线上（代入原方程）`,
             R`方程两边对 $x$ 求导，代入切点求 $y'_0$（可以不整理出一般式）`,
@@ -431,7 +431,7 @@
         first: R`方程两边对 $x$ 求导`,
         steps: [
           R`检查：$x=0$、$y=1$ 时 $\mathrm e^1-\cos0=\mathrm e-1$，点在曲线上`,
-          R`两边对 $x$ 求导：$\mathrm e^{2x+y}(2+y')+\sin(xy)\cdot(y+xy')=0$（$-\cos u$ 的导数是 $\sin u\cdot u'$，$u=xy$）`,
+          R`==两边对 $x$ 求导：$\mathrm e^{2x+y}(2+y')+\sin(xy)\cdot(y+xy')=0$（$-\cos u$ 的导数是 $\sin u\cdot u'$，$u=xy$）==`,
           R`代入 $x=0$、$y=1$：$\mathrm e(2+y')+0=0$，所以 $y'(0)=-2$`,
           R`**法线斜率** $-\dfrac1{-2}=\dfrac12$：$y-1=\dfrac12x$，即 $x-2y+2=0$`
         ],
@@ -443,7 +443,7 @@
         signal: R`曲线由极坐标方程 $r=r(\theta)$ 给出（如 $r=1-\cos\theta$、$\rho=\mathrm e^\theta$），求某个 $\theta$ 处的切线、法线的直角坐标方程`,
         example: { q: R`已知曲线的极坐标方程 $r=1-\cos\theta$，求该曲线上对应 $\theta=\dfrac\pi6$ 处的切线与法线的直角坐标方程。`, src: "吉米【227】p66" },
         idea: {
-          key: R`把 $\theta$ 当参数，写成参数方程 $x=r(\theta)\cos\theta$，$y=r(\theta)\sin\theta$，再按参数方程求切线斜率；斜率不是 $\frac{\mathrm dr}{\mathrm d\theta}$。`,
+          key: R`==把 $\theta$ 当参数，写成参数方程 $x=r(\theta)\cos\theta$，$y=r(\theta)\sin\theta$，再按参数方程求切线斜率==；斜率不是 $\frac{\mathrm dr}{\mathrm d\theta}$。`,
           how: [
             R`写参数方程：$x=r(\theta)\cos\theta$，$y=r(\theta)\sin\theta$`,
             R`代 $\theta_0$ 求切点坐标 $(x_0,y_0)$`,
@@ -460,7 +460,7 @@
         steps: [
           R`展开：$x=\cos\theta-\cos^2\theta$，$y=\sin\theta-\sin\theta\cos\theta$`,
           R`切点：$\theta=\frac\pi6$，$\cos\theta=\frac{\sqrt3}2$，$\sin\theta=\frac12$，$x_0=\dfrac{\sqrt3}2-\dfrac34$，$y_0=\dfrac12-\dfrac{\sqrt3}4$`,
-          R`求导：$\dfrac{\mathrm dx}{\mathrm d\theta}=-\sin\theta+2\cos\theta\sin\theta$，$\dfrac{\mathrm dy}{\mathrm d\theta}=\cos\theta-\cos^2\theta+\sin^2\theta$`,
+          R`==求导：$\dfrac{\mathrm dx}{\mathrm d\theta}=-\sin\theta+2\cos\theta\sin\theta$，$\dfrac{\mathrm dy}{\mathrm d\theta}=\cos\theta-\cos^2\theta+\sin^2\theta$==`,
           R`**斜率**：代 $\theta=\frac\pi6$，分子 $\frac{\sqrt3}2-\frac34+\frac14=\frac{\sqrt3-1}2$，分母 $-\frac12+\frac{\sqrt3}2=\frac{\sqrt3-1}2$，所以 $k=1$`,
           R`切线：$y-y_0=x-x_0$，即 $x-y-\dfrac{3\sqrt3}4+\dfrac54=0$`,
           R`法线斜率 $-1$：$y-y_0=-(x-x_0)$，即 $x+y-\dfrac{\sqrt3}4+\dfrac14=0$`
@@ -473,7 +473,7 @@
         signal: R`实际问题中两个（或几个）量都随时间变化，已知其中一个的变化率，问此刻另一个的变化率："……的速率为多少"`,
         example: { q: R`已知动点 $P$ 在曲线 $y=x^3$ 上运动，记坐标原点与点 $P$ 间的距离为 $l$。若点 $P$ 的横坐标对时间的变化率为常数 $v_0$，则当点 $P$ 运动到点 $(1,1)$ 时，$l$ 对时间的变化率是 ____。`, src: "30讲 第7讲 例7.1 p188" },
         idea: {
-          key: R`设出变量，写出变量之间的关系式（几何关系、物理关系），所有变量都看作时间 $t$ 的函数；关系式两边对 $t$ 求导，得到变化率之间的关系；最后代入此刻的数值。`,
+          key: R`==设出变量，写出变量之间的关系式（几何关系、物理关系），所有变量都看作时间 $t$ 的函数==；关系式两边对 $t$ 求导，得到变化率之间的关系；最后代入此刻的数值。`,
           how: [
             R`设变量，画图，找出变量之间的关系式；能消掉的中间变量先消掉（如圆锥里用相似消去 $r$）`,
             R`关系式两边对 $t$ 求导，每个变量都乘它对 $t$ 的变化率`,
@@ -489,7 +489,7 @@
         first: R`写出关系式 $l=\sqrt{x^2+y^2}=\sqrt{x^2+x^6}$`,
         steps: [
           R`关系式：$l=\sqrt{x^2+y^2}$，点在 $y=x^3$ 上，所以 $l=\sqrt{x^2+x^6}$`,
-          R`**两边对 $t$ 求导**（$x$ 是 $t$ 的函数）：$\dfrac{\mathrm dl}{\mathrm dt}=\dfrac{\mathrm dl}{\mathrm dx}\cdot\dfrac{\mathrm dx}{\mathrm dt}=\dfrac{2x+6x^5}{2\sqrt{x^2+x^6}}\cdot v_0$`,
+          R`==**两边对 $t$ 求导**（$x$ 是 $t$ 的函数）：$\dfrac{\mathrm dl}{\mathrm dt}=\dfrac{\mathrm dl}{\mathrm dx}\cdot\dfrac{\mathrm dx}{\mathrm dt}=\dfrac{2x+6x^5}{2\sqrt{x^2+x^6}}\cdot v_0$==`,
           R`此刻 $x=1$：分子 $2+6=8$，分母 $2\sqrt2$`,
           R`代入：$\left.\dfrac{\mathrm dl}{\mathrm dt}\right|_{x=1}=\dfrac8{2\sqrt2}v_0=2\sqrt2\,v_0$`
         ],
@@ -501,7 +501,7 @@
         signal: R`参数方程里有 $|t|$（如 $x=2t+|t|$），问 $y=f(x)$ 在 $x=0$ 处可不可导、导函数是否连续、二阶导是否存在`,
         example: { q: R`已知 $y=f(x)$ 由 $\begin{cases}x=2t+|t|,\\y=|t|\sin t\end{cases}$ 确定，则 (A) $f(x)$ 连续，$f'(0)$ 不存在；(B) $f'(0)$ 存在，$f'(x)$ 在 $x=0$ 处不连续；(C) $f'(x)$ 连续，$f''(0)$ 不存在；(D) $f''(0)$ 存在，$f''(x)$ 在 $x=0$ 处不连续。`, src: "武忠祥 题型三(三) 例2 p70" },
         idea: {
-          key: R`$x'(t)$ 在 $t=0$ 处不存在，公式 $\frac{\psi'}{\varphi'}$ 用不了：按 $t\geqslant0$、$t<0$ 去掉绝对值，消参写成 $y=f(x)$ 的分段函数，分段点处回到 2.1 的定义求左右导数。`,
+          key: R`==$x'(t)$ 在 $t=0$ 处不存在，公式 $\frac{\psi'}{\varphi'}$ 用不了：按 $t\geqslant0$、$t<0$ 去掉绝对值，消参写成 $y=f(x)$ 的分段函数，分段点处回到 2.1 的定义求左右导数==。`,
           how: [
             R`按 $t\geqslant0$、$t<0$ 去掉绝对值，分别消去 $t$`,
             R`写出 $f(x)$ 的分段表达式（注意 $t$ 的正负对应 $x$ 的正负）`,
@@ -516,7 +516,7 @@
         first: R`按 $t\geqslant0$、$t<0$ 去掉绝对值，消去 $t$`,
         steps: [
           R`$t\geqslant0$：$x=3t$（$x\geqslant0$），$y=t\sin t=\dfrac x3\sin\dfrac x3$；$t<0$：$x=t$（$x<0$），$y=-t\sin t=-x\sin x$`,
-          R`连续性：两段在 $x=0$ 处都等于 0，$f$ 连续`,
+          R`==连续性：两段在 $x=0$ 处都等于 0，$f$ 连续==`,
           R`一阶：$f'_+(0)=\lim\limits_{x\to0^+}\dfrac{\frac x3\sin\frac x3}{x}=0$，$f'_-(0)=\lim\limits_{x\to0^-}\dfrac{-x\sin x}x=0$，所以 $f'(0)=0$`,
           R`导函数：$x>0$ 时 $f'(x)=\frac13\sin\frac x3+\frac x9\cos\frac x3$，$x<0$ 时 $f'(x)=-\sin x-x\cos x$，两边 $x\to0$ 时都趋于 0 $=f'(0)$，所以 $f'(x)$ 连续`,
           R`**二阶用定义**：$f''_+(0)=\lim\limits_{x\to0^+}\dfrac{\frac13\sin\frac x3+\frac x9\cos\frac x3}{x}=\dfrac19+\dfrac19=\dfrac29$，$f''_-(0)=\lim\limits_{x\to0^-}\dfrac{-\sin x-x\cos x}x=-2$，不相等，$f''(0)$ 不存在。选 (C)`
@@ -529,7 +529,7 @@
         signal: R`隐函数题里给的不是 $y(x_0)$，而是"$y'(x_0)=0$"之类的导数条件，要求 $y''(x_0)$、参数或判断极值`,
         example: { q: R`设函数 $y=y(x)$ 由方程 $y^3+xy^2+x^2y+6=0$ 确定，且 $y'(1)=0$，求 $y''(1)$ 的值。`, src: "30讲 例4.8 p126" },
         idea: {
-          key: R`把已知的导数值代进求导一次后的等式，得到 $x_0$、$y_0$ 的关系，和原方程联立求出 $y_0$（不满足原方程的根舍去）；再对等式求导一次，代入 $x_0$、$y_0$、$y'_0$ 解出 $y''_0$。`,
+          key: R`==把已知的导数值代进求导一次后的等式，得到 $x_0$、$y_0$ 的关系，和原方程联立求出 $y_0$（不满足原方程的根舍去）==；再对等式求导一次，代入 $x_0$、$y_0$、$y'_0$ 解出 $y''_0$。`,
           how: [
             R`方程两边对 $x$ 求导一次，得到含 $y'$ 的等式`,
             R`代入已知的 $x_0$ 和 $y'(x_0)$，解出 $y_0$ 的候选值`,
@@ -547,7 +547,7 @@
           R`求导一次：$3y^2y'+y^2+2xyy'+2xy+x^2y'=0$ ①`,
           R`代入 $x=1$、$y'(1)=0$：$y^2+2y=0$，所以 $y(1)=0$ 或 $y(1)=-2$`,
           R`**检验**：$y=0$ 代入原方程得 $6\neq0$，舍去；$y=-2$ 代入得 $-8+4-2+6=0$，所以 $y(1)=-2$`,
-          R`① 式整理成 $(3y^2+2xy+x^2)y'+y^2+2xy=0$，再对 $x$ 求导：$(6yy'+2y+2xy'+2x)y'+(3y^2+2xy+x^2)y''+2yy'+2y+2xy'=0$`,
+          R`==① 式整理成 $(3y^2+2xy+x^2)y'+y^2+2xy=0$，再对 $x$ 求导：$(6yy'+2y+2xy'+2x)y'+(3y^2+2xy+x^2)y''+2yy'+2y+2xy'=0$==`,
           R`代入 $x=1$、$y=-2$、$y'=0$：$(12-4+1)y''+(-4)=0$，所以 $y''(1)=\dfrac49$`
         ],
         pitfall: R`解出两个 $y(1)$ 不检验，两个都拿去算；求二阶时漏了 $(3y^2+2xy+x^2)$ 这个因子对 $x$ 的导数`,

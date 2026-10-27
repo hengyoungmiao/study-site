@@ -167,7 +167,7 @@
         signal: R`给出含 $\ln$、根式、分式的具体函数，求 $y'$ 或 $y'|_{x=x_0}$`,
         example: { q: R`设 $y=\arctan\mathrm e^x-\ln\sqrt{\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}}$，则 $\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=1}=$ ____。`, src: "吉米【165】p48" },
         idea: {
-          key: R`先用对数、指数的运算性质把函数化简（拆 $\ln$、根式写成分数指数、能约先约），再按"和差 → 积商 → 复合"逐层套法则和公式。`,
+          key: R`==先用对数、指数的运算性质把函数化简（拆 $\ln$、根式写成分数指数、能约先约），再按"和差 → 积商 → 复合"逐层套法则和公式==。`,
           how: [
             R`化简：$\ln$ 的积、商、幂拆开；根式写成分数指数；能约分先约分`,
             R`看最外层运算是和差、积商还是复合`,
@@ -184,7 +184,7 @@
         steps: [
           R`化简对数：$\ln\sqrt{\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}}=\dfrac12\left[\ln\mathrm e^{2x}-\ln(\mathrm e^{2x}+1)\right]=x-\dfrac12\ln(\mathrm e^{2x}+1)$（根号是 $\frac12$ 次幂，商的对数是对数之差，$\ln\mathrm e^{2x}=2x$）`,
           R`所以 $y=\arctan\mathrm e^x-x+\dfrac12\ln(\mathrm e^{2x}+1)$，前面有减号，别漏掉：减去 $x-\frac12\ln(\cdots)$ 就是 $-x+\frac12\ln(\cdots)$`,
-          R`第一项：外层 $\arctan u$、内层 $u=\mathrm e^x$，链式法则 $(\arctan u)'\cdot u'=\dfrac{1}{1+u^2}\cdot\mathrm e^x=\dfrac{\mathrm e^x}{1+\mathrm e^{2x}}$`,
+          R`==第一项：外层 $\arctan u$、内层 $u=\mathrm e^x$，链式法则 $(\arctan u)'\cdot u'=\dfrac{1}{1+u^2}\cdot\mathrm e^x=\dfrac{\mathrm e^x}{1+\mathrm e^{2x}}$==`,
           R`第三项：外层 $\ln v$、内层 $v=\mathrm e^{2x}+1$，$v'=2\mathrm e^{2x}$，所以 $\dfrac12\cdot\dfrac{2\mathrm e^{2x}}{\mathrm e^{2x}+1}=\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}$`,
           R`合并：$y'=\dfrac{\mathrm e^x}{1+\mathrm e^{2x}}-1+\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}$。后两项通分：$-1+\dfrac{\mathrm e^{2x}}{\mathrm e^{2x}+1}=\dfrac{-1}{\mathrm e^{2x}+1}$，所以 $y'=\dfrac{\mathrm e^x-1}{1+\mathrm e^{2x}}$`,
           R`代入 $x=1$：$y'(1)=\dfrac{\mathrm e-1}{\mathrm e^2+1}$`
@@ -197,7 +197,7 @@
         signal: R`函数套了两三层（$\mathrm e^{\tan\frac1x}$、$\ln\cos(\mathrm e^x)$），或乘积、复合混在一起`,
         example: { q: R`设 $y=\mathrm e^{\tan\frac1x}\cdot\sin\dfrac1x$，则 $y'=$ ____。`, src: "吉米【166】p48" },
         idea: {
-          key: R`从最外层往里"剥"：每剥一层乘上这一层的导数（里面整体不动），一直乘到 $x$；乘积和复合混在一起时，先用乘积法则拆开，再对每个因子用链式法则。`,
+          key: R`==从最外层往里"剥"：每剥一层乘上这一层的导数（里面整体不动），一直乘到 $x$==；乘积和复合混在一起时，先用乘积法则拆开，再对每个因子用链式法则。`,
           how: [
             R`写出复合链 $y\to u\to v\to x$（熟练后心里写）`,
             R`外层导数（内层当整体，不动）× 内层导数`,
@@ -213,7 +213,7 @@
         think: R`$y$ 是两个函数的乘积，先用乘积法则拆成两项；每一项里 $\frac1x$ 在最里层，链式法则从外向里一层层剥，每剥一层就乘上那一层的导数，最后一层是 $\left(\frac1x\right)'=-\frac1{x^2}$。`,
         first: R`先用乘积法则拆成两项，两项里都有 $\frac1x$ 这一层`,
         steps: [
-          R`乘积法则 $(uv)'=u'v+uv'$：令 $u=\mathrm e^{\tan\frac1x}$，$v=\sin\dfrac1x$`,
+          R`==乘积法则 $(uv)'=u'v+uv'$：令 $u=\mathrm e^{\tan\frac1x}$，$v=\sin\dfrac1x$==`,
           R`求 $u'$：三层复合 $\mathrm e^{(\cdot)}$ → $\tan(\cdot)$ → $\frac1x$。从外向里：$\mathrm e^{w}$ 的导数是它自己，$w=\tan\frac1x$ 的导数是 $\sec^2\frac1x$ 乘里层 $\frac1x$ 的导数 $-\frac1{x^2}$。所以 $u'=\mathrm e^{\tan\frac1x}\cdot\sec^2\dfrac1x\cdot\left(-\dfrac1{x^2}\right)$`,
           R`求 $v'$：两层 $\sin(\cdot)$ → $\frac1x$，$v'=\cos\dfrac1x\cdot\left(-\dfrac1{x^2}\right)$`,
           R`代回 $y'=u'v+uv'$，两项都有公因子 $-\dfrac1{x^2}\mathrm e^{\tan\frac1x}$，提出：$y'=-\dfrac{1}{x^2}\mathrm e^{\tan\frac1x}\left(\sec^2\dfrac1x\sin\dfrac1x+\cos\dfrac1x\right)$`,
@@ -227,7 +227,7 @@
         signal: R`含 $f(\square)$，只知道 $f'$ 的表达式或某点的值，求 $y'$ 或 $y'|_{x_0}$；或由 $h=F(g)$ 的导数关系反求 $g$ 的值`,
         example: { q: R`已知 $y=f\left(\dfrac{3x-2}{3x+2}\right)$，$f'(x)=\arctan x^2$，则 $\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=0}=$ ____。`, src: "吉米【168】p49" },
         idea: {
-          key: R`$[f(g(x))]'=f'(g(x))\cdot g'(x)$：$f'$ 在内层的值处取值，再乘内层导数；只问某一点时，先算出内层在这点的值。`,
+          key: R`==$[f(g(x))]'=f'(g(x))\cdot g'(x)$：$f'$ 在内层的值处取值，再乘内层导数==；只问某一点时，先算出内层在这点的值。`,
           how: [
             R`认出外层 $f$ 和内层 $g(x)$`,
             R`写 $y'=f'(g(x))\cdot g'(x)$，$f'$ 后面括号里是整个内层`,
@@ -245,7 +245,7 @@
           R`设 $u=\dfrac{3x-2}{3x+2}$，则 $y=f(u)$，链式法则 $\dfrac{\mathrm dy}{\mathrm dx}=f'(u)\cdot\dfrac{\mathrm du}{\mathrm dx}$`,
           R`$u'$ 用商法则：$\dfrac{3(3x+2)-3(3x-2)}{(3x+2)^2}=\dfrac{12}{(3x+2)^2}$，$x=0$ 时 $=\dfrac{12}{4}=3$`,
           R`$x=0$ 时 $u=\dfrac{-2}{2}=-1$`,
-          R`$f'(u)$ 是把 $f'(x)=\arctan x^2$ 里的 $x$ 换成 $u$：$f'(-1)=\arctan(-1)^2=\arctan1=\dfrac\pi4$。注意 $x^2$ 是先平方再 $\arctan$，$(-1)^2=1$`,
+          R`==$f'(u)$ 是把 $f'(x)=\arctan x^2$ 里的 $x$ 换成 $u$：$f'(-1)=\arctan(-1)^2=\arctan1=\dfrac\pi4$。注意 $x^2$ 是先平方再 $\arctan$，$(-1)^2=1$==`,
           R`$\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=0}=\dfrac\pi4\cdot3=\dfrac{3\pi}{4}$`
         ],
         pitfall: R`把 $f'$ 的表达式里的 $x$ 直接代 0（$\arctan0=0$），没换成内层的值 $-1$；漏乘 $u'$`,
@@ -256,7 +256,7 @@
         signal: R`$f(x)$ 由极限式 $\lim\limits_{t\to\infty}\cdots$ 给出，或由 $af(x)+bf\left(\frac1x\right)=\cdots$、$2f(1+x)+f(1-x)=\cdots$ 这类方程给出`,
         example: { q: R`设函数 $f(x)$ 在 $(-\infty,+\infty)$ 上满足 $2f(1+x)+f(1-x)=\mathrm e^x$，试求 $f'(x)$。`, src: "吉米【172】p49–50" },
         idea: {
-          key: R`先求出 $f(x)$ 的显式表达式——极限式用重要极限算出来，函数方程用换元再造一个方程、联立解出——再用公式求导。`,
+          key: R`==先求出 $f(x)$ 的显式表达式——极限式用重要极限算出来，函数方程用换元再造一个方程、联立解出——再用公式求导==。`,
           how: [
             R`极限式：与极限变量无关的部分当常数，用重要极限求出 $f$`,
             R`函数方程：用 $x\to-x$ 或 $x\to\frac1x$ 再造一个方程，两式联立解出 $f(\cdots)$`,
@@ -272,7 +272,7 @@
         first: R`把 $x$ 换成 $-x$，再得一个方程`,
         steps: [
           R`原式 ①：$2f(1+x)+f(1-x)=\mathrm e^x$。把 $x$ 换成 $-x$（对任意实数成立）得 ②：$2f(1-x)+f(1+x)=\mathrm e^{-x}$，两个未知量 $f(1+x)$、$f(1-x)$ 的位置对调了`,
-          R`消去 $f(1-x)$：① 里它的系数是 $1$，② 里是 $2$，所以做 $2\times$① $-$ ②：$4f(1+x)+2f(1-x)-2f(1-x)-f(1+x)=2\mathrm e^x-\mathrm e^{-x}$，即 $3f(1+x)=2\mathrm e^x-\mathrm e^{-x}$`,
+          R`==消去 $f(1-x)$：① 里它的系数是 $1$，② 里是 $2$，所以做 $2\times$① $-$ ②：$4f(1+x)+2f(1-x)-2f(1-x)-f(1+x)=2\mathrm e^x-\mathrm e^{-x}$，即 $3f(1+x)=2\mathrm e^x-\mathrm e^{-x}$==`,
           R`把括号里的整体换成新变量：令 $t=1+x$，$x=t-1$，$f(t)=\dfrac{2\mathrm e^{t-1}-\mathrm e^{1-t}}{3}$，即 $f(x)=\dfrac{2\mathrm e^{x-1}-\mathrm e^{1-x}}{3}$`,
           R`求导：$(\mathrm e^{x-1})'=\mathrm e^{x-1}$；$(\mathrm e^{1-x})'=\mathrm e^{1-x}\cdot(-1)$（内层 $1-x$ 的导数是 $-1$）。所以 $f'(x)=\dfrac{2\mathrm e^{x-1}+\mathrm e^{1-x}}{3}$`
         ],
@@ -284,7 +284,7 @@
         signal: R`分段函数求 $f'(x)$，或"确定 $a,b$ 使 $f$ 可导，并求 $f'(x)$"`,
         example: { q: R`试确定常数 $a,b$ 的值，使 $f(x)=\begin{cases}1+\ln(1-2x),&x\leqslant0\\a+b\mathrm e^x,&x>0\end{cases}$ 在 $x=0$ 处可导，并求出此时的 $f'(x)$。`, src: "吉米【174】p50–51" },
         idea: {
-          key: R`分段点以外用公式，分段点处用定义求左右导数（先保证连续）；最后把导函数也写成分段形式，分段点单独写值。`,
+          key: R`==分段点以外用公式，分段点处用定义求左右导数（先保证连续）==；最后把导函数也写成分段形式，分段点单独写值。`,
           how: [
             R`非分段点：各段分别用求导公式`,
             R`分段点：先让它连续（左右极限 = 函数值），再用定义求左、右导数`,
@@ -300,7 +300,7 @@
         first: R`$x=0$ 处先保连续：$f(0)=1$，右极限 $a+b$`,
         steps: [
           R`函数值：$f(0)=1+\ln1=1$（$x\leqslant0$ 用上式）`,
-          R`第一个方程，连续：右极限 $\lim\limits_{x\to0^+}(a+b\mathrm e^x)=a+b$ 必须等于 $f(0)=1$，所以 $a+b=1$，即 $a=1-b$`,
+          R`==第一个方程，连续：右极限 $\lim\limits_{x\to0^+}(a+b\mathrm e^x)=a+b$ 必须等于 $f(0)=1$，所以 $a+b=1$，即 $a=1-b$==`,
           R`左导数：$f'_-(0)=\lim\limits_{x\to0^-}\dfrac{1+\ln(1-2x)-1}{x}=\lim\dfrac{\ln(1-2x)}{x}$，$\ln(1-2x)\sim-2x$，所以 $=-2$`,
           R`右导数：$f'_+(0)=\lim\limits_{x\to0^+}\dfrac{a+b\mathrm e^x-1}{x}$，代入 $a=1-b$：分子 $=b\mathrm e^x-b=b(\mathrm e^x-1)\sim bx$，所以 $=b$`,
           R`第二个方程，可导 ⇔ 左右导数相等：$b=-2$，再由 $a=1-b$ 得 $a=3$`,
@@ -314,7 +314,7 @@
         signal: R`"讨论 $f'(x)$ 在 $x=0$ 处的连续性""导函数在 0 处连续，求 $\lambda$ 的范围"`,
         example: { q: R`$f(x)=\begin{cases}x\arctan\dfrac1{x^2},&x\neq0\\0,&x=0\end{cases}$，试讨论 $f'(x)$ 在 $x=0$ 处的连续性。`, src: "吉米【176】p51" },
         idea: {
-          key: R`$f'$ 在 $x_0$ 连续 $\Leftrightarrow\lim\limits_{x\to x_0}f'(x)=f'(x_0)$：$f'(x_0)$ 用定义求，$x\neq x_0$ 时用公式求 $f'(x)$ 再取极限，两者比较。`,
+          key: R`==$f'$ 在 $x_0$ 连续 $\Leftrightarrow\lim\limits_{x\to x_0}f'(x)=f'(x_0)$：$f'(x_0)$ 用定义求，$x\neq x_0$ 时用公式求 $f'(x)$ 再取极限，两者比较==。`,
           how: [
             R`用定义求 $f'(x_0)$（不存在就谈不上导函数连续）`,
             R`$x\neq x_0$ 时用公式求 $f'(x)$`,
@@ -330,7 +330,7 @@
         first: R`先用定义求 $f'(0)$`,
         steps: [
           R`$f'(0)$ 用定义：$\dfrac{f(x)-f(0)}{x-0}=\dfrac{x\arctan\frac1{x^2}}{x}=\arctan\dfrac1{x^2}$（约去 $x$）。$x\to0$ 时 $\dfrac1{x^2}\to+\infty$，$\arctan\to\dfrac\pi2$，所以 $f'(0)=\dfrac\pi2$`,
-          R`$x\neq0$ 时用公式（乘积 + 链式）：$f'(x)=\arctan\dfrac1{x^2}+x\cdot\dfrac{1}{1+\left(\frac1{x^2}\right)^2}\cdot\left(\dfrac1{x^2}\right)'$，其中 $\left(\dfrac1{x^2}\right)'=-\dfrac2{x^3}$`,
+          R`==$x\neq0$ 时用公式（乘积 + 链式）：$f'(x)=\arctan\dfrac1{x^2}+x\cdot\dfrac{1}{1+\left(\frac1{x^2}\right)^2}\cdot\left(\dfrac1{x^2}\right)'$，其中 $\left(\dfrac1{x^2}\right)'=-\dfrac2{x^3}$==`,
           R`化简第二项：$x\cdot\dfrac{x^4}{x^4+1}\cdot\left(-\dfrac2{x^3}\right)=-\dfrac{2x^2}{1+x^4}$（$\dfrac{1}{1+x^{-4}}=\dfrac{x^4}{x^4+1}$）。所以 $f'(x)=\arctan\dfrac1{x^2}-\dfrac{2x^2}{1+x^4}$`,
           R`取极限：$x\to0$ 时第一项 $\to\dfrac\pi2$，第二项 $\to0$，$\lim\limits_{x\to0}f'(x)=\dfrac\pi2$`,
           R`$\lim\limits_{x\to0}f'(x)=\dfrac\pi2=f'(0)$，所以 $f'(x)$ 在 $x=0$ 处连续`
@@ -343,7 +343,7 @@
         signal: R`"$g$ 是 $f$ 的反函数，求 $g'(y_0)$""推导反三角函数的导数""求 $\frac{\mathrm dx}{\mathrm dy}$"`,
         example: { q: R`已知 $f(x)=\mathrm e^x+2x+1$，$g(y)$ 与 $f(x)$ 互为反函数，求 $g'(2)$。`, src: "18讲 例4.9 p41（原题求 $g''(2)$，这里只求一阶）" },
         idea: {
-          key: R`$\dfrac{\mathrm dy}{\mathrm dx}=1\Big/\dfrac{\mathrm dx}{\mathrm dy}$：先找出对应点（解 $f(x_0)=y_0$），再取 $f'(x_0)$ 的倒数；推导公式时，最后要把 $y$ 换回 $x$，根号前的正负号由 $y$ 的范围定。`,
+          key: R`==$\dfrac{\mathrm dy}{\mathrm dx}=1\Big/\dfrac{\mathrm dx}{\mathrm dy}$：先找出对应点（解 $f(x_0)=y_0$），再取 $f'(x_0)$ 的倒数==；推导公式时，最后要把 $y$ 换回 $x$，根号前的正负号由 $y$ 的范围定。`,
           how: [
             R`确认直接函数单调、可导、导数不为 0`,
             R`由 $y_0$ 求对应的 $x_0$（多半靠观察，试 $0,\pm1$）`,
@@ -360,7 +360,7 @@
         steps: [
           R`先说明反函数存在且可导：$f'(x)=\mathrm e^x+2>0$，$f$ 严格单调增加，可导且导数不为 0，所以反函数 $g$ 存在、可导（教材 p85）`,
           R`找对应点：解 $f(x_0)=2$，试 $x_0=0$：$f(0)=\mathrm e^0+0+1=2$ ✓。由单调性，$x_0=0$ 是唯一解，$g(2)=0$`,
-          R`反函数求导公式：$g'(2)=\dfrac{1}{f'(g(2))}=\dfrac{1}{f'(0)}$`,
+          R`==反函数求导公式：$g'(2)=\dfrac{1}{f'(g(2))}=\dfrac{1}{f'(0)}$==`,
           R`$f'(0)=\mathrm e^0+2=3$，所以 $g'(2)=\dfrac13$`
         ],
         pitfall: R`写成 $g'(2)=\dfrac1{f'(2)}$：倒数要在对应点 $x_0=0$ 处取，不是在 $y_0=2$ 处`,
@@ -371,7 +371,7 @@
         signal: R`"推导 $(\cot x)'$、$(\csc x)'$""证明双曲函数的导数公式"`,
         example: { q: R`推导余切函数及余割函数的导数公式：$(\cot x)'=-\csc^2x$，$(\csc x)'=-\csc x\cot x$。`, src: "教材 习题2-2 第1题 p92" },
         idea: {
-          key: R`正切类写成 $\sin$、$\cos$ 的商用商法则；双曲函数写成指数式用和差、复合法则；反三角、反双曲用反函数法则或对数式。`,
+          key: R`==正切类写成 $\sin$、$\cos$ 的商用商法则==；双曲函数写成指数式用和差、复合法则；反三角、反双曲用反函数法则或对数式。`,
           how: [
             R`改写成已知导数的函数的和、差、积、商`,
             R`套法则（商法则：分子是"上导乘下 − 上乘下导"）`,
@@ -389,7 +389,7 @@
           R`$\cot x=\dfrac{\cos x}{\sin x}$，商法则：分子 $u=\cos x$，分母 $v=\sin x$，$u'=-\sin x$，$v'=\cos x$`,
           R`$(\cot x)'=\dfrac{(-\sin x)\sin x-\cos x\cdot\cos x}{\sin^2x}=\dfrac{-(\sin^2x+\cos^2x)}{\sin^2x}=-\dfrac1{\sin^2x}=-\csc^2x$`,
           R`$\csc x=\dfrac{1}{\sin x}$，商法则：$u=1$，$u'=0$，$v=\sin x$：$(\csc x)'=\dfrac{0\cdot\sin x-1\cdot\cos x}{\sin^2x}=-\dfrac{\cos x}{\sin^2x}$`,
-          R`拆成两个因子，凑出已知函数：$-\dfrac{\cos x}{\sin^2x}=-\dfrac1{\sin x}\cdot\dfrac{\cos x}{\sin x}=-\csc x\cot x$`
+          R`==拆成两个因子，凑出已知函数：$-\dfrac{\cos x}{\sin^2x}=-\dfrac1{\sin x}\cdot\dfrac{\cos x}{\sin x}=-\csc x\cot x$==`
         ],
         pitfall: R`商法则分子顺序写反（$uv'-u'v$），结果差一个负号`,
         practice: "教材 例4、例5（p84–85）、例16（p91，带 * 了解）、习题2-2 第1题（p92，答案习题全解 p58）、第12题（p93，带 *）"
@@ -399,7 +399,7 @@
         signal: R`只问 $y'|_{x=x_0}$、某时刻的速度、某点的切线；尤其是 $f[f(x)]$、分段函数套复合`,
         example: { q: R`设 $f(x)=\begin{cases}\ln\sqrt x,&x\geqslant1\\2x-1,&x<1\end{cases}$，且 $y=f[f(x)]$，则 $\left.\dfrac{\mathrm dy}{\mathrm dx}\right|_{x=\mathrm e}=$ ____。`, src: "30讲 例4.3 p122–123" },
         idea: {
-          key: R`只求某一点的导数时，不必写出整个复合函数：先算内层在这点的值，判断它落在哪一段（是不是分段点），再用链式法则代值。`,
+          key: R`==只求某一点的导数时，不必写出整个复合函数：先算内层在这点的值，判断它落在哪一段（是不是分段点），再用链式法则代值==。`,
           how: [
             R`算 $x_0$ 处内层的值 $g(x_0)$`,
             R`判断 $x_0$、$g(x_0)$ 是不是分段点：是分段点就要用定义`,
@@ -415,7 +415,7 @@
         first: R`先算内层：$f(\mathrm e)=\ln\sqrt{\mathrm e}=\dfrac12$`,
         steps: [
           R`链式法则：$y'(\mathrm e)=f'\big(f(\mathrm e)\big)\cdot f'(\mathrm e)$，先算内层在 $x=\mathrm e$ 处的值和导数`,
-          R`$\mathrm e\geqslant1$，用上一段 $f(x)=\ln\sqrt x=\dfrac12\ln x$：$f(\mathrm e)=\dfrac12$，$f'(x)=\dfrac1{2x}$，$f'(\mathrm e)=\dfrac1{2\mathrm e}$`,
+          R`==$\mathrm e\geqslant1$，用上一段 $f(x)=\ln\sqrt x=\dfrac12\ln x$：$f(\mathrm e)=\dfrac12$，$f'(x)=\dfrac1{2x}$，$f'(\mathrm e)=\dfrac1{2\mathrm e}$==`,
           R`外层在 $u=f(\mathrm e)=\dfrac12$ 处：$\dfrac12<1$，落在下一段 $f(u)=2u-1$，而且 $\frac12$ 不是分段点（分段点是 $u=1$），可以直接求导：$f'(u)=2$`,
           R`$y'(\mathrm e)=2\cdot\dfrac1{2\mathrm e}=\dfrac1{\mathrm e}$`
         ],
@@ -427,7 +427,7 @@
         signal: R`$y=|x\mathrm e^{-x}|$、$\ln|x|$、$|f(x-1)|$ 一类，求 $y'$ 或某点导数`,
         example: { q: R`设函数 $y=|x\mathrm e^{-x}|$，求 $y'$。`, src: "30讲 例4.6 p124–125（原题求 $y''$，这里只求一阶）" },
         idea: {
-          key: R`先看绝对值里面的符号，去掉绝对值写成分段函数；非分段点用公式，分段点用定义（或 2.1 题型 10 的结论）；$\ln|u|$ 求导可以"视绝对值而不见"。`,
+          key: R`==先看绝对值里面的符号，去掉绝对值写成分段函数==；非分段点用公式，分段点用定义（或 2.1 题型 10 的结论）；$\ln|u|$ 求导可以"视绝对值而不见"。`,
           how: [
             R`找出绝对值里面等于 0 的点`,
             R`去掉绝对值，分段写出`,
@@ -443,7 +443,7 @@
         first: R`$\mathrm e^{-x}>0$，绝对值只看 $x$ 的符号`,
         steps: [
           R`去绝对值：$x\geqslant0$ 时 $x\mathrm e^{-x}\geqslant0$，$y=x\mathrm e^{-x}$；$x<0$ 时 $x\mathrm e^{-x}<0$，$y=-x\mathrm e^{-x}$`,
-          R`$x>0$：乘积法则 $y'=\mathrm e^{-x}+x\cdot(-\mathrm e^{-x})=\mathrm e^{-x}(1-x)$；$x<0$：整体差个负号，$y'=-\mathrm e^{-x}(1-x)=\mathrm e^{-x}(x-1)$`,
+          R`==$x>0$：乘积法则 $y'=\mathrm e^{-x}+x\cdot(-\mathrm e^{-x})=\mathrm e^{-x}(1-x)$；$x<0$：整体差个负号，$y'=-\mathrm e^{-x}(1-x)=\mathrm e^{-x}(x-1)$==`,
           R`分段点 $x=0$：$y(0)=0$。左导数 $y'_-(0)=\lim\limits_{x\to0^-}\dfrac{-x\mathrm e^{-x}-0}{x}=\lim(-\mathrm e^{-x})=-1$`,
           R`右导数 $y'_+(0)=\lim\limits_{x\to0^+}\dfrac{x\mathrm e^{-x}}{x}=\lim\mathrm e^{-x}=1$。$-1\neq1$，所以 $x=0$ 处不可导（图像上是尖角）`,
           R`结论：$y'=\begin{cases}\mathrm e^{-x}(x-1),&x<0\\\mathrm e^{-x}(1-x),&x>0\end{cases}$，$x=0$ 处不存在`
@@ -456,7 +456,7 @@
         signal: R`复合函数 $f(g(x))$ 中，内层或外层在相应点不可导（分段点、$\sqrt x$ 在 0 处、$x^3\sin\frac1x$ 一类）`,
         example: { q: R`设 $f(x)=\begin{cases}x^2,&x\geqslant0\\x^4,&x<0\end{cases}$，$g(x)=\begin{cases}-\sqrt x,&x>0\\x^2,&x\leqslant0\end{cases}$，$y=f(g(x))$，则（　）。(A) $\left.\frac{\mathrm dy}{\mathrm dx}\right|_{x=1}=1$　(B) $\left.\frac{\mathrm dy}{\mathrm dx}\right|_{x=1}$ 不存在　(C) $\left.\frac{\mathrm dy}{\mathrm dx}\right|_{x=0}=0$　(D) $\left.\frac{\mathrm dy}{\mathrm dx}\right|_{x=0}$ 不存在`, src: "武忠祥 题型三(一)例3 p68" },
         idea: {
-          key: R`链式法则只是充分条件：内层、外层都可导才能用；有一层在相应点不可导时，不能直接下"不可导"的结论，要先写出复合函数的表达式（或用定义）再判断。`,
+          key: R`==链式法则只是充分条件：内层、外层都可导才能用==；有一层在相应点不可导时，不能直接下"不可导"的结论，要先写出复合函数的表达式（或用定义）再判断。`,
           how: [
             R`查内层 $g$ 在 $x_0$ 处、外层 $f$ 在 $g(x_0)$ 处是否可导`,
             R`都可导：直接用链式法则`,
@@ -472,7 +472,7 @@
         first: R`$x=1$ 处两层都可导，直接用链式法则；$x=0$ 处 $g'(0)$ 不存在，要写出复合表达式`,
         steps: [
           R`$x=1$：$g(1)=-\sqrt1=-1$（$x>0$ 用 $-\sqrt x$），$g'(x)=-\dfrac1{2\sqrt x}$，$g'(1)=-\dfrac12$`,
-          R`外层在 $u=-1$ 处：$-1<0$ 用 $f(u)=u^4$，$f'(u)=4u^3$，$f'(-1)=-4$`,
+          R`==外层在 $u=-1$ 处：$-1<0$ 用 $f(u)=u^4$，$f'(u)=4u^3$，$f'(-1)=-4$==`,
           R`$y'(1)=f'(g(1))\cdot g'(1)=(-4)\cdot\left(-\dfrac12\right)=2$，所以 (A)(B) 都错`,
           R`$x=0$：$g'_+(0)=\lim\limits_{x\to0^+}\dfrac{-\sqrt x}{x}=-\infty$，不存在，链式法则用不了。改成先写表达式`,
           R`写 $y=f[g(x)]$：$x>0$ 时 $g=-\sqrt x<0$，外层用 $u^4$：$y=(-\sqrt x)^4=x^2$；$x\leqslant0$ 时 $g=x^2\geqslant0$，外层用 $u^2$：$y=(x^2)^2=x^4$`,

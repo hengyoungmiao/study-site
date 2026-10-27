@@ -168,7 +168,7 @@
         signal: R`问"连续区间"，或在某几个点求极限，其中有的点在定义区间内、有的不在`,
         example: { q: R`求 $f(x)=\dfrac{x^3+3x^2-x-3}{x^2+x-6}$ 的连续区间，并求 $\lim\limits_{x\to0}f(x)$、$\lim\limits_{x\to-3}f(x)$、$\lim\limits_{x\to2}f(x)$。`, src: "教材习题1-9 第1题 p63；同类：吉米【79】p22" },
         idea: {
-          key: R`初等函数的连续区间就是定义区间；在定义区间内代入，不在的点先化简再求。`,
+          key: R`==初等函数的连续区间就是定义区间==；在定义区间内代入，不在的点先化简再求。`,
           how: [
             R`求定义域：分母 $\neq0$、偶次根号下 $\geqslant0$、对数真数 $>0$ 等`,
             R`写成若干区间，就是连续区间（无定义的点是间断点）`,
@@ -183,7 +183,7 @@
         first: R`先分解因式找出无定义的点`,
         steps: [
           R`分母分解：$x^2+x-6=(x+3)(x-2)$，所以 $x=-3$、$x=2$ 无定义`,
-          R`连续区间：初等函数在定义区间内连续，连续区间为 $(-\infty,-3)$、$(-3,2)$、$(2,+\infty)$`,
+          R`==连续区间：初等函数在定义区间内连续，连续区间为 $(-\infty,-3)$、$(-3,2)$、$(2,+\infty)$==`,
           R`分子分解（分组）：$x^3+3x^2-x-3=x^2(x+3)-(x+3)=(x^2-1)(x+3)$。$x\neq-3$ 时 $f(x)=\dfrac{x^2-1}{x-2}$`,
           R`$x\to0$：$0$ 在定义区间内，直接代入 $f(0)=\dfrac{-3}{-6}=\dfrac12$`,
           R`$x\to-3$：$-3$ 处无定义，但极限只看附近，用约分后的式子：$\dfrac{9-1}{-3-2}=-\dfrac85$（$x=-3$ 是可去间断点）`,
@@ -197,7 +197,7 @@
         signal: R`分段函数每段都单调，问反函数的表达式、反函数有没有间断点`,
         example: { q: R`设 $f(x)=\begin{cases}1-2x^2,&x<-1\\x^3,&-1\leqslant x\leqslant2\\12x-16,&x>2\end{cases}$。(1) 求反函数 $f^{-1}(x)$；(2) 问 $f^{-1}(x)$ 是否有间断点。`, src: "吉米【91】p25" },
         idea: {
-          key: R`逐段求反函数，自变量范围换成该段的值域；连续性只在新的分段点检查左右极限。`,
+          key: R`==逐段求反函数，自变量范围换成该段的值域==；连续性只在新的分段点检查左右极限。`,
           how: [
             R`每段解出 $x$，注意开方取哪个符号（看原来 $x$ 的范围）`,
             R`每段的定义域 = 原来那段的值域`,
@@ -212,7 +212,7 @@
         first: R`先求每段的值域：$(-\infty,-1)$、$[-1,8]$、$(8,+\infty)$`,
         steps: [
           R`各段值域：$x<-1$ 时 $x^2>1$，$y=1-2x^2<-1$；$-1\leqslant x\leqslant2$ 时 $y=x^3\in[-1,8]$；$x>2$ 时 $y=12x-16>8$。三段值域恰好拼成 $\mathbb R$，互不重叠`,
-          R`第一段反解：$x^2=\dfrac{1-y}{2}$，因为 $x<-1<0$ 取负根，$x=-\sqrt{\dfrac{1-y}{2}}$，$y<-1$`,
+          R`==第一段反解：$x^2=\dfrac{1-y}{2}$，因为 $x<-1<0$ 取负根，$x=-\sqrt{\dfrac{1-y}{2}}$，$y<-1$==`,
           R`第二段：$x=\sqrt[3]y$，$-1\leqslant y\leqslant8$；第三段：$x=\dfrac{y+16}{12}$，$y>8$`,
           R`交换记号：$f^{-1}(x)=\begin{cases}-\sqrt{\frac{1-x}{2}},&x<-1\\\sqrt[3]x,&-1\leqslant x\leqslant8\\\frac{x+16}{12},&x>8\end{cases}$`,
           R`连续性：各段内部是初等函数，连续；查新分段点。$x=-1$：左极限 $-\sqrt{\frac{2}{2}}=-1$，函数值 $\sqrt[3]{-1}=-1$，相等；$x=8$：函数值 $\sqrt[3]8=2$，右极限 $\dfrac{8+16}{12}=2$，相等`,
@@ -226,7 +226,7 @@
         signal: R`外面套着 $\sqrt{\ }$、$\ln$、$\mathrm e^{\square}$、$\sin$、乘方，里面的极限好求`,
         example: { q: R`求：(1) $\lim\limits_{x\to\frac\pi6}\ln(2\cos2x)$；(2) $\lim\limits_{x\to0}\ln\dfrac{\sin x}x$；(3) $\lim\limits_{x\to\infty}\mathrm e^{\frac1x}$；(4) $\lim\limits_{x\to0}\dfrac{\sqrt{x+1}-1}x$。`, src: "教材习题1-9 第3题(3)(4)、第4题(1)(2) p63" },
         idea: {
-          key: R`外层函数在内层极限处连续，就先求内层极限再代进外层；内层是 $\frac00$ 就先变形。`,
+          key: R`==外层函数在内层极限处连续，就先求内层极限再代进外层==；内层是 $\frac00$ 就先变形。`,
           how: [
             R`拆成外层 $f$ 和内层 $g$，先求 $\lim g=u_0$`,
             R`确认 $f$ 在 $u_0$ 连续（初等函数在定义区间内即可）`,
@@ -244,7 +244,7 @@
           R`(1) 外层 $\ln$，里面 $2\cos2x$ 在 $\frac{\pi}{6}$ 连续：$2\cos\frac{\pi}{3}=1$，原式 $=\ln1=0$`,
           R`(2) 里面 $\dfrac{\sin x}{x}\to1$（重要极限），$\ln u$ 在 $u=1$ 处连续，极限号移进去：$\ln1=0$`,
           R`(3) 里面 $\dfrac1x\to0$，$\mathrm e^u$ 在 $u=0$ 处连续：$\mathrm e^0=1$`,
-          R`(4) $\frac00$ 型，分子有理化：$\dfrac{\sqrt{x+1}-1}{x}=\dfrac{(x+1)-1}{x(\sqrt{x+1}+1)}=\dfrac{1}{\sqrt{x+1}+1}$`,
+          R`==(4) $\frac00$ 型，分子有理化：$\dfrac{\sqrt{x+1}-1}{x}=\dfrac{(x+1)-1}{x(\sqrt{x+1}+1)}=\dfrac{1}{\sqrt{x+1}+1}$==`,
           R`(4) 现在根号连续，直接代 $x=0$：$\dfrac{1}{1+1}=\dfrac12$`
         ],
         pitfall: R`外层在 $u_0$ 不连续时也交换（见易错点）；(2) 写成 $\ln\sin x-\ln x$ 再分别求极限，两项都不存在`,
@@ -255,7 +255,7 @@
         signal: R`式子里有 $\ln$、$\mathrm e^{\square}$、$a^{\square}$，且 $\square\to0$，或者能变形成这样`,
         example: { q: R`求：(1) $\lim\limits_{x\to\mathrm e}\dfrac{\ln x-1}{x-\mathrm e}$；(2) $\lim\limits_{x\to0}\dfrac{\mathrm e^{3x}-\mathrm e^{2x}-\mathrm e^x+1}{\sqrt[3]{(1-x)(1+x)}-1}$；(3) $\lim\limits_{x\to+\infty}x\left(2^{\frac1x}-3^{\frac1x}\right)$。`, src: "教材习题1-9 第4题(7)(8) p63；1000题 第1章第10题" },
         idea: {
-          key: R`先把式子变形出"$\square\to0$"的标准样子：$\ln(1+\square)$、$\mathrm e^\square-1$、$a^\square-1$、$(1+\square)^\alpha-1$，只在乘除中替换。`,
+          key: R`==先把式子变形出"$\square\to0$"的标准样子：$\ln(1+\square)$、$\mathrm e^\square-1$、$a^\square-1$、$(1+\square)^\alpha-1$，只在乘除中替换==。`,
           how: [
             R`$x\to x_0\neq0$ 或 $x\to\infty$：先换元 $t=x-x_0$ 或 $t=\frac1x$，让新变量趋于 $0$`,
             R`$\ln$：凑成 $\ln(1+\square)$，如 $\ln x-1=\ln\frac x{\mathrm e}=\ln\left(1+\frac{x-\mathrm e}{\mathrm e}\right)$`,
@@ -273,7 +273,7 @@
           R`(1) 令 $t=x-\mathrm e\to0$：$\ln x-1=\ln x-\ln\mathrm e=\ln\dfrac{\mathrm e+t}{\mathrm e}=\ln\left(1+\dfrac t{\mathrm e}\right)\sim\dfrac{t}{\mathrm e}$，原式 $=\lim\dfrac{t/\mathrm e}{t}=\dfrac1{\mathrm e}$`,
           R`(2) 分子分组：$\mathrm e^{3x}-\mathrm e^{2x}-\mathrm e^x+1=\mathrm e^{2x}(\mathrm e^x-1)-(\mathrm e^x-1)=(\mathrm e^{2x}-1)(\mathrm e^x-1)\sim2x\cdot x=2x^2$`,
           R`(2) 分母：$(1-x)(1+x)=1-x^2$，$(1-x^2)^{\frac13}-1\sim\dfrac13(-x^2)=-\dfrac{x^2}{3}$。原式 $=\dfrac{2x^2}{-x^2/3}=-6$`,
-          R`(3) 令 $t=\dfrac1x\to0^+$：原式 $=\lim\limits_{t\to0^+}\dfrac{2^t-3^t}{t}=\lim\left(\dfrac{2^t-1}{t}-\dfrac{3^t-1}{t}\right)$（加一项减一项 1，拆成两个标准形式）`,
+          R`==(3) 令 $t=\dfrac1x\to0^+$：原式 $=\lim\limits_{t\to0^+}\dfrac{2^t-3^t}{t}=\lim\left(\dfrac{2^t-1}{t}-\dfrac{3^t-1}{t}\right)$（加一项减一项 1，拆成两个标准形式）==`,
           R`(3) $a^t-1\sim t\ln a$，两项分别 $\to\ln2$、$\ln3$，原式 $=\ln2-\ln3=\ln\dfrac23$`
         ],
         pitfall: R`(2) 分子各项分别替换成 $3x-2x-x=0$，得出错误结论；(3) 1000题 解析用洛必达，这里用 $a^t-1\sim t\ln a$ 不需要导数`,
@@ -284,7 +284,7 @@
         signal: R`底数和指数都含 $x$：$u(x)^{v(x)}$`,
         example: { q: R`求：(1) $\lim\limits_{x\to\infty}\left(1+\dfrac1x\right)^{\frac x2}$；(2) $\lim\limits_{x\to\infty}\left(\dfrac{3+x}{6+x}\right)^{\frac{x-1}2}$；(3) $\lim\limits_{x\to\infty}\left(\cos\dfrac1x+\sin\dfrac1x\right)^{\frac x2}$。`, src: "教材习题1-9 第4题(3)(5) p63；1000题 第1章第16题" },
         idea: {
-          key: R`先求底数的极限 $a$：$a>0$ 且 $a\neq1$（或指数有极限）直接 $a^b$；$a=1$、指数 $\to\infty$ 是 $1^\infty$，用 $\mathrm e^{\lim v(u-1)}$。`,
+          key: R`==先求底数的极限 $a$：$a>0$ 且 $a\neq1$（或指数有极限）直接 $a^b$==；$a=1$、指数 $\to\infty$ 是 $1^\infty$，用 $\mathrm e^{\lim v(u-1)}$。`,
           how: [
             R`分别求 $\lim u=a$、$\lim v=b$`,
             R`$a>0$ 且 $b$ 有限：答案 $a^b$（教材 p63）`,
@@ -300,7 +300,7 @@
         first: R`三题的底数都 $\to1$、指数 $\to\infty$，都是 $1^\infty$ 型`,
         steps: [
           R`(1) $u-1=\dfrac1x$，$v=\dfrac x2$，$v(u-1)=\dfrac12$，原式 $=\mathrm e^{\frac12}=\sqrt{\mathrm e}$`,
-          R`(2) 通分：$u-1=\dfrac{3+x}{6+x}-1=\dfrac{-3}{6+x}$；$v(u-1)=\dfrac{x-1}{2}\cdot\dfrac{-3}{6+x}=\dfrac{-3(x-1)}{2(x+6)}\to-\dfrac32$（同除 $x$），原式 $=\mathrm e^{-\frac32}$`,
+          R`==(2) 通分：$u-1=\dfrac{3+x}{6+x}-1=\dfrac{-3}{6+x}$；$v(u-1)=\dfrac{x-1}{2}\cdot\dfrac{-3}{6+x}=\dfrac{-3(x-1)}{2(x+6)}\to-\dfrac32$（同除 $x$），原式 $=\mathrm e^{-\frac32}$==`,
           R`(3) 平方底数：$\left(\cos\frac1x+\sin\frac1x\right)^2=\cos^2\frac1x+\sin^2\frac1x+2\sin\frac1x\cos\frac1x=1+\sin\frac2x$`,
           R`(3) 所以原式 $=\left(1+\sin\frac2x\right)^{\frac x4}$。$v(u-1)=\dfrac x4\sin\dfrac2x$，令 $t=\frac2x\to0$，$=\dfrac{\sin t}{2t}\to\dfrac12$`,
           R`(3) 原式 $=\mathrm e^{\frac12}=\sqrt{\mathrm e}$`
@@ -313,7 +313,7 @@
         signal: R`"$f$ 连续、$\varphi$ 有间断点，则 $\varphi[f(x)]$、$\varphi^2$、$f[\varphi(x)]$、$\frac\varphi f$ 必有间断点吗"一类判断`,
         example: { q: R`设 $f(x)$ 在 $\mathbb R$ 上连续，$f(x)\neq0$，$\varphi(x)$ 在 $\mathbb R$ 上有定义且有间断点。判断对错：(1) $\varphi[f(x)]$ 必有间断点；(2) $[\varphi(x)]^2$ 必有间断点；(3) $f[\varphi(x)]$ 未必有间断点；(4) $\dfrac{\varphi(x)}{f(x)}$ 必有间断点。`, src: "教材习题1-9 第5题 p64" },
         idea: {
-          key: R`"必有"用反证：假设连续，用连续函数的运算推出 $\varphi$ 连续，矛盾；"未必"举反例：$\operatorname{sgn}x$、有理无理分段的函数最常用。`,
+          key: R`=="必有"用反证：假设连续，用连续函数的运算推出 $\varphi$ 连续，矛盾==；"未必"举反例：$\operatorname{sgn}x$、有理无理分段的函数最常用。`,
           how: [
             R`能把 $\varphi$ 用"已知连续的函数"四则运算表示出来的，结论是"必有间断点"`,
             R`复合、平方、取绝对值会把跳跃"抹平"，结论常是"未必"`,
@@ -327,7 +327,7 @@
         first: R`逐条想：能不能从这个函数"解出"$\varphi$？`,
         steps: [
           R`(1) 错。$\varphi=\operatorname{sgn}x$ 在 0 处间断；取 $f=\mathrm e^x>0$，$f$ 的值都是正数，$\varphi[f(x)]=\operatorname{sgn}(\mathrm e^x)\equiv1$，处处连续。外层只用到了 $\varphi$ 连续的那一部分`,
-          R`(2) 错。$\varphi=\begin{cases}1,&x\in\mathbb Q\\-1,&x\notin\mathbb Q\end{cases}$ 处处间断，但 $\varphi^2\equiv1$ 连续。平方把符号抹掉了`,
+          R`==(2) 错。$\varphi=\begin{cases}1,&x\in\mathbb Q\\-1,&x\notin\mathbb Q\end{cases}$ 处处间断，但 $\varphi^2\equiv1$ 连续。平方把符号抹掉了==`,
           R`(3) 对（"未必"）。同一个 $\varphi$，取 $f=|x|+1$（连续且不为 0），$f[\varphi(x)]=|\pm1|+1\equiv2$，处处连续`,
           R`(4) 对。反证：若 $\dfrac{\varphi}{f}$ 处处连续，则 $\varphi=\dfrac{\varphi}{f}\cdot f$ 是两个连续函数之积，也处处连续，与 $\varphi$ 有间断点矛盾`
         ],
@@ -339,7 +339,7 @@
         signal: R`函数在某些点无定义，问"补充定义 $f(x_0)=$？才能连续"，或给出连续求 $f(x_0)$`,
         example: { q: R`设 $f(x)=\dfrac{1-x\cdot2^{1-x}}{(2-x)(1-x)}\ (x\neq1,2)$，若 $f(x)$ 在 $[1,2]$ 上连续，则 $f(1)f(2)=$______。`, src: "1000题 第1章第20题" },
         idea: {
-          key: R`连续 ⇔ 函数值等于极限：$f(x_0)=\lim\limits_{x\to x_0}f(x)$。端点只要单侧极限。`,
+          key: R`==连续 ⇔ 函数值等于极限：$f(x_0)=\lim\limits_{x\to x_0}f(x)$==。端点只要单侧极限。`,
           how: [
             R`写出要补的值 = 该点的极限（端点用单侧极限）`,
             R`换元让新变量 $\to0$，用 $a^\square-1\sim\square\ln a$ 等计算`,
@@ -354,7 +354,7 @@
         first: R`$f(1)=\lim\limits_{x\to1^+}f(x)$，令 $t=1-x$`,
         steps: [
           R`连续的要求：$f(1)=\lim\limits_{x\to1^+}f(x)$，$f(2)=\lim\limits_{x\to2^-}f(x)$；两点都是 $\frac00$ 型`,
-          R`求 $f(1)$：令 $x=1-t$（$t\to0$），$2^{1-x}=2^t$。分子 $1-(1-t)2^t=(1-2^t)+t\cdot2^t$，分母 $(2-x)(1-x)=(1+t)t$`,
+          R`==求 $f(1)$：令 $x=1-t$（$t\to0$），$2^{1-x}=2^t$。分子 $1-(1-t)2^t=(1-2^t)+t\cdot2^t$，分母 $(2-x)(1-x)=(1+t)t$==`,
           R`$f(1)=\lim\dfrac{\frac{1-2^t}{t}+2^t}{1+t}$；$2^t-1\sim t\ln2$，所以 $\dfrac{1-2^t}{t}\to-\ln2$，$f(1)=1-\ln2$`,
           R`求 $f(2)$：令 $x=2+t$，$2^{1-x}=2^{-1-t}=\frac12\cdot2^{-t}$。分子 $1-(2+t)\cdot\frac12\cdot2^{-t}=(1-2^{-t})-\frac t2\cdot2^{-t}$，分母 $(-t)(-1-t)=t(1+t)$`,
           R`$f(2)=\lim\dfrac{\frac{1-2^{-t}}{t}-\frac12\cdot2^{-t}}{1+t}$；$1-2^{-t}\sim t\ln2$，所以 $f(2)=\ln2-\dfrac12$`,

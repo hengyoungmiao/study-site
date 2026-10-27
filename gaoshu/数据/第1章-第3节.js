@@ -166,7 +166,7 @@
         signal: R`$f$ 分段给出（或含 $|x|$、$\max$、$\min$），问分段点处极限是否存在`,
         example: { q: R`设 $f(x)=\begin{cases}x,&|x|\leqslant1\\x-2,&|x|>1\end{cases}$，讨论 $\lim\limits_{x\to1}f(x)$ 及 $\lim\limits_{x\to-1}f(x)$。`, src: "吉米【32】p9–10" },
         idea: {
-          key: R`分段点两侧表达式不同，就分别求左、右极限，相等才存在。`,
+          key: R`==分段点两侧表达式不同，就分别求左、右极限，相等才存在==。`,
           how: [
             R`把条件改写成 $x$ 的区间（如 $|x|>1$ 拆成 $x<-1$ 和 $x>1$），标清每个分段点左边、右边用哪个式子`,
             R`左极限代左边的式子，右极限代右边的式子`,
@@ -180,7 +180,7 @@
         think: R`分段点两侧用的是不同的表达式，函数在那一点的极限要看两侧是否趋于同一个数：分别算左、右极限，相等才存在（教材 1.3 左右极限与极限的关系）。先把 $|x|>1$ 拆成 $x>1$、$x<-1$，弄清每个分段点两侧各是哪个式子。`,
         first: R`把 $|x|>1$ 拆开：$x<-1$ 和 $x>1$ 时 $f=x-2$；$-1\leqslant x\leqslant1$ 时 $f=x$`,
         steps: [
-          R`拆条件：$|x|\leqslant1$ 即 $-1\leqslant x\leqslant1$，$f=x$；$|x|>1$ 即 $x>1$ 或 $x<-1$，$f=x-2$`,
+          R`==拆条件：$|x|\leqslant1$ 即 $-1\leqslant x\leqslant1$，$f=x$；$|x|>1$ 即 $x>1$ 或 $x<-1$，$f=x-2$==`,
           R`$x=1$ 处：右侧 $x>1$ 用 $x-2$，$f(1^+)=1-2=-1$；左侧 $x<1$（靠近 1）用 $x$，$f(1^-)=1$`,
           R`$f(1^+)\neq f(1^-)$，所以 $\lim\limits_{x\to1}f(x)$ 不存在`,
           R`$x=-1$ 处：右侧 $x>-1$（靠近 $-1$）用 $x$，$f(-1^+)=-1$；左侧 $x<-1$ 用 $x-2$，$f(-1^-)=-3$`,
@@ -194,7 +194,7 @@
         signal: R`$x\to0$（或 $x\to x_0$）时式子里有 $|x|$、$a^{\frac1x}$、$\mathrm e^{\frac{1}{x-x_0}}$、$\arctan\dfrac1x$，或 $x\to\infty$ 时有 $\mathrm e^x$、$\arctan x$`,
         example: { q: R`求 $f(x)=\dfrac{|x|}{x}$，$g(x)=\dfrac{1-a^{\frac1x}}{1+a^{\frac1x}}\ (a>1)$ 当 $x\to0$ 时的左、右极限，并说明 $x\to0$ 时极限是否存在。`, src: "吉米【34】p10；习题1-3 第4题 p32" },
         idea: {
-          key: R`这几类式子左右两侧趋向不同，必须分开算：$\mathrm e^{+\infty}=+\infty$、$\mathrm e^{-\infty}=0$，$\arctan(\pm\infty)=\pm\dfrac{\pi}{2}$。`,
+          key: R`==这几类式子左右两侧趋向不同，必须分开算：$\mathrm e^{+\infty}=+\infty$、$\mathrm e^{-\infty}=0$，$\arctan(\pm\infty)=\pm\dfrac{\pi}{2}$==。`,
           how: [
             R`先找出"会因为方向不同而结果不同"的那一块：$\dfrac1x$ 在 $0^\pm$ 分别趋于 $\pm\infty$`,
             R`分别写出左、右两侧这一块的极限`,
@@ -210,7 +210,7 @@
         first: R`$x\to0^+$ 时 $\dfrac1x\to+\infty$，$a^{\frac1x}\to+\infty$；$x\to0^-$ 时 $\dfrac1x\to-\infty$，$a^{\frac1x}\to0$`,
         steps: [
           R`$f$ 的右极限：$x>0$ 时 $|x|=x$，$f(x)=1$，$f(0^+)=1$`,
-          R`$f$ 的左极限：$x<0$ 时 $|x|=-x$，$f(x)=-1$，$f(0^-)=-1$；左右不等，$\lim\limits_{x\to0}f(x)$ 不存在`,
+          R`==$f$ 的左极限：$x<0$ 时 $|x|=-x$，$f(x)=-1$，$f(0^-)=-1$；左右不等，$\lim\limits_{x\to0}f(x)$ 不存在==`,
           R`$g$ 的右极限：$x\to0^+$ 时 $\dfrac1x\to+\infty$，$a>1$ 所以 $a^{\frac1x}\to+\infty$，是 $\frac\infty\infty$ 型；分子分母同除 $a^{\frac1x}$：$g=\dfrac{a^{-\frac1x}-1}{a^{-\frac1x}+1}\to\dfrac{0-1}{0+1}=-1$`,
           R`$g$ 的左极限：$x\to0^-$ 时 $\dfrac1x\to-\infty$，$a^{\frac1x}\to0$，直接代入：$g\to\dfrac{1-0}{1+0}=1$`,
           R`$g(0^+)=-1\neq g(0^-)=1$，$\lim\limits_{x\to0}g(x)$ 不存在`
@@ -223,7 +223,7 @@
         signal: R`$x\to+\infty$ 或 $x\to0$ 时函数振荡（含 $\sin x$、$\sin\dfrac1x$、$x\sin x$），问极限是否存在`,
         example: { q: R`证明 $\lim\limits_{x\to+\infty}x\sin x$ 不存在。`, src: "吉米【33】p10" },
         idea: {
-          key: R`取两条趋向同一点（或 $+\infty$）的数列，让函数值分别趋于不同的值，由海涅定理（定理 4）说明极限不存在。`,
+          key: R`==取两条趋向同一点（或 $+\infty$）的数列，让函数值分别趋于不同的值，由海涅定理（定理 4）说明极限不存在==。`,
           how: [
             R`找让振荡因子取特殊值的点：$\sin$ 取 $0$ 选 $n\pi$，取 $1$ 选 $2n\pi+\dfrac{\pi}{2}$`,
             R`检查两条数列都趋于指定的 $x_0$（或 $+\infty$），并且不等于 $x_0$`,
@@ -240,7 +240,7 @@
           R`第一条：让 $\sin x=0$，取 $x_n=n\pi\to+\infty$，$f(x_n)=n\pi\cdot\sin n\pi=0$，极限为 $0$`,
           R`第二条：让 $\sin x=1$，取 $y_n=2n\pi+\dfrac{\pi}{2}\to+\infty$，$f(y_n)=\left(2n\pi+\dfrac{\pi}{2}\right)\cdot1\to+\infty$`,
           R`两条数列都趋于 $+\infty$，但函数值的极限一个是 $0$、一个是 $+\infty$，不相同`,
-          R`由定理 4（函数极限与数列极限的关系），$\lim\limits_{x\to+\infty}x\sin x$ 不存在`
+          R`==由定理 4（函数极限与数列极限的关系），$\lim\limits_{x\to+\infty}x\sin x$ 不存在==`
         ],
         pitfall: R`只取一条数列算出某个值，就说函数极限等于它；取的数列没有趋于目标点`,
         practice: "吉米【33】（p10）；30讲 第2讲 例2.7（p84）"
@@ -250,7 +250,7 @@
         signal: R`$x\to\infty$（不带正负号），式子里有 $\mathrm e^x$、$a^x$、$\arctan x$`,
         example: { q: R`判断下列极限是否存在：(1) $\lim\limits_{x\to\infty}\mathrm e^x$；(2) $\lim\limits_{x\to\infty}\arctan x$；(3) $\lim\limits_{x\to\infty}\dfrac{\mathrm e^x}{\mathrm e^x+1}$。`, src: "30讲 p37 ①③；(3) 是同类改编" },
         idea: {
-          key: R`$x\to\infty$ 是双向的：分别求 $x\to+\infty$ 和 $x\to-\infty$，两个都存在且相等才存在。`,
+          key: R`==$x\to\infty$ 是双向的：分别求 $x\to+\infty$ 和 $x\to-\infty$，两个都存在且相等才存在==。`,
           how: [
             R`看式子里有没有"两个方向表现不同"的部分：$\mathrm e^x$、$a^x$、$\arctan x$、$\sqrt{x^2}=|x|$`,
             R`分别求 $x\to+\infty$、$x\to-\infty$ 的极限`,
@@ -265,7 +265,7 @@
         first: R`分 $x\to+\infty$ 和 $x\to-\infty$ 两路`,
         steps: [
           R`(1) $x\to+\infty$ 时 $\mathrm e^x\to+\infty$；$x\to-\infty$ 时 $\mathrm e^x\to0$。两路不同，$\lim\limits_{x\to\infty}\mathrm e^x$ 不存在`,
-          R`(2) $\arctan x$ 的图像有两条水平渐近线：$x\to+\infty$ 时 $\to\dfrac{\pi}{2}$，$x\to-\infty$ 时 $\to-\dfrac{\pi}{2}$。两路不同，不存在`,
+          R`==(2) $\arctan x$ 的图像有两条水平渐近线：$x\to+\infty$ 时 $\to\dfrac{\pi}{2}$，$x\to-\infty$ 时 $\to-\dfrac{\pi}{2}$。两路不同，不存在==`,
           R`(3) $x\to+\infty$：分子分母同除 $\mathrm e^x$，$\dfrac{1}{1+\mathrm e^{-x}}\to\dfrac{1}{1+0}=1$`,
           R`$x\to-\infty$：$\mathrm e^x\to0$，直接代入 $\dfrac{0}{0+1}=0$`,
           R`两路分别是 $1$ 和 $0$，不相等，$\lim\limits_{x\to\infty}\dfrac{\mathrm e^x}{\mathrm e^x+1}$ 不存在`
@@ -278,7 +278,7 @@
         signal: R`给出 $\varphi(x)\leqslant f(x)\leqslant g(x)$，只知道 $g-\varphi\to0$，问 $\lim f(x)$`,
         example: { q: R`设对任意 $x$，$\varphi(x)\leqslant f(x)\leqslant g(x)$，且 $\lim\limits_{x\to\infty}[g(x)-\varphi(x)]=0$，则 $\lim\limits_{x\to\infty}f(x)$（ ）。(A) 存在且等于零　(B) 存在但不一定为零　(C) 一定不存在　(D) 不一定存在`, src: "吉米【31】p9" },
         idea: {
-          key: R`夹逼要求两边极限都存在且相等；只知道"两边的差趋于 0"不够，用反例分别造出"存在"和"不存在"。`,
+          key: R`==夹逼要求两边极限都存在且相等==；只知道"两边的差趋于 0"不够，用反例分别造出"存在"和"不存在"。`,
           how: [
             R`核对条件：两边各自的极限存在吗？`,
             R`造一组两边都趋于无穷（差趋于 0）的例子，说明可能不存在`,
@@ -293,7 +293,7 @@
         first: R`注意题目没说 $\varphi$、$g$ 的极限存在`,
         steps: [
           R`对照夹逼准则（教材 1.6 准则 I'）：需要 $\lim\varphi=\lim g=A$。题目只有 $\lim(g-\varphi)=0$，少了"两边各自有极限"`,
-          R`反例一（极限不存在）：$\varphi=x$，$f=x+\mathrm e^{-|x|}$，$g=x+2\mathrm e^{-|x|}$。因为 $0<\mathrm e^{-|x|}<2\mathrm e^{-|x|}$，有 $\varphi\leqslant f\leqslant g$；$g-\varphi=2\mathrm e^{-|x|}\to0$；但 $f\to\infty$，排除 (A)(B)`,
+          R`==反例一（极限不存在）：$\varphi=x$，$f=x+\mathrm e^{-|x|}$，$g=x+2\mathrm e^{-|x|}$。因为 $0<\mathrm e^{-|x|}<2\mathrm e^{-|x|}$，有 $\varphi\leqslant f\leqslant g$；$g-\varphi=2\mathrm e^{-|x|}\to0$；但 $f\to\infty$，排除 (A)(B)==`,
           R`例二（极限存在）：$\varphi=0$，$f=\mathrm e^{-|x|}$，$g=2\mathrm e^{-|x|}$，满足条件且 $f\to0$，排除 (C)`,
           R`选 (D)：不一定存在`
         ],
@@ -305,7 +305,7 @@
         signal: R`已知 $\lim\limits_{x\to x_0}\dfrac{f(x)}{g(x)}=A\neq0$，且 $g$ 的符号已知，问 $f$ 在 $x_0$ 附近的符号`,
         example: { q: R`已知 $f(x)$ 在 $x=0$ 的某邻域内连续，且 $\lim\limits_{x\to0}\dfrac{f(x)}{1-\cos x}=-1$，则存在 $\delta>0$，（ ）。(A) $x\in(-\delta,0)$ 时 $f>0$，$x\in(0,\delta)$ 时 $f<0$　(B) $x\in(-\delta,0)$ 时 $f<0$，$x\in(0,\delta)$ 时 $f>0$　(C) 两侧都 $f>0$　(D) 两侧都 $f<0$`, src: "30讲 例1.18 p40–41" },
         idea: {
-          key: R`脱帽：极限 $<0$，则在某去心邻域内整个分式 $<0$；再用分母的符号定出 $f$ 的符号。`,
+          key: R`==脱帽：极限 $<0$，则在某去心邻域内整个分式 $<0$==；再用分母的符号定出 $f$ 的符号。`,
           how: [
             R`对整个分式用局部保号性：$\lim\dfrac{f}{g}=A<0\Rightarrow$ 某去心邻域内 $\dfrac fg<0$`,
             R`确定分母在该邻域内的符号`,
@@ -319,7 +319,7 @@
         think: R`要判断 $f$ 在 $0$ 附近的符号，已知的是分式 $\dfrac{f(x)}{1-\cos x}$ 的极限是负数。局部保号性说：极限为负，则附近函数值为负。所以对整个分式用保号性，再看分母的符号，就能推出 $f$ 的符号。`,
         first: R`对整个分式 $\dfrac{f(x)}{1-\cos x}$ 用局部保号性`,
         steps: [
-          R`对分式用局部保号性（教材 1.3 定理 3）：极限 $-1<0$，所以存在 $\delta>0$，当 $0<|x|<\delta$ 时 $\dfrac{f(x)}{1-\cos x}<0$`,
+          R`==对分式用局部保号性（教材 1.3 定理 3）：极限 $-1<0$，所以存在 $\delta>0$，当 $0<|x|<\delta$ 时 $\dfrac{f(x)}{1-\cos x}<0$==`,
           R`分母的符号：$\cos x\leqslant1$，且只在 $x=2k\pi$ 处等于 1；取 $\delta<2\pi$，则 $0<|x|<\delta$ 时 $1-\cos x>0$`,
           R`分式为负、分母为正，所以分子 $f(x)<0$，左右两侧都成立`,
           R`选 (D)。另一种做法（30讲）：$1-\cos x\sim\dfrac{x^2}{2}$，原极限化为 $\lim\dfrac{2f(x)}{x^2}=-1$，同样得两侧 $f<0$`

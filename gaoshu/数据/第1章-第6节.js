@@ -155,7 +155,7 @@
         signal: R`$n\to\infty$ 时有 $n$ 项相加，各项分母（或分子）不同，求不出和`,
         example: { q: R`求 $\lim\limits_{n\to\infty}\left(\dfrac{1}{n^2+n+1}+\dfrac{2}{n^2+n+2}+\cdots+\dfrac{n}{n^2+n+n}\right)$。`, src: "吉米【53】p16；30讲 例2.9 p87–88" },
         idea: {
-          key: R`把变化的那部分（通常是分母）统一放成最大和最小，变成能求和的两个式子，它们的极限相同就夹出来。`,
+          key: R`==把变化的那部分（通常是分母）统一放成最大和最小，变成能求和的两个式子，它们的极限相同就夹出来==。`,
           how: [
             R`找出每一项里随项变化、又妨碍求和的部分（多数是分母里的 $+i$）`,
             R`把它全换成最大值得下界，全换成最小值得上界（分母越大，分数越小）`,
@@ -171,7 +171,7 @@
         first: R`分子 $1+2+\cdots+n$ 保留，分母统一成 $n^2+n+n$ 和 $n^2+n+1$`,
         steps: [
           R`观察：第 $k$ 项是 $\dfrac{k}{n^2+n+k}$，$k=1,\cdots,n$，分母在 $n^2+n+1$ 到 $n^2+n+n$ 之间`,
-          R`放缩：分母换成最大的 $n^2+2n$，每项变小；换成最小的 $n^2+n+1$，每项变大。所以 $\dfrac{1+2+\cdots+n}{n^2+2n}\leqslant\text{原式}\leqslant\dfrac{1+2+\cdots+n}{n^2+n+1}$`,
+          R`==放缩：分母换成最大的 $n^2+2n$，每项变小；换成最小的 $n^2+n+1$，每项变大。所以 $\dfrac{1+2+\cdots+n}{n^2+2n}\leqslant\text{原式}\leqslant\dfrac{1+2+\cdots+n}{n^2+n+1}$==`,
           R`分子求和：$1+2+\cdots+n=\dfrac{n(n+1)}{2}$`,
           R`两边求极限（分子分母都是二次，看最高次系数）：左边 $\dfrac{n^2+n}{2(n^2+2n)}\to\dfrac12$；右边 $\dfrac{n^2+n}{2(n^2+n+1)}\to\dfrac12$`,
           R`两边极限都是 $\dfrac12$，由夹逼准则，原式 $=\dfrac12$`
@@ -184,7 +184,7 @@
         signal: R`数列由递推式 $x_{n+1}=f(x_n)$ 给出，要求证明极限存在并求极限`,
         example: { q: R`证明数列 $\sqrt2,\ \sqrt{2+\sqrt2},\ \sqrt{2+\sqrt{2+\sqrt2}},\ \cdots$ 的极限存在，并求该极限。`, src: "吉米【55】p16；教材习题1-6 第5题 p50" },
         idea: {
-          key: R`两步走：先证有界和单调（归纳法、作差），得到极限存在；再对递推式两边取极限，解方程，按数列的范围取舍。`,
+          key: R`==两步走：先证有界和单调（归纳法、作差），得到极限存在==；再对递推式两边取极限，解方程，按数列的范围取舍。`,
           how: [
             R`写出递推式 $x_{n+1}=f(x_n)$`,
             R`证有界：数学归纳法（验 $n=1$，设 $n=k$，推 $n=k+1$）；或基本不等式`,
@@ -200,7 +200,7 @@
         first: R`写成 $x_1=\sqrt2$，$x_{n+1}=\sqrt{2+x_n}$`,
         steps: [
           R`写成递推：$x_1=\sqrt2$，$x_{n+1}=\sqrt{2+x_n}$。先猜极限：若 $x_n\to a$，则 $a=\sqrt{2+a}$，得 $a=2$，所以猜"有上界 2、单调增加"`,
-          R`有界（归纳）：$x_1=\sqrt2<2$；设 $x_k<2$，则 $x_{k+1}=\sqrt{2+x_k}<\sqrt{2+2}=2$。所以对一切 $n$，$0<x_n<2$`,
+          R`==有界（归纳）：$x_1=\sqrt2<2$；设 $x_k<2$，则 $x_{k+1}=\sqrt{2+x_k}<\sqrt{2+2}=2$。所以对一切 $n$，$0<x_n<2$==`,
           R`单调（归纳）：$x_2=\sqrt{2+\sqrt2}>\sqrt2=x_1$；设 $x_k>x_{k-1}$，则 $2+x_k>2+x_{k-1}$，开方得 $x_{k+1}>x_k$。所以单调增加`,
           R`单调增加且有上界，由准则 II 极限存在，记为 $a$`,
           R`对 $x_{n+1}=\sqrt{2+x_n}$ 两边取极限：$a=\sqrt{2+a}$，平方 $a^2-a-2=0$，$(a-2)(a+1)=0$。因为 $x_n>0$，$a\geqslant0$，舍去 $-1$，极限为 $2$`
@@ -213,7 +213,7 @@
         signal: R`$x\to0$（或某个过程使 $\square\to0$）时含 $\sin$、$\tan$、$1-\cos$、$\arcsin$`,
         example: { q: R`求 $\lim\limits_{x\to\infty}\dfrac{3x^2+5}{5x+3}\sin\dfrac2x$。`, src: "吉米【57】p17" },
         idea: {
-          key: R`找出趋于 0 的那个"□"，把式子凑成 $\dfrac{\sin\square}{\square}$ 乘一个能直接算的部分。`,
+          key: R`==找出趋于 0 的那个"□"，把式子凑成 $\dfrac{\sin\square}{\square}$ 乘一个能直接算的部分==。`,
           how: [
             R`确认 $\sin$ 里的式子 $\square\to0$（$x\to\infty$ 时 $\frac2x\to0$ 也可以）`,
             R`分子分母同乘 $\square$，凑出 $\dfrac{\sin\square}{\square}$`,
@@ -229,7 +229,7 @@
         first: R`$x\to\infty$ 时 $\frac2x\to0$，凑 $\dfrac{\sin\frac2x}{\frac2x}$`,
         steps: [
           R`凑形：$\sin\dfrac2x=\dfrac{\sin\frac2x}{\frac2x}\cdot\dfrac2x$，所以原式 $=\lim\dfrac{3x^2+5}{5x+3}\cdot\dfrac2x\cdot\dfrac{\sin\frac2x}{\frac2x}$`,
-          R`重要极限：令 $\square=\dfrac2x$，$x\to\infty$ 时 $\square\to0$，所以 $\dfrac{\sin\square}{\square}\to1$`,
+          R`==重要极限：令 $\square=\dfrac2x$，$x\to\infty$ 时 $\square\to0$，所以 $\dfrac{\sin\square}{\square}\to1$==`,
           R`有理部分：$\dfrac{2(3x^2+5)}{x(5x+3)}=\dfrac{6x^2+10}{5x^2+3x}$，分子分母都是二次，极限是最高次系数之比 $\dfrac65$`,
           R`由积的运算法则（两个因子极限都存在），原式 $=\dfrac65\times1=\dfrac65$`
         ],
@@ -241,7 +241,7 @@
         signal: R`底数 $\to1$、指数 $\to\infty$ 的幂，如 $(1+2x)^{\frac1x}$、$\left(\frac{x+a}{x-a}\right)^x$`,
         example: { q: R`设 $\lim\limits_{x\to\infty}\left(\dfrac{x+2a}{x-a}\right)^x=8$，求 $a$。`, src: "吉米【60】p17" },
         idea: {
-          key: R`把底数写成 $1+\square$（$\square\to0$），指数凑成 $\frac1\square\cdot(\square\cdot\text{原指数})$；或直接用 $\lim u^v=\mathrm e^{\lim v(u-1)}$。`,
+          key: R`==把底数写成 $1+\square$（$\square\to0$），指数凑成 $\frac1\square\cdot(\square\cdot\text{原指数})$==；或直接用 $\lim u^v=\mathrm e^{\lim v(u-1)}$。`,
           how: [
             R`确认是 $1^{\infty}$ 型：底数 $\to1$，指数 $\to\infty$`,
             R`底数减 $1$ 得 $\square=u-1$`,
@@ -257,7 +257,7 @@
         first: R`底数 $\dfrac{x+2a}{x-a}=1+\dfrac{3a}{x-a}$`,
         steps: [
           R`底数写成 $1+\square$：$\dfrac{x+2a}{x-a}=1+\dfrac{(x+2a)-(x-a)}{x-a}=1+\dfrac{3a}{x-a}$，$\square=\dfrac{3a}{x-a}\to0$`,
-          R`指数凑 $\frac1\square$：$\left(1+\dfrac{3a}{x-a}\right)^x=\left[\left(1+\dfrac{3a}{x-a}\right)^{\frac{x-a}{3a}}\right]^{\frac{3a}{x-a}\cdot x}$（指数相乘回到 $x$）`,
+          R`==指数凑 $\frac1\square$：$\left(1+\dfrac{3a}{x-a}\right)^x=\left[\left(1+\dfrac{3a}{x-a}\right)^{\frac{x-a}{3a}}\right]^{\frac{3a}{x-a}\cdot x}$（指数相乘回到 $x$）==`,
           R`方括号是 $(1+\square)^{\frac1\square}\to\mathrm e$；外指数 $\dfrac{3ax}{x-a}\to3a$（同除 $x$）。所以极限 $=\mathrm e^{3a}$（$a\neq0$；$a=0$ 时极限为 $1\neq8$）`,
           R`$\mathrm e^{3a}=8=2^3$，取对数 $3a=3\ln2$，$a=\ln2$`
         ],
@@ -269,7 +269,7 @@
         signal: R`$x\to\infty$ 时含 $ax+b$ 或高次差，已知极限为 0 或某常数，求参数`,
         example: { q: R`已知 $\lim\limits_{x\to\infty}\left(\dfrac{x^2}{x+1}-ax-b\right)=0$，其中 $a,b$ 是常数，求 $a,b$。`, src: "吉米【63】p18" },
         idea: {
-          key: R`把式子整理成"$(\cdots)x+(\cdots)+\text{无穷小}$"，$x$ 的系数必须为 0，常数项必须等于给定的极限。`,
+          key: R`==把式子整理成"$(\cdots)x+(\cdots)+\text{无穷小}$"，$x$ 的系数必须为 0，常数项必须等于给定的极限==。`,
           how: [
             R`通分或拆项，把式子写成 $c_1x+c_0+\alpha(x)$，$\alpha\to0$`,
             R`极限有限要求 $x$ 的系数 $c_1=0$`,
@@ -285,7 +285,7 @@
         first: R`拆：$\dfrac{x^2}{x+1}=x-1+\dfrac1{x+1}$`,
         steps: [
           R`多项式除法：$x^2=(x+1)(x-1)+1$，所以 $\dfrac{x^2}{x+1}=x-1+\dfrac{1}{x+1}$`,
-          R`整理：原式 $=\lim\limits_{x\to\infty}\left[(1-a)x-(1+b)+\dfrac{1}{x+1}\right]$，其中 $\dfrac{1}{x+1}\to0$`,
+          R`==整理：原式 $=\lim\limits_{x\to\infty}\left[(1-a)x-(1+b)+\dfrac{1}{x+1}\right]$，其中 $\dfrac{1}{x+1}\to0$==`,
           R`一次项：若 $1-a\neq0$，$(1-a)x\to\infty$，极限不可能是 0，所以 $a=1$`,
           R`常数项：$a=1$ 后极限是 $-(1+b)$，要等于 0，所以 $b=-1$`,
           R`几何意义：$y=x-1$ 是曲线 $y=\dfrac{x^2}{x+1}$ 的斜渐近线`
@@ -298,7 +298,7 @@
         signal: R`含 $[\cdot]$ 取整、$\sqrt[n]{\cdots}$，常规方法算不了`,
         example: { q: R`证明：(1) $\lim\limits_{x\to0}\sqrt[n]{1+x}=1$；(2) $\lim\limits_{x\to0^+}x\left[\dfrac1x\right]=1$。`, src: "教材习题1-6 第4题(3)(4) p50" },
         idea: {
-          key: R`用基本不等式把式子夹住：$1<\sqrt[n]{1+x}<1+x\ (x>0)$；$t-1<[t]\leqslant t$。`,
+          key: R`==用基本不等式把式子夹住：$1<\sqrt[n]{1+x}<1+x\ (x>0)$==；$t-1<[t]\leqslant t$。`,
           how: [
             R`取整：用 $t-1<[t]\leqslant t$，再乘以前面的因子（注意因子的正负决定不等号方向）`,
             R`根式：与 $1$ 和底数本身比较；$x$ 的正负分开写`,
@@ -314,7 +314,7 @@
         steps: [
           R`(1) $x>0$ 时：$1<1+x$，开 $n$ 次方 $1<\sqrt[n]{1+x}$；又 $1+x<(1+x)^n$（$n\geqslant2$），所以 $\sqrt[n]{1+x}<1+x$。得 $1<\sqrt[n]{1+x}<1+x$`,
           R`(1) $-1<x<0$ 时：$0<1+x<1$，开方后反而变大但仍小于 1：$1+x<\sqrt[n]{1+x}<1$`,
-          R`(1) 两种情况两边都 $\to1$（$x\to0$），由夹逼准则 $\lim\limits_{x\to0}\sqrt[n]{1+x}=1$`,
+          R`==(1) 两种情况两边都 $\to1$（$x\to0$），由夹逼准则 $\lim\limits_{x\to0}\sqrt[n]{1+x}=1$==`,
           R`(2) 取整不等式：$\dfrac1x-1<\left[\dfrac1x\right]\leqslant\dfrac1x$。$x>0$，两边乘 $x$ 不变号：$1-x<x\left[\dfrac1x\right]\leqslant1$`,
           R`(2) $x\to0^+$ 时 $1-x\to1$，由夹逼准则 $\lim\limits_{x\to0^+}x\left[\dfrac1x\right]=1$`
         ],
@@ -326,7 +326,7 @@
         signal: R`$\lim\limits_{n\to\infty}\sqrt[n]{a_1^n+a_2^n+\cdots+a_m^n}$，或含参数 $x$ 的同类式子`,
         example: { q: R`当 $0\leqslant x\leqslant\dfrac{\pi}{2}$ 时，求 $\lim\limits_{n\to\infty}\sqrt[n]{\sin^nx+\cos^nx}$。`, src: "1000题 第2章第5题；30讲 例2.10 p88" },
         idea: {
-          key: R`记最大项为 $a$，则 $a\leqslant\sqrt[n]{\cdots}\leqslant a\cdot m^{\frac1n}$，$m^{\frac1n}\to1$，极限就是最大项。`,
+          key: R`==记最大项为 $a$，则 $a\leqslant\sqrt[n]{\cdots}\leqslant a\cdot m^{\frac1n}$，$m^{\frac1n}\to1$，极限就是最大项==。`,
           how: [
             R`找出各项底数中最大的 $a=\max\{a_i\}$（含参数时分段比较）`,
             R`下界：只留最大的一项；上界：每一项都换成最大的`,
@@ -342,7 +342,7 @@
         steps: [
           R`比大小：在 $\left[0,\dfrac{\pi}{2}\right]$ 上 $\sin x$、$\cos x\geqslant0$；$x\leqslant\dfrac{\pi}{4}$ 时 $\cos x\geqslant\sin x$，$x>\dfrac{\pi}{4}$ 时 $\sin x>\cos x$`,
           R`$0\leqslant x\leqslant\dfrac{\pi}{4}$：$\cos^nx\leqslant\sin^nx+\cos^nx\leqslant2\cos^nx$，开 $n$ 次方 $\cos x\leqslant\sqrt[n]{\sin^nx+\cos^nx}\leqslant2^{\frac1n}\cos x$`,
-          R`$2^{\frac1n}\to1$，两边都 $\to\cos x$，由夹逼准则极限为 $\cos x$`,
+          R`==$2^{\frac1n}\to1$，两边都 $\to\cos x$，由夹逼准则极限为 $\cos x$==`,
           R`$\dfrac{\pi}{4}<x\leqslant\dfrac{\pi}{2}$：同理 $\sin x\leqslant\sqrt[n]{\cdots}\leqslant2^{\frac1n}\sin x$，极限为 $\sin x$`,
           R`合起来：极限 $=\max\{\sin x,\cos x\}$`
         ],
@@ -354,7 +354,7 @@
         signal: R`$x_{n+1}=f(x_n)$，只告诉 $f$ 的单调性和 $x_1,x_2$ 的大小，问数列是否单调`,
         example: { q: R`设 $x_{n+1}=f(x_n)$，则正确的是（ ）。① $f$ 单调增加且 $x_1<x_2$，则 $\{x_n\}$ 单调增加；② $f$ 单调增加且 $x_1>x_2$，则 $\{x_n\}$ 单调减少；③ $f$ 单调减少且 $x_1<x_2$，则 $\{x_n\}$ 单调增加；④ $f$ 单调减少且 $x_1>x_2$，则 $\{x_n\}$ 单调减少。(A) ①② (B) ①③ (C) ②③ (D) ②④`, src: "30讲 例2.13 p91" },
         idea: {
-          key: R`$f$ 增：保持 $x_1,x_2$ 的大小关系一路传下去，数列单调；$f$ 减：每传一次大小关系反一次，数列摆动。`,
+          key: R`==$f$ 增：保持 $x_1,x_2$ 的大小关系一路传下去，数列单调==；$f$ 减：每传一次大小关系反一次，数列摆动。`,
           how: [
             R`$f$ 单调增加：$x_1<x_2\Rightarrow f(x_1)<f(x_2)$，即 $x_2<x_3$，归纳得单调增加`,
             R`$f$ 单调减少：$x_1<x_2\Rightarrow x_2>x_3$，下一步又反过来，数列不单调`,
@@ -369,7 +369,7 @@
         first: R`对 $f$ 增、$f$ 减分别把大小关系往下传两步`,
         steps: [
           R`① $f$ 增、$x_1<x_2$：两边作用 $f$ 不改变方向，$f(x_1)<f(x_2)$，即 $x_2<x_3$；归纳：$x_n<x_{n+1}\Rightarrow x_{n+1}<x_{n+2}$，单调增加，正确`,
-          R`② $f$ 增、$x_1>x_2$：同理 $x_2=f(x_1)>f(x_2)=x_3$，依次传下去，单调减少，正确`,
+          R`==② $f$ 增、$x_1>x_2$：同理 $x_2=f(x_1)>f(x_2)=x_3$，依次传下去，单调减少，正确==`,
           R`③ $f$ 减、$x_1<x_2$：作用 $f$ 后方向反转，$x_2=f(x_1)>f(x_2)=x_3$。于是 $x_1<x_2>x_3$，数列先增后减，不单调，错误`,
           R`④ 同理，$x_1>x_2$ 推出 $x_2<x_3$，也是摆动，错误`,
           R`选 (A)。$f$ 减时奇数项、偶数项各自单调，方向相反`
