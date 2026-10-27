@@ -182,7 +182,8 @@
             { src: "吉米【178】点评 p53", text: R`求导前先利用对数的性质把函数化简，可使求导运算简便` }
           ]
         },
-        first: R`思路：三阶不算高，直接逐阶求；关键是 $y'$ 能化成很简单的 $(1+x^2)^{-\frac12}$，后面两阶就只是幂函数的复合`,
+        think: R`三阶不算高，直接逐阶求；关键是 $y'$ 能化成很简单的 $(1+x^2)^{-\frac12}$，后面两阶就只是幂函数的复合`,
+        first: R`先求 $y'$ 并化简成 $(1+x^2)^{-\frac12}$，再逐阶往下求`,
         steps: [
           R`求 $y'$（链式法则，外层 $\ln u$，内层 $u=x+\sqrt{1+x^2}$）：$y'=\dfrac{1}{x+\sqrt{1+x^2}}\left(1+\dfrac{x}{\sqrt{1+x^2}}\right)=\dfrac{1}{x+\sqrt{1+x^2}}\cdot\dfrac{\sqrt{1+x^2}+x}{\sqrt{1+x^2}}$`,
           R`**约分化简**：分子分母的 $x+\sqrt{1+x^2}$ 约掉，$y'=\dfrac1{\sqrt{1+x^2}}=(1+x^2)^{-\frac12}$（这一步是 2.2 的常用结论，习题全解 p67）`,
@@ -210,7 +211,8 @@
             { src: "习题全解 习题2-3 第3(1)题 p67", text: R`$\dfrac{\mathrm dy}{\mathrm dx}=f'(x^2)\cdot2x=2xf'(x^2)$，$\dfrac{\mathrm d^2y}{\mathrm dx^2}=2f'(x^2)+2xf''(x^2)\cdot2x=2f'(x^2)+4x^2f''(x^2)$` }
           ]
         },
-        first: R`思路：复合链是 $y=\sin u$，$u=f(v)$，$v=x^2$；一阶导数会是 $2x$、$f'(x^2)$、$\cos[f(x^2)]$ 三个因子的乘积，二阶导数就是对这个三因子乘积求导`,
+        think: R`复合链是 $y=\sin u$，$u=f(v)$，$v=x^2$；一阶导数会是 $2x$、$f'(x^2)$、$\cos[f(x^2)]$ 三个因子的乘积，二阶导数就是对这个三因子乘积求导`,
+        first: R`先写出一阶导数（三个因子的乘积），再对乘积求导`,
         steps: [
           R`一阶（链式法则一层层乘）：$\dfrac{\mathrm dy}{\mathrm dx}=\cos[f(x^2)]\cdot f'(x^2)\cdot2x$`,
           R`看成三个因子 $2x$、$f'(x^2)$、$\cos[f(x^2)]$ 的积，用 $(uvw)'=u'vw+uv'w+uvw'$（教材 p84）`,
@@ -239,7 +241,8 @@
             { src: "30讲 例4.16 分析 p131", text: R`若是解答题，探索规律后应给出相应数学归纳法的证明，若是客观题，不必给出证明` }
           ]
         },
-        first: R`思路：$f(x)$ 不知道，但 $f'$ 能用 $f$ 表示，所以每一阶导数都能化成 $\mathrm e^{kf(x)}$ 的形式，最后只需要 $f(2)=1$`,
+        think: R`$f(x)$ 不知道，但 $f'$ 能用 $f$ 表示，所以每一阶导数都能化成 $\mathrm e^{kf(x)}$ 的形式，最后只需要 $f(2)=1$`,
+        first: R`对 $f'(x)=\mathrm e^{f(x)}$ 两边求导，找出 $\mathrm e^{kf(x)}$ 的规律，最后代 $f(2)=1$`,
         steps: [
           R`对 $f'(x)=\mathrm e^{f(x)}$ 两边求导，右边是复合函数（外层 $\mathrm e^u$，内层 $f(x)$）：$f''(x)=\mathrm e^{f(x)}\cdot f'(x)$`,
           R`**用原等式把** $f'(x)$ **换成** $\mathrm e^{f(x)}$：$f''(x)=\mathrm e^{f(x)}\cdot\mathrm e^{f(x)}=\mathrm e^{2f(x)}$`,
@@ -267,7 +270,8 @@
             { src: "30讲 习题4.3 解答 p136", text: R`$\dfrac{\mathrm d^2x}{\mathrm dy^2}=\dfrac{\mathrm d\left(\frac{\mathrm dx}{\mathrm dy}\right)}{\mathrm dy}=\dfrac{\mathrm d\left[\frac1{f'(x)}\right]}{\mathrm dx}\cdot\dfrac{\mathrm dx}{\mathrm dy}$` }
           ]
         },
-        first: R`思路：这里 $x$ 是自变量、$y=f^{-1}(x)$；一阶导数 $\dfrac1{f'(y)}$ 里的 $y$ 本身是 $x$ 的函数，所以对 $x$ 再求导时要乘 $y'=\dfrac1{f'(y)}$`,
+        think: R`这里 $x$ 是自变量、$y=f^{-1}(x)$；一阶导数 $\dfrac1{f'(y)}$ 里的 $y$ 本身是 $x$ 的函数，所以对 $x$ 再求导时要乘 $y'=\dfrac1{f'(y)}$`,
+        first: R`先写出 $y'=\dfrac1{f'(y)}$，再对 $x$ 求导，别忘了乘 $y'$`,
         steps: [
           R`一阶（反函数法则，教材 p85）：$\dfrac{\mathrm dy}{\mathrm dx}=\dfrac1{\frac{\mathrm dx}{\mathrm dy}}=\dfrac1{f'(y)}=\dfrac1{f'[f^{-1}(x)]}$`,
           R`二阶：对 $\dfrac1{f'[f^{-1}(x)]}$ 用商法则（分子是常数 1）：$\dfrac{\mathrm d^2y}{\mathrm dx^2}=\dfrac{-\{f'[f^{-1}(x)]\}'}{\{f'[f^{-1}(x)]\}^2}$`,
@@ -296,7 +300,8 @@
             { src: "教材 p94", text: R`若需要求函数的高阶导数公式，则需要在逐次求导过程中，善于寻求它的某种规律` }
           ]
         },
-        first: R`思路：$x\ln x$ 求一次导得 $\ln x+1$，再求一次就是 $\dfrac1x=x^{-1}$，这是幂函数，有现成的 $n$ 阶公式；所以从第 2 阶开始套公式`,
+        think: R`$x\ln x$ 求一次导得 $\ln x+1$，再求一次就是 $\dfrac1x=x^{-1}$，这是幂函数，有现成的 $n$ 阶公式；所以从第 2 阶开始套公式`,
+        first: R`先求前两阶，从第 2 阶起套幂函数的 $n$ 阶公式`,
         steps: [
           R`一阶（乘积法则）：$y'=\ln x+x\cdot\dfrac1x=\ln x+1$`,
           R`二阶：$y''=\dfrac1x=x^{-1}$，**已经是幂函数**`,
@@ -324,7 +329,8 @@
             { src: "吉米【183】点评(2) p54", text: R`某些复杂函数求高阶导数，常先化简、变形，化为常见函数类，再求其 $n$ 阶导数` }
           ]
         },
-        first: R`思路：分母 $2x^2-7x+6=(2x-3)(x-2)$ 能分解，分子次数低于分母，直接拆成 $\dfrac{A}{x-2}+\dfrac{B}{2x-3}$，每一项都有现成公式`,
+        think: R`分母 $2x^2-7x+6=(2x-3)(x-2)$ 能分解，分子次数低于分母，直接拆成 $\dfrac{A}{x-2}+\dfrac{B}{2x-3}$，每一项都有现成公式`,
+        first: R`先把分母分解，拆成两个简单分式，再逐项套公式`,
         steps: [
           R`因式分解：$f(x)=\dfrac{x}{(2x-3)(x-2)}$`,
           R`拆项：设 $\dfrac{x}{(2x-3)(x-2)}=\dfrac{A}{x-2}+\dfrac{B}{2x-3}$，通分得 $x=A(2x-3)+B(x-2)$；令 $x=2$ 得 $A=2$，令 $x=\frac32$ 得 $B=-3$，所以 $f(x)=\dfrac2{x-2}-\dfrac3{2x-3}$`,
@@ -353,7 +359,8 @@
             { src: "习题全解 习题2-3 第10(2)题 p69", text: R`$y=\sin^2x=\frac12(1-\cos2x)$，$y^{(n)}=-2^{n-1}\cos\left(2x+\frac{n\pi}2\right)$` }
           ]
         },
-        first: R`思路：$\sin^3x$ 用三倍角公式反解 $\sin^3x=\dfrac{3\sin x-\sin3x}4$，$\sin x\cos x=\dfrac12\sin2x$，整个函数就变成 $\sin x$、$\sin3x$、$\sin2x$ 的线性组合`,
+        think: R`$\sin^3x$ 用三倍角公式反解 $\sin^3x=\dfrac{3\sin x-\sin3x}4$，$\sin x\cos x=\dfrac12\sin2x$，整个函数就变成 $\sin x$、$\sin3x$、$\sin2x$ 的线性组合`,
+        first: R`先用三倍角、二倍角公式降幂，化成 $\sin x$、$\sin3x$、$\sin2x$ 的线性组合`,
         steps: [
           R`降幂：由 $\sin3x=3\sin x-4\sin^3x$ 解出 $\sin^3x=\dfrac34\sin x-\dfrac14\sin3x$`,
           R`倍角：$\sin x\cos x=\dfrac12\sin2x$，所以 $y=\dfrac34\sin x-\dfrac14\sin3x+\dfrac12\sin2x$`,
@@ -381,7 +388,8 @@
             { src: "18讲 第4讲 二 p36", text: R`若是(或可恒等变形为) $f(x)\cdot(ax^2+bx+c)$，例如 $\mathrm e^x(1+x^2)$，则用莱布尼茨乘积求导公式，因为 $(ax^2+bx+c)'''=0$，使用莱布尼茨公式求导后只剩三项` }
           ]
         },
-        first: R`思路：$x^2$ 求三次导就是 0，所以令 $u=\sin2x$（有公式 $2^k\sin\left(2x+\frac{k\pi}2\right)$），$v=x^2$，莱布尼茨展开只剩 3 项`,
+        think: R`$x^2$ 求三次导就是 0，所以令 $u=\sin2x$（有公式 $2^k\sin\left(2x+\frac{k\pi}2\right)$），$v=x^2$，莱布尼茨展开只剩 3 项`,
+        first: R`令 $u=\sin2x$，$v=x^2$，写出只剩 3 项的莱布尼茨展开`,
         steps: [
           R`准备：$v=x^2$，$v'=2x$，$v''=2$，$v^{(k)}=0\ (k\geqslant3)$；$u^{(k)}=(\sin2x)^{(k)}=2^k\sin\left(2x+\dfrac{k\pi}2\right)$`,
           R`莱布尼茨公式（教材 p97）只剩三项：$y^{(50)}=u^{(50)}v+\mathrm C_{50}^1u^{(49)}v'+\mathrm C_{50}^2u^{(48)}v''$`,
@@ -409,7 +417,8 @@
             { src: "武忠祥 题型三(六)例4 p74", text: R`$u(0)=0$，$u'(0)=0$，$u''(0)=2$，$u^{(k)}(0)=0\ (k\geqslant3)$，$f^{(n)}(0)=\mathrm C_n^2u^{(2)}(0)v^{(n-2)}(0)$` }
           ]
         },
-        first: R`思路：$x^2$ 在 0 处的各阶导数只有 $(x^2)''=2$ 不为 0，所以莱布尼茨展开代 $x=0$ 后只剩 $\mathrm C_n^2\cdot2\cdot[\ln(1+x)]^{(n-2)}\big|_{x=0}$ 这一项`,
+        think: R`$x^2$ 在 0 处的各阶导数只有 $(x^2)''=2$ 不为 0，所以莱布尼茨展开代 $x=0$ 后只剩 $\mathrm C_n^2\cdot2\cdot[\ln(1+x)]^{(n-2)}\big|_{x=0}$ 这一项`,
+        first: R`令 $u=\ln(1+x)$，$v=x^2$，莱布尼茨展开代 $x=0$ 只留一项`,
         steps: [
           R`设 $u=\ln(1+x)$，$v=x^2$：$v(0)=0$，$v'(0)=0$，$v''(0)=2$，$v^{(k)}=0\ (k\geqslant3)$`,
           R`莱布尼茨公式：$f^{(n)}(x)=u^{(n)}x^2+\mathrm C_n^1u^{(n-1)}\cdot2x+\mathrm C_n^2u^{(n-2)}\cdot2$（$n\geqslant3$ 保证三项里 $u$ 都至少求 1 阶）`,
@@ -438,7 +447,8 @@
             { src: "18讲 第4讲 四 p37", text: R`特殊点的高阶导数：(1) 分段函数的分段点；(2) 带绝对值的函数` }
           ]
         },
-        first: R`思路：三个未知数对应三个条件——连续定 $c$，一阶可导定 $b$，二阶可导定 $a$；分段点 0 处一律用定义，不能直接拿两边公式的值比`,
+        think: R`三个未知数对应三个条件——连续定 $c$，一阶可导定 $b$，二阶可导定 $a$；分段点 0 处一律用定义，不能直接拿两边公式的值比`,
+        first: R`分段点 0 处依次用连续、一阶导数、二阶导数，列三个方程解 $a,b,c$`,
         steps: [
           R`连续：$\lim\limits_{x\to0^-}\mathrm e^x\cos x=1=f(0)$，$\lim\limits_{x\to0^+}(ax^2+bx+c)=c$，所以 $c=1$`,
           R`一阶，左导数（定义）：$f'_-(0)=\lim\limits_{x\to0^-}\dfrac{\mathrm e^x\cos x-1}{x}=\lim\left(\dfrac{\mathrm e^x-1}x\cos x+\dfrac{\cos x-1}x\right)=1+0=1$（等价无穷小，1.7）`,
@@ -465,7 +475,8 @@
             { src: "习题全解 习题2-3 第7题 p68", text: R`$a=\dfrac{\mathrm d^2x}{\mathrm dt^2}=\dfrac{\mathrm d}{\mathrm dx}(f(x))\dfrac{\mathrm dx}{\mathrm dt}=f'(x)f(x)$` }
           ]
         },
-        first: R`思路：速度给的是 $s$ 的函数 $v=\dfrac{k}{\sqrt s}$，而加速度要对 $t$ 求导，$s$ 又是 $t$ 的函数，所以要用链式法则：先对 $s$ 求导，再乘 $\dfrac{\mathrm ds}{\mathrm dt}=v$`,
+        think: R`速度给的是 $s$ 的函数 $v=\dfrac{k}{\sqrt s}$，而加速度要对 $t$ 求导，$s$ 又是 $t$ 的函数，所以要用链式法则：先对 $s$ 求导，再乘 $\dfrac{\mathrm ds}{\mathrm dt}=v$`,
+        first: R`设比例系数 $k$，写出 $v=ks^{-\frac12}$，再对 $t$ 求导`,
         steps: [
           R`设比例系数 $k$：$v=\dfrac{\mathrm ds}{\mathrm dt}=\dfrac{k}{\sqrt s}=ks^{-\frac12}$`,
           R`链式法则：$a=\dfrac{\mathrm dv}{\mathrm dt}=\dfrac{\mathrm dv}{\mathrm ds}\cdot\dfrac{\mathrm ds}{\mathrm dt}$`,
@@ -492,7 +503,8 @@
             { src: "30讲 p132", text: R`当一个函数求高阶导数较困难时，若能转化成两个函数的乘积形式，亦可用莱布尼茨公式` }
           ]
         },
-        first: R`思路：$\dfrac{x}{1+x^2}$ 直接求高阶导数很繁，去分母得 $(1+x^2)y=x$；左边是"二次多项式 × $y$"，求 $n$ 阶导数只剩 3 项，右边 $x$ 求两阶以上为 0`,
+        think: R`$\dfrac{x}{1+x^2}$ 直接求高阶导数很繁，去分母得 $(1+x^2)y=x$；左边是"二次多项式 × $y$"，求 $n$ 阶导数只剩 3 项，右边 $x$ 求两阶以上为 0`,
+        first: R`去分母得 $(1+x^2)y=x$，两边求 $n$ 阶导数`,
         steps: [
           R`去分母：$(1+x^2)y=x$`,
           R`两边求 $n$ 阶（$n\geqslant2$），左边用莱布尼茨公式，$(1+x^2)'=2x$，$(1+x^2)''=2$，三阶以上为 0：$(1+x^2)y^{(n)}+n\cdot2x\,y^{(n-1)}+\dfrac{n(n-1)}2\cdot2\,y^{(n-2)}=0$`,
@@ -519,7 +531,8 @@
             { src: "18讲 第4讲 五 p38", text: R`$f(x)$ 为奇函数 ⇒ $f^{(2n)}(x)$ 为奇函数，$f^{(2n+1)}(x)$ 为偶函数 → 在零点有定义时，$f^{(2n)}(0)=0$；$f(x)$ 为偶函数 ⇒ … 在零点有定义时，$f^{(2n+1)}(0)=0$` }
           ]
         },
-        first: R`思路：$f(0)=\frac12$，$f$ 不是奇函数；但 $\frac1{2^x+1}$ 关于点 $\left(0,\frac12\right)$ 对称，减去 $\frac12$ 就是奇函数，而减常数不改变导数`,
+        think: R`$f(0)=\frac12$，$f$ 不是奇函数；但 $\frac1{2^x+1}$ 关于点 $\left(0,\frac12\right)$ 对称，减去 $\frac12$ 就是奇函数，而减常数不改变导数`,
+        first: R`先减去 $\frac12$ 构造奇函数，再用奇偶性和\"减常数不改变导数\"`,
         steps: [
           R`令 $g(x)=\dfrac1{2^x+1}-\dfrac12=\dfrac{1-2^x}{2(2^x+1)}$，则 $f(x)=g(x)+\dfrac12$，$f^{(4)}(x)=g^{(4)}(x)$`,
           R`验证奇偶：$g(-x)=\dfrac{1-2^{-x}}{2(2^{-x}+1)}$，分子分母同乘 $2^x$ 得 $\dfrac{2^x-1}{2(1+2^x)}=-g(x)$，所以 $g$ 是 $\mathbf R$ 上的奇函数`,
@@ -545,7 +558,8 @@
             { src: "武忠祥 题型三(六)例2 p73", text: R`$f'(x)=\mathrm e^x\sin x+\mathrm e^x\cos x=\mathrm e^x(\sin x+\cos x)=\sqrt2\mathrm e^x\sin\left(x+\frac\pi4\right)$，$f^{(n)}(x)=(\sqrt2)^n\mathrm e^x\sin\left(x+\frac{n\pi}4\right)$` }
           ]
         },
-        first: R`思路：$\mathrm e^x\sin x$ 的两个因子求导都不会消失，莱布尼茨公式要写 $n+1$ 项；但求一次导后 $\sin x+\cos x$ 能合成一个正弦，函数"长得和原来一样"`,
+        think: R`$\mathrm e^x\sin x$ 的两个因子求导都不会消失，莱布尼茨公式要写 $n+1$ 项；但求一次导后 $\sin x+\cos x$ 能合成一个正弦，函数"长得和原来一样"`,
+        first: R`先求一阶导并合成一个正弦，再找 $n$ 阶导数的规律`,
         steps: [
           R`一阶（乘积法则）：$f'(x)=\mathrm e^x\sin x+\mathrm e^x\cos x=\mathrm e^x(\sin x+\cos x)$`,
           R`辅助角：$\sin x+\cos x=\sqrt2\left(\dfrac1{\sqrt2}\sin x+\dfrac1{\sqrt2}\cos x\right)=\sqrt2\sin\left(x+\dfrac\pi4\right)$，所以 $f'(x)=\sqrt2\,\mathrm e^x\sin\left(x+\dfrac\pi4\right)$`,
@@ -572,7 +586,8 @@
             { src: "18讲 第4讲 四 p37", text: R`特殊点的高阶导数：(1) 分段函数的分段点；(2) 带绝对值的函数` }
           ]
         },
-        first: R`思路：$\sin^2x\sim x^2$，所以 $f\approx|x|x^2=|x|^3$，预计 2 阶可导、3 阶不可导；严格做法是写成 $\pm\sin^2x\cdot x$ 两段，逐阶用定义`,
+        think: R`$\sin^2x\sim x^2$，所以 $f\approx|x|x^2=|x|^3$，预计 2 阶可导、3 阶不可导；严格做法是写成 $\pm\sin^2x\cdot x$ 两段，逐阶用定义`,
+        first: R`按 $x\geqslant0$、$x<0$ 写成两段，逐阶用定义判断`,
         steps: [
           R`分段：$x\geqslant0$ 时 $f=x\sin^2x$；$x<0$ 时 $f=-x\sin^2x$`,
           R`一阶：$f'_\pm(0)=\lim\limits_{x\to0^\pm}\dfrac{\pm x\sin^2x}{x}=0$，所以 $f'(0)=0$；两侧用乘积法则：$(x\sin^2x)'=\sin^2x+x\cdot2\sin x\cos x=\sin^2x+x\sin2x$，所以 $x>0$ 时 $f'(x)=\sin^2x+x\sin2x$，$x<0$ 时取相反数`,
