@@ -233,7 +233,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`给出解析式，问定义域或自然定义域`,
         example: { q: R`求 $y=\dfrac{1}{\sqrt{25-x^2}}+\arcsin\dfrac{x-1}{5}$ 的定义域。`, src: "吉米 第1章【1】p1" },
         idea: {
-          key: R`定义域 = 各部分限制条件的交集。`,
+          key: R`==定义域 = 各部分限制条件的交集==。`,
           how: [R`逐块列限制：分母 $\neq0$；偶次根号下 $\geqslant0$；对数真数 $>0$；$\arcsin,\arccos$ 里 $|\cdot|\leqslant1$；$\tan$ 里 $\neq k\pi+\frac{\pi}{2}$，$\cot$ 里 $\neq k\pi$`, R`根号在分母上取严格不等号；繁分式每一层分母都要列`, R`联立取交集，用区间写结果`],
           refs: [
             { src: "习题全解 习题1-1 第1题注 p3–4", text: R`先写出构成所求函数的各个简单函数的定义域，再求这些定义域的交集；并列出了分式、偶次根式、对数、$\tan$、$\cot$、$\arcsin$、$\arccos$ 的定义域` },
@@ -243,7 +243,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         think: R`解析式由"分式、根式、反正弦"几块拼成，每一块对 $x$ 都有自己的限制，所以定义域 = 每块限制的交集。先拆块，再逐块列不等式。`,
         first: R`逐块列出限制条件，联立取交集`,
         steps: [
-          R`拆块：$y$ 由两部分相加，第一部分是 $\dfrac{1}{\sqrt{25-x^2}}$（根号在分母上），第二部分是 $\arcsin\dfrac{x-1}{5}$。两部分都要有意义，所以定义域取交集`,
+          R`==拆块：$y$ 由两部分相加，第一部分是 $\dfrac{1}{\sqrt{25-x^2}}$（根号在分母上），第二部分是 $\arcsin\dfrac{x-1}{5}$。两部分都要有意义，所以定义域取交集==`,
           R`第一部分：偶次根号下要 $\geqslant0$，又因为它在分母上不能为 0，两条合起来是严格不等号：$25-x^2>0$，即 $x^2<25$，得 $-5<x<5$`,
           R`第二部分：$\arcsin u$ 的定义域是 $[-1,1]$，所以 $-1\leqslant\dfrac{x-1}{5}\leqslant1$，各边乘 5 得 $-5\leqslant x-1\leqslant5$，即 $-4\leqslant x\leqslant6$`,
           R`取交集：$(-5,5)\cap[-4,6]=[-4,5)$。左端 $-4$ 能取到（反正弦允许等号），右端 $5$ 取不到（分母为 0）`,
@@ -257,7 +257,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`只告诉 $f(x)$ 的定义域，问 $f[\varphi(x)]$ 的定义域`,
         example: { q: R`设 $f(x)$ 的定义域 $D=[0,1]$，求 $f(x^2)$、$f(\sin x)$、$f(x+a)+f(x-a)$（$a>0$）的定义域。`, src: "教材习题1-1 第13题 p17" },
         idea: {
-          key: R`$f(x)$ 的定义域是 $D$，则 $f[\varphi(x)]$ 的定义域是 $\{x\mid\varphi(x)\in D\}$。`,
+          key: R`==$f(x)$ 的定义域是 $D$，则 $f[\varphi(x)]$ 的定义域是 $\{x\mid\varphi(x)\in D\}$==。`,
           how: [R`已知 $f(x)$ 的定义域，求 $f[\varphi(x)]$ 的：解 $\varphi(x)\in D$`, R`已知 $f[\varphi(x)]$ 的定义域，求 $f(x)$ 的：求 $\varphi(x)$ 在该范围上的值域`, R`几项相加：各项定义域取交集，含参数时分类讨论`],
           refs: [
             { src: "武忠祥 第1章第一节 p3", text: R`复合函数 $f(g(x))$ 的定义域为 $\{x\mid x\in D_g,\ g(x)\in D_f\}$；能复合的条件是 $D_f\cap R_g\neq\varnothing$` },
@@ -268,7 +268,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`让括号里的整体落在 $[0,1]$ 内，再解出 $x$`,
         steps: [
           R`$f(x^2)$：要 $0\leqslant x^2\leqslant1$。$x^2\geqslant0$ 恒成立，$x^2\leqslant1$ 得 $-1\leqslant x\leqslant1$，定义域 $[-1,1]$`,
-          R`$f(\sin x)$：要 $0\leqslant\sin x\leqslant1$。$\sin x\leqslant1$ 恒成立，只需 $\sin x\geqslant0$；在一个周期 $[0,2\pi)$ 里是 $[0,\pi]$，再加周期，定义域 $[2n\pi,(2n+1)\pi]$，$n\in\mathbb Z$`,
+          R`==$f(\sin x)$：要 $0\leqslant\sin x\leqslant1$。$\sin x\leqslant1$ 恒成立，只需 $\sin x\geqslant0$；在一个周期 $[0,2\pi)$ 里是 $[0,\pi]$，再加周期，定义域 $[2n\pi,(2n+1)\pi]$，$n\in\mathbb Z$==`,
           R`$f(x+a)+f(x-a)$：两项都要有意义，所以同时要 $0\leqslant x+a\leqslant1$ 和 $0\leqslant x-a\leqslant1$，即 $x\in[-a,1-a]$ 且 $x\in[a,1+a]$`,
           R`取交集：因为 $a>0$，左端取较大的 $a$，右端取较小的 $1-a$，交集是 $[a,1-a]$。它非空要求 $a\leqslant1-a$，即 $a\leqslant\frac12$`,
           R`结论：$0<a\leqslant\frac12$ 时定义域为 $[a,1-a]$（$a=\frac12$ 时只剩一点 $x=\frac12$）；$a>\frac12$ 时交集为空，函数没有定义域`
@@ -281,7 +281,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`问"$f(x)$ 和 $g(x)$ 是否相同，为什么"`,
         example: { q: R`判断是否相同：(1) $\lg x^2$ 与 $2\lg x$；(2) $x$ 与 $\sqrt{x^2}$；(3) $\sqrt[3]{x^4-x^3}$ 与 $x\sqrt[3]{x-1}$；(4) $1$ 与 $\sec^2x-\tan^2x$。`, src: "教材习题1-1 第2题 p16" },
         idea: {
-          key: R`两要素都相同才是同一个函数：先比定义域，再比对应法则。`,
+          key: R`==两要素都相同才是同一个函数：先比定义域，再比对应法则==。`,
           how: [R`分别求两个函数的定义域，不同就直接下结论`, R`定义域相同，再把对应法则化简后比较（$\sqrt{x^2}=|x|$ 之类要看准）`, R`化简不能改变定义域：约分、对数拆分、三角恒等式都要检查`],
           refs: [
             { src: "武忠祥 第1章第一节 p3", text: R`函数有两个基本要素：定义域、对应法则；完全相同时才是同一函数` },
@@ -292,7 +292,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`先比定义域，再比化简后的对应法则`,
         steps: [
           R`(1) $\lg x^2$：真数 $x^2>0$，要 $x\neq0$；$2\lg x$：真数 $x>0$。定义域分别是 $\{x\neq0\}$ 和 $(0,+\infty)$，不同，所以不是同一函数（$\lg x^2=2\lg|x|$，拆对数时丢了负半轴）`,
-          R`(2) $x$ 与 $\sqrt{x^2}$：定义域都是 $\mathbb R$；但 $\sqrt{x^2}=|x|$，$x=-1$ 时一个是 $-1$，一个是 $1$，对应法则不同，不是同一函数`,
+          R`==(2) $x$ 与 $\sqrt{x^2}$：定义域都是 $\mathbb R$；但 $\sqrt{x^2}=|x|$，$x=-1$ 时一个是 $-1$，一个是 $1$，对应法则不同，不是同一函数==`,
           R`(3) 立方根对任何实数都有定义，两个定义域都是 $\mathbb R$；$\sqrt[3]{x^4-x^3}=\sqrt[3]{x^3(x-1)}=\sqrt[3]{x^3}\cdot\sqrt[3]{x-1}=x\sqrt[3]{x-1}$（奇次根号可以拆、$\sqrt[3]{x^3}=x$ 不带绝对值），对应法则相同，是同一函数`,
           R`(4) $1$ 的定义域是 $\mathbb R$；$\sec x$、$\tan x$ 都要 $\cos x\neq0$，即 $x\neq k\pi+\frac{\pi}{2}$。虽然在有定义的地方 $\sec^2x-\tan^2x=1$，但定义域不同，不是同一函数`
         ],
@@ -304,7 +304,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`给出 $f(\text{某个式子})=\cdots$，要求 $f(x)$`,
         example: { q: R`已知 $f\left(x+\dfrac{1}{x}\right)=\dfrac{x^2}{x^4+1}$，求 $f(x)$。`, src: "吉米 第1章【7】p2" },
         idea: {
-          key: R`把 $\varphi(x)$ 看成整体，用配凑法或换元法改写成 $f(t)$；定义域取 $\varphi(x)$ 的值域。`,
+          key: R`==把 $\varphi(x)$ 看成整体，用配凑法或换元法改写成 $f(t)$==；定义域取 $\varphi(x)$ 的值域。`,
           how: [R`配凑：把右边写成 $\varphi(x)$ 的式子，常用 $x^2+\frac{1}{x^2}=\left(x+\frac1x\right)^2-2$ 这类恒等式`, R`换元：令 $t=\varphi(x)$，反解出 $x$，代入右边`, R`把 $t$ 换回 $x$，定义域写 $t=\varphi(x)$ 能取到的范围`],
           refs: [
             { src: "30讲 例1.1 方法总结 p4", text: R`将“$x+\frac1x$”视为整体，找出对应法则；公式 $x^2+\frac{1}{x^2}=\left(x+\frac1x\right)^2-2$` },
@@ -315,7 +315,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`把右边凑成 $x+\frac1x$ 的式子；凑不出来就令 $t=x+\frac1x$ 反解`,
         steps: [
           R`分子分母同除以 $x^2$（$x\neq0$）：$\dfrac{x^2}{x^4+1}=\dfrac{1}{x^2+\frac{1}{x^2}}$`,
-          R`配方：$\left(x+\frac1x\right)^2=x^2+2+\frac{1}{x^2}$，所以 $x^2+\frac{1}{x^2}=\left(x+\frac1x\right)^2-2$`,
+          R`==配方：$\left(x+\frac1x\right)^2=x^2+2+\frac{1}{x^2}$，所以 $x^2+\frac{1}{x^2}=\left(x+\frac1x\right)^2-2$==`,
           R`代入：$f\left(x+\frac1x\right)=\dfrac{1}{\left(x+\frac1x\right)^2-2}$。把整体 $x+\frac1x$ 记为 $t$，得 $f(t)=\dfrac{1}{t^2-2}$，再把 $t$ 换回 $x$：$f(x)=\dfrac{1}{x^2-2}$`,
           R`定义域：$t=x+\frac1x$ 能取的值。$x>0$ 时 $x+\frac1x\geqslant2$（基本不等式，$x=1$ 取等）；$x<0$ 时 $x+\frac1x\leqslant-2$。所以 $t\in(-\infty,-2]\cup[2,+\infty)$，即 $f(x)=\dfrac{1}{x^2-2}$，$|x|\geqslant2$`,
           R`检验：$x=1$ 时 $t=2$，左边 $f(2)=\frac{1}{2}$，右边 $\frac{1}{1+1}=\frac12$，一致`
@@ -328,7 +328,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`同一个式子里同时出现 $f(x)$ 和 $f\left(\frac1x\right)$、$f(-x)$ 或 $f\left(\frac{x+1}{x-1}\right)$`,
         example: { q: R`$f(x)$ 的定义域为 $(0,+\infty)$，且 $2f(x)+x^2f\left(\dfrac1x\right)=\dfrac{x^2+2x}{\sqrt{1+x^2}}$，求 $f(x)$。`, src: "30讲 第1讲 例1.2 p4" },
         idea: {
-          key: R`用变量替换造出第二个方程，把 $f(x)$ 和另一个未知项当成二元一次方程组来解。`,
+          key: R`==用变量替换造出第二个方程，把 $f(x)$ 和另一个未知项当成二元一次方程组来解==。`,
           how: [R`常用替换：$x\to\frac1x$（对付 $f\left(\frac1x\right)$）、$x\to-x$（对付 $f(-x)$），或让括号里的式子代两次回到 $x$ 的替换`, R`写出替换后的新方程`, R`联立消去另一个未知项，解出 $f(x)$，写定义域`],
           refs: [
             { src: "30讲 例1.2 方法总结 p4", text: R`用所给关系式，造出方程组，解出所需的量；注(2)：给 $f(x)+xf(-x)=x$，就写出 $f(-x)-xf(x)=-x$，消去 $f(-x)$` },
@@ -339,7 +339,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`把 $x$ 换成 $\frac1x$，再得一个方程，联立消去 $f\left(\frac1x\right)$`,
         steps: [
           R`原式：$2f(x)+x^2f\left(\frac1x\right)=\dfrac{x^2+2x}{\sqrt{1+x^2}}$，记为 ①（$x>0$）`,
-          R`把 ① 中所有 $x$ 换成 $\frac1x$（$\frac1x$ 也在 $(0,+\infty)$ 内，可以换）：左边变成 $2f\left(\frac1x\right)+\dfrac{1}{x^2}f(x)$；右边 $\dfrac{\frac{1}{x^2}+\frac2x}{\sqrt{1+\frac{1}{x^2}}}$，分子通分为 $\dfrac{1+2x}{x^2}$，分母 $\dfrac{\sqrt{x^2+1}}{x}$，相除得 $\dfrac{1+2x}{x\sqrt{1+x^2}}$，记为 ②`,
+          R`==把 ① 中所有 $x$ 换成 $\frac1x$（$\frac1x$ 也在 $(0,+\infty)$ 内，可以换）：左边变成 $2f\left(\frac1x\right)+\dfrac{1}{x^2}f(x)$；右边 $\dfrac{\frac{1}{x^2}+\frac2x}{\sqrt{1+\frac{1}{x^2}}}$，分子通分为 $\dfrac{1+2x}{x^2}$，分母 $\dfrac{\sqrt{x^2+1}}{x}$，相除得 $\dfrac{1+2x}{x\sqrt{1+x^2}}$，记为 ②==`,
           R`消去 $f\left(\frac1x\right)$：① 中它的系数是 $x^2$，② 中是 $2$，所以做 $2\times$① $-\ x^2\times$②。左边：$4f(x)-f(x)=3f(x)$`,
           R`右边：$\dfrac{2x^2+4x}{\sqrt{1+x^2}}-\dfrac{x(1+2x)}{\sqrt{1+x^2}}=\dfrac{2x^2+4x-x-2x^2}{\sqrt{1+x^2}}=\dfrac{3x}{\sqrt{1+x^2}}$`,
           R`所以 $f(x)=\dfrac{x}{\sqrt{1+x^2}}$，$x>0$。检验：$x=1$ 时 ① 左边 $2\cdot\frac{1}{\sqrt2}+\frac{1}{\sqrt2}=\frac{3}{\sqrt2}$，右边 $\frac{3}{\sqrt2}$，一致`
@@ -352,7 +352,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`两个分段函数，求 $g[f(x)]$ 或 $f[g(x)]$`,
         example: { q: R`设 $g(x)=\begin{cases}2-x,&x\leqslant0\\2+x,&x>0\end{cases}$，$f(x)=\begin{cases}x^2,&x<0\\-x-1,&x\geqslant0\end{cases}$，求 $g[f(x)]$。`, src: "30讲 第1讲 例1.5 p8" },
         idea: {
-          key: R`由外到内：外层按内层函数的值分段，再把条件翻译成 $x$ 的范围。`,
+          key: R`==由外到内：外层按内层函数的值分段，再把条件翻译成 $x$ 的范围==。`,
           how: [R`写 $g[f(x)]$ 时，外层的每个分段条件都换成关于 $f(x)$ 的条件`, R`对每个条件，解出（或画内层的图看出）对应的 $x$ 范围`, R`代入整理，合并成按 $x$ 分段的结果`],
           refs: [
             { src: "30讲 例1.5 方法总结 p8", text: R`画出内层函数的图形，数形结合` },
@@ -363,7 +363,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`外层按内层的值分段：$g[f(x)]=\begin{cases}2-f(x),&f(x)\leqslant0\\2+f(x),&f(x)>0\end{cases}$`,
         steps: [
           R`先写外层：$g(u)=\begin{cases}2-u,&u\leqslant0\\2+u,&u>0\end{cases}$，令 $u=f(x)$：$g[f(x)]=\begin{cases}2-f(x),&f(x)\leqslant0\\2+f(x),&f(x)>0\end{cases}$`,
-          R`把条件翻译成 $x$：$x\geqslant0$ 时 $f(x)=-x-1\leqslant-1<0$，属于 $f(x)\leqslant0$ 这一支；$x<0$ 时 $f(x)=x^2>0$，属于 $f(x)>0$ 这一支`,
+          R`==把条件翻译成 $x$：$x\geqslant0$ 时 $f(x)=-x-1\leqslant-1<0$，属于 $f(x)\leqslant0$ 这一支；$x<0$ 时 $f(x)=x^2>0$，属于 $f(x)>0$ 这一支==`,
           R`分别代入：$x\geqslant0$ 时 $g[f(x)]=2-(-x-1)=3+x$；$x<0$ 时 $g[f(x)]=2+x^2$`,
           R`结果：$g[f(x)]=\begin{cases}2+x^2,&x<0\\3+x,&x\geqslant0\end{cases}$。检验：$x=0$ 时 $f(0)=-1$，$g(-1)=3$，与 $3+0$ 一致`
         ],
@@ -375,7 +375,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`给出 $f(x)$ 的表达式和 $f[\varphi(x)]$ 的表达式，求内层 $\varphi(x)$`,
         example: { q: R`已知 $f(x)=e^{x^2}$，$f[\varphi(x)]=1-x$，且 $\varphi(x)\geqslant0$，求 $\varphi(x)$ 及其定义域。`, src: "吉米 第1章【4】p2" },
         idea: {
-          key: R`把 $\varphi(x)$ 当未知数，用外层 $f$ 的反运算把它解出来。`,
+          key: R`==把 $\varphi(x)$ 当未知数，用外层 $f$ 的反运算把它解出来==。`,
           how: [R`代入得到关于 $\varphi(x)$ 的方程`, R`用反运算（取对数、开方、反三角）解出 $\varphi(x)$，用题设条件定符号和取值`, R`由解出的式子有意义，求 $x$ 的范围`],
           refs: [
             { src: "30讲 例1.4 方法总结 p7", text: R`将 $\varphi(x)$ 视为一个整体，由 $f[\varphi(x)]$ 已知可求出 $\varphi(x)$；若 $\varphi^2(x)=g(x)$，则 $\varphi(x)=\pm\sqrt{g(x)}$` },
@@ -385,7 +385,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         think: R`已知外层 $f$ 和复合结果，求内层：把 $\varphi(x)$ 当成未知数代进 $f$ 的表达式，得到一个关于 $\varphi(x)$ 的方程，用 $f$ 的反运算（这里是取对数）解出来；条件 $\varphi\geqslant0$ 用来取舍正负根，定义域由"解出来的式子有意义"决定。`,
         first: R`把 $\varphi(x)$ 当整体代进 $f$：$e^{\varphi^2(x)}=1-x$`,
         steps: [
-          R`代入：$f(u)=\mathrm e^{u^2}$，令 $u=\varphi(x)$，得 $f[\varphi(x)]=\mathrm e^{\varphi^2(x)}$，所以 $\mathrm e^{\varphi^2(x)}=1-x$`,
+          R`==代入：$f(u)=\mathrm e^{u^2}$，令 $u=\varphi(x)$，得 $f[\varphi(x)]=\mathrm e^{\varphi^2(x)}$，所以 $\mathrm e^{\varphi^2(x)}=1-x$==`,
           R`两边取自然对数（要 $1-x>0$）：$\varphi^2(x)=\ln(1-x)$`,
           R`开方：$\varphi(x)=\pm\sqrt{\ln(1-x)}$，题目给 $\varphi(x)\geqslant0$，取正根 $\varphi(x)=\sqrt{\ln(1-x)}$`,
           R`定义域：根号下 $\ln(1-x)\geqslant0$，即 $1-x\geqslant1$，$x\leqslant0$；这时 $1-x>0$ 也自动满足。定义域 $(-\infty,0]$`
@@ -398,7 +398,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`问函数的奇偶性，或在选择题里挑奇函数、偶函数`,
         example: { q: R`判定 $f(x)=\ln\left(x+\sqrt{1+x^2}\right)$ 的奇偶性。`, src: "吉米 第1章【17】p4–5" },
         idea: {
-          key: R`先看定义域是否关于原点对称，再比较 $f(-x)$ 与 $f(x)$。`,
+          key: R`==先看定义域是否关于原点对称，再比较 $f(-x)$ 与 $f(x)$==。`,
           how: [R`定义域不对称，直接判非奇非偶`, R`算 $f(-x)$；含对数、根式时，算 $f(x)+f(-x)$ 或 $f(x)-f(-x)$ 更快`, R`和与积用"奇奇得偶、奇偶得奇"；复合用"内偶则偶，内奇同外"`, R`证明要对任意 $x$ 成立；否定只要举一个反例`],
           refs: [
             { src: "吉米【17】分析 p4–5", text: R`判定奇偶性的关键是确定 $f(-x)$ 与 $f(x)$ 的关系，分两步：先求出 $f(-x)$，再确定它与 $f(x)$ 的关系` },
@@ -411,7 +411,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         steps: [
           R`定义域：对任意 $x$，$\sqrt{1+x^2}>\sqrt{x^2}=|x|\geqslant-x$，所以真数 $x+\sqrt{1+x^2}>0$ 恒成立，定义域为 $\mathbb R$，关于原点对称`,
           R`算 $f(-x)$：$f(-x)=\ln\left(-x+\sqrt{1+x^2}\right)$`,
-          R`有理化：$\sqrt{1+x^2}-x=\dfrac{(\sqrt{1+x^2}-x)(\sqrt{1+x^2}+x)}{\sqrt{1+x^2}+x}=\dfrac{1}{\sqrt{1+x^2}+x}$，所以 $f(-x)=\ln\dfrac{1}{x+\sqrt{1+x^2}}=-\ln\left(x+\sqrt{1+x^2}\right)=-f(x)$`,
+          R`==有理化：$\sqrt{1+x^2}-x=\dfrac{(\sqrt{1+x^2}-x)(\sqrt{1+x^2}+x)}{\sqrt{1+x^2}+x}=\dfrac{1}{\sqrt{1+x^2}+x}$，所以 $f(-x)=\ln\dfrac{1}{x+\sqrt{1+x^2}}=-\ln\left(x+\sqrt{1+x^2}\right)=-f(x)$==`,
           R`结论：$f$ 是奇函数。更快的写法：$f(x)+f(-x)=\ln\left[\left(\sqrt{1+x^2}+x\right)\left(\sqrt{1+x^2}-x\right)\right]=\ln1=0$`
         ],
         pitfall: R`忘了先查定义域是否对称；复合函数可以直接用"内偶则偶，内奇同外"（30讲 p12–13）`,
@@ -422,7 +422,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`问"是否有界"，或在几个区间里挑有界的`,
         example: { q: R`讨论 $f(x)=\dfrac{x}{1+x^2}$ 在 $(-\infty,+\infty)$ 内的有界性。`, src: "教材习题1-1 第4(1)题 p16" },
         idea: {
-          key: R`有界就找 $M$ 使 $|f(x)|\leqslant M$；无界就找一列点使 $|f|$ 超过任意 $M$。`,
+          key: R`==有界就找 $M$ 使 $|f(x)|\leqslant M$==；无界就找一列点使 $|f|$ 超过任意 $M$。`,
           how: [R`先看区间内部和端点有没有使函数趋于无穷的点`, R`有界：放缩估计，常用 $|\sin x|\leqslant1$、$1+x^2\geqslant2|x|$、分子次数不高于分母次数`, R`无界：取一列 $x_n$（靠近危险点或趋于无穷），说明 $|f(x_n)|$ 无限变大`, R`结论里写明在哪个区间上`],
           refs: [
             { src: "30讲 例1.6 方法总结 p10；注(3) p9", text: R`用基本不等式找 $M$，使 $|f(x)|\leqslant M$；区间上或端点处有让极限为无穷大的点，函数就无界` },
@@ -434,7 +434,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`找一个正数 $M$ 使 $|f(x)|\leqslant M$，常用 $1+x^2\geqslant2|x|$`,
         steps: [
           R`基本不等式：$(|x|-1)^2\geqslant0$ 展开得 $1+x^2\geqslant2|x|$，$|x|=1$ 时取等`,
-          R`$x\neq0$ 时：$|f(x)|=\dfrac{|x|}{1+x^2}\leqslant\dfrac{|x|}{2|x|}=\dfrac12$（分母换成更小的 $2|x|$，分数变大）`,
+          R`==$x\neq0$ 时：$|f(x)|=\dfrac{|x|}{1+x^2}\leqslant\dfrac{|x|}{2|x|}=\dfrac12$（分母换成更小的 $2|x|$，分数变大）==`,
           R`$x=0$ 时：$f(0)=0\leqslant\frac12$，上式也成立`,
           R`结论：对一切 $x$，$|f(x)|\leqslant\frac12$，取 $M=\frac12$，$f$ 在 $(-\infty,+\infty)$ 内有界；而且 $f(\pm1)=\pm\frac12$，$\frac12$ 是最紧的界`
         ],
@@ -446,7 +446,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`要求"证明在某区间内单调"，没有导数可用`,
         example: { q: R`设 $f(x)$ 为定义在 $(-l,l)$ 内的奇函数，若 $f(x)$ 在 $(0,l)$ 内单调增加，证明 $f(x)$ 在 $(-l,0)$ 内也单调增加。`, src: "教材习题1-1 第7题 p16" },
         idea: {
-          key: R`任取 $x_1<x_2$，判断 $f(x_2)-f(x_1)$ 的符号（正值函数也可以把 $\frac{f(x_2)}{f(x_1)}$ 和 $1$ 比）。`,
+          key: R`==任取 $x_1<x_2$，判断 $f(x_2)-f(x_1)$ 的符号（正值函数也可以把 $\frac{f(x_2)}{f(x_1)}$ 和 $1$ 比）==。`,
           how: [R`在区间内任取 $x_1<x_2$`, R`作差或作商`, R`变形到能判断正负：通分、因式分解、配方，或用已知的单调性、奇偶性`, R`下结论`],
           refs: [
             { src: "习题全解 习题1-1 第5题 p5", text: R`设 $x_1<x_2$，作差 $f(x_2)-f(x_1)$，化成能判断正负的形式` },
@@ -458,7 +458,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`在 $(-l,0)$ 内任取 $x_1<x_2$，用 $-x$ 把它们搬到 $(0,l)$`,
         steps: [
           R`任取 $-l<x_1<x_2<0$（单调性定义：要证 $f(x_1)<f(x_2)$）`,
-          R`取相反数，不等号反向：$0<-x_2<-x_1<l$，这两个点都在 $(0,l)$ 内`,
+          R`==取相反数，不等号反向：$0<-x_2<-x_1<l$，这两个点都在 $(0,l)$ 内==`,
           R`$f$ 在 $(0,l)$ 内单调增加，较小的点函数值较小：$f(-x_2)<f(-x_1)$`,
           R`奇函数 $f(-x)=-f(x)$：上式变成 $-f(x_2)<-f(x_1)$，两边乘 $-1$ 得 $f(x_1)<f(x_2)$`,
           R`$x_1<x_2$ 是任取的，所以 $f$ 在 $(-l,0)$ 内单调增加`
@@ -471,7 +471,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`问"哪些是周期函数、周期是多少"，或给出 $f(x+c)$ 和 $f(x)$ 的关系`,
         example: { q: R`设对任意 $x\in(-\infty,+\infty)$，存在常数 $c\neq0$，使 $f(x+c)=-f(x)$。证明 $f(x)$ 是周期函数。`, src: "吉米 第1章【22】p5–6" },
         idea: {
-          key: R`证明周期就凑出 $f(x+T)=f(x)$；求周期就化成一个三角函数，用 $T=\frac{2\pi}{|\omega|}$。`,
+          key: R`==证明周期就凑出 $f(x+T)=f(x)$==；求周期就化成一个三角函数，用 $T=\frac{2\pi}{|\omega|}$。`,
           how: [R`给了关系式就反复代入：$f(x+c)=-f(x)$ 或 $f(x+c)=\frac{1}{f(x)}$ 都推出周期 $2|c|$`, R`三角式先降幂、和差化积，化成 $A\sin(\omega x+\varphi)+B$`, R`含 $x$、$x^2$ 这类不断变大的因子，一般不是周期函数`, R`求最小正周期时，检查有没有更小的周期`],
           refs: [
             { src: "30讲 例1.9 方法总结 p14", text: R`要证以 $T$ 为周期，证 $f(x+T)=f(x)$ 即可，多次利用题目给的等式` },
@@ -482,7 +482,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         think: R`条件 $f(x+c)=-f(x)$ 每平移一次 $c$ 就变一次号，变两次号就回到原来，所以平移两次 $2c$ 应该回到 $f(x)$。周期性的证明就是凑出 $f(x+T)=f(x)$。`,
         first: R`把条件连用两次，看能不能回到 $f(x)$`,
         steps: [
-          R`把条件里的 $x$ 换成 $x+c$（条件对任意 $x$ 成立）：$f(x+2c)=f[(x+c)+c]=-f(x+c)$`,
+          R`==把条件里的 $x$ 换成 $x+c$（条件对任意 $x$ 成立）：$f(x+2c)=f[(x+c)+c]=-f(x+c)$==`,
           R`再用一次条件 $f(x+c)=-f(x)$：$f(x+2c)=-[-f(x)]=f(x)$`,
           R`周期要求是正数：$c$ 可能为负。由 $f(x+2c)=f(x)$ 对任意 $x$ 成立，把 $x$ 换成 $x-2c$ 得 $f(x)=f(x-2c)$，所以 $2c$ 和 $-2c$ 都满足，取 $T=2|c|>0$，$f$ 是周期函数`,
           R`同类求周期题（教材习题1-1 第10题）：化成一个三角函数再用 $T=\frac{2\pi}{|\omega|}$。$\cos4x$ 周期 $\frac{\pi}{2}$；$1+\sin\pi x$ 周期 $2$；$\sin^2x=\frac{1-\cos2x}{2}$ 周期 $\pi$；$x\cos x$ 振幅随 $x$ 增大，不是周期函数`
@@ -495,7 +495,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`问"求反函数及其定义域"`,
         example: { q: R`求 $y=\ln\left(x+\sqrt{x^2+1}\right)$ 的反函数及其定义域。`, src: "30讲 第1讲 例1.3 p5–6" },
         idea: {
-          key: R`确认单射，由 $y=f(x)$ 解出 $x$，交换 $x,y$，定义域写原函数的值域。`,
+          key: R`==确认单射，由 $y=f(x)$ 解出 $x$，交换 $x,y$，定义域写原函数的值域==。`,
           how: [R`单调是判断有反函数最常用的依据`, R`解 $x$ 的常用手段：换元、配方、指数和对数互化；含 $\sqrt{x^2+1}$ 时同时写出 $e^y$ 和 $e^{-y}$ 再加减`, R`分段函数逐段求反，每段的值域就是新的分段条件`],
           refs: [
             { src: "30讲 第1讲 p5", text: R`水平画线法：任一水平直线和图形至多一个交点，就有反函数；$f[f^{-1}(x)]=x$，$f^{-1}[f(x)]=x$` },
@@ -507,7 +507,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`解出 $x$ 用 $y$ 表示；这里同时写出 $e^{y}$ 和 $e^{-y}$，相减消掉根号`,
         steps: [
           R`去对数：$\mathrm e^{y}=x+\sqrt{x^2+1}$ ①`,
-          R`取倒数并分母有理化：$\mathrm e^{-y}=\dfrac{1}{x+\sqrt{x^2+1}}=\dfrac{\sqrt{x^2+1}-x}{(x^2+1)-x^2}=\sqrt{x^2+1}-x$ ②`,
+          R`==取倒数并分母有理化：$\mathrm e^{-y}=\dfrac{1}{x+\sqrt{x^2+1}}=\dfrac{\sqrt{x^2+1}-x}{(x^2+1)-x^2}=\sqrt{x^2+1}-x$ ②==`,
           R`① − ②：$\mathrm e^{y}-\mathrm e^{-y}=2x$，所以 $x=\dfrac{\mathrm e^{y}-\mathrm e^{-y}}{2}$`,
           R`交换 $x,y$ 的记号：反函数 $y=\dfrac{\mathrm e^{x}-\mathrm e^{-x}}{2}=\operatorname{sh}x$`,
           R`反函数的定义域 = 原函数的值域。原函数是奇函数（见题型"判断奇偶性"），$x\to+\infty$ 时 $y\to+\infty$，且单调增加、连续，值域是 $(-\infty,+\infty)$，所以反函数定义域为 $\mathbb R$`
@@ -520,7 +520,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`问"值域是多少"，函数是几层复合（如 $\sin\dfrac{\pi x}{2(1+x^2)}$），或选择题给出几个区间`,
         example: { q: R`求 $y=\sin\dfrac{\pi x}{2(1+x^2)}$ 的值域。`, src: "吉米 第1章【25】p6" },
         idea: {
-          key: R`由内向外传范围；单个函数用配方、基本不等式或单调性。`,
+          key: R`==由内向外传范围==；单个函数用配方、基本不等式或单调性。`,
           how: [R`单个函数：配方、基本不等式、单调性、有界性估计`, R`复合函数：先求内层的值域，作为外层的输入范围，再看外层在上面的单调性`, R`检查端点能不能取到，决定开闭`, R`分段函数：各段值域取并集`],
           refs: [
             { src: "吉米【24】【25】p6", text: R`用 $1+x^2\geqslant2|x|$ 放缩出内层范围，再用外层的单调性` },
@@ -531,7 +531,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`先求内层 $\dfrac{x}{1+x^2}$ 的范围`,
         steps: [
           R`内层：由 $1+x^2\geqslant2|x|$ 得 $\left|\dfrac{x}{1+x^2}\right|\leqslant\dfrac12$，即 $-\frac12\leqslant\dfrac{x}{1+x^2}\leqslant\frac12$；$x=1$ 时取 $\frac12$，$x=-1$ 时取 $-\frac12$，中间的值由连续性都能取到`,
-          R`中间层：乘 $\frac{\pi}{2}$，角 $\theta=\dfrac{\pi x}{2(1+x^2)}\in\left[-\frac{\pi}{4},\frac{\pi}{4}\right]$`,
+          R`==中间层：乘 $\frac{\pi}{2}$，角 $\theta=\dfrac{\pi x}{2(1+x^2)}\in\left[-\frac{\pi}{4},\frac{\pi}{4}\right]$==`,
           R`外层：$\sin\theta$ 在 $\left[-\frac{\pi}{4},\frac{\pi}{4}\right]$ 上单调增加，最小值 $\sin\left(-\frac{\pi}{4}\right)=-\frac{\sqrt2}{2}$，最大值 $\frac{\sqrt2}{2}$`,
           R`值域为 $\left[-\frac{\sqrt2}{2},\frac{\sqrt2}{2}\right]$`
         ],
@@ -543,7 +543,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         signal: R`给出 $f(x+y)=f(x)+f(y)$ 之类对任意 $x,y$ 成立的关系`,
         example: { q: R`设对任意 $x,y$，都有 $f(x+y)=f(x)+f(y)$，证明 $f(x)$ 是奇函数。`, src: "30讲 第1讲 例1.8 p13" },
         idea: {
-          key: R`赋特殊值：先代 $0$，再代 $-x$、$x$，推出 $f(0)$ 和要证的关系。`,
+          key: R`==赋特殊值：先代 $0$，再代 $-x$、$x$，推出 $f(0)$ 和要证的关系==。`,
           how: [R`令变量取 $0$，求出 $f(0)$`, R`令 $y=-x$ 得到奇偶关系，令 $y=x$ 得到倍数关系`, R`对照要证性质的定义下结论`],
           refs: [
             { src: "30讲 例1.8 方法总结 p13", text: R`用定义法证明 $f(-x)=-f(x)$：先令 $x=y=0$ 得 $f(0)=0$，再令 $y=-x$` }
@@ -553,7 +553,7 @@ points（知识点）、types（题型卡，idea = 这类题的通法（key 一�
         first: R`赋特殊值：先令 $x=y=0$，再令 $y=-x$`,
         steps: [
           R`求 $f(0)$：令 $x=y=0$，得 $f(0)=f(0)+f(0)=2f(0)$，所以 $f(0)=0$`,
-          R`令 $y=-x$：$f(x+(-x))=f(x)+f(-x)$，即 $f(0)=f(x)+f(-x)$`,
+          R`==令 $y=-x$：$f(x+(-x))=f(x)+f(-x)$，即 $f(0)=f(x)+f(-x)$==`,
           R`代入 $f(0)=0$：$f(-x)=-f(x)$ 对任意 $x$ 成立；定义域是 $\mathbb R$，关于原点对称，所以 $f$ 是奇函数`
         ],
         pitfall: R`先求出 $f(0)$，第二步才用得上`,

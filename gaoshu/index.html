@@ -26,6 +26,7 @@
   --accent: #1d5fa6; --accent-soft: #e5edf7;
   --k-map: #4a5d78; --k-map-soft: #e9edf3;
   --yan: #6c43a6; --yan-soft: #efe8f8;
+  --hl-f: #0b6f69; --hl-f-bg: #d9f0ed; --hl-b: #8a4b00; --hl-b-bg: #fbe6bd;
   --warn: #b0561a; --warn-soft: #fbeee3;
   --ok: #2b7649; --ok-soft: #e3f2e9; --mid: #94680d; --mid-soft: #f7efda; --bad: #ae3838; --bad-soft: #f8e5e5;
   --f-display: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
@@ -39,6 +40,7 @@
     --grid: rgba(120, 174, 240, 0.05);
     --accent: #7db0ef; --accent-soft: #1a2a3c; --k-map: #a9b8cc; --k-map-soft: #1d2530;
     --yan: #b893ef; --yan-soft: #281f3c;
+    --hl-f: #7fdcd3; --hl-f-bg: #14332f; --hl-b: #f3c27a; --hl-b-bg: #3a2a10;
     --warn: #ee9f5f; --warn-soft: #33231a; --ok: #6fcb95; --ok-soft: #16301f;
     --mid: #e3bd62; --mid-soft: #30281a; --bad: #ef8b8b; --bad-soft: #381d1d;
     color-scheme: dark;
@@ -49,6 +51,7 @@
   --grid: rgba(120, 174, 240, 0.05);
   --accent: #7db0ef; --accent-soft: #1a2a3c; --k-map: #a9b8cc; --k-map-soft: #1d2530;
   --yan: #b893ef; --yan-soft: #281f3c;
+  --hl-f: #7fdcd3; --hl-f-bg: #14332f; --hl-b: #f3c27a; --hl-b-bg: #3a2a10;
   --warn: #ee9f5f; --warn-soft: #33231a; --ok: #6fcb95; --ok-soft: #16301f;
   --mid: #e3bd62; --mid-soft: #30281a; --bad: #ef8b8b; --bad-soft: #381d1d;
   color-scheme: dark;
@@ -288,7 +291,10 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .refs-h { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
 .ref .src { display: block; }
 .back { display: grid; gap: 10px; border-top: 1px dashed var(--line); padding-top: 12px; }
-.first { background: var(--accent-soft); border-radius: var(--r); padding: 6px 12px; font-weight: 500; }
+/* 关键步骤标记 ==...==：正面（看到、通法）青绿，背面（第一步、解答）琥珀 */
+mark.hl { background: var(--hl-f-bg); color: var(--hl-f); border-radius: 3px; padding: 1px 3px; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.back mark.hl, .first mark.hl { background: var(--hl-b-bg); color: var(--hl-b); }
+.first { background: var(--hl-b-bg); color: var(--hl-b); border-radius: var(--r); padding: 6px 12px; font-weight: 500; }
 .steps { margin: 0; padding-left: 1.3em; }
 .steps li { margin: 4px 0; }
 .steps li::marker { font: 12px var(--f-mono); color: var(--accent); }
@@ -726,7 +732,7 @@ document.addEventListener("visibilitychange", () => { if (document.visibilitySta
 const $ = (s, el = document) => el.querySelector(s);
 const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
 function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
-function md(s) { return esc(s || "").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"); }
+function md(s) { return esc(s || "").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/==(.+?)==/g, '<mark class="hl">$1</mark>'); }
 function typeset(el) {
   if (window.renderMathInElement) {
     renderMathInElement(el, { ignoredClasses: ["lz"], delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
@@ -1449,7 +1455,7 @@ function finishSample() {
 
 /* --- 搜索：知识点、题型、易错点、混合题、要点 --- */
 let sIdx = null;
-function plain(s) { return String(s || "").replace(/\$+/g, " ").replace(/\\[a-zA-Z]+/g, " ").replace(/[{}^_]/g, "").replace(/\*\*/g, ""); }
+function plain(s) { return String(s || "").replace(/\$+/g, " ").replace(/\\[a-zA-Z]+/g, " ").replace(/[{}^_]/g, "").replace(/\*\*/g, "").replace(/==/g, ""); }
 function buildIndex() {
   if (sIdx) return sIdx;
   sIdx = allItems(true).map(it => {
@@ -1510,7 +1516,7 @@ async function loadWrong() {
 }
 /* 错题索引：错题 ↔ 知识点和题型。data.links 写 ["1.5/p7","1.6/t11"]（p 知识点、t 题型、e 易错点、m 混合题）；没写 links 就用 type_key */
 function wrongLinks(w) { const l = w.data && Array.isArray(w.data.links) ? w.data.links : (w.type_key ? [w.type_key] : []); return l.filter(Boolean); }
-function plainLbl(t) { return String(t || "").replace(/\$+/g, "").replace(/\\([a-zA-Z]+)/g, "$1").replace(/[{}^_]/g, "").replace(/\*\*/g, "").replace(/\s+/g, " ").trim(); }
+function plainLbl(t) { return String(t || "").replace(/\$+/g, "").replace(/\\([a-zA-Z]+)/g, "$1").replace(/[{}^_]/g, "").replace(/\*\*/g, "").replace(/==/g, "").replace(/\s+/g, " ").trim(); }
 function keyInfo(key) {
   const i = key.indexOf("/"), sid = key.slice(0, i), t = key.slice(i + 1), d = secById(sid);
   if (!d || !t) return d ? { href: "#" + sid, label: secLabel(d) } : null;

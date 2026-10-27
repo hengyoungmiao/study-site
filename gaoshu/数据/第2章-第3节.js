@@ -170,7 +170,7 @@
         signal: R`给一个具体的初等函数，问 $y''$、$y'''$ 或 $y''|_{x=x_0}$，阶数是 2、3 这样的小数字，不是 $n$`,
         example: { q: R`$y=\ln\left(x+\sqrt{1+x^2}\right)$，则 $y'''\big|_{x=\sqrt3}=$ ____。`, src: "吉米【180】p53" },
         idea: {
-          key: R`一阶一阶地求，每求完一阶先化简到最简形式（约分、写成幂的形式），再求下一阶；问某点的值时，先求出导函数的表达式，最后再代点。`,
+          key: R`==一阶一阶地求，每求完一阶先化简到最简形式（约分、写成幂的形式），再求下一阶==；问某点的值时，先求出导函数的表达式，最后再代点。`,
           how: [
             R`先化简原函数（拆 $\ln$、根式写成分数指数）`,
             R`求 $y'$，化成最简（这一步决定后面算得快不快）`,
@@ -189,7 +189,7 @@
           R`**约分化简**：分子分母的 $x+\sqrt{1+x^2}$ 约掉，$y'=\dfrac1{\sqrt{1+x^2}}=(1+x^2)^{-\frac12}$（这一步是 2.2 的常用结论，习题全解 p67）`,
           R`求 $y''$：对 $(1+x^2)^{-\frac12}$ 用幂函数加链式法则，$y''=-\dfrac12(1+x^2)^{-\frac32}\cdot2x=-x(1+x^2)^{-\frac32}$`,
           R`求 $y'''$：$y''$ 是 $-x$ 和 $(1+x^2)^{-\frac32}$ 的积，用乘积法则：$y'''=-(1+x^2)^{-\frac32}-x\cdot\left(-\dfrac32\right)(1+x^2)^{-\frac52}\cdot2x=-(1+x^2)^{-\frac32}+3x^2(1+x^2)^{-\frac52}$`,
-          R`通分整理：提出 $(1+x^2)^{-\frac52}$，$y'''=(1+x^2)^{-\frac52}\left[-(1+x^2)+3x^2\right]=\dfrac{2x^2-1}{(1+x^2)^{\frac52}}$`,
+          R`==通分整理：提出 $(1+x^2)^{-\frac52}$，$y'''=(1+x^2)^{-\frac52}\left[-(1+x^2)+3x^2\right]=\dfrac{2x^2-1}{(1+x^2)^{\frac52}}$==`,
           R`最后代点：$x=\sqrt3$ 时 $2x^2-1=5$，$(1+x^2)^{\frac52}=4^{\frac52}=32$，所以 $y'''\big|_{x=\sqrt3}=\dfrac5{32}$`
         ],
         pitfall: R`不化简 $y'$ 就直接求下一阶，商法则套商法则，算错率很高；先把 $x=\sqrt3$ 代进 $y'$ 得到常数再求导，结果变成 0`,
@@ -200,7 +200,7 @@
         signal: R`函数里含 $f(\square)$，$\square$ 是 $x^2$、$\mathrm e^x$、$\ln x$ 这类 $x$ 的函数，题目说"$f$ 具有二阶导数"，要求 $\dfrac{\mathrm d^2y}{\mathrm dx^2}$`,
         example: { q: R`$y=\sin\left[f(x^2)\right]$，其中 $f$ 具有二阶导数，求 $\dfrac{\mathrm d^2y}{\mathrm dx^2}$。`, src: "吉米【179】p53" },
         idea: {
-          key: R`先用链式法则求出一阶导数，把它看成几个因子的乘积；求二阶时每个因子都要求导，并且 $f'(\square)$、$f(\square)$ 仍然是复合函数，求导时还要乘内层 $\square$ 的导数。`,
+          key: R`==先用链式法则求出一阶导数，把它看成几个因子的乘积==；求二阶时每个因子都要求导，并且 $f'(\square)$、$f(\square)$ 仍然是复合函数，求导时还要乘内层 $\square$ 的导数。`,
           how: [
             R`写清复合链，求一阶导数：外层导数 × 中间层导数 × 内层导数`,
             R`把一阶导数写成因子乘积的形式（常见 2～3 个因子）`,
@@ -217,7 +217,7 @@
           R`一阶（链式法则一层层乘）：$\dfrac{\mathrm dy}{\mathrm dx}=\cos[f(x^2)]\cdot f'(x^2)\cdot2x$`,
           R`看成三个因子 $2x$、$f'(x^2)$、$\cos[f(x^2)]$ 的积，用 $(uvw)'=u'vw+uv'w+uvw'$（教材 p84）`,
           R`第一项（导 $2x$）：$2\cdot f'(x^2)\cos[f(x^2)]$`,
-          R`第二项（导 $f'(x^2)$，**它是复合函数，要乘内层导数** $2x$）：$2x\cdot f''(x^2)\cdot2x\cdot\cos[f(x^2)]=4x^2f''(x^2)\cos[f(x^2)]$`,
+          R`==第二项（导 $f'(x^2)$，**它是复合函数，要乘内层导数** $2x$）：$2x\cdot f''(x^2)\cdot2x\cdot\cos[f(x^2)]=4x^2f''(x^2)\cos[f(x^2)]$==`,
           R`第三项（导 $\cos[f(x^2)]$，两层复合）：$2x\cdot f'(x^2)\cdot\left\{-\sin[f(x^2)]\right\}\cdot f'(x^2)\cdot2x=-4x^2[f'(x^2)]^2\sin[f(x^2)]$`,
           R`合并：$\dfrac{\mathrm d^2y}{\mathrm dx^2}=2f'(x^2)\cos[f(x^2)]+4x^2\left\{f''(x^2)\cos[f(x^2)]-[f'(x^2)]^2\sin[f(x^2)]\right\}$`
         ],
@@ -229,7 +229,7 @@
         signal: R`不给 $f$ 的表达式，只给一个含 $f'$ 的等式，如 $f'(x)=\mathrm e^{f(x)}$、$f'(x)=[f(x)]^2$，再给一个点的函数值，求 $f''(x_0)$、$f'''(x_0)$ 或 $f^{(n)}(x)$`,
         example: { q: R`设函数 $f(x)$ 在 $x=2$ 的某邻域内可导，且 $f'(x)=\mathrm e^{f(x)}$，$f(2)=1$，则 $f'''(2)=$ ____。`, src: "吉米【181】p53" },
         idea: {
-          key: R`把已知等式两边一起对 $x$ 求导（右边是复合函数，要乘 $f'$），然后立刻用原等式把新出现的 $f'$ 换掉，使每一阶都只用 $f$ 表示；求 $n$ 阶时写出前三四阶找规律。`,
+          key: R`==把已知等式两边一起对 $x$ 求导（右边是复合函数，要乘 $f'$），然后立刻用原等式把新出现的 $f'$ 换掉，使每一阶都只用 $f$ 表示==；求 $n$ 阶时写出前三四阶找规律。`,
           how: [
             R`对 $f'=F(f)$ 两边求导：$f''=F'(f)\cdot f'$`,
             R`用原等式把 $f'$ 代回，得到 $f''$ 只含 $f$ 的式子`,
@@ -245,7 +245,7 @@
         first: R`对 $f'(x)=\mathrm e^{f(x)}$ 两边求导，找出 $\mathrm e^{kf(x)}$ 的规律，最后代 $f(2)=1$`,
         steps: [
           R`对 $f'(x)=\mathrm e^{f(x)}$ 两边求导，右边是复合函数（外层 $\mathrm e^u$，内层 $f(x)$）：$f''(x)=\mathrm e^{f(x)}\cdot f'(x)$`,
-          R`**用原等式把** $f'(x)$ **换成** $\mathrm e^{f(x)}$：$f''(x)=\mathrm e^{f(x)}\cdot\mathrm e^{f(x)}=\mathrm e^{2f(x)}$`,
+          R`==**用原等式把** $f'(x)$ **换成** $\mathrm e^{f(x)}$：$f''(x)=\mathrm e^{f(x)}\cdot\mathrm e^{f(x)}=\mathrm e^{2f(x)}$==`,
           R`再求导：$f'''(x)=\mathrm e^{2f(x)}\cdot2f'(x)=2\mathrm e^{2f(x)}\cdot\mathrm e^{f(x)}=2\mathrm e^{3f(x)}$`,
           R`代点：$f'''(2)=2\mathrm e^{3f(2)}=2\mathrm e^3$`,
           R`推广（30讲 习题4.5 p135）：继续求得 $f^{(4)}=3!\,\mathrm e^{4f}$，规律是 $f^{(n)}(x)=(n-1)!\,\mathrm e^{nf(x)}$，所以 $f^{(n)}(2)=(n-1)!\,\mathrm e^n$`
@@ -258,7 +258,7 @@
         signal: R`问 $\dfrac{\mathrm d^2x}{\mathrm dy^2}$、$\dfrac{\mathrm d^2f^{-1}(x)}{\mathrm dx^2}$，或"$y=2x+\sin x$ 的反函数的二阶导数"`,
         example: { q: R`设 $x=f(y)$ 的反函数 $y=f^{-1}(x)$ 及 $f'[f^{-1}(x)]$、$f''[f^{-1}(x)]$ 均存在，且 $f'[f^{-1}(x)]\neq0$，则 $\dfrac{\mathrm d^2f^{-1}(x)}{\mathrm dx^2}=$（　）。(A) $-\dfrac{f''[f^{-1}(x)]}{\{f'[f^{-1}(x)]\}^2}$　(B) $\dfrac{f''[f^{-1}(x)]}{\{f'[f^{-1}(x)]\}^2}$　(C) $-\dfrac{f''[f^{-1}(x)]}{\{f'[f^{-1}(x)]\}^3}$　(D) $\dfrac{f''[f^{-1}(x)]}{\{f'[f^{-1}(x)]\}^3}$`, src: "吉米【182】p53–54" },
         idea: {
-          key: R`一阶用反函数法则 $\dfrac{\mathrm dx}{\mathrm dy}=\dfrac1{y'}$；求二阶时，$\dfrac1{y'}$ 是 $x$ 的函数，要对 $y$ 求导，就先对 $x$ 求导，再乘 $\dfrac{\mathrm dx}{\mathrm dy}$（链式法则）。结论：$\dfrac{\mathrm d^2x}{\mathrm dy^2}=-\dfrac{y''}{(y')^3}$。`,
+          key: R`==一阶用反函数法则 $\dfrac{\mathrm dx}{\mathrm dy}=\dfrac1{y'}$==；求二阶时，$\dfrac1{y'}$ 是 $x$ 的函数，要对 $y$ 求导，就先对 $x$ 求导，再乘 $\dfrac{\mathrm dx}{\mathrm dy}$（链式法则）。结论：$\dfrac{\mathrm d^2x}{\mathrm dy^2}=-\dfrac{y''}{(y')^3}$。`,
           how: [
             R`分清谁是自变量：要对谁求导，最后的式子就是谁的导数`,
             R`一阶：$\dfrac{\mathrm dx}{\mathrm dy}=\dfrac1{y'}$`,
@@ -275,7 +275,7 @@
         steps: [
           R`一阶（反函数法则，教材 p85）：$\dfrac{\mathrm dy}{\mathrm dx}=\dfrac1{\frac{\mathrm dx}{\mathrm dy}}=\dfrac1{f'(y)}=\dfrac1{f'[f^{-1}(x)]}$`,
           R`二阶：对 $\dfrac1{f'[f^{-1}(x)]}$ 用商法则（分子是常数 1）：$\dfrac{\mathrm d^2y}{\mathrm dx^2}=\dfrac{-\{f'[f^{-1}(x)]\}'}{\{f'[f^{-1}(x)]\}^2}$`,
-          R`**分母里的** $f'[f^{-1}(x)]$ **是复合函数**，求导要乘内层导数：$\{f'[f^{-1}(x)]\}'=f''[f^{-1}(x)]\cdot[f^{-1}(x)]'=f''[f^{-1}(x)]\cdot\dfrac1{f'[f^{-1}(x)]}$`,
+          R`==**分母里的** $f'[f^{-1}(x)]$ **是复合函数**，求导要乘内层导数：$\{f'[f^{-1}(x)]\}'=f''[f^{-1}(x)]\cdot[f^{-1}(x)]'=f''[f^{-1}(x)]\cdot\dfrac1{f'[f^{-1}(x)]}$==`,
           R`代回：$\dfrac{\mathrm d^2y}{\mathrm dx^2}=-\dfrac{f''[f^{-1}(x)]}{\{f'[f^{-1}(x)]\}^2}\cdot\dfrac1{f'[f^{-1}(x)]}=-\dfrac{f''[f^{-1}(x)]}{\{f'[f^{-1}(x)]\}^3}$，选 (C)`,
           R`检验：取 $f(y)=\mathrm e^y$，则 $f^{-1}(x)=\ln x$，$(\ln x)''=-\dfrac1{x^2}$；公式给出 $-\dfrac{\mathrm e^y}{(\mathrm e^y)^3}=-\dfrac1{\mathrm e^{2y}}=-\dfrac1{x^2}$，一致`
         ],
@@ -287,7 +287,7 @@
         signal: R`问 $y^{(n)}$ 的一般表达式，函数本身或求一两次导以后就是 $\mathrm e^{ax}$、$\sin(ax+b)$、$\frac1{ax+b}$、$x^\mu$、$\ln(ax+b)$ 这类常用公式型`,
         example: { q: R`求 $y=x\ln x$ 的 $n$ 阶导数的一般表达式。`, src: "教材习题2-3 第10(3)题 p98（解答 习题全解 p69）" },
         idea: {
-          key: R`先求前几阶，求到出现常用公式型（或看出规律）为止，再套公式或归纳出通式；注意通式从第几阶开始成立，前面几阶单独写。`,
+          key: R`==先求前几阶，求到出现常用公式型（或看出规律）为止，再套公式或归纳出通式==；注意通式从第几阶开始成立，前面几阶单独写。`,
           how: [
             R`求 $y'$、$y''$，每一阶化简`,
             R`一旦变成常用公式型（如 $x^{-1}$），记下它是第几阶`,
@@ -304,7 +304,7 @@
         first: R`先求前两阶，从第 2 阶起套幂函数的 $n$ 阶公式`,
         steps: [
           R`一阶（乘积法则）：$y'=\ln x+x\cdot\dfrac1x=\ln x+1$`,
-          R`二阶：$y''=\dfrac1x=x^{-1}$，**已经是幂函数**`,
+          R`==二阶：$y''=\dfrac1x=x^{-1}$，**已经是幂函数**==`,
           R`套幂函数公式（教材 例7 p96，$\mu=-1$）：$(x^{-1})^{(m)}=(-1)(-2)\cdots(-m)x^{-1-m}=\dfrac{(-1)^mm!}{x^{m+1}}$`,
           R`$y^{(n)}=(y'')^{(n-2)}$，所以取 $m=n-2$：$y^{(n)}=\dfrac{(-1)^{n-2}(n-2)!}{x^{n-1}}=\dfrac{(-1)^n(n-2)!}{x^{n-1}}\ (n\geqslant2)$`,
           R`检验：$n=2$ 时得 $\dfrac{0!}{x}=\dfrac1x$；$n=3$ 时得 $-\dfrac1{x^2}$，和直接求导一致；$n=1$ 时 $(n-2)!$ 无意义，所以 $y'=\ln x+1$ 单独写`
@@ -317,7 +317,7 @@
         signal: R`求有理分式 $\dfrac{P(x)}{Q(x)}$ 的 $n$ 阶导数，分母能因式分解成一次因式的乘积（如 $\frac{1-x}{1+x}$、$\frac{x}{2x^2-7x+6}$、$\frac1{x^2-1}$）`,
         example: { q: R`设 $f(x)=\dfrac{x}{2x^2-7x+6}$，求 $f^{(n)}(x)$。`, src: "武忠祥 题型三(六)例1 p73" },
         idea: {
-          key: R`商的 $n$ 阶导数没有公式，所以先把分式拆成 $\dfrac{A}{ax+b}$ 型的和（假分式先分出整式部分），再对每一项套 $\left(\dfrac1{ax+b}\right)^{(n)}=\dfrac{(-1)^na^nn!}{(ax+b)^{n+1}}$。`,
+          key: R`==商的 $n$ 阶导数没有公式，所以先把分式拆成 $\dfrac{A}{ax+b}$ 型的和（假分式先分出整式部分），再对每一项套 $\left(\dfrac1{ax+b}\right)^{(n)}=\dfrac{(-1)^na^nn!}{(ax+b)^{n+1}}$==。`,
           how: [
             R`假分式先做除法，分出多项式（求导若干次后为 0）`,
             R`分母因式分解，设 $\dfrac{P}{(a_1x+b_1)(a_2x+b_2)}=\dfrac{A}{a_1x+b_1}+\dfrac{B}{a_2x+b_2}$，求出 $A$、$B$`,
@@ -333,7 +333,7 @@
         first: R`先把分母分解，拆成两个简单分式，再逐项套公式`,
         steps: [
           R`因式分解：$f(x)=\dfrac{x}{(2x-3)(x-2)}$`,
-          R`拆项：设 $\dfrac{x}{(2x-3)(x-2)}=\dfrac{A}{x-2}+\dfrac{B}{2x-3}$，通分得 $x=A(2x-3)+B(x-2)$；令 $x=2$ 得 $A=2$，令 $x=\frac32$ 得 $B=-3$，所以 $f(x)=\dfrac2{x-2}-\dfrac3{2x-3}$`,
+          R`==拆项：设 $\dfrac{x}{(2x-3)(x-2)}=\dfrac{A}{x-2}+\dfrac{B}{2x-3}$，通分得 $x=A(2x-3)+B(x-2)$；令 $x=2$ 得 $A=2$，令 $x=\frac32$ 得 $B=-3$，所以 $f(x)=\dfrac2{x-2}-\dfrac3{2x-3}$==`,
           R`第一项（$a=1$）：$\left(\dfrac1{x-2}\right)^{(n)}=\dfrac{(-1)^nn!}{(x-2)^{n+1}}$`,
           R`第二项（$a=2$，**每求一次导多一个因子 2**）：$\left(\dfrac1{2x-3}\right)^{(n)}=\dfrac{(-1)^n2^nn!}{(2x-3)^{n+1}}$`,
           R`由和差法则（教材 p96）合并：$f^{(n)}(x)=(-1)^nn!\left[\dfrac2{(x-2)^{n+1}}-\dfrac{3\cdot2^n}{(2x-3)^{n+1}}\right]$`,
@@ -347,7 +347,7 @@
         signal: R`求 $\sin^2x$、$\sin^3x$、$\sin^4x-\cos^4x$、$\sin x\cos x$、$\sin ax\cos bx$ 这类三角函数的幂或乘积的 $n$ 阶导数`,
         example: { q: R`设 $y=\sin^3x+\sin x\cos x$，求 $y^{(n)}$。`, src: "吉米【185】p54" },
         idea: {
-          key: R`三角函数的幂和乘积没有直接的 $n$ 阶公式，用倍角、降幂、积化和差公式把它化成 $\sin kx$、$\cos kx$ 的一次式之和，再逐项套 $[\sin(kx)]^{(n)}=k^n\sin\left(kx+\frac{n\pi}2\right)$。`,
+          key: R`==三角函数的幂和乘积没有直接的 $n$ 阶公式，用倍角、降幂、积化和差公式把它化成 $\sin kx$、$\cos kx$ 的一次式之和，再逐项套 $[\sin(kx)]^{(n)}=k^n\sin\left(kx+\frac{n\pi}2\right)$==。`,
           how: [
             R`选公式：$\sin^2x=\frac{1-\cos2x}2$，$\sin x\cos x=\frac12\sin2x$，$\sin^3x=\frac{3\sin x-\sin3x}4$，积化和差`,
             R`化成 $\sum c_k\sin(kx)$ 或 $\cos(kx)$ 的线性组合（常数项求导后消失）`,
@@ -363,7 +363,7 @@
         first: R`先用三倍角、二倍角公式降幂，化成 $\sin x$、$\sin3x$、$\sin2x$ 的线性组合`,
         steps: [
           R`降幂：由 $\sin3x=3\sin x-4\sin^3x$ 解出 $\sin^3x=\dfrac34\sin x-\dfrac14\sin3x$`,
-          R`倍角：$\sin x\cos x=\dfrac12\sin2x$，所以 $y=\dfrac34\sin x-\dfrac14\sin3x+\dfrac12\sin2x$`,
+          R`==倍角：$\sin x\cos x=\dfrac12\sin2x$，所以 $y=\dfrac34\sin x-\dfrac14\sin3x+\dfrac12\sin2x$==`,
           R`逐项套 $[\sin kx]^{(n)}=k^n\sin\left(kx+\frac{n\pi}2\right)$（30讲 p130）：$(\sin x)^{(n)}=\sin\left(x+\frac{n\pi}2\right)$，$(\sin3x)^{(n)}=3^n\sin\left(3x+\frac{n\pi}2\right)$，$(\sin2x)^{(n)}=2^n\sin\left(2x+\frac{n\pi}2\right)$`,
           R`合并（和差、数乘法则）：$y^{(n)}=\dfrac34\sin\left(x+\dfrac{n\pi}2\right)-\dfrac{3^n}4\sin\left(3x+\dfrac{n\pi}2\right)+2^{n-1}\sin\left(2x+\dfrac{n\pi}2\right)$`,
           R`检验 $n=1$：公式给出 $\dfrac34\cos x-\dfrac34\cos3x+\cos2x$；把 $\cos3x=4\cos^3x-3\cos x$ 代入，前两项 $=3\cos x-3\cos^3x=3\sin^2x\cos x$，正好等于直接求导的 $3\sin^2x\cos x+\cos2x$`
@@ -376,7 +376,7 @@
         signal: R`求 $x^2\mathrm e^{2x}$、$x^2\sin2x$、$x\ln x$、$(x^2+1)\mathrm e^x$ 这类"低次多项式 × 有 $n$ 阶公式的函数"的高阶导数，阶数很大（20、50 或 $n$）`,
         example: { q: R`$y=x^2\sin2x$，求 $y^{(50)}$。`, src: "教材习题2-3 第9(2)题 p98（解答 习题全解 p69）" },
         idea: {
-          key: R`令 $u$ 为有 $n$ 阶公式的那个因子、$v$ 为多项式，代入莱布尼茨公式；$m$ 次多项式的 $m+1$ 阶导数为 0，展开后只剩前 $m+1$ 项。`,
+          key: R`==令 $u$ 为有 $n$ 阶公式的那个因子、$v$ 为多项式，代入莱布尼茨公式==；$m$ 次多项式的 $m+1$ 阶导数为 0，展开后只剩前 $m+1$ 项。`,
           how: [
             R`分配：$u$ = 要求很多阶的函数（$\mathrm e^{ax}$、$\sin ax$、$\ln$ 等），$v$ = 多项式`,
             R`写出 $v,v',v'',\cdots$ 直到为 0，确定剩几项`,
@@ -393,7 +393,7 @@
         steps: [
           R`准备：$v=x^2$，$v'=2x$，$v''=2$，$v^{(k)}=0\ (k\geqslant3)$；$u^{(k)}=(\sin2x)^{(k)}=2^k\sin\left(2x+\dfrac{k\pi}2\right)$`,
           R`莱布尼茨公式（教材 p97）只剩三项：$y^{(50)}=u^{(50)}v+\mathrm C_{50}^1u^{(49)}v'+\mathrm C_{50}^2u^{(48)}v''$`,
-          R`化简相位（周期 $2\pi$，**去掉 $2\pi$ 的整数倍**）：$\sin\left(2x+25\pi\right)=-\sin2x$，$\sin\left(2x+\dfrac{49\pi}2\right)=\sin\left(2x+\dfrac\pi2\right)=\cos2x$，$\sin(2x+24\pi)=\sin2x$`,
+          R`==化简相位（周期 $2\pi$，**去掉 $2\pi$ 的整数倍**）：$\sin\left(2x+25\pi\right)=-\sin2x$，$\sin\left(2x+\dfrac{49\pi}2\right)=\sin\left(2x+\dfrac\pi2\right)=\cos2x$，$\sin(2x+24\pi)=\sin2x$==`,
           R`代入：第一项 $2^{50}x^2\cdot(-\sin2x)$；第二项 $50\cdot2^{49}\cos2x\cdot2x=2^{50}\cdot50x\cos2x$；第三项 $\dfrac{50\cdot49}2\cdot2^{48}\sin2x\cdot2=2^{50}\cdot\dfrac{1225}2\sin2x$`,
           R`合并：$y^{(50)}=2^{50}\left(-x^2\sin2x+50x\cos2x+\dfrac{1225}2\sin2x\right)$`
         ],
@@ -405,7 +405,7 @@
         signal: R`问 $f^{(n)}(0)$、$f^{(n)}(1)$ 这类某点的值，函数是 $(x-x_0)^m\cdot g(x)$ 或 $x^2\ln(1+x)$、$x^22^x$ 形式（含一个在 $x_0$ 处为 0 的低次因子）`,
         example: { q: R`求函数 $f(x)=x^2\ln(1+x)$ 在 $x=0$ 处的 $n$ 阶导数 $f^{(n)}(0)\ (n\geqslant3)$。`, src: "吉米【188】p55；教材习题2-3 第11题 p98" },
         idea: {
-          key: R`用莱布尼茨公式写出 $f^{(n)}(x)$ 后先别化简，直接代 $x=x_0$：含 $(x-x_0)$ 因子的项全部为 0，通常只剩一项；这一项就是多项式因子恰好被求导到"常数"的那一项。`,
+          key: R`==用莱布尼茨公式写出 $f^{(n)}(x)$ 后先别化简，直接代 $x=x_0$：含 $(x-x_0)$ 因子的项全部为 0，通常只剩一项==；这一项就是多项式因子恰好被求导到"常数"的那一项。`,
           how: [
             R`令 $v$ = 含 $(x-x_0)$ 的多项式因子，$u$ = 另一个因子`,
             R`写出 $v^{(k)}(x_0)$：只有一个 $k$ 使它不为 0（如 $v=x^2$ 时只有 $v''(0)=2$）`,
@@ -422,7 +422,7 @@
         steps: [
           R`设 $u=\ln(1+x)$，$v=x^2$：$v(0)=0$，$v'(0)=0$，$v''(0)=2$，$v^{(k)}=0\ (k\geqslant3)$`,
           R`莱布尼茨公式：$f^{(n)}(x)=u^{(n)}x^2+\mathrm C_n^1u^{(n-1)}\cdot2x+\mathrm C_n^2u^{(n-2)}\cdot2$（$n\geqslant3$ 保证三项里 $u$ 都至少求 1 阶）`,
-          R`**代 $x=0$，前两项含 $x$ 为 0**：$f^{(n)}(0)=\mathrm C_n^2\cdot2\cdot u^{(n-2)}(0)=n(n-1)\,u^{(n-2)}(0)$`,
+          R`==**代 $x=0$，前两项含 $x$ 为 0**：$f^{(n)}(0)=\mathrm C_n^2\cdot2\cdot u^{(n-2)}(0)=n(n-1)\,u^{(n-2)}(0)$==`,
           R`套 $\ln(1+x)$ 公式（教材 例6 p96）：$u^{(n-2)}(x)=\dfrac{(-1)^{n-3}(n-3)!}{(1+x)^{n-2}}$，所以 $u^{(n-2)}(0)=(-1)^{n-3}(n-3)!=(-1)^{n-1}(n-3)!$`,
           R`化简：$f^{(n)}(0)=(-1)^{n-1}n(n-1)(n-3)!=\dfrac{(-1)^{n-1}n!}{n-2}$（因为 $n!=n(n-1)(n-2)(n-3)!$）`,
           R`检验 $n=3$：公式给出 $\dfrac{6}{1}=6$；直接算 $f'''(0)$ 也是 6`
@@ -435,7 +435,7 @@
         signal: R`分段函数含待定常数 $a,b,c$，要求"$f(x)$ 具有二阶导数"或"$f''(0)$ 存在"；或问分段点处 $f''(x_0)$ 是否存在`,
         example: { q: R`设 $f(x)=\begin{cases}\mathrm e^x\cos x,&x\leqslant0\\ax^2+bx+c,&x>0\end{cases}$，试选择常数 $a,b,c$，使 $f(x)$ 具有二阶导数。`, src: "教材习题2-3 第8题 p98（解答 习题全解 p68）" },
         idea: {
-          key: R`分段点处的高阶导数只能用定义，并且要按顺序逐层满足：连续 → 一阶可导（左右导数相等）→ 二阶可导（$f'$ 的左右导数相等），每一层得到一个方程。`,
+          key: R`==分段点处的高阶导数只能用定义，并且要按顺序逐层满足：连续 → 一阶可导（左右导数相等）→ 二阶可导（$f'$ 的左右导数相等），每一层得到一个方程==。`,
           how: [
             R`连续：左极限 = 右极限 = $f(x_0)$`,
             R`一阶：用定义求 $f'_-(x_0)$、$f'_+(x_0)$，令其相等，得到 $f'(x_0)$`,
@@ -451,7 +451,7 @@
         first: R`分段点 0 处依次用连续、一阶导数、二阶导数，列三个方程解 $a,b,c$`,
         steps: [
           R`连续：$\lim\limits_{x\to0^-}\mathrm e^x\cos x=1=f(0)$，$\lim\limits_{x\to0^+}(ax^2+bx+c)=c$，所以 $c=1$`,
-          R`一阶，左导数（定义）：$f'_-(0)=\lim\limits_{x\to0^-}\dfrac{\mathrm e^x\cos x-1}{x}=\lim\left(\dfrac{\mathrm e^x-1}x\cos x+\dfrac{\cos x-1}x\right)=1+0=1$（等价无穷小，1.7）`,
+          R`==一阶，左导数（定义）：$f'_-(0)=\lim\limits_{x\to0^-}\dfrac{\mathrm e^x\cos x-1}{x}=\lim\left(\dfrac{\mathrm e^x-1}x\cos x+\dfrac{\cos x-1}x\right)=1+0=1$（等价无穷小，1.7）==`,
           R`一阶，右导数：$f'_+(0)=\lim\limits_{x\to0^+}\dfrac{ax^2+bx+1-1}{x}=b$；由 $f'_-(0)=f'_+(0)$ 得 $b=1$，且 $f'(0)=1$`,
           R`写出两侧导函数：$x<0$ 时 $f'(x)=\mathrm e^x(\cos x-\sin x)$；$x>0$ 时 $f'(x)=2ax+1$`,
           R`二阶，左：$f''_-(0)=\lim\limits_{x\to0^-}\dfrac{\mathrm e^x\cos x-\mathrm e^x\sin x-1}{x}=\lim\left(\dfrac{\mathrm e^x\cos x-1}x-\dfrac{\mathrm e^x\sin x}x\right)=1-1=0$`,
@@ -465,7 +465,7 @@
         signal: R`给出运动规律 $s=s(t)$ 求加速度；或给出速度是位置的函数 $v=f(s)$（如"速度与 $\sqrt s$ 成反比"），求加速度`,
         example: { q: R`密度大的陨星进入大气层时，它离地心为 $s$ km 时的速度与 $\sqrt s$ 成反比。试证陨星的加速度与 $s^2$ 成反比。`, src: "教材习题2-3 第6题 p98（解答 习题全解 p68）" },
         idea: {
-          key: R`加速度是对时间 $t$ 的二阶导数 $a=\dfrac{\mathrm d^2s}{\mathrm dt^2}=\dfrac{\mathrm dv}{\mathrm dt}$；速度若写成 $s$ 的函数，对 $t$ 求导要用链式法则：$a=\dfrac{\mathrm dv}{\mathrm ds}\cdot\dfrac{\mathrm ds}{\mathrm dt}=v\dfrac{\mathrm dv}{\mathrm ds}$。`,
+          key: R`==加速度是对时间 $t$ 的二阶导数 $a=\dfrac{\mathrm d^2s}{\mathrm dt^2}=\dfrac{\mathrm dv}{\mathrm dt}$==；速度若写成 $s$ 的函数，对 $t$ 求导要用链式法则：$a=\dfrac{\mathrm dv}{\mathrm ds}\cdot\dfrac{\mathrm ds}{\mathrm dt}=v\dfrac{\mathrm dv}{\mathrm ds}$。`,
           how: [
             R`把条件写成式子：$v=\dfrac{\mathrm ds}{\mathrm dt}=f(s)$（比例题设比例系数 $k$）`,
             R`$a=\dfrac{\mathrm d}{\mathrm dt}f(s)=f'(s)\cdot\dfrac{\mathrm ds}{\mathrm dt}=f'(s)f(s)$`,
@@ -479,7 +479,7 @@
         first: R`设比例系数 $k$，写出 $v=ks^{-\frac12}$，再对 $t$ 求导`,
         steps: [
           R`设比例系数 $k$：$v=\dfrac{\mathrm ds}{\mathrm dt}=\dfrac{k}{\sqrt s}=ks^{-\frac12}$`,
-          R`链式法则：$a=\dfrac{\mathrm dv}{\mathrm dt}=\dfrac{\mathrm dv}{\mathrm ds}\cdot\dfrac{\mathrm ds}{\mathrm dt}$`,
+          R`==链式法则：$a=\dfrac{\mathrm dv}{\mathrm dt}=\dfrac{\mathrm dv}{\mathrm ds}\cdot\dfrac{\mathrm ds}{\mathrm dt}$==`,
           R`$\dfrac{\mathrm dv}{\mathrm ds}=-\dfrac12ks^{-\frac32}$，$\dfrac{\mathrm ds}{\mathrm dt}=ks^{-\frac12}$`,
           R`相乘：$a=-\dfrac12ks^{-\frac32}\cdot ks^{-\frac12}=-\dfrac{k^2}{2s^2}$，即加速度与 $s^2$ 成反比（负号表示方向）`
         ],
@@ -491,7 +491,7 @@
         signal: R`求 $\dfrac{x}{1+x^2}$、$\arctan x$、$\arcsin x$ 一类函数在 0 处的 $n$ 阶导数，函数不能拆成常用公式型，但 $y$ 或 $y'$ 乘上一个多项式后很简单`,
         example: { q: R`设 $y=\dfrac{x}{1+x^2}$，求 $y^{(n)}$ 满足的递推关系式及 $y^{(2n+1)}(0)$。`, src: "18讲 第4讲 例4.4 p36–37" },
         idea: {
-          key: R`把函数写成"多项式 × $y$（或 $y'$）= 简单函数"的等式，两边求 $n$ 阶导数，左边用莱布尼茨公式（多项式因子只剩两三项），再代 $x=0$，得到 $y^{(n)}(0)$ 和 $y^{(n-2)}(0)$ 之间的递推式，从初值一路推。`,
+          key: R`==把函数写成"多项式 × $y$（或 $y'$）= 简单函数"的等式，两边求 $n$ 阶导数，左边用莱布尼茨公式（多项式因子只剩两三项），再代 $x=0$，得到 $y^{(n)}(0)$ 和 $y^{(n-2)}(0)$ 之间的递推式，从初值一路推==。`,
           how: [
             R`变形：$y=\frac{P}{Q}$ 写成 $Qy=P$；$\arctan x$ 写成 $(1+x^2)y'=1$`,
             R`两边求 $n$ 阶导数，左边用莱布尼茨公式，右边多项式求高阶后为 0`,
@@ -509,7 +509,7 @@
           R`去分母：$(1+x^2)y=x$`,
           R`两边求 $n$ 阶（$n\geqslant2$），左边用莱布尼茨公式，$(1+x^2)'=2x$，$(1+x^2)''=2$，三阶以上为 0：$(1+x^2)y^{(n)}+n\cdot2x\,y^{(n-1)}+\dfrac{n(n-1)}2\cdot2\,y^{(n-2)}=0$`,
           R`这就是递推关系式：$(1+x^2)y^{(n)}+2nxy^{(n-1)}+n(n-1)y^{(n-2)}=0\ (n\geqslant2)$`,
-          R`**代 $x=0$**，中间项消失：$y^{(n)}(0)=-n(n-1)y^{(n-2)}(0)$`,
+          R`==**代 $x=0$**，中间项消失：$y^{(n)}(0)=-n(n-1)y^{(n-2)}(0)$==`,
           R`初值：$y(0)=0$；$y'=\dfrac{1-x^2}{(1+x^2)^2}$，$y'(0)=1$`,
           R`偶数阶：从 $y(0)=0$ 推出 $y^{(2n)}(0)=0$；奇数阶：$y'''(0)=-3\cdot2\cdot1=-3!$，$y^{(5)}(0)=-5\cdot4\cdot(-3!)=5!$，依此类推 $y^{(2n+1)}(0)=(-1)^n(2n+1)!$`
         ],
@@ -521,7 +521,7 @@
         signal: R`只问 $f^{(4)}(0)$、$f^{(2n)}(0)$ 这类某一阶在 0 处的值，函数本身（或加减一个常数后）是奇函数或偶函数，如 $\dfrac1{2^x+1}$、$\dfrac{x}{1+x^2}$`,
         example: { q: R`设 $f(x)=\dfrac1{2^x+1}$，$x\in\mathbf R$，则 $f^{(4)}(0)=$ ____。`, src: "18讲 第4讲 例4.6 p38" },
         idea: {
-          key: R`可导的奇函数求导一次变偶函数，偶函数求导一次变奇函数；奇函数在 0 处有定义时值为 0。所以奇函数的偶数阶导数在 0 处为 0，偶函数的奇数阶导数在 0 处为 0。函数不是奇偶函数时，看能否减去一个常数变成奇偶函数（常数求导为 0）。`,
+          key: R`==可导的奇函数求导一次变偶函数，偶函数求导一次变奇函数==；奇函数在 0 处有定义时值为 0。所以奇函数的偶数阶导数在 0 处为 0，偶函数的奇数阶导数在 0 处为 0。函数不是奇偶函数时，看能否减去一个常数变成奇偶函数（常数求导为 0）。`,
           how: [
             R`判断 $f(-x)$ 与 $f(x)$ 的关系；不是奇偶时试 $f(x)-C$`,
             R`确定 $f^{(n)}$ 的奇偶性：奇函数的偶数阶导数为奇函数，偶函数的奇数阶导数为奇函数`,
@@ -536,7 +536,7 @@
         steps: [
           R`令 $g(x)=\dfrac1{2^x+1}-\dfrac12=\dfrac{1-2^x}{2(2^x+1)}$，则 $f(x)=g(x)+\dfrac12$，$f^{(4)}(x)=g^{(4)}(x)$`,
           R`验证奇偶：$g(-x)=\dfrac{1-2^{-x}}{2(2^{-x}+1)}$，分子分母同乘 $2^x$ 得 $\dfrac{2^x-1}{2(1+2^x)}=-g(x)$，所以 $g$ 是 $\mathbf R$ 上的奇函数`,
-          R`奇偶性怎么传下去：对 $g(-x)=-g(x)$ 两边求导，左边是复合函数要乘 $(-x)'=-1$，得 $-g'(-x)=-g'(x)$，即 $g'(-x)=g'(x)$，$g'$ 是偶函数；同理每求一次导奇偶互换，所以 $g''$ 奇、$g'''$ 偶、$g^{(4)}$ 奇`,
+          R`==奇偶性怎么传下去：对 $g(-x)=-g(x)$ 两边求导，左边是复合函数要乘 $(-x)'=-1$，得 $-g'(-x)=-g'(x)$，即 $g'(-x)=g'(x)$，$g'$ 是偶函数；同理每求一次导奇偶互换，所以 $g''$ 奇、$g'''$ 偶、$g^{(4)}$ 奇==`,
           R`$g^{(4)}$ 是奇函数且在 0 处有定义，所以 $g^{(4)}(0)=0$，即 $f^{(4)}(0)=0$`,
           R`检验：直接算 $f'(0)=-\dfrac{\ln2}4\neq0$、$f''(0)=0$，与"$g$ 奇 ⇒ 偶数阶在 0 处为 0"一致`
         ],
@@ -548,7 +548,7 @@
         signal: R`求 $\mathrm e^x\sin x$、$\mathrm e^x\cos x$、$\mathrm e^{ax}\sin bx$ 的 $n$ 阶导数通式（两个因子都求不完，莱布尼茨展开有 $n+1$ 项）`,
         example: { q: R`设 $f(x)=\mathrm e^x\sin x$，求 $f^{(n)}(x)$。`, src: "武忠祥 题型三(六)例2 p73" },
         idea: {
-          key: R`求一阶后得到 $\mathrm e^x(\sin x+\cos x)$，用辅助角公式合成一个正弦 $\sqrt2\mathrm e^x\sin\left(x+\frac\pi4\right)$，形式和原函数一样，只是多了因子 $\sqrt2$、相位加 $\frac\pi4$，于是每求一次导都重复这件事。`,
+          key: R`==求一阶后得到 $\mathrm e^x(\sin x+\cos x)$，用辅助角公式合成一个正弦 $\sqrt2\mathrm e^x\sin\left(x+\frac\pi4\right)$，形式和原函数一样，只是多了因子 $\sqrt2$、相位加 $\frac\pi4$，于是每求一次导都重复这件事==。`,
           how: [
             R`求一阶导数`,
             R`用 $A\sin x+B\cos x=\sqrt{A^2+B^2}\sin(x+\varphi)$ 合并`,
@@ -563,7 +563,7 @@
         steps: [
           R`一阶（乘积法则）：$f'(x)=\mathrm e^x\sin x+\mathrm e^x\cos x=\mathrm e^x(\sin x+\cos x)$`,
           R`辅助角：$\sin x+\cos x=\sqrt2\left(\dfrac1{\sqrt2}\sin x+\dfrac1{\sqrt2}\cos x\right)=\sqrt2\sin\left(x+\dfrac\pi4\right)$，所以 $f'(x)=\sqrt2\,\mathrm e^x\sin\left(x+\dfrac\pi4\right)$`,
-          R`观察：$f'$ 就是把原函数里的 $x$（在 $\sin$ 里）换成 $x+\frac\pi4$ 再乘 $\sqrt2$；对 $\mathrm e^x\sin\left(x+\frac\pi4\right)$ 再求导，同样得到 $\sqrt2\mathrm e^x\sin\left(x+\frac{2\pi}4\right)$`,
+          R`==观察：$f'$ 就是把原函数里的 $x$（在 $\sin$ 里）换成 $x+\frac\pi4$ 再乘 $\sqrt2$；对 $\mathrm e^x\sin\left(x+\frac\pi4\right)$ 再求导，同样得到 $\sqrt2\mathrm e^x\sin\left(x+\frac{2\pi}4\right)$==`,
           R`归纳：$f^{(n)}(x)=(\sqrt2)^n\mathrm e^x\sin\left(x+\dfrac{n\pi}4\right)$`,
           R`检验 $n=2$：$2\mathrm e^x\sin\left(x+\frac\pi2\right)=2\mathrm e^x\cos x$；直接求 $f''=[\mathrm e^x(\sin x+\cos x)]'=2\mathrm e^x\cos x$，一致`
         ],
@@ -575,7 +575,7 @@
         signal: R`$f(x)=|x|\cdot g(x)$ 或 $|x|^k$ 型，问"使 $f^{(n)}(0)$ 存在的最大 $n$"或"$f$ 在 0 处几阶可导"`,
         example: { q: R`设 $f(x)=|x|\sin^2x$，则使 $f^{(n)}(0)$ 存在的阶数 $n$ 的最大值为（　）。`, src: "1000题强化篇第4章 16题" },
         idea: {
-          key: R`把绝对值去掉写成分段函数，两侧分别求导函数；在 0 处一阶一阶用定义求左右导数，第一次出现左右不等时就停。直观判断：$|x|\cdot x^k$ 在 0 处恰好 $k$ 阶可导（$|x|^{k+1}$ 求 $k$ 次导后剩 $C|x|$）。`,
+          key: R`==把绝对值去掉写成分段函数，两侧分别求导函数==；在 0 处一阶一阶用定义求左右导数，第一次出现左右不等时就停。直观判断：$|x|\cdot x^k$ 在 0 处恰好 $k$ 阶可导（$|x|^{k+1}$ 求 $k$ 次导后剩 $C|x|$）。`,
           how: [
             R`写成分段：$x\geqslant0$ 一个式子，$x<0$ 取相反数`,
             R`求两侧 $f'(x)$，用定义求 $f'_\pm(0)$`,
@@ -590,7 +590,7 @@
         first: R`按 $x\geqslant0$、$x<0$ 写成两段，逐阶用定义判断`,
         steps: [
           R`分段：$x\geqslant0$ 时 $f=x\sin^2x$；$x<0$ 时 $f=-x\sin^2x$`,
-          R`一阶：$f'_\pm(0)=\lim\limits_{x\to0^\pm}\dfrac{\pm x\sin^2x}{x}=0$，所以 $f'(0)=0$；两侧用乘积法则：$(x\sin^2x)'=\sin^2x+x\cdot2\sin x\cos x=\sin^2x+x\sin2x$，所以 $x>0$ 时 $f'(x)=\sin^2x+x\sin2x$，$x<0$ 时取相反数`,
+          R`==一阶：$f'_\pm(0)=\lim\limits_{x\to0^\pm}\dfrac{\pm x\sin^2x}{x}=0$，所以 $f'(0)=0$；两侧用乘积法则：$(x\sin^2x)'=\sin^2x+x\cdot2\sin x\cos x=\sin^2x+x\sin2x$，所以 $x>0$ 时 $f'(x)=\sin^2x+x\sin2x$，$x<0$ 时取相反数==`,
           R`二阶：$f''_+(0)=\lim\limits_{x\to0^+}\dfrac{\sin^2x+x\sin2x}{x}=\lim(\sin x\cdot\dfrac{\sin x}{x}+\sin2x)=0$，同理 $f''_-(0)=0$，所以 $f''(0)=0$`,
           R`两侧二阶导函数：$x>0$ 时 $f''(x)=(\sin^2x)'+(x\sin2x)'=\sin2x+(\sin2x+2x\cos2x)=2\sin2x+2x\cos2x$；$x<0$ 时取相反数`,
           R`三阶：$f'''_+(0)=\lim\limits_{x\to0^+}\dfrac{2\sin2x+2x\cos2x}{x}=4+2=6$，$f'''_-(0)=-6$，不相等，$f'''(0)$ 不存在。最大值 $n=2$`

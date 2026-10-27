@@ -393,7 +393,7 @@
         signal: R`"在 $(0,+\infty)$ 上有界，求参数范围"或"在哪个区间内有界"`,
         example: { q: R`已知函数 $f(x)=\dfrac{\int_0^x\ln(1+t^2)\mathrm dt}{x^\alpha}$ 在 $(0,+\infty)$ 上有界，则 $\alpha$ 的取值范围是（ ）。(A) $(0,+\infty)$　(B) $(0,3]$　(C) $(0,2)$　(D) $(1,3]$`, src: "武忠祥 第1章 题型二 例1 p6–7；18讲 例1.6 p6–7" },
         idea: {
-          key: R`开区间内连续，有界 ⇔ 两端（含无穷远）的单侧极限都存在；分别算两端极限，取条件的交集。`,
+          key: R`==开区间内连续，有界 ⇔ 两端（含无穷远）的单侧极限都存在==；分别算两端极限，取条件的交集。`,
           how: [R`确认函数在区间内部连续`, R`算左端点的单侧极限：变限积分用等价（$\int_0^x\ln(1+t^2)\mathrm dt\sim\frac{x^3}3$）`, R`算无穷远处的极限：$\frac\infty\infty$ 用洛必达`, R`两端都存在的参数取值，就是答案`],
           refs: [
             { src: "武忠祥 题型二 例1 分析 p7", text: R`由于 $f(x)$ 在 $(0,+\infty)$ 上连续，所以只要 $\lim\limits_{x\to0^+}f(x)$ 和 $\lim\limits_{x\to+\infty}f(x)$ 都存在，则 $f(x)$ 在 $(0,+\infty)$ 上必有界` },
@@ -404,7 +404,7 @@
         first: R`分 $x\to0^+$ 和 $x\to+\infty$ 两头算极限`,
         steps: [
           R`$x\to0^+$：$\ln(1+t^2)\sim t^2$，所以 $\int_0^x\ln(1+t^2)\mathrm dt\sim\int_0^xt^2\mathrm dt=\dfrac{x^3}{3}$，$f(x)\sim\dfrac13x^{3-\alpha}$`,
-          R`$x\to0^+$ 时有界要求指数 $3-\alpha\geqslant0$（$3-\alpha<0$ 时 $x^{3-\alpha}\to+\infty$），即 $\alpha\leqslant3$`,
+          R`==$x\to0^+$ 时有界要求指数 $3-\alpha\geqslant0$（$3-\alpha<0$ 时 $x^{3-\alpha}\to+\infty$），即 $\alpha\leqslant3$==`,
           R`$x\to+\infty$：被积函数 $\ln(1+t^2)\geqslant\ln2>0$（$t\geqslant1$），分子 $\to+\infty$；分母要 $\to+\infty$ 才有机会有界，所以 $\alpha>0$，这时是 $\frac\infty\infty$，用洛必达：$\lim\dfrac{\ln(1+x^2)}{\alpha x^{\alpha-1}}$`,
           R`$\ln(1+x^2)\to+\infty$ 增长比任何正次幂都慢：$\alpha-1>0$ 时比值 $\to0$；$\alpha\leqslant1$ 时分母不趋于 $+\infty$，比值 $\to+\infty$。所以需要 $\alpha>1$`,
           R`取交集 $1<\alpha\leqslant3$，选 (D)`
@@ -417,7 +417,7 @@
         signal: R`给出 $f$ 在一个区间上的表达式，以及 $f(x)$ 与 $f(x+T)$（或 $f(x-T)$）的关系，求另一个区间上的表达式`,
         example: { q: R`设 $f(x)$ 在 $(-\infty,+\infty)$ 上满足 $f(x)=f(x-\pi)+\sin x$，且 $f(x)=x$，$x\in[0,\pi)$。求 $f(x)$ 在 $[\pi,3\pi)$ 上的表达式。`, src: "1000题 基础篇 第1章第4题" },
         idea: {
-          key: R`把目标区间平移回已知区间：$x\in[\pi,2\pi)$ 时 $x-\pi\in[0,\pi)$，用关系式一次；更远的区间重复使用。`,
+          key: R`==把目标区间平移回已知区间：$x\in[\pi,2\pi)$ 时 $x-\pi\in[0,\pi)$，用关系式一次==；更远的区间重复使用。`,
           how: [R`把目标区间按步长 $T$ 切成几段`, R`每段里写 $x-kT$ 落在已知区间，用关系式递推 $k$ 次`, R`化简三角函数（$\sin(x-\pi)=-\sin x$ 等）`],
           refs: [
             { src: "1000题 基础篇 第1章第4题解析", text: R`当 $x\in[\pi,2\pi)$ 时，$x-\pi\in[0,\pi)$，则 $f(x)=f(x-\pi)+\sin x=x-\pi+\sin x$` },
@@ -428,7 +428,7 @@
         first: R`分成 $[\pi,2\pi)$ 和 $[2\pi,3\pi)$ 两段`,
         steps: [
           R`$x\in[\pi,2\pi)$：$x-\pi\in[0,\pi)$，可以用已知表达式 $f(x-\pi)=x-\pi$`,
-          R`代入关系式：$f(x)=f(x-\pi)+\sin x=x-\pi+\sin x$`,
+          R`==代入关系式：$f(x)=f(x-\pi)+\sin x=x-\pi+\sin x$==`,
           R`$x\in[2\pi,3\pi)$：$x-\pi\in[\pi,2\pi)$，还不在 $[0,\pi)$ 里，再用一次关系式：$f(x-\pi)=f(x-2\pi)+\sin(x-\pi)$`,
           R`$x-2\pi\in[0,\pi)$，$f(x-2\pi)=x-2\pi$；$\sin(x-\pi)=-\sin x$。所以 $f(x)=(x-2\pi)-\sin x+\sin x=x-2\pi$`,
           R`结果：$f(x)=\begin{cases}x-\pi+\sin x,&x\in[\pi,2\pi)\\x-2\pi,&x\in[2\pi,3\pi)\end{cases}$`
@@ -441,7 +441,7 @@
         signal: R`变限积分 $F(x)=\int_a^xf(t)\mathrm dt$，问 $F$ 的奇偶性、周期性或某点的高阶导数`,
         example: { q: R`设 $F(x)=\int_{-2\pi}^x(\mathrm e^{\sin t}-\mathrm e^{-\sin t})\mathrm dt$，则 $F(0)+F^{(5)}(2\pi)=$______。`, src: "武忠祥 第1章 题型二 例4 p8–9" },
         idea: {
-          key: R`先判断被积函数的奇偶性和周期，再用"奇函数的原函数是偶函数""一个周期上积分为 $0$ 则原函数周期"把问题挪到容易算的点。`,
+          key: R`==先判断被积函数的奇偶性和周期，再用"奇函数的原函数是偶函数""一个周期上积分为 $0$ 则原函数周期"把问题挪到容易算的点==。`,
           how: [R`被积函数：判奇偶、找周期`, R`周期函数一个周期上的积分为 $0$ ⇒ $F$ 也以 $T$ 为周期`, R`$F$ 为偶函数 ⇒ $F$ 的奇数阶导数是奇函数，在 $0$ 处为 $0$`],
           refs: [
             { src: "武忠祥 第1章 p4–5", text: R`连续的奇函数其原函数都是偶函数；设 $f$ 连续且以 $T$ 为周期，则 $F(x)=\int_0^xf(t)\mathrm dt$ 以 $T$ 为周期 $\Leftrightarrow\int_0^Tf(x)\mathrm dx=0$` }
@@ -451,7 +451,7 @@
         first: R`$g(t)=\mathrm e^{\sin t}-\mathrm e^{-\sin t}$ 是以 $2\pi$ 为周期的奇函数`,
         steps: [
           R`$g$ 的性质：$g(-t)=\mathrm e^{-\sin t}-\mathrm e^{\sin t}=-g(t)$，奇函数；$g(t+2\pi)=g(t)$，周期 $2\pi$`,
-          R`$F(0)=\int_{-2\pi}^0g(t)\mathrm dt$，周期函数在任一个周期长度的区间上积分相同，$=\int_{-\pi}^{\pi}g(t)\mathrm dt=0$（奇函数在对称区间）`,
+          R`==$F(0)=\int_{-2\pi}^0g(t)\mathrm dt$，周期函数在任一个周期长度的区间上积分相同，$=\int_{-\pi}^{\pi}g(t)\mathrm dt=0$（奇函数在对称区间）==`,
           R`所以 $F(x)=F(0)+\int_0^xg(t)\mathrm dt=\int_0^xg(t)\mathrm dt$；$g$ 是奇函数，它的这个原函数是偶函数；且 $F(x+2\pi)-F(x)=\int_x^{x+2\pi}g=0$，$F$ 也以 $2\pi$ 为周期`,
           R`五阶导数：$F^{(5)}(x)=g^{(4)}(x)$。奇函数求一次导变偶，再求一次变奇，所以 $g^{(4)}$ 是奇函数，$g^{(4)}(0)=0$`,
           R`由周期性 $F^{(5)}(2\pi)=F^{(5)}(0)=0$。答案 $F(0)+F^{(5)}(2\pi)=0$`
@@ -466,7 +466,7 @@
         signal: R`把极限定义里的 $\varepsilon$ 换成别的量，问是不是收敛的充要条件`,
         example: { q: R`"存在正整数 $N$，当 $n\geqslant N$ 时，恒有 $|x_n-a|\leqslant\frac1n$"是数列 $\{x_n\}$ 收敛于 $a$ 的（ ）。(A) 充分不必要条件　(B) 必要不充分条件　(C) 充分必要条件　(D) 既不充分也不必要条件`, src: "30讲 第2讲 例2.17 p95" },
         idea: {
-          key: R`替换后的量若"与 $n$ 无关且能任意小"（如 $\frac1{2^k}$、$2\varepsilon$），仍是充要；若"与 $n$ 有关"（如 $\frac1n$），等于规定了收敛速度，只是充分条件。`,
+          key: R`==替换后的量若"与 $n$ 无关且能任意小"（如 $\frac1{2^k}$、$2\varepsilon$），仍是充要==；若"与 $n$ 有关"（如 $\frac1n$），等于规定了收敛速度，只是充分条件。`,
           how: [R`看替换后的量能不能任意小`, R`看它是否依赖 $n$`, R`依赖 $n$：找一个收敛但更慢的数列（如 $a+\frac1{\sqrt n}$）否定必要性`],
           refs: [
             { src: "30讲 第2讲 例2.17 注 p95", text: R`数列极限定义中的 $\varepsilon$ 可以被替换为不依赖于 $n$ 的任意小的正数，即不能与 $n$ 有关，否则相当于对收敛速度提出了要求` },
@@ -477,7 +477,7 @@
         first: R`$\frac1n$ 依赖 $n$，先怀疑必要性`,
         steps: [
           R`充分性：任给 $\varepsilon>0$，取 $N'=\max\left\{N,\left[\dfrac1\varepsilon\right]+1\right\}$，当 $n>N'$ 时 $|x_n-a|\leqslant\dfrac1n<\varepsilon$，符合极限定义，所以 $x_n\to a$`,
-          R`必要性：要一个收敛到 $a$、但距离比 $\frac1n$ 大的数列。取 $x_n=a+\dfrac{1}{\sqrt n}$，$x_n\to a$`,
+          R`==必要性：要一个收敛到 $a$、但距离比 $\frac1n$ 大的数列。取 $x_n=a+\dfrac{1}{\sqrt n}$，$x_n\to a$==`,
           R`检查条件：$|x_n-a|=\dfrac{1}{\sqrt n}>\dfrac1n$（$n\geqslant2$），对任何 $N$ 都不成立，所以条件不必要`,
           R`选 (A)：充分不必要`
         ],
@@ -489,7 +489,7 @@
         signal: R`已知 $\lim x_ny_n$ 或 $\lim f[g(x)]$，问每个因子、内层的情况`,
         example: { q: R`若 $\{x_n\},\{y_n\}$ 满足 $\lim\limits_{n\to\infty}x_ny_n=\infty$，则以下结论：① $\lim x_n=\infty$ 或 $\lim y_n=\infty$；② $\lim x_n=\infty$ 且 $\lim y_n=\infty$；③ $x_n$ 与 $y_n$ 中一个是无穷大量，另一个是无界量；④ 当 $x_n$ 是非零无穷小量时，$\lim y_n=\infty$。正确结论的个数为（ ）。(A) 1　(B) 2　(C) 3　(D) 4`, src: "1000题 强化篇 第2章第1题" },
         idea: {
-          key: R`能写成"已知量 × 已知量"的就直接推；推不出的用"奇偶项交替"的数列构造反例。`,
+          key: R`==能写成"已知量 × 已知量"的就直接推==；推不出的用"奇偶项交替"的数列构造反例。`,
           how: [R`想办法把要判断的量表示成已知极限的运算，如 $y_n=x_ny_n\cdot\frac1{x_n}$`, R`反例库：奇数项 $n$、偶数项 $1$ 的交替数列；$n^{\frac{1\pm(-1)^n}2}$`],
           refs: [
             { src: "1000题 强化篇 第2章第1题解析", text: R`取 $x_n=n^{\frac{1+(-1)^n}2}$，$y_n=n^{\frac{1-(-1)^n}2}$，则 $x_ny_n=n\to\infty$，但 $\lim x_n$ 与 $\lim y_n$ 均不存在且不为 $\infty$；当 $x_n\to0$（$x_n\neq0$）时，$y_n=x_ny_n\cdot\frac1{x_n}\to\infty$` },
@@ -499,7 +499,7 @@
         think: R`已知只有乘积 $\to\infty$。①②③ 都在断言某个因子单独是无穷大，可疑：两个因子可以"轮流"变大，乘积一直很大，但每个因子都有一半的项是 1，都不是无穷大。④ 能写成"已知量 × 已知量"：$y_n=(x_ny_n)\cdot\frac{1}{x_n}$。`,
         first: R`构造交替数列 $x_n=n^{\frac{1+(-1)^n}2}$、$y_n=n^{\frac{1-(-1)^n}2}$`,
         steps: [
-          R`构造轮流变大的数列：$x_n=1,n,1,n,\cdots$（奇数项 1，偶数项 $n$），$y_n=n,1,n,1,\cdots$；统一写成 $x_n=n^{\frac{1+(-1)^n}{2}}$，$y_n=n^{\frac{1-(-1)^n}{2}}$`,
+          R`==构造轮流变大的数列：$x_n=1,n,1,n,\cdots$（奇数项 1，偶数项 $n$），$y_n=n,1,n,1,\cdots$；统一写成 $x_n=n^{\frac{1+(-1)^n}{2}}$，$y_n=n^{\frac{1-(-1)^n}{2}}$==`,
           R`检验：每一项 $x_ny_n=n\to\infty$，满足条件`,
           R`① 错：$x_n$、$y_n$ 都有一半的项是 1，都不是无穷大。② 更不成立。③ 错：两个都是无界量，但都不是无穷大`,
           R`④ 对：$x_n$ 是非零无穷小，它的倒数 $\dfrac{1}{x_n}$ 是无穷大；$y_n=(x_ny_n)\cdot\dfrac{1}{x_n}$，两个因子都是无穷大，无穷大的乘积仍是无穷大，所以 $y_n\to\infty$`,
@@ -513,7 +513,7 @@
         signal: R`已知 $\lim f(x_n)$ 存在，问 $\lim x_n$ 是否存在`,
         example: { q: R`已知数列 $\{x_n\}$，$-\frac\pi2\leqslant x_n\leqslant\frac\pi2$，则（ ）。(A) 若 $\lim\cos\sin x_n$ 存在，则 $\lim x_n$ 存在　(B) 若 $\lim\sin\cos x_n$ 存在，则 $\lim x_n$ 存在　(C) 若 $\lim\cos\sin x_n$ 存在，则 $\lim\sin x_n$ 存在，但 $\lim x_n$ 不一定存在　(D) 若 $\lim\sin\cos x_n$ 存在，则 $\lim\cos x_n$ 存在，但 $\lim x_n$ 不一定存在`, src: "18讲 第2讲 例2.12 p21" },
         idea: {
-          key: R`外层函数在相应区间上严格单调，才能由 $\lim f(u_n)$ 推出 $\lim u_n$；一层一层往里剥，遇到不单调的那层就停。`,
+          key: R`==外层函数在相应区间上严格单调，才能由 $\lim f(u_n)$ 推出 $\lim u_n$==；一层一层往里剥，遇到不单调的那层就停。`,
           how: [R`确定每一层中间变量的取值区间`, R`判断外层函数在该区间上是否严格单调`, R`单调就能往里推一层，不单调就推不动（举 $\pm$ 对称的反例）`],
           refs: [
             { src: "18讲 第2讲 p21 定理二", text: R`设 $u_n\in$ 有限区间 $I$，若 $f(x)$ 在 $I$ 上严格单调，且 $\lim\limits_{n\to\infty}f(u_n)$ 存在，则 $\lim\limits_{n\to\infty}u_n$ 存在` }
@@ -523,7 +523,7 @@
         first: R`$\cos x_n\in[0,1]$，$\sin u$ 在 $[0,1]$ 上单增`,
         steps: [
           R`确定范围：$x_n\in\left[-\frac\pi2,\frac\pi2\right]$，所以 $\cos x_n\in[0,1]$，$\sin x_n\in[-1,1]$`,
-          R`(B)(D) 第一层：外层 $\sin u$ 在 $[0,1]$ 上严格增加，连续，有连续反函数 $\arcsin$，所以 $\lim\sin\cos x_n$ 存在 ⇒ $\lim\cos x_n$ 存在`,
+          R`==(B)(D) 第一层：外层 $\sin u$ 在 $[0,1]$ 上严格增加，连续，有连续反函数 $\arcsin$，所以 $\lim\sin\cos x_n$ 存在 ⇒ $\lim\cos x_n$ 存在==`,
           R`(B)(D) 第二层：$\cos x$ 在 $\left[-\frac\pi2,\frac\pi2\right]$ 上不单调（偶函数）。反例 $x_n=(-1)^n\dfrac\pi4$：$\cos x_n\equiv\dfrac{\sqrt2}{2}$ 收敛，$x_n$ 不收敛。所以 (B) 错，(D) 对`,
           R`(A)(C)：外层 $\cos u$ 在 $[-1,1]$ 上不单调（偶函数），推不出 $\lim\sin x_n$ 存在。反例同上：$\sin x_n=(-1)^n\dfrac{\sqrt2}{2}$ 不收敛，但 $\cos\sin x_n$ 是常数。(A)(C) 都错`,
           R`选 (D)`
@@ -538,7 +538,7 @@
         signal: R`分子分母都 $\to0$，含根式差、$\tan x-\sin x$、$\ln(1+x)-x$ 等`,
         example: { q: R`求极限 $\lim\limits_{x\to0}\dfrac{\sqrt{1+\tan x}-\sqrt{1+\sin x}}{x\ln(1+x)-x^2}$。`, src: "武忠祥 第1章 题型二 例1 p21–22；1000题 基础篇 第1章第14题（同类）" },
         idea: {
-          key: R`先有理化去根号，提出极限非零的因子，再对乘积因子用等价（含差函数等价）。`,
+          key: R`==先有理化去根号，提出极限非零的因子，再对乘积因子用等价（含差函数等价）==。`,
           how: [R`根式差先有理化`, R`把极限不为 $0$ 的因子（如 $\frac1{\sqrt{1+\tan x}+\sqrt{1+\sin x}}\to\frac12$）先算出来`, R`剩下的因式分解成乘积，如 $\tan x-\sin x=\tan x(1-\cos x)$`, R`分母的差函数用 $\ln(1+x)-x\sim-\frac{x^2}2$`],
           refs: [
             { src: "武忠祥 题型二 例1 p21–22", text: R`有理化 → 先求极限非零因子的极限 → 等价代换；方法二用拉格朗日中值定理处理根式差` },
@@ -551,7 +551,7 @@
           R`分子有理化：$\sqrt{1+\tan x}-\sqrt{1+\sin x}=\dfrac{\tan x-\sin x}{\sqrt{1+\tan x}+\sqrt{1+\sin x}}$；分母提 $x$：$x[\ln(1+x)-x]$`,
           R`非零因子先求：$\sqrt{1+\tan x}+\sqrt{1+\sin x}\to2$，所以原式 $=\dfrac12\lim\dfrac{\tan x-\sin x}{x[\ln(1+x)-x]}$`,
           R`分子：$\tan x-\sin x=\tan x(1-\cos x)\sim x\cdot\dfrac{x^2}{2}=\dfrac{x^3}{2}$`,
-          R`分母：泰勒 $\ln(1+x)=x-\dfrac{x^2}{2}+o(x^2)$，所以 $\ln(1+x)-x\sim-\dfrac{x^2}{2}$，$x[\ln(1+x)-x]\sim-\dfrac{x^3}{2}$`,
+          R`==分母：泰勒 $\ln(1+x)=x-\dfrac{x^2}{2}+o(x^2)$，所以 $\ln(1+x)-x\sim-\dfrac{x^2}{2}$，$x[\ln(1+x)-x]\sim-\dfrac{x^3}{2}$==`,
           R`原式 $=\dfrac12\cdot\dfrac{x^3/2}{-x^3/2}=-\dfrac12$`
         ],
         pitfall: R`分子直接换成 $\sqrt{1+x}-\sqrt{1+x}=0$；不提非零因子，直接洛必达，算得很繁`,
@@ -562,7 +562,7 @@
         signal: R`分子是两个函数之差且一阶、二阶都抵消，等价代换用不上`,
         example: { q: R`求极限 $\lim\limits_{x\to0}\dfrac{\cos x-\mathrm e^{-\frac{x^2}2}}{x^2[x+\ln(1-x)]}$。`, src: "武忠祥 第1章 题型二 例6 p24–25；30讲 p53（分子的展开）" },
         idea: {
-          key: R`先定分母的阶（这里 $x^4$），分子用"幂次最低"原则展开到两者系数第一次不同的那一项。`,
+          key: R`==先定分母的阶（这里 $x^4$），分子用"幂次最低"原则展开到两者系数第一次不同的那一项==。`,
           how: [R`分母能等价就先等价，确定是 $x^k$`, R`分子 $A-B$：$A$、$B$ 各自展开，直到某一次幂系数不同`, R`代入后约去 $x^k$，$o$ 项写对`],
           refs: [
             { src: "30讲 p52–53", text: R`$\frac AB$ 型，适用"上下同阶"原则；$A-B$ 型，适用"幂次最低"原则：将 $A$、$B$ 分别展开到它们的系数不相等的 $x$ 的最低次幂为止` },
@@ -573,7 +573,7 @@
         first: R`分母 $x+\ln(1-x)\sim-\frac{x^2}2$，所以分母 $\sim-\frac12x^4$`,
         steps: [
           R`先定分母的阶：$\ln(1-x)=-x-\dfrac{x^2}{2}+o(x^2)$，$x+\ln(1-x)\sim-\dfrac{x^2}{2}$，分母 $\sim-\dfrac12x^4$`,
-          R`分子展到 $x^4$：$\cos x=1-\dfrac{x^2}{2}+\dfrac{x^4}{24}+o(x^4)$`,
+          R`==分子展到 $x^4$：$\cos x=1-\dfrac{x^2}{2}+\dfrac{x^4}{24}+o(x^4)$==`,
           R`$\mathrm e^u=1+u+\dfrac{u^2}{2}+o(u^2)$，$u=-\dfrac{x^2}{2}$：$\mathrm e^{-\frac{x^2}{2}}=1-\dfrac{x^2}{2}+\dfrac{x^4}{8}+o(x^4)$`,
           R`相减：前两项抵消，分子 $=\left(\dfrac1{24}-\dfrac18\right)x^4+o(x^4)=-\dfrac{1}{12}x^4+o(x^4)$`,
           R`原式 $=\dfrac{-\frac1{12}}{-\frac12}=\dfrac16$`
@@ -586,7 +586,7 @@
         signal: R`$f(b)-f(a)$ 形式：$\arctan(x+1)-\arctan x$、$a^{\frac1x}-a^{\frac1{x+1}}$、$\sin\sqrt{x+1}-\sin\sqrt x$`,
         example: { q: R`$\lim\limits_{n\to\infty}n^2\left(\sqrt[n]2-\sqrt[n+1]2\right)=$______。`, src: "18讲 第1讲 例1.7 p8" },
         idea: {
-          key: R`把差看成 $f(b)-f(a)=f'(\xi)(b-a)$，$\xi$ 夹在 $a$、$b$ 之间，极限过程中 $\xi$ 跟着 $a$、$b$ 一起趋于同一个值。`,
+          key: R`==把差看成 $f(b)-f(a)=f'(\xi)(b-a)$，$\xi$ 夹在 $a$、$b$ 之间，极限过程中 $\xi$ 跟着 $a$、$b$ 一起趋于同一个值==。`,
           how: [R`认出 $f$、$a$、$b$`, R`写 $f(b)-f(a)=f'(\xi)(b-a)$`, R`$\xi$ 介于 $a$、$b$ 之间，由夹逼确定 $\xi$ 的极限`, R`也可以提公因式后用 $\mathrm e^\square-1\sim\square$`],
           refs: [
             { src: "18讲 p8", text: R`在 lim 局部中，见到 $f-f$ 函数，如三角函数、反三角函数、对数函数之差，考虑用拉格朗日中值定理处理后再计算` },
@@ -597,7 +597,7 @@
         first: R`对 $2^x$ 在 $\left[\frac1{n+1},\frac1n\right]$ 上用拉格朗日中值定理`,
         steps: [
           R`取 $f(x)=2^x$，在 $\left[\dfrac1{n+1},\dfrac1n\right]$ 上连续可导，$f'(x)=2^x\ln2$`,
-          R`拉格朗日中值定理：$2^{\frac1n}-2^{\frac1{n+1}}=2^\xi\ln2\cdot\left(\dfrac1n-\dfrac1{n+1}\right)$，$\xi\in\left(\dfrac1{n+1},\dfrac1n\right)$`,
+          R`==拉格朗日中值定理：$2^{\frac1n}-2^{\frac1{n+1}}=2^\xi\ln2\cdot\left(\dfrac1n-\dfrac1{n+1}\right)$，$\xi\in\left(\dfrac1{n+1},\dfrac1n\right)$==`,
           R`自变量之差：$\dfrac1n-\dfrac1{n+1}=\dfrac{1}{n(n+1)}$，所以原式 $=\lim2^\xi\ln2\cdot\dfrac{n^2}{n(n+1)}$`,
           R`$\xi$ 夹在 $\frac{1}{n+1}$ 与 $\frac1n$ 之间，$\xi\to0^+$，$2^\xi\to1$；$\dfrac{n^2}{n(n+1)}\to1$`,
           R`原式 $=\ln2$`
@@ -610,7 +610,7 @@
         signal: R`两项都趋于 $\infty$ 相减，如 $\frac1{x^2}-\cot^2x$、$x^2(\mathrm e^{\frac1x}-1)-x$`,
         example: { q: R`求极限 $\lim\limits_{x\to+\infty}\left[x^2\left(\mathrm e^{\frac1x}-1\right)-x\right]$。`, src: "30讲 第1讲 例1.31 p61" },
         idea: {
-          key: R`把"和差"化成"商"：有分母就通分；有根式就有理化；都没有就提出无穷因子或作倒代换 $t=\frac1x$。`,
+          key: R`==把"和差"化成"商"：有分母就通分==；有根式就有理化；都没有就提出无穷因子或作倒代换 $t=\frac1x$。`,
           how: [R`判断有没有分母、根式`, R`没有分母时，提公因式 $x$ 或令 $u=\frac1x$ 造出分母`, R`化成 $\frac00$ 后，用等价、泰勒或洛必达`],
           refs: [
             { src: "30讲 p60", text: R`如果函数中有分母，则通分；如果函数中没有分母，则可以通过提取公因式或者作倒代换，出现分母后，再利用通分等恒等变形，将加减法变形为乘除法` },
@@ -622,7 +622,7 @@
         steps: [
           R`倒代换 $u=\dfrac1x$：$x^2=\dfrac1{u^2}$，原式 $=\lim\limits_{u\to0^+}\left[\dfrac{\mathrm e^u-1}{u^2}-\dfrac1u\right]$`,
           R`通分：$=\lim\limits_{u\to0^+}\dfrac{\mathrm e^u-1-u}{u^2}$，是 $\frac00$ 型`,
-          R`分子泰勒：$\mathrm e^u=1+u+\dfrac{u^2}{2}+o(u^2)$，所以 $\mathrm e^u-1-u\sim\dfrac{u^2}{2}$（不能用 $\mathrm e^u-1\sim u$，那样会得到 0）`,
+          R`==分子泰勒：$\mathrm e^u=1+u+\dfrac{u^2}{2}+o(u^2)$，所以 $\mathrm e^u-1-u\sim\dfrac{u^2}{2}$（不能用 $\mathrm e^u-1\sim u$，那样会得到 0）==`,
           R`原式 $=\dfrac12$`
         ],
         pitfall: R`直接 $x^2\cdot\frac1x-x=0$：把 $\mathrm e^{\frac1x}-1$ 换成 $\frac1x$ 丢掉了二阶项（加减中等价代换失效）`,
@@ -633,7 +633,7 @@
         signal: R`底数 $\to1$、指数 $\to\infty$`,
         example: { q: R`求极限 $\lim\limits_{x\to0}(\cos2x+2x\sin x)^{\frac1{x^4}}$。`, src: "武忠祥 第1章 题型二 1^∞型 例4 p31–32" },
         idea: {
-          key: R`写成 $(1+\alpha)^\beta$，求 $\lim\alpha\beta=A$，答案 $\mathrm e^A$；求 $A$ 时 $\alpha$ 往往还要化简成乘积。`,
+          key: R`==写成 $(1+\alpha)^\beta$，求 $\lim\alpha\beta=A$，答案 $\mathrm e^A$==；求 $A$ 时 $\alpha$ 往往还要化简成乘积。`,
           how: [R`$\alpha=u-1$，必要时用三角恒等式化简`, R`$\alpha\beta$ 是 $\frac00$ 型，用等价、泰勒`, R`整体写 $\mathrm e^A$`],
           refs: [
             { src: "武忠祥 p30", text: R`第一步写标准型 原式 $=\lim(1+\alpha)^\beta$；第二步求极限 $\lim\alpha\beta=A$；第三步写结果 原式 $=\mathrm e^A$` },
@@ -645,7 +645,7 @@
         steps: [
           R`写 $\alpha$：底数 $=1+\alpha$，$\alpha=\cos2x-1+2x\sin x$；倍角 $\cos2x-1=-2\sin^2x$，所以 $\alpha=-2\sin^2x+2x\sin x=2\sin x(x-\sin x)$`,
           R`$\beta=\dfrac1{x^4}$，$\alpha\beta=\dfrac{2\sin x(x-\sin x)}{x^4}$`,
-          R`等价：$\sin x\sim x$；$x-\sin x\sim\dfrac{x^3}{6}$（泰勒 $\sin x=x-\frac{x^3}{6}+o(x^3)$）`,
+          R`==等价：$\sin x\sim x$；$x-\sin x\sim\dfrac{x^3}{6}$（泰勒 $\sin x=x-\frac{x^3}{6}+o(x^3)$）==`,
           R`$\lim\alpha\beta=\lim\dfrac{2x\cdot\frac{x^3}{6}}{x^4}=\dfrac13$`,
           R`原式 $=\mathrm e^{\frac13}$`
         ],
@@ -657,7 +657,7 @@
         signal: R`底数 $\to\infty$ 或 $0^+$，指数 $\to0$`,
         example: { q: R`求极限 $\lim\limits_{x\to+\infty}\left(x^{\frac1x}-1\right)^{\frac1{\ln x}}$。`, src: "武忠祥 第1章 题型二 p32–33" },
         idea: {
-          key: R`$u^v=\mathrm e^{v\ln u}$，指数 $v\ln u$ 是 $0\cdot\infty$；对 $\ln u$ 内部先用等价把"$\square-1$"换掉。`,
+          key: R`==$u^v=\mathrm e^{v\ln u}$，指数 $v\ln u$ 是 $0\cdot\infty$==；对 $\ln u$ 内部先用等价把"$\square-1$"换掉。`,
           how: [R`令 $y=u^v$，$\ln y=v\ln u$`, R`$u$ 里有 $\mathrm e^\square-1$ 时，$\ln(\mathrm e^\square-1)=\ln\frac{\mathrm e^\square-1}{\square}+\ln\square$，前一项 $\to0$`, R`求出 $\lim\ln y$，答案 $\mathrm e^{\lim\ln y}$`],
           refs: [
             { src: "武忠祥 p32", text: R`这两种极限的函数一定是幂指函数，求解的方法是将其改写成指数形式 $\lim[f(x)]^{g(x)}=\lim\mathrm e^{g(x)\ln f(x)}$，从而化为"$0\cdot\infty$"型` },
@@ -668,7 +668,7 @@
         first: R`$x^{\frac1x}-1=\mathrm e^{\frac{\ln x}x}-1$，$\frac{\ln x}x\to0$`,
         steps: [
           R`设 $y$ 为原式，$\ln y=\dfrac{\ln\left(x^{\frac1x}-1\right)}{\ln x}$`,
-          R`$x^{\frac1x}=\mathrm e^{w}$，$w=\dfrac{\ln x}{x}\to0$。写 $\mathrm e^w-1=w\cdot\dfrac{\mathrm e^w-1}{w}$，取对数：$\ln(\mathrm e^w-1)=\ln\dfrac{\mathrm e^w-1}{w}+\ln w$`,
+          R`==$x^{\frac1x}=\mathrm e^{w}$，$w=\dfrac{\ln x}{x}\to0$。写 $\mathrm e^w-1=w\cdot\dfrac{\mathrm e^w-1}{w}$，取对数：$\ln(\mathrm e^w-1)=\ln\dfrac{\mathrm e^w-1}{w}+\ln w$==`,
           R`$\dfrac{\mathrm e^w-1}{w}\to1$，第一项 $\to\ln1=0$；$\ln w=\ln\ln x-\ln x$`,
           R`$\lim\ln y=\lim\dfrac{\ln\ln x-\ln x}{\ln x}=\lim\left(\dfrac{\ln\ln x}{\ln x}-1\right)=0-1=-1$（令 $s=\ln x\to+\infty$，$\frac{\ln s}{s}\to0$）`,
           R`原式 $=\mathrm e^{-1}$`
@@ -681,7 +681,7 @@
         signal: R`$x\to\pm\infty$，分子分母是根式、多项式、指数的混合`,
         example: { q: R`求极限 $\lim\limits_{x\to-\infty}\dfrac{\sqrt{4x^2+x-1}+x+1}{\sqrt{x^2+\sin x}}$。`, src: "武忠祥 第1章 题型二 ∞/∞型 例3 p25–26" },
         idea: {
-          key: R`分子分母同除最高阶的无穷大；$x\to-\infty$ 时 $\sqrt{x^2}=|x|=-x$，同除的是 $-x$。`,
+          key: R`==分子分母同除最高阶的无穷大==；$x\to-\infty$ 时 $\sqrt{x^2}=|x|=-x$，同除的是 $-x$。`,
           how: [R`找出分子、分母中增长最快的项`, R`$x<0$ 时把 $x$ 移进根号要变号：$\sqrt{4x^2+\cdots}=-x\sqrt{4+\cdots}$`, R`各项除完后求极限`],
           refs: [
             { src: "武忠祥 p25", text: R`"$\frac\infty\infty$"型常用方法：(1) 洛必达法则；(2) 分子分母同除以分子和分母各项中最高阶的无穷大` },
@@ -692,7 +692,7 @@
         first: R`分子分母同除 $-x$（$>0$）`,
         steps: [
           R`$x\to-\infty$ 时 $-x>0$，且 $\sqrt{x^2}=-x$，所以分子分母同除 $-x$`,
-          R`$\dfrac{\sqrt{4x^2+x-1}}{-x}=\sqrt{\dfrac{4x^2+x-1}{x^2}}=\sqrt{4+\dfrac1x-\dfrac1{x^2}}\to2$`,
+          R`==$\dfrac{\sqrt{4x^2+x-1}}{-x}=\sqrt{\dfrac{4x^2+x-1}{x^2}}=\sqrt{4+\dfrac1x-\dfrac1{x^2}}\to2$==`,
           R`$\dfrac{x+1}{-x}=-1-\dfrac1x\to-1$（不在根号里，符号照常算）`,
           R`分母：$\dfrac{\sqrt{x^2+\sin x}}{-x}=\sqrt{1+\dfrac{\sin x}{x^2}}\to1$（$\sin x$ 有界）`,
           R`原式 $=\dfrac{2-1}{1}=1$。注意：如果误除以 $x$（负数），根号外的 $x$ 会放进根号里变成 $\sqrt{x^2}=-x$，符号就错了`
@@ -705,7 +705,7 @@
         signal: R`题目给 $\lim\frac{\cdots+xf(x)}{x^3}=0$ 这种含未知函数的极限，求另一个含 $f$ 的极限`,
         example: { q: R`已知 $\lim\limits_{x\to0}\dfrac{\tan2x+xf(x)}{\sin x^3}=0$，则 $\lim\limits_{x\to0}\dfrac{2+f(x)}{x^2}=$（ ）。(A) $\frac{13}9$　(B) $4$　(C) $\frac{10}3$　(D) $-\frac83$`, src: "30讲 第1讲 例1.27 p57–58" },
         idea: {
-          key: R`把已知式和所求式"凑成同一个式子"：要么脱帽解出 $f(x)$ 再代入，要么把已知式中的具体函数泰勒展开，直接读出所求的极限。`,
+          key: R`==把已知式和所求式"凑成同一个式子"：要么脱帽解出 $f(x)$ 再代入，要么把已知式中的具体函数泰勒展开，直接读出所求的极限==。`,
           how: [R`把分母等价成 $x^k$`, R`已知式中的具体函数（$\tan2x$ 等）展开到 $x^k$`, R`凑出所求式，读出结果；或脱帽：$\frac{\cdots}{x^3}=\alpha(x)\to0$，解出 $f$`],
           refs: [
             { src: "30讲 例1.27 方法总结 p58", text: R`①用好泰勒公式；②已知极限，用脱帽法可解出 $f(x)$。脱帽法：若 $\lim f(x)=A$，则 $f(x)=A+\alpha(x)$，$\lim\alpha(x)=0$` },
@@ -716,7 +716,7 @@
         first: R`$\sin x^3\sim x^3$；$\tan2x=2x+\frac{(2x)^3}3+o(x^3)$`,
         steps: [
           R`分母等价：$\sin x^3\sim x^3$`,
-          R`泰勒：$\tan u=u+\dfrac{u^3}{3}+o(u^3)$，$u=2x$：$\tan2x=2x+\dfrac{8x^3}{3}+o(x^3)$`,
+          R`==泰勒：$\tan u=u+\dfrac{u^3}{3}+o(u^3)$，$u=2x$：$\tan2x=2x+\dfrac{8x^3}{3}+o(x^3)$==`,
           R`分子：$\tan2x+xf(x)=x[2+f(x)]+\dfrac83x^3+o(x^3)$`,
           R`除以 $x^3$：$0=\lim\left[\dfrac{2+f(x)}{x^2}+\dfrac83+o(1)\right]$`,
           R`所以 $\lim\dfrac{2+f(x)}{x^2}=-\dfrac83$，选 (D)`
@@ -731,7 +731,7 @@
         signal: R`数列极限是 $1^\infty$、$\frac00$ 等未定式，需要洛必达或泰勒`,
         example: { q: R`求极限 $\lim\limits_{n\to\infty}\left[\dfrac{\left(1+\frac1n\right)^n}{\mathrm e}\right]^n$。`, src: "武忠祥 第1章 数列的极限 例2 p34" },
         idea: {
-          key: R`数列不能直接求导；但等价代换、泰勒可以直接用在数列上，要用洛必达时先用海涅定理换成 $x\to+\infty$。`,
+          key: R`==数列不能直接求导==；但等价代换、泰勒可以直接用在数列上，要用洛必达时先用海涅定理换成 $x\to+\infty$。`,
           how: [R`幂指形式先写成 $\mathrm e^{\cdots}$`, R`指数部分用等价或泰勒：$\ln\left(1+\frac1n\right)=\frac1n-\frac1{2n^2}+o\left(\frac1{n^2}\right)$`, R`需要洛必达时，把 $n$ 换成 $x$`],
           refs: [
             { src: "武忠祥 p33", text: R`求数列不定式极限和求函数不定式极限的方法完全相同，但对数列极限不能直接用洛必达法则，需改写成函数极限后再用洛必达法则` },
@@ -743,7 +743,7 @@
         steps: [
           R`取对数：原式 $=\mathrm e^{n\ln\frac{(1+1/n)^n}{\mathrm e}}=\mathrm e^{n[n\ln(1+\frac1n)-1]}=\mathrm e^{n^2\ln(1+\frac1n)-n}$`,
           R`指数提 $n^2$：$n^2\ln\left(1+\dfrac1n\right)-n=n^2\left[\ln\left(1+\dfrac1n\right)-\dfrac1n\right]$`,
-          R`泰勒（$x=\frac1n\to0$）：$\ln(1+x)-x=-\dfrac{x^2}{2}+o(x^2)$，所以括号 $\sim-\dfrac{1}{2n^2}$`,
+          R`==泰勒（$x=\frac1n\to0$）：$\ln(1+x)-x=-\dfrac{x^2}{2}+o(x^2)$，所以括号 $\sim-\dfrac{1}{2n^2}$==`,
           R`指数 $\to n^2\cdot\left(-\dfrac{1}{2n^2}\right)=-\dfrac12$`,
           R`原式 $=\mathrm e^{-\frac12}$`
         ],
@@ -755,7 +755,7 @@
         signal: R`$\sum\limits_{k=1}^n\frac{n}{n^2+\square}$ 一类的和`,
         example: { q: R`求极限 $\lim\limits_{n\to\infty}\left(\dfrac n{n^2+1^2}+\dfrac n{n^2+2^2}+\cdots+\dfrac n{n^2+n^2}\right)$。`, src: "武忠祥 第1章 n项和 例2 p35（对照 例1 p35）" },
         idea: {
-          key: R`看分母中的"变化部分"与"主体部分"：变化部分是次要量就夹逼；与主体同阶就提 $\frac1n$ 凑 $\frac1n\sum f\left(\frac kn\right)$。`,
+          key: R`==看分母中的"变化部分"与"主体部分"：变化部分是次要量就夹逼==；与主体同阶就提 $\frac1n$ 凑 $\frac1n\sum f\left(\frac kn\right)$。`,
           how: [R`找主体部分（$n^2$）和变化部分（$k^2$ 或 $k$）`, R`$k$（相对 $n^2$ 是小量）：用最大、最小项夹逼`, R`$k^2$（与 $n^2$ 同阶）：提出 $\frac1n$，写成 $\frac1n\sum\frac1{1+(k/n)^2}$`, R`转成 $\int_0^1f(x)\mathrm dx$`],
           refs: [
             { src: "武忠祥 p35 注 (2)", text: R`以上两个例题一个适合用夹逼原理，而另一个适合用定积分定义。它们分母中的第一项都是 $n^2$，称其为主体部分，第二项随项的变化而变化，称其为变化部分` },
@@ -766,7 +766,7 @@
         first: R`变化部分 $k^2$ 与 $n^2$ 同阶，用定积分定义`,
         steps: [
           R`判断方法：若放缩，$\dfrac{n^2}{n^2+n^2}\leqslant\text{和}\leqslant\dfrac{n^2}{n^2+1}$，两边极限 $\frac12$ 和 $1$ 不等，夹逼不行`,
-          R`变形：第 $k$ 项 $\dfrac{n}{n^2+k^2}=\dfrac1n\cdot\dfrac{1}{1+\left(\frac kn\right)^2}$，所以原式 $=\lim\dfrac1n\sum\limits_{k=1}^n\dfrac{1}{1+\left(\frac kn\right)^2}$`,
+          R`==变形：第 $k$ 项 $\dfrac{n}{n^2+k^2}=\dfrac1n\cdot\dfrac{1}{1+\left(\frac kn\right)^2}$，所以原式 $=\lim\dfrac1n\sum\limits_{k=1}^n\dfrac{1}{1+\left(\frac kn\right)^2}$==`,
           R`这是 $f(x)=\dfrac{1}{1+x^2}$ 在 $[0,1]$ 上 $n$ 等分、取右端点的积分和，由定积分定义 $=\int_0^1\dfrac{\mathrm dx}{1+x^2}$`,
           R`$=\arctan x\Big|_0^1=\dfrac\pi4$`,
           R`对照：若是 $\sum\dfrac{n}{n^2+k}$，变化部分 $k\leqslant n$ 比 $n^2$ 低阶，放缩 $\dfrac{n^2}{n^2+n}\leqslant\cdots\leqslant\dfrac{n^2}{n^2+1}$，两边 $\to1$，用夹逼（武忠祥 例1）`
@@ -779,7 +779,7 @@
         signal: R`$\sqrt[n]{(n+1)(n+2)\cdots(2n)}$、$\sqrt[n]{n!}$ 一类`,
         example: { q: R`求 $\lim\limits_{n\to\infty}\dfrac1n\sqrt[n]{(n+1)(n+2)\cdots(n+n)}$。`, src: "武忠祥 第1章 n项连乘 例2 p38" },
         idea: {
-          key: R`取对数把连乘变成 $n$ 项和，再用定积分定义（或夹逼），最后取指数。`,
+          key: R`==取对数把连乘变成 $n$ 项和，再用定积分定义（或夹逼），最后取指数==。`,
           how: [R`令 $y_n$ 为原式，求 $\ln y_n$`, R`$\frac1n\sum\ln(n+k)-\ln n=\frac1n\sum\ln\left(1+\frac kn\right)$`, R`转成 $\int_0^1\ln(1+x)\mathrm dx$`],
           refs: [
             { src: "武忠祥 p38", text: R`$n$ 项连乘的数列极限常用方法：(1) 夹逼原理；(2) 取对数化为 $n$ 项和` }
@@ -788,7 +788,7 @@
         think: R`连乘再开 $n$ 次方，取对数就变成 $\frac1n\sum$ 的形式：$\ln$ 把乘积变成和，$\sqrt[n]{\ }$ 变成乘 $\frac1n$。前面的 $\frac1n$ 正好用来把每个因子 $n+k$ 变成 $1+\frac kn$，得到积分和。`,
         first: R`令 $y_n$ 为原式，取对数`,
         steps: [
-          R`设 $y_n$ 为原式，取对数：$\ln y_n=\dfrac1n\sum\limits_{k=1}^n\ln(n+k)-\ln n$`,
+          R`==设 $y_n$ 为原式，取对数：$\ln y_n=\dfrac1n\sum\limits_{k=1}^n\ln(n+k)-\ln n$==`,
           R`把 $\ln n$ 分进每一项：$\ln n=\dfrac1n\sum\limits_{k=1}^n\ln n$，所以 $\ln y_n=\dfrac1n\sum\limits_{k=1}^n\ln\dfrac{n+k}{n}=\dfrac1n\sum\limits_{k=1}^n\ln\left(1+\dfrac kn\right)$`,
           R`定积分定义：$\lim\ln y_n=\int_0^1\ln(1+x)\mathrm dx$`,
           R`分部积分：$\int_0^1\ln(1+x)\mathrm dx=\left[(1+x)\ln(1+x)-x\right]_0^1=2\ln2-1$`,
@@ -802,7 +802,7 @@
         signal: R`$x_{n+1}=f(x_n)$ 或含 $x_n$、$x_{n+1}$ 的关系式，证明收敛并求极限，第二问求 $\lim\frac{x_{n+1}}{x_n^k}$ 一类`,
         example: { q: R`设数列 $\{x_n\}$ 满足 $0<x_n<\frac\pi2$，$\cos x_{n+1}-x_{n+1}=\cos x_n$。(1) 证明 $\lim x_n$ 存在并求其值；(2) 计算 $\lim\limits_{n\to\infty}\dfrac{x_{n+1}}{x_n^2}$。`, src: "1000题 强化篇 第2章第7题" },
         idea: {
-          key: R`由关系式比较 $x_{n+1}$ 与 $x_n$ 定单调（常借助函数的单调性），给出界，再对等式两边取极限；第二问把 $x_n\to0$ 当成函数的 $x\to0$，用等价代换。`,
+          key: R`==由关系式比较 $x_{n+1}$ 与 $x_n$ 定单调（常借助函数的单调性），给出界，再对等式两边取极限==；第二问把 $x_n\to0$ 当成函数的 $x\to0$，用等价代换。`,
           how: [R`由等式把差 $\cos x_{n+1}-\cos x_n$ 表示出来，看符号定单调`, R`题设给出上下界`, R`取极限解方程，必要时用保号性舍根`, R`第二问：用关系式消去一个量，化为 $x\to0$ 的函数极限`],
           refs: [
             { src: "1000题 强化篇 第2章第7题解析", text: R`$\cos x_{n+1}-\cos x_n=x_{n+1}>0$，且 $0<x_n<\frac\pi2$，故 $0<x_{n+1}<x_n$；$\lim\frac{x_{n+1}}{x_n^2}=\lim\frac{1-\cos x_n}{x_n^2}\cdot\frac{x_{n+1}}{1-\cos x_n}=\frac12$` },
@@ -813,7 +813,7 @@
         first: R`$\cos x_{n+1}-\cos x_n=x_{n+1}>0$，$\cos$ 在 $\left(0,\frac\pi2\right)$ 上单减`,
         steps: [
           R`(1) 由递推 $\cos x_{n+1}-\cos x_n=x_{n+1}>0$，所以 $\cos x_{n+1}>\cos x_n$`,
-          R`(1) $\cos$ 在 $\left(0,\frac\pi2\right)$ 上单调减少，函数值大的自变量小：$x_{n+1}<x_n$，数列单调减少；又 $x_n>0$ 有下界，由单调有界准则极限存在，设为 $a\in\left[0,\frac\pi2\right)$`,
+          R`==(1) $\cos$ 在 $\left(0,\frac\pi2\right)$ 上单调减少，函数值大的自变量小：$x_{n+1}<x_n$，数列单调减少；又 $x_n>0$ 有下界，由单调有界准则极限存在，设为 $a\in\left[0,\frac\pi2\right)$==`,
           R`(1) 递推式两边取极限（$\cos$ 连续）：$\cos a-a=\cos a$，得 $a=0$`,
           R`(2) 改写递推：$1-\cos x_n=(1-\cos x_{n+1})+x_{n+1}$。于是 $\dfrac{x_{n+1}}{x_n^2}=\dfrac{1-\cos x_n}{x_n^2}\cdot\dfrac{x_{n+1}}{1-\cos x_n}=\dfrac{1-\cos x_n}{x_n^2}\cdot\dfrac{x_{n+1}}{(1-\cos x_{n+1})+x_{n+1}}$`,
           R`(2) $x_n\to0$：第一个因子 $\to\dfrac12$；第二个因子分子分母同除 $x_{n+1}$，$\dfrac{1-\cos x_{n+1}}{x_{n+1}}\sim\dfrac{x_{n+1}}{2}\to0$，所以 $\to\dfrac{1}{0+1}=1$。极限 $=\dfrac12$`
@@ -826,7 +826,7 @@
         signal: R`$x_{n+1}=f(x_n)$ 中 $f$ 单调减少（数列摆动），如 $x_{n+1}=2+\frac1{x_n}$、$x_{n+1}=\cos x_n$`,
         example: { q: R`设 $x_1=2$，$x_{n+1}=2+\dfrac1{x_n}$（$n=1,2,\cdots$），求极限 $\lim\limits_{n\to\infty}x_n$。`, src: "武忠祥 第1章 递推数列 例4 p41" },
         idea: {
-          key: R`先假设极限为 $a$，由 $a=f(a)$ 解出并用范围取舍，再证 $|x_n-a|\leqslant k|x_{n-1}-a|$（$0<k<1$），夹逼得 $x_n\to a$。`,
+          key: R`==先假设极限为 $a$，由 $a=f(a)$ 解出并用范围取舍，再证 $|x_n-a|\leqslant k|x_{n-1}-a|$（$0<k<1$），夹逼得 $x_n\to a$==。`,
           how: [R`判断 $f$ 单减 ⇒ 数列不单调，换方法 2`, R`解 $a=f(a)$，由 $x_n$ 的范围（保号性）取舍`, R`估计 $|x_n-a|=|f(x_{n-1})-f(a)|$，得到常数 $k<1$`, R`$|x_n-a|\leqslant k^{n-1}|x_1-a|\to0$`],
           refs: [
             { src: "武忠祥 p39", text: R`方法 2：先令 $\lim x_n=A$，然后等式两端取极限解得 $A$，得到极限初步结果，最后再证明 $\lim x_n=A$。一般来说，数列不具有单调性或单调性很难判定时用方法 2` },
@@ -837,7 +837,7 @@
         first: R`$f(x)=2+\frac1x$ 在 $(0,+\infty)$ 上单减，数列不单调`,
         steps: [
           R`求候选值：若 $x_n\to a$，递推式取极限 $a=2+\dfrac1a$，$a^2-2a-1=0$，$a=1\pm\sqrt2$。由 $x_1=2$ 和递推知 $x_n\geqslant2$，所以 $a\geqslant2$，取 $a=1+\sqrt2$`,
-          R`作差：$x_n-a=\left(2+\dfrac1{x_{n-1}}\right)-\left(2+\dfrac1a\right)=\dfrac{a-x_{n-1}}{ax_{n-1}}$`,
+          R`==作差：$x_n-a=\left(2+\dfrac1{x_{n-1}}\right)-\left(2+\dfrac1a\right)=\dfrac{a-x_{n-1}}{ax_{n-1}}$==`,
           R`压缩：$a>2$，$x_{n-1}\geqslant2$，所以 $ax_{n-1}>4>2$，$|x_n-a|\leqslant\dfrac12|x_{n-1}-a|$`,
           R`反复用：$|x_n-a|\leqslant\dfrac12|x_{n-1}-a|\leqslant\cdots\leqslant\dfrac{1}{2^{n-1}}|x_1-a|\to0$`,
           R`所以 $\lim x_n=1+\sqrt2$（这一步同时证明了极限存在，前面的"假设"只是用来找 $a$）`
@@ -850,7 +850,7 @@
         signal: R`通项含阶乘、$n^n$、$a^n$ 的乘积或商`,
         example: { q: R`证明 $\lim\limits_{n\to\infty}\dfrac{2^nn!}{n^n}=0$，$\lim\limits_{n\to\infty}\dfrac{3^nn!}{n^n}=+\infty$。`, src: "武忠祥 第1章 题型一 例5 p14–15" },
         idea: {
-          key: R`算 $\lim\frac{a_{n+1}}{a_n}$：绝对值小于 $1$ 则 $a_n\to0$；大于 $1$ 时对 $\frac1{a_n}$ 用同样结论得 $a_n\to\infty$。`,
+          key: R`==算 $\lim\frac{a_{n+1}}{a_n}$：绝对值小于 $1$ 则 $a_n\to0$==；大于 $1$ 时对 $\frac1{a_n}$ 用同样结论得 $a_n\to\infty$。`,
           how: [R`写出 $\frac{a_{n+1}}{a_n}$，阶乘约掉`, R`$\frac{n^n}{(n+1)^n}=\frac1{(1+\frac1n)^n}\to\frac1{\mathrm e}$`, R`和 $1$ 比较下结论`],
           refs: [
             { src: "武忠祥 题型一 例5 p14–15", text: R`若 $\lim\frac{a_{n+1}}{a_n}=a$，且 $|a|<1$，则 $\lim a_n=0$。证明：取 $|a|<b<1$，$n>N$ 时 $\left|\frac{a_{n+1}}{a_n}\right|<b$，从而 $|a_{N+m}|<b^{m-1}|a_{N+1}|\to0$` }
@@ -860,7 +860,7 @@
         first: R`$a_n=\frac{2^nn!}{n^n}$，算 $\frac{a_{n+1}}{a_n}$`,
         steps: [
           R`$a_n=\dfrac{2^nn!}{n^n}$，算比值：$\dfrac{a_{n+1}}{a_n}=\dfrac{2^{n+1}(n+1)!}{(n+1)^{n+1}}\cdot\dfrac{n^n}{2^nn!}=\dfrac{2(n+1)n^n}{(n+1)^{n+1}}=\dfrac{2n^n}{(n+1)^n}$`,
-          R`化简：$\dfrac{2n^n}{(n+1)^n}=\dfrac{2}{\left(1+\frac1n\right)^n}\to\dfrac2{\mathrm e}<1$`,
+          R`==化简：$\dfrac{2n^n}{(n+1)^n}=\dfrac{2}{\left(1+\frac1n\right)^n}\to\dfrac2{\mathrm e}<1$==`,
           R`结论依据：比值极限 $q<1$ 时，取 $q<r<1$，$n$ 充分大后 $a_{n+1}<ra_n$，于是 $0<a_n<Cr^n\to0$。所以 $\lim a_n=0$`,
           R`$b_n=\dfrac{3^nn!}{n^n}$：同样算得 $\dfrac{b_{n+1}}{b_n}=\dfrac{3}{\left(1+\frac1n\right)^n}\to\dfrac3{\mathrm e}>1$`,
           R`对倒数：$\dfrac{1/b_{n+1}}{1/b_n}\to\dfrac{\mathrm e}{3}<1$，所以 $\dfrac1{b_n}\to0$，且 $b_n>0$，故 $b_n\to+\infty$`
@@ -875,7 +875,7 @@
         signal: R`极限式里含 $a,b,\cdots$，已知极限值（或已知是比 $x^k$ 高阶的无穷小），求参数`,
         example: { q: R`设 $p(x)=a+bx+cx^2+dx^3$。当 $x\to0$ 时，若 $p(x)-\tan x$ 是比 $x^3$ 高阶的无穷小，则下列结论中错误的是（ ）。(A) $a=0$　(B) $b=1$　(C) $c=0$　(D) $d=\frac16$`, src: "武忠祥 第1章 题型四 例4 p47–48" },
         idea: {
-          key: R`把具体函数泰勒展开到所需阶数，与多项式逐项比较系数：低于目标阶的系数都要为 $0$。`,
+          key: R`==把具体函数泰勒展开到所需阶数，与多项式逐项比较系数：低于目标阶的系数都要为 $0$==。`,
           how: [R`确定需要展开到几阶（高阶于 $x^3$ ⇒ 展开到 $x^3$）`, R`写出 $\tan x=x+\frac{x^3}3+o(x^3)$`, R`$p(x)-\tan x$ 的常数、一次、二次、三次系数都为 $0$`],
           refs: [
             { src: "武忠祥 题型四 例4 p47", text: R`由 $\tan x-x\sim\frac13x^3$ 知 $\tan x=x+\frac13x^3+o(x^3)$；$\lim\frac{p(x)-\tan x}{x^3}=0\Rightarrow a=0,b=1,c=0,d=\frac13$` },
@@ -886,7 +886,7 @@
         first: R`$\tan x=x+\frac{x^3}3+o(x^3)$`,
         steps: [
           R`泰勒：$\tan x=x+\dfrac{x^3}{3}+o(x^3)$`,
-          R`作差：$p(x)-\tan x=a+(b-1)x+cx^2+\left(d-\dfrac13\right)x^3+o(x^3)$`,
+          R`==作差：$p(x)-\tan x=a+(b-1)x+cx^2+\left(d-\dfrac13\right)x^3+o(x^3)$==`,
           R`比 $x^3$ 高阶 ⇔ 除以 $x^3$ 后 $\to0$ ⇔ 各项系数都为 0：$a=0$，$b=1$，$c=0$，$d=\dfrac13$`,
           R`所以 (D) $d=\dfrac16$ 错误，选 (D)`
         ],
@@ -898,7 +898,7 @@
         signal: R`$\lim\limits_{x\to\infty}\left(\sqrt{\cdots}+ax+b\right)=0$ 或 $=c$，求 $a$、$b$`,
         example: { q: R`已知 $\lim\limits_{x\to-\infty}\left(\sqrt{x^2+x+1}+ax+b\right)=0$，求 $a$、$b$。`, src: "武忠祥 第1章 题型三 例2 p43–44" },
         idea: {
-          key: R`两边同除 $x$ 得 $a$；再 $b=-\lim(\sqrt{\cdots}+ax)$。注意 $x\to-\infty$ 时 $\sqrt{x^2}=-x$。`,
+          key: R`==两边同除 $x$ 得 $a$==；再 $b=-\lim(\sqrt{\cdots}+ax)$。注意 $x\to-\infty$ 时 $\sqrt{x^2}=-x$。`,
           how: [R`$a=-\lim\frac{\sqrt{x^2+x+1}}x$（同除 $x$）`, R`$b=-\lim\left(\sqrt{x^2+x+1}+ax\right)$，有理化或提出 $-x$ 用等价`],
           refs: [
             { src: "武忠祥 题型三 例2 注 p44", text: R`方法一是同时把 $a$ 和 $b$ 求出来，但比较烦琐。而方法二和方法三都是分别先求出 $a$，然后再求出 $b$，比较简单` }
@@ -908,7 +908,7 @@
         first: R`两端同除 $x$：$a=-\lim\limits_{x\to-\infty}\dfrac{\sqrt{x^2+x+1}}x$`,
         steps: [
           R`求 $a$：已知式除以 $x$（$\to0$ 除以 $x\to-\infty$ 仍 $\to0$）：$\lim\left(\dfrac{\sqrt{x^2+x+1}}{x}+a+\dfrac bx\right)=0$，所以 $a=-\lim\dfrac{\sqrt{x^2+x+1}}{x}$`,
-          R`$x<0$ 时 $\dfrac{\sqrt{x^2+x+1}}{x}=-\sqrt{\dfrac{x^2+x+1}{x^2}}=-\sqrt{1+\dfrac1x+\dfrac1{x^2}}\to-1$，所以 $a=1$`,
+          R`==$x<0$ 时 $\dfrac{\sqrt{x^2+x+1}}{x}=-\sqrt{\dfrac{x^2+x+1}{x^2}}=-\sqrt{1+\dfrac1x+\dfrac1{x^2}}\to-1$，所以 $a=1$==`,
           R`求 $b$：$b=-\lim\limits_{x\to-\infty}\left(\sqrt{x^2+x+1}+x\right)$，是 $\infty-\infty$，有理化：$\sqrt{x^2+x+1}+x=\dfrac{(x^2+x+1)-x^2}{\sqrt{x^2+x+1}-x}=\dfrac{x+1}{\sqrt{x^2+x+1}-x}$`,
           R`分子分母同除 $-x>0$：$\dfrac{-1-\frac1x}{\sqrt{1+\frac1x+\frac1{x^2}}+1}\to\dfrac{-1}{2}$，所以 $b=\dfrac12$`,
           R`$a=1$，$b=\dfrac12$`
@@ -923,7 +923,7 @@
         signal: R`几个 $\int_0^{g(x)}f(t)\mathrm dt$ 形式的无穷小，排阶数或选最高阶`,
         example: { q: R`把 $x\to0^+$ 时的无穷小 $\alpha=\int_0^x\cos t^2\mathrm dt$，$\beta=\int_0^{x^2}\tan\sqrt t\,\mathrm dt$，$\gamma=\int_0^{\sqrt x}\sin t^3\mathrm dt$ 排序，使排在后面的是前一个的高阶无穷小。(A) $\alpha,\beta,\gamma$　(B) $\alpha,\gamma,\beta$　(C) $\beta,\alpha,\gamma$　(D) $\beta,\gamma,\alpha$`, src: "武忠祥 第1章 题型四 例1 p44–45" },
         idea: {
-          key: R`被积函数 $f\sim at^m$、上限 $g\sim bx^n$，则积分是 $x$ 的 $n(m+1)$ 阶；也可以求导定阶（导数 $k$ 阶 ⇒ 原函数 $k+1$ 阶）。`,
+          key: R`==被积函数 $f\sim at^m$、上限 $g\sim bx^n$，则积分是 $x$ 的 $n(m+1)$ 阶==；也可以求导定阶（导数 $k$ 阶 ⇒ 原函数 $k+1$ 阶）。`,
           how: [R`被积函数在 $t\to0$ 时等价成 $at^m$`, R`上限等价成 $bx^n$`, R`阶数 $=n(m+1)$；或直接积分 $\int_0^{bx^n}at^m\mathrm dt$`],
           refs: [
             { src: "武忠祥 题型四 例1 方法五 p45", text: R`若 $f(x)$ 在 $x=0$ 的某邻域内连续，且 $f(x)$ 是 $x$ 的 $m$ 阶无穷小，$\varphi(x)$ 是 $x$ 的 $n$ 阶无穷小，则 $F(x)=\int_0^{\varphi(x)}f(t)\mathrm dt$ 是 $x$ 的 $n(m+1)$ 阶无穷小` },
@@ -933,7 +933,7 @@
         think: R`变限积分 $\int_0^{g(x)}f(t)\mathrm dt$ 的阶数有现成结论：被积函数 $f(t)\sim at^m$、上限 $g(x)\sim bx^n$，积分 $\sim\frac{a}{m+1}g^{m+1}$，是 $x$ 的 $n(m+1)$ 阶。所以每个只要读出 $m$、$n$。`,
         first: R`逐个算 $m$、$n$`,
         steps: [
-          R`公式依据：$\int_0^{g}at^m\mathrm dt=\dfrac{a}{m+1}g^{m+1}$，$g\sim bx^n$，所以阶数是 $n(m+1)$`,
+          R`==公式依据：$\int_0^{g}at^m\mathrm dt=\dfrac{a}{m+1}g^{m+1}$，$g\sim bx^n$，所以阶数是 $n(m+1)$==`,
           R`$\alpha$：$\cos t^2\to1$，即 $\sim t^0$，$m=0$；上限 $x$，$n=1$；阶数 $1$`,
           R`$\beta$：$\tan\sqrt t\sim\sqrt t=t^{\frac12}$，$m=\frac12$；上限 $x^2$，$n=2$；阶数 $2\cdot\frac32=3$`,
           R`$\gamma$：$\sin t^3\sim t^3$，$m=3$；上限 $\sqrt x$，$n=\frac12$；阶数 $\frac12\cdot4=2$`,
@@ -947,7 +947,7 @@
         signal: R`给出 $f=o(g)$ 或 $\alpha\sim\beta$，判断 $f+g$、$fg$、$\alpha-\beta$ 等的阶`,
         example: { q: R`设 $f(x)$、$g(x)$ 在 $x=0$ 的某去心邻域内有定义且恒不为 $0$，若 $x\to0$ 时 $f(x)$ 是 $g(x)$ 的高阶无穷小，则（ ）。(A) $f(x)+g(x)=o(g(x))$　(B) $f(x)g(x)=o(f^2(x))$　(C) $f(x)=o(\mathrm e^{g(x)}-1)$　(D) $f(x)=o(g^2(x))$`, src: "18讲 第1讲 例1.5 p6" },
         idea: {
-          key: R`$f=o(g)$ 时 $g$ 是"带头大哥"：$f+g\sim g$；$fg=o(g^2)$；凡与 $g$ 等价的量都可以替换 $g$。`,
+          key: R`==$f=o(g)$ 时 $g$ 是"带头大哥"：$f+g\sim g$==；$fg=o(g^2)$；凡与 $g$ 等价的量都可以替换 $g$。`,
           how: [R`认出谁是低阶（带头大哥）`, R`和：$\sim$ 带头大哥；积：$o(\text{大哥}^2)$`, R`$\mathrm e^g-1\sim g$、$\ln(1+g)\sim g$，可以替换`],
           refs: [
             { src: "18讲 p6", text: R`若 $\alpha=o(\beta)$，则 ① $\alpha+\beta\sim\beta$；② $\alpha+\beta$ 与 $\beta$ 同号；③ $\alpha\cdot\beta=o(\beta^2)$` },
@@ -958,7 +958,7 @@
         first: R`$g$ 是带头大哥`,
         steps: [
           R`已知：$\dfrac fg\to0$，$f,g\to0$`,
-          R`(A) $\dfrac{f+g}{g}=\dfrac fg+1\to1\neq0$，$f+g\sim g$，不是 $o(g)$，错`,
+          R`==(A) $\dfrac{f+g}{g}=\dfrac fg+1\to1\neq0$，$f+g\sim g$，不是 $o(g)$，错==`,
           R`(B) $\dfrac{fg}{f^2}=\dfrac gf\to\infty$，不是 $o(f^2)$，错（反过来 $fg=o(g^2)$ 才对）`,
           R`(C) $\mathrm e^g-1\sim g$，$\dfrac{f}{\mathrm e^g-1}\sim\dfrac fg\to0$，对`,
           R`(D) $\dfrac{f}{g^2}=\dfrac fg\cdot\dfrac1g$ 是 $0\cdot\infty$，不确定（$f=x^2,g=x$ 时比值为 1），错。选 (C)`
@@ -971,7 +971,7 @@
         signal: R`"当 $x\to0$ 时 $f(x)$ 与 $ax^n$ 是等价无穷小，求 $a$、$n$"`,
         example: { q: R`已知 $x\to0$ 时，$\mathrm e^{-x^2}-\cos\sqrt2x$ 与 $ax^n$ 是等价无穷小，则（ ）。(A) $n=2,a=\frac14$　(B) $n=3,a=\frac12$　(C) $n=4,a=\frac13$　(D) $n=5,a=\frac16$`, src: "武忠祥 第1章 题型四 例5 p48" },
         idea: {
-          key: R`用"幂次最低"原则把差展开到第一个不抵消的项，它的系数和次数就是 $a$、$n$；选择题可先用奇偶性排除。`,
+          key: R`==用"幂次最低"原则把差展开到第一个不抵消的项，它的系数和次数就是 $a$、$n$==；选择题可先用奇偶性排除。`,
           how: [R`偶函数的展开只有偶次项，奇函数只有奇次项，先排除选项`, R`各自展开到系数第一次不同的那一项`, R`读出 $a$、$n$`],
           refs: [
             { src: "武忠祥 题型四 例5 方法二 p48", text: R`由于 $\mathrm e^{-x^2}-\cos\sqrt2x$ 是偶函数，则其在 $x=0$ 处的泰勒展开式中只有偶次项，由此可知 $n$ 只能是偶数，故排除 (B)(D)` }
@@ -981,7 +981,7 @@
         first: R`偶函数，先排除 (B)(D)`,
         steps: [
           R`奇偶性：$\mathrm e^{-x^2}$、$\cos\sqrt2x$ 都是偶函数，差也是偶函数，只含偶次幂，排除 (B)(D)`,
-          R`展开：$\mathrm e^u=1+u+\dfrac{u^2}{2}+o(u^2)$，$u=-x^2$：$\mathrm e^{-x^2}=1-x^2+\dfrac{x^4}{2}+o(x^4)$`,
+          R`==展开：$\mathrm e^u=1+u+\dfrac{u^2}{2}+o(u^2)$，$u=-x^2$：$\mathrm e^{-x^2}=1-x^2+\dfrac{x^4}{2}+o(x^4)$==`,
           R`$\cos v=1-\dfrac{v^2}{2}+\dfrac{v^4}{24}+o(v^4)$，$v=\sqrt2x$：$\cos\sqrt2x=1-x^2+\dfrac{4x^4}{24}+o(x^4)=1-x^2+\dfrac{x^4}{6}+o(x^4)$`,
           R`相减：$x^2$ 项抵消，差 $=\left(\dfrac12-\dfrac16\right)x^4+o(x^4)=\dfrac13x^4+o(x^4)$`,
           R`所以 $n=4$，$a=\dfrac13$，选 (C)`
@@ -996,7 +996,7 @@
         signal: R`$f(x)=\lim\limits_{n\to\infty}\frac{\cdots x^n\cdots}{\cdots}$ 或 $\lim\limits_{t\to x}(\cdots)$，问间断点`,
         example: { q: R`求函数 $f(x)=\lim\limits_{n\to\infty}\dfrac{x^{n+2}-x^{-n}}{x^n+x^{-n}}$ 的间断点并指出其类型。`, src: "武忠祥 第1章 第三节 题型一 例6 p52" },
         idea: {
-          key: R`求极限时 $x$ 当常数，按 $|x|<1$、$|x|=1$、$|x|>1$（或 $x$ 的符号）分段，写出分段表达式，再看无定义点和分段点。`,
+          key: R`==求极限时 $x$ 当常数，按 $|x|<1$、$|x|=1$、$|x|>1$（或 $x$ 的符号）分段，写出分段表达式，再看无定义点和分段点==。`,
           how: [R`先把式子整理（分子分母同乘 $x^n$ 等）`, R`按局部表达式的极限分段（$|x|^n$、$\mathrm e^{nx}$ 等）`, R`写出 $f(x)$ 的分段式，标出无定义点`, R`在分段点、无定义点算左右极限，判类型`],
           refs: [
             { src: "30讲 例1.26 方法总结 p57", text: R`主要关注 $n$ 前面的系数；若 $n$ 的系数为零，含 $n$ 的项消失了` },
@@ -1007,7 +1007,7 @@
         first: R`$x=0$ 无定义；$x\neq0$ 时分子分母同乘 $x^n$`,
         steps: [
           R`$x=0$ 时 $x^{-n}$ 无定义，$f$ 在 0 处无定义。$x\neq0$ 时分子分母同乘 $x^n$：$f(x)=\lim\dfrac{x^{2n+2}-1}{x^{2n}+1}$`,
-          R`$0<|x|<1$：$x^{2n}\to0$，$f=\dfrac{0-1}{0+1}=-1$；$|x|=1$：$x^{2n}=1$，$f=\dfrac{1-1}{2}=0$；$|x|>1$：同除 $x^{2n}$，$f\to x^2$`,
+          R`==$0<|x|<1$：$x^{2n}\to0$，$f=\dfrac{0-1}{0+1}=-1$；$|x|=1$：$x^{2n}=1$，$f=\dfrac{1-1}{2}=0$；$|x|>1$：同除 $x^{2n}$，$f\to x^2$==`,
           R`$x=0$：两侧都在 $0<|x|<1$ 里，$\lim\limits_{x\to0}f=-1$ 存在，但 $f(0)$ 无定义，可去间断点`,
           R`$x=1$：$f(1^-)=-1$，$f(1^+)=1^2=1$，左右极限存在但不等，跳跃间断点`,
           R`$f$ 是偶函数，$x=-1$ 同样是跳跃间断点`
@@ -1020,7 +1020,7 @@
         signal: R`问"第一类（或第二类、可去）间断点的个数"，函数含 $|x|^{v(x)}$、$\ln|x|$、$\mathrm e^{\frac1{x-a}}$`,
         example: { q: R`函数 $f(x)=|x|^{\frac1{(1-x)(x-2)}}$ 的第一类间断点的个数是（ ）。(A) 3　(B) 2　(C) 1　(D) 0`, src: "18讲 第1讲 例1.11 p10" },
         idea: {
-          key: R`先把幂指函数写成 $\mathrm e^{v\ln u}$ 找全无定义点；每个点算左右极限：指数 $\to\pm\infty$ 时 $\mathrm e^{+\infty}=+\infty$、$\mathrm e^{-\infty}=0$。`,
+          key: R`==先把幂指函数写成 $\mathrm e^{v\ln u}$ 找全无定义点==；每个点算左右极限：指数 $\to\pm\infty$ 时 $\mathrm e^{+\infty}=+\infty$、$\mathrm e^{-\infty}=0$。`,
           how: [R`$|x|^v=\mathrm e^{v\ln|x|}$，无定义点：$x=0$（$\ln$）、$x=1,2$（分母）`, R`每个点分别算指数部分的左右极限`, R`$\ln|x|$ 在 $x=1$ 附近用 $\ln x\sim x-1$`, R`按定义分类计数`],
           refs: [
             { src: "18讲 p10", text: R`$|x|^{\frac1{(1-x)(x-2)}}\Rightarrow x=0,1,2$ 为无定义点，根据 $u^v=\mathrm e^{v\ln u}$ 将原式变形可知 $x=0$ 为无定义点` },
@@ -1031,7 +1031,7 @@
         first: R`$f=\mathrm e^{\frac{\ln|x|}{(1-x)(x-2)}}$，备选点 $x=0,1,2$`,
         steps: [
           R`改写：$f(x)=\mathrm e^{\frac{\ln|x|}{(1-x)(x-2)}}$，无定义点 $x=0,1,2$`,
-          R`$x=0$：$\ln|x|\to-\infty$，分母 $(1-0)(0-2)=-2$，指数 $\to+\infty$，$f\to+\infty$，第二类`,
+          R`==$x=0$：$\ln|x|\to-\infty$，分母 $(1-0)(0-2)=-2$，指数 $\to+\infty$，$f\to+\infty$，第二类==`,
           R`$x=1$：$\ln|x|=\ln x\sim x-1$，指数 $\sim\dfrac{x-1}{(1-x)(x-2)}=\dfrac{-1}{x-2}\to1$，$f\to\mathrm e$，极限存在，可去间断点（第一类）`,
           R`$x=2$：$\ln2>0$，$1-x\to-1$。$x\to2^+$ 时 $x-2\to0^+$，分母 $\to0^-$，指数 $\to-\infty$，$f\to0$；$x\to2^-$ 时分母 $\to0^+$，指数 $\to+\infty$，$f\to+\infty$。左极限是 $\infty$，第二类`,
           R`第一类间断点只有 $x=1$，选 (C)`
@@ -1044,7 +1044,7 @@
         signal: R`式子含 $\mathrm e^{\frac1x}$、$\mathrm e^{\frac4x}$、$(1+|x|)^{\frac1x}$，已知极限存在（或连续），求参数`,
         example: { q: R`已知 $\lim\limits_{x\to0}\left[a\dfrac{2+\mathrm e^{\frac1x}}{1+\mathrm e^{\frac4x}}+(1+|x|)^{\frac1x}\right]$ 存在，求 $a$ 的值。`, src: "30讲 习题1.14（p70，解答 p74）；1000题 强化篇 第1章第32题" },
         idea: {
-          key: R`$\mathrm e^{\frac1x}$ 在 $0^+$、$0^-$ 两侧完全不同，分别算左右极限，令它们相等。`,
+          key: R`==$\mathrm e^{\frac1x}$ 在 $0^+$、$0^-$ 两侧完全不同，分别算左右极限，令它们相等==。`,
           how: [R`$x\to0^+$：$\mathrm e^{\frac1x}\to+\infty$，分子分母同除最高的 $\mathrm e^{\frac4x}$`, R`$x\to0^-$：$\mathrm e^{\frac1x}\to0$`, R`$|x|$ 按左右去掉绝对值`, R`左右极限相等，解出参数`],
           refs: [
             { src: "30讲 习题1.14 解答 p74", text: R`$\lim\limits_{x\to0^+}=0+\mathrm e$，$\lim\limits_{x\to0^-}=2a+\frac1{\mathrm e}$，所以 $\mathrm e=2a+\frac1{\mathrm e}$` },
@@ -1055,7 +1055,7 @@
         first: R`分 $x\to0^+$ 和 $x\to0^-$`,
         steps: [
           R`右极限，第一项：$x\to0^+$ 时 $\mathrm e^{\frac4x}$ 增长最快，分子分母同除 $\mathrm e^{\frac4x}$：$\dfrac{2\mathrm e^{-\frac4x}+\mathrm e^{-\frac3x}}{\mathrm e^{-\frac4x}+1}\to\dfrac{0}{1}=0$`,
-          R`右极限，第二项：$|x|=x$，$(1+x)^{\frac1x}\to\mathrm e$。右极限 $=a\cdot0+\mathrm e=\mathrm e$`,
+          R`==右极限，第二项：$|x|=x$，$(1+x)^{\frac1x}\to\mathrm e$。右极限 $=a\cdot0+\mathrm e=\mathrm e$==`,
           R`左极限，第一项：$x\to0^-$ 时 $\dfrac1x\to-\infty$，$\mathrm e^{\frac1x},\mathrm e^{\frac4x}\to0$，第一项 $\to a\cdot\dfrac21=2a$`,
           R`左极限，第二项：$|x|=-x$，$(1-x)^{\frac1x}=\left[(1-x)^{-\frac1x}\right]^{-1}\to\mathrm e^{-1}$。左极限 $=2a+\dfrac1{\mathrm e}$`,
           R`极限存在：$\mathrm e=2a+\dfrac1{\mathrm e}$，$a=\dfrac{\mathrm e}{2}-\dfrac{1}{2\mathrm e}$`
@@ -1070,7 +1070,7 @@
         signal: R`第 (1) 问证方程在区间内有唯一实根 $\xi$，第 (2) 问证 $x_{n+1}=f(x_n)$ 收敛到 $\xi$`,
         example: { q: R`(1) 证明方程 $x=2\ln(1+x)$ 在 $(0,+\infty)$ 内有唯一实根 $\xi$；(2) 任取 $x_1>\xi$，定义 $x_{n+1}=2\ln(1+x_n)$，证明 $\lim x_n$ 存在，并求其值。`, src: "30讲 第2讲 例2.14 p91–92；1000题 基础篇 第2章第11、12题（同题拆分）" },
         idea: {
-          key: R`第 (1) 问：零点定理给存在，导数定单调给唯一；第 (2) 问：用 $\xi=f(\xi)$ 和 $f$ 的单调性，归纳证明 $x_n>x_{n+1}>\xi$，单调有界后取极限，由唯一性得极限就是 $\xi$。`,
+          key: R`==第 (1) 问：零点定理给存在，导数定单调给唯一==；第 (2) 问：用 $\xi=f(\xi)$ 和 $f$ 的单调性，归纳证明 $x_n>x_{n+1}>\xi$，单调有界后取极限，由唯一性得极限就是 $\xi$。`,
           how: [R`令 $F(x)=x-2\ln(1+x)$，求导找单调区间`, R`在单调区间端点处找异号（含 $F(+\infty)=+\infty$），零点定理`, R`归纳：$x_k>\xi\Rightarrow x_{k+1}=f(x_k)>f(\xi)=\xi$；$x_k>x_{k+1}$ 由 $F(x_k)>0$ 得到`, R`取极限得 $a=2\ln(1+a)$，$a\geqslant\xi>0$，由唯一性 $a=\xi$`],
           refs: [
             { src: "30讲 例2.14 p91–92", text: R`①验：$x_1>x_2>\xi$；②设：$x_{k-1}>x_k>\xi$；③证：$x_k>x_{k+1}>\xi$。综上 $\{x_n\}$ 单调递减有下界……故 $a=\xi$。题目解答过程需要背诵` }
@@ -1080,7 +1080,7 @@
         first: R`$F(x)=x-2\ln(1+x)$，$F'(x)=\dfrac{x-1}{1+x}$`,
         steps: [
           R`(1) $F(x)=x-2\ln(1+x)$，$F'(x)=1-\dfrac{2}{1+x}=\dfrac{x-1}{1+x}$：$(0,1)$ 上 $F'<0$，$(1,+\infty)$ 上 $F'>0$`,
-          R`(1) $F(0)=0$ 且 $(0,1]$ 上单调减，所以 $F<0$ 在 $(0,1]$ 上，这里没有根；$F(1)=1-2\ln2<0$，$\lim\limits_{x\to+\infty}F(x)=+\infty$，由零点定理 $(1,+\infty)$ 内有根，又单调增加，根唯一，记为 $\xi$`,
+          R`==(1) $F(0)=0$ 且 $(0,1]$ 上单调减，所以 $F<0$ 在 $(0,1]$ 上，这里没有根；$F(1)=1-2\ln2<0$，$\lim\limits_{x\to+\infty}F(x)=+\infty$，由零点定理 $(1,+\infty)$ 内有根，又单调增加，根唯一，记为 $\xi$==`,
           R`(2) $F$ 在 $(\xi,+\infty)$ 上为正：$x_1>\xi$ 时 $F(x_1)>0$，即 $x_1>2\ln(1+x_1)=x_2$`,
           R`(2) 下界：$2\ln(1+x)$ 单调增加，$x_1>\xi\Rightarrow x_2=2\ln(1+x_1)>2\ln(1+\xi)=\xi$。归纳得 $x_n>\xi$ 且 $x_n>x_{n+1}$ 对一切 $n$ 成立`,
           R`(2) 单调减少、有下界 $\xi$，极限 $a$ 存在且 $a\geqslant\xi>0$；递推式取极限 $a=2\ln(1+a)$，即 $F(a)=0$，由 (1) 的唯一性 $a=\xi$`
@@ -1093,7 +1093,7 @@
         signal: R`条件是 $f\geqslant0$、$f(0)=f(1)=0$ 一类，要证 $f(\xi+l)=f(\xi)$ 或 $f(\xi)=\xi$`,
         example: { q: R`设 $f(x)$ 在 $[0,1]$ 上连续，非负且 $f(0)=f(1)=0$。求证：存在 $\xi\in[0,1]$，使 $f(\xi+l)=f(\xi)$，其中 $0<l<1$。`, src: "武忠祥 第1章 第三节 题型二 例2 p53" },
         idea: {
-          key: R`令 $F(x)=f(x+l)-f(x)$（$x\in[0,1-l]$），端点值只有"$\geqslant0$""$\leqslant0$"，先讨论有等号的情形，再在严格异号时用零点定理。`,
+          key: R`==令 $F(x)=f(x+l)-f(x)$（$x\in[0,1-l]$），端点值只有"$\geqslant0$""$\leqslant0$"，先讨论有等号的情形，再在严格异号时用零点定理==。`,
           how: [R`写出 $F$ 及定义区间 $[0,1-l]$`, R`由条件得 $F(0)\geqslant0$，$F(1-l)\leqslant0$`, R`有等号：端点就是 $\xi$；都严格：零点定理`],
           refs: [
             { src: "武忠祥 题型二 例2 p53", text: R`$F(0)=f(l)-f(0)\geqslant0$，$F(1-l)=f(1)-f(1-l)\leqslant0$。若以上二式中至少有一个等号成立，原题结论显然成立；若等号都不成立，由零点定理知存在 $\xi\in(0,1-l)$` }
@@ -1105,7 +1105,7 @@
           R`构造：$F(x)=f(x+l)-f(x)$，$x\in[0,1-l]$（保证 $x+l\leqslant1$），$F$ 连续`,
           R`端点：$F(0)=f(l)-f(0)=f(l)\geqslant0$；$F(1-l)=f(1)-f(1-l)=-f(1-l)\leqslant0$（用 $f\geqslant0$）`,
           R`若 $F(0)=0$，取 $\xi=0$；若 $F(1-l)=0$，取 $\xi=1-l$`,
-          R`否则 $F(0)>0>F(1-l)$，由零点定理，存在 $\xi\in(0,1-l)$，$F(\xi)=0$`,
+          R`==否则 $F(0)>0>F(1-l)$，由零点定理，存在 $\xi\in(0,1-l)$，$F(\xi)=0$==`,
           R`总之存在 $\xi\in[0,1-l]\subset[0,1]$，使 $f(\xi+l)=f(\xi)$（结论写闭区间，正是因为端点可能取等号）`
         ],
         pitfall: R`直接写"由零点定理"，没有处理等号情形；$F$ 定义在 $[0,1]$ 上`,

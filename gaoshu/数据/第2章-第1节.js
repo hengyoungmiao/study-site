@@ -182,7 +182,7 @@
         signal: R`多个因子相乘求 $f'(x_0)$，其中一个因子在 $x_0$ 处等于 0；或者 $(x-a)\varphi(x)$ 型，$\varphi$ 只知连续`,
         example: { q: R`设 $f(x)=(\mathrm e^x-1)(\mathrm e^{2x}-2)\cdots(\mathrm e^{nx}-n)$，$n$ 为正整数，则 $f'(0)=$（　）。(A) $(-1)^{n-1}(n-1)!$　(B) $(-1)^n(n-1)!$　(C) $(-1)^{n-1}n!$　(D) $(-1)^nn!$`, src: "30讲 例3.4 p104–105" },
         idea: {
-          key: R`有一个因子在 $x_0$ 处为 0，就有 $f(x_0)=0$；差商 = (那个因子 ÷ $(x-x_0)$) × 其余因子，前者求极限，其余因子直接代值。`,
+          key: R`==有一个因子在 $x_0$ 处为 0，就有 $f(x_0)=0$==；差商 = (那个因子 ÷ $(x-x_0)$) × 其余因子，前者求极限，其余因子直接代值。`,
           how: [
             R`先算 $f(x_0)$，通常为 0`,
             R`写定义 $f'(x_0)=\lim\limits_{x\to x_0}\dfrac{f(x)-f(x_0)}{x-x_0}$`,
@@ -200,7 +200,7 @@
         steps: [
           R`$f(0)=(\mathrm e^0-1)\cdot(\cdots)=0$`,
           R`$f'(0)=\lim\limits_{x\to0}\dfrac{f(x)-f(0)}{x-0}=\lim\limits_{x\to0}\dfrac{\mathrm e^x-1}{x}\cdot\lim\limits_{x\to0}(\mathrm e^{2x}-2)\cdots(\mathrm e^{nx}-n)$（导数定义，教材 p73）`,
-          R`$\dfrac{\mathrm e^x-1}x\to1$（等价无穷小，1.7）；其余因子连续，代 $x=0$：$(1-2)(1-3)\cdots(1-n)$`,
+          R`==$\dfrac{\mathrm e^x-1}x\to1$（等价无穷小，1.7）；其余因子连续，代 $x=0$：$(1-2)(1-3)\cdots(1-n)$==`,
           R`共 $n-1$ 个负因子，绝对值之积为 $(n-1)!$，所以 $f'(0)=(-1)^{n-1}(n-1)!$，选 (A)`
         ],
         pitfall: R`用乘积求导公式逐项展开（2.2 才学，$n$ 项又很繁）；数错负号个数：$1-2,\cdots,1-n$ 一共 $n-1$ 个`,
@@ -211,7 +211,7 @@
         signal: R`分段函数，问在分段点"是否可导""求 $a,b$ 使其可导""求 $f'(x)$"`,
         example: { q: R`设 $f(x)=\begin{cases}ax^2+b,&x\geqslant1\\x\cos\dfrac{\pi}{2}x,&x<1\end{cases}$ 在 $x=1$ 处可导，求 $a$、$b$。`, src: "吉米【156】p45" },
         idea: {
-          key: R`分段点先保连续（左极限 = 右极限 = 函数值），再用定义分别求左、右导数并令其相等；分段点的函数值用含等号的那一段。`,
+          key: R`==分段点先保连续（左极限 = 右极限 = 函数值），再用定义分别求左、右导数并令其相等==；分段点的函数值用含等号的那一段。`,
           how: [
             R`写出分段点 $x_0$ 处的函数值 $f(x_0)$（看等号归哪一段）`,
             R`连续：两侧极限都等于 $f(x_0)$，得到一个方程`,
@@ -228,7 +228,7 @@
         steps: [
           R`第一步，用"可导必连续"定 $a+b$：$f(1)=a\cdot1^2+b=a+b$；左侧 $x<1$ 时 $x\cos\dfrac{\pi}{2}x$ 连续，$\lim\limits_{x\to1^-}=1\cdot\cos\dfrac\pi2=0$。可导则连续（教材 p80），要求左极限 = 函数值，所以 $a+b=0$`,
           R`第二步，左导数：$f'_-(1)=\lim\limits_{x\to1^-}\dfrac{f(x)-f(1)}{x-1}=\lim\limits_{x\to1^-}\dfrac{x\cos\frac\pi2x-0}{x-1}$（这里用到 $f(1)=a+b=0$）。分母是 $x-1$，为了处理 $\cos$，令 $t=x-1\to0^-$，即 $x=1+t$`,
-          R`换元后：$\cos\dfrac\pi2(1+t)=\cos\left(\dfrac\pi2+\dfrac{\pi t}{2}\right)=-\sin\dfrac{\pi t}{2}$（诱导公式），所以 $f'_-(1)=\lim\limits_{t\to0^-}\dfrac{-(1+t)\sin\frac{\pi t}{2}}{t}$`,
+          R`==换元后：$\cos\dfrac\pi2(1+t)=\cos\left(\dfrac\pi2+\dfrac{\pi t}{2}\right)=-\sin\dfrac{\pi t}{2}$（诱导公式），所以 $f'_-(1)=\lim\limits_{t\to0^-}\dfrac{-(1+t)\sin\frac{\pi t}{2}}{t}$==`,
           R`$\sin\dfrac{\pi t}{2}\sim\dfrac{\pi t}{2}$（$t\to0$），$1+t\to1$，所以 $f'_-(1)=-1\cdot\dfrac\pi2=-\dfrac\pi2$`,
           R`第三步，右导数：$x>1$ 时 $f(x)-f(1)=ax^2+b-(a+b)=a(x^2-1)$，$f'_+(1)=\lim\limits_{x\to1^+}\dfrac{a(x-1)(x+1)}{x-1}=2a$`,
           R`第四步，可导 ⇔ 左右导数相等（教材 p78）：$2a=-\dfrac\pi2$，$a=-\dfrac\pi4$；再由 $a+b=0$ 得 $b=\dfrac\pi4$`
@@ -241,7 +241,7 @@
         signal: R`$f(x)=g(x)\,|h(x)|$、$f(x)=\varphi(x)|x-a|$，问"不可导点的个数"或"$\varphi(a)=0$ 是可导的什么条件"`,
         example: { q: R`函数 $f(x)=(x^2-x-2)\,|x^3-x|$ 不可导点的个数是（　）。(A) 3　(B) 2　(C) 1　(D) 0`, src: "吉米【138】p40" },
         idea: {
-          key: R`$|x-a|\varphi(x)$（$\varphi$ 在 $a$ 处连续）在 $a$ 处可导 $\Leftrightarrow\varphi(a)=0$。因式分解后，对每个绝对值零点"拎出"那个 $|x-a|$，看剩下的部分在 $a$ 处是不是 0。`,
+          key: R`==$|x-a|\varphi(x)$（$\varphi$ 在 $a$ 处连续）在 $a$ 处可导 $\Leftrightarrow\varphi(a)=0$==。因式分解后，对每个绝对值零点"拎出"那个 $|x-a|$，看剩下的部分在 $a$ 处是不是 0。`,
           how: [
             R`把绝对值里面、外面都因式分解`,
             R`可能不可导的点只有绝对值因子的零点，列出来`,
@@ -257,7 +257,7 @@
         first: R`因式分解：$f=(x-2)(x+1)\,|x+1|\,|x-1|\,|x|$`,
         steps: [
           R`因式分解：$x^2-x-2=(x-2)(x+1)$；$|x^3-x|=|x(x-1)(x+1)|=|x|\,|x-1|\,|x+1|$。所以 $f=(x-2)(x+1)\,|x|\,|x-1|\,|x+1|$，绝对值因子的零点是 $x=0,1,-1$，只有这三点可能不可导（其他点是光滑的）`,
-          R`判别用的结论：$\varphi(x)|x-a|$（$\varphi$ 在 $a$ 处连续）在 $a$ 可导 ⇔ $\varphi(a)=0$。原因：左右导数分别是 $\mp\varphi(a)$，相等当且仅当 $\varphi(a)=0$`,
+          R`==判别用的结论：$\varphi(x)|x-a|$（$\varphi$ 在 $a$ 处连续）在 $a$ 可导 ⇔ $\varphi(a)=0$。原因：左右导数分别是 $\mp\varphi(a)$，相等当且仅当 $\varphi(a)=0$==`,
           R`$x=0$：把 $|x|$ 拎出来，$\varphi_0=(x-2)(x+1)|x-1||x+1|$，$\varphi_0(0)=(-2)(1)(1)(1)=-2\neq0$，不可导`,
           R`$x=1$：$\varphi_1=(x-2)(x+1)|x||x+1|$，$\varphi_1(1)=(-1)(2)(1)(2)=-4\neq0$，不可导`,
           R`$x=-1$：这里有两个关于 $x+1$ 的因子，$(x+1)\cdot|x+1|$，$\varphi_{-1}=(x-2)(x+1)|x||x-1|$，$\varphi_{-1}(-1)=0$（含因子 $x+1$），所以可导（外面多乘的一个 $(x+1)$ 把"尖角"磨平了）`,
@@ -271,7 +271,7 @@
         signal: R`已知一个含 $f$ 的极限等于某数（或某式是 $h$ 的高阶无穷小），求 $f'(x_0)$`,
         example: { q: R`设 $f(x)$ 在 $x=a$ 处可导，且 $\lim\limits_{h\to0}\dfrac{h}{f(a-2h)-f(a)}=\dfrac14$，求 $f'(a)$。`, src: "吉米【141】p41" },
         idea: {
-          key: R`已知极限里藏着一个差商：改写成"导数定义 × 一个系数"，解出 $f'(x_0)$；没给 $f(x_0)$ 时，先由"分母 → 0、极限有限 ⇒ 分子 → 0"加连续性求出 $f(x_0)$。`,
+          key: R`==已知极限里藏着一个差商：改写成"导数定义 × 一个系数"，解出 $f'(x_0)$==；没给 $f(x_0)$ 时，先由"分母 → 0、极限有限 ⇒ 分子 → 0"加连续性求出 $f(x_0)$。`,
           how: [
             R`若分母 → 0 而极限有限，则分子 → 0；再用 $f$ 连续求出 $f(x_0)$`,
             R`设 $\square$ 为 $f$ 括号里相对 $x_0$ 的增量，写成 $\dfrac{f(x_0+\square)-f(x_0)}{\square}\cdot\dfrac{\square}{\text{原分母}}$`,
@@ -287,7 +287,7 @@
         steps: [
           R`已知 $\lim\dfrac{h}{f(a-2h)-f(a)}=\dfrac14$ 是"差商的倒数"。极限不为 0，取倒数仍成立：$\lim\limits_{h\to0}\dfrac{f(a-2h)-f(a)}{h}=4$`,
           R`导数定义要求分母等于函数增量里的"增量"。这里 $f(a-2h)-f(a)$ 的增量是 $-2h$，而分母是 $h$，差一个因子 $-2$，所以凑：$\dfrac{f(a-2h)-f(a)}{h}=(-2)\cdot\dfrac{f(a+(-2h))-f(a)}{-2h}$`,
-          R`令 $\Delta=-2h$，$h\to0$ 时 $\Delta\to0$，$\dfrac{f(a+\Delta)-f(a)}{\Delta}\to f'(a)$（导数定义，教材 p74），所以左边极限 $=-2f'(a)$`,
+          R`==令 $\Delta=-2h$，$h\to0$ 时 $\Delta\to0$，$\dfrac{f(a+\Delta)-f(a)}{\Delta}\to f'(a)$（导数定义，教材 p74），所以左边极限 $=-2f'(a)$==`,
           R`$-2f'(a)=4$，$f'(a)=-2$`
         ],
         pitfall: R`增量是 $-2h$，系数是 $-2$ 不是 $2$；已知式是差商的倒数，别直接把 $\frac14$ 当成导数的倍数`,
@@ -298,7 +298,7 @@
         signal: R`已知 $f'(x_0)$（或可导），求含 $f(\cdots)-f(\cdots)$ 的 $\frac00$ 型极限，括号里的量都趋于 $x_0$`,
         example: { q: R`设 $f'(0)=2$，则 $\lim\limits_{x\to0}\dfrac{f(3\sin x)-f(2\arctan x)}{x}=$（　）。(A) $\frac12$　(B) 2　(C) $\frac14$　(D) 4`, src: "吉米【149】p43" },
         idea: {
-          key: R`分子是两个函数值之差时，加一项减一项 $f(x_0)$ 拆成两个差商；每个差商乘除"自己的增量"，增量 ÷ 分母用等价无穷小求。`,
+          key: R`==分子是两个函数值之差时，加一项减一项 $f(x_0)$ 拆成两个差商==；每个差商乘除"自己的增量"，增量 ÷ 分母用等价无穷小求。`,
           how: [
             R`确认两个函数值括号里的量都 → $x_0$`,
             R`加一项减一项 $f(x_0)$：$[f(x_0+\square_1)-f(x_0)]-[f(x_0+\square_2)-f(x_0)]$`,
@@ -315,7 +315,7 @@
         first: R`分子里加一项减一项 $f(0)$`,
         steps: [
           R`原式 $=\lim\limits_{x\to0}\dfrac{f(3\sin x)-f(0)}{x}-\lim\limits_{x\to0}\dfrac{f(2\arctan x)-f(0)}{x}$（下面两个极限都存在，可以拆）`,
-          R`$\dfrac{f(3\sin x)-f(0)}{x}=\dfrac{f(3\sin x)-f(0)}{3\sin x}\cdot\dfrac{3\sin x}{x}\to f'(0)\cdot3$（$x\to0$ 时 $3\sin x\to0$ 且 $\neq0$）`,
+          R`==$\dfrac{f(3\sin x)-f(0)}{x}=\dfrac{f(3\sin x)-f(0)}{3\sin x}\cdot\dfrac{3\sin x}{x}\to f'(0)\cdot3$（$x\to0$ 时 $3\sin x\to0$ 且 $\neq0$）==`,
           R`同理 $\dfrac{f(2\arctan x)-f(0)}{x}\to f'(0)\cdot2$`,
           R`原式 $=3f'(0)-2f'(0)=f'(0)=2$，选 (B)`
         ],
@@ -327,7 +327,7 @@
         signal: R`$f(x+y)=f(x)f(y)$、$f(x+y)=f(x)+f(y)+\cdots$、$f(xy)=f(x)+f(y)$、$f(1+x)=af(x)$ 一类，只给某一点的导数`,
         example: { q: R`设 $f(x)$ 是 $(-\infty,+\infty)$ 上不恒为零的函数，对任意 $x,y$ 有 $f(x+y)=f(x)f(y)$，且 $f'(0)=1$。证明：$f'(x)=f(x)$。`, src: "吉米【153】p44" },
         idea: {
-          key: R`先代特殊值求出 $f(0)$（乘法型代 1 求 $f(1)$），再在任意点 $x$ 写定义，用函数方程拆开 $f(x+\Delta x)$，凑出已知那一点的差商。`,
+          key: R`==先代特殊值求出 $f(0)$（乘法型代 1 求 $f(1)$），再在任意点 $x$ 写定义，用函数方程拆开 $f(x+\Delta x)$，凑出已知那一点的差商==。`,
           how: [
             R`代 $x=0$ 或 $y=0$（乘法型代 1），求出特殊点的函数值`,
             R`写 $f'(x)=\lim\limits_{\Delta x\to0}\dfrac{f(x+\Delta x)-f(x)}{\Delta x}$`,
@@ -342,7 +342,7 @@
         think: R`$f$ 没有表达式，只能用导数定义求 $f'(x)$。函数方程能把 $f(x+\Delta x)$ 化成 $f(x)f(\Delta x)$，于是差商里可以提出 $f(x)$，剩下的正好是 0 处的差商，需要 $f(0)$ 的值，所以先用 $y=0$ 求 $f(0)$。`,
         first: R`令 $y=0$ 求出 $f(0)=1$`,
         steps: [
-          R`令 $y=0$：$f(x)=f(x)f(0)$。$f$ 不恒为零，取 $x_1$ 使 $f(x_1)\neq0$，两边约去得 $f(0)=1$`,
+          R`==令 $y=0$：$f(x)=f(x)f(0)$。$f$ 不恒为零，取 $x_1$ 使 $f(x_1)\neq0$，两边约去得 $f(0)=1$==`,
           R`由方程，$f(x+\Delta x)=f(x)f(\Delta x)$`,
           R`$f'(x)=\lim\limits_{\Delta x\to0}\dfrac{f(x)f(\Delta x)-f(x)}{\Delta x}=f(x)\lim\limits_{\Delta x\to0}\dfrac{f(\Delta x)-f(0)}{\Delta x}$（$f(x)$ 与 $\Delta x$ 无关，提出来）`,
           R`后面的极限就是 $f'(0)=1$（导数定义），所以 $f'(x)=f(x)$`
@@ -355,7 +355,7 @@
         signal: R`选项是"极限不存在 / 连续不可导 / 可导"；或只给不等式 $|f(x)|\leqslant g(x)$、有界因子 $x^2g(x)$`,
         example: { q: R`设 $f(x)$ 在 $x=0$ 的某邻域内有定义，且 $|f(x)|\leqslant1-\cos x$，则 $f(x)$ 在 $x=0$ 处（　）。(A) 极限存在但不连续　(B) 连续但不可导　(C) 可导且 $f'(0)=0$　(D) 可导且 $f'(0)\neq0$`, src: "30讲 例3.3 p104" },
         idea: {
-          key: R`按"函数值 → 极限、连续 → 可导"逐层判断；抽象函数夹在具体函数之间时，每一层都用夹逼准则，可导那一层夹的是差商。`,
+          key: R`==按"函数值 → 极限、连续 → 可导"逐层判断==；抽象函数夹在具体函数之间时，每一层都用夹逼准则，可导那一层夹的是差商。`,
           how: [
             R`求 $f(x_0)$：代值或题设`,
             R`判极限和连续：$\lim\limits_{x\to x_0}f(x)=f(x_0)$？`,
@@ -373,7 +373,7 @@
           R`$x=0$ 代入不等式：$|f(0)|\leqslant1-\cos0=0$，$f(0)=0$`,
           R`$0\leqslant|f(x)|\leqslant1-\cos x\to0$，夹逼得 $\lim\limits_{x\to0}f(x)=0=f(0)$，连续`,
           R`$0\leqslant\left|\dfrac{f(x)-f(0)}{x-0}\right|\leqslant\dfrac{1-\cos x}{|x|}$，而 $\dfrac{1-\cos x}{|x|}\sim\dfrac{x^2}{2|x|}\to0$`,
-          R`再夹逼得 $f'(0)=0$，选 (C)`
+          R`==再夹逼得 $f'(0)=0$，选 (C)==`
         ],
         pitfall: R`只做到"连续"就停（选 B）；忘了先由不等式求出 $f(0)$，差商的分子就写不出来`,
         practice: "吉米【155】（p44–45）、【211】（p62）；教材习题2-1 第16题（p82，答案习题全解 p56）；30讲 习题3.1（p115）；检验：1000题基础篇第3章 5、10题（10 题后半判断导函数连续要用 2.2 的公式，先做前半）"
@@ -383,7 +383,7 @@
         signal: R`$F(x)=\dfrac{f(x)}x$、$\dfrac{f(x)+a\sin x}{x}$（$x\neq0$），已知 $f(0)=0$、$f'(0)$，问连续性、间断点类型或求使其连续的常数`,
         example: { q: R`设 $F(x)=\begin{cases}\dfrac{f(x)}x,&x\neq0\\f(0),&x=0\end{cases}$，其中 $f(x)$ 在 $x=0$ 处可导，$f'(0)\neq0$，$f(0)=0$，则 $x=0$ 是 $F(x)$ 的（　）。(A) 连续点　(B) 第一类间断点　(C) 第二类间断点　(D) 连续点或间断点不能由此确定`, src: "吉米【158】p46" },
         idea: {
-          key: R`$f(0)=0$ 时 $\dfrac{f(x)}x$ 就是差商，$x\to0$ 的极限就是 $f'(0)$；把它和 $F(0)$ 比较就知道是否连续。`,
+          key: R`==$f(0)=0$ 时 $\dfrac{f(x)}x$ 就是差商，$x\to0$ 的极限就是 $f'(0)$==；把它和 $F(0)$ 比较就知道是否连续。`,
           how: [
             R`由题设得 $f(0)$（常为 0，奇函数也给 $f(0)=0$）`,
             R`把 $\lim F$ 的分子凑成 $f(x)-f(0)$，化成 $f'(0)$ + 其他部分`,
@@ -399,7 +399,7 @@
         first: R`$f(0)=0$，所以 $\dfrac{f(x)}x=\dfrac{f(x)-f(0)}{x-0}$`,
         steps: [
           R`$\lim\limits_{x\to0}F(x)=\lim\limits_{x\to0}\dfrac{f(x)-f(0)}{x-0}=f'(0)$（导数定义）`,
-          R`$F(0)=f(0)=0$，而 $f'(0)\neq0$，所以 $\lim\limits_{x\to0}F(x)\neq F(0)$，$x=0$ 是间断点`,
+          R`==$F(0)=f(0)=0$，而 $f'(0)\neq0$，所以 $\lim\limits_{x\to0}F(x)\neq F(0)$，$x=0$ 是间断点==`,
           R`极限存在，是可去间断点，属于第一类（1.8），选 (B)`
         ],
         pitfall: R`把"第一类间断点"只理解成跳跃间断点；忘了间断点类型看的是极限是否存在，不看函数值`,
@@ -410,7 +410,7 @@
         signal: R`"$f(0)=0$，则 $f$ 在 0 处可导的充要条件是"，选项是各种 $\lim\frac{f(\square)}{\cdots}$ 存在；或"下列命题正确的是"`,
         example: { q: R`设 $f(0)=0$，则 $f(x)$ 在点 $x=0$ 可导的充要条件为（　）。(A) $\lim\limits_{h\to0}\dfrac1{h^2}f(1-\cos h)$ 存在　(B) $\lim\limits_{h\to0}\dfrac1hf(1-\mathrm e^h)$ 存在　(C) $\lim\limits_{h\to0}\dfrac1{h^2}f(h-\sin h)$ 存在　(D) $\lim\limits_{h\to0}\dfrac1h[f(2h)-f(h)]$ 存在`, src: "吉米【210】p61–62；武忠祥 题型一(三)例2 p63" },
         idea: {
-          key: R`一个极限式要和"$f$ 在 $x_0$ 可导"等价，必须同时满足：减的是 $f(x_0)$；$\square$ 能从 $x_0$ 两侧趋近；$\square$ 与分母同阶（比值趋于非零常数）。`,
+          key: R`==一个极限式要和"$f$ 在 $x_0$ 可导"等价，必须同时满足：减的是 $f(x_0)$==；$\square$ 能从 $x_0$ 两侧趋近；$\square$ 与分母同阶（比值趋于非零常数）。`,
           how: [
             R`改写成 $\dfrac{f(x_0+\square)-f(x_0)}{\square}\cdot\dfrac{\square}{\text{分母}}$`,
             R`看 $\square$ 的符号：恒正（恒负）只能得到右（左）导数`,
@@ -425,7 +425,7 @@
         first: R`逐个写成"差商 × 增量/分母"，看增量的符号和阶`,
         steps: [
           R`思路：每个选项写成 $\dfrac{f(\square)-f(0)}{\square}\cdot\dfrac{\square}{\text{分母}}$（利用 $f(0)=0$），要它与 $f'(0)$ 存在等价，需要三点：$\square$ 能取到 $0$ 两侧；$\square$ 与分母同阶；式子里确实涉及 $f$ 在 0 点的差商`,
-          R`(B) 逐点检查：$\square=1-\mathrm e^h\sim-h$，$h\to0$ 时取正负两侧的值，且与分母 $h$ 同阶。$\dfrac{f(1-\mathrm e^h)}{h}=\dfrac{f(\square)-f(0)}{\square}\cdot\dfrac{1-\mathrm e^h}{h}$，后一个因子 $\to-1$，所以左边极限存在 ⇔ $f'(0)$ 存在，此时等于 $-f'(0)$，满足充要`,
+          R`==(B) 逐点检查：$\square=1-\mathrm e^h\sim-h$，$h\to0$ 时取正负两侧的值，且与分母 $h$ 同阶。$\dfrac{f(1-\mathrm e^h)}{h}=\dfrac{f(\square)-f(0)}{\square}\cdot\dfrac{1-\mathrm e^h}{h}$，后一个因子 $\to-1$，所以左边极限存在 ⇔ $f'(0)$ 存在，此时等于 $-f'(0)$，满足充要==`,
           R`(A) $\square=1-\cos h\geqslant0$ 只在 0 的右侧取值，最多得到右导数 $f'_+(0)$，不能推出可导，排除`,
           R`(C) $\square=h-\sin h\sim\dfrac{h^3}{6}$，分母是 $h^2$，不同阶。反例 $f(x)=x^{\frac23}$：$\dfrac{f(h-\sin h)}{h^2}=\dfrac{(h-\sin h)^{2/3}}{h^2}\to\left(\dfrac16\right)^{2/3}$ 存在，但 $f'(0)=\lim\dfrac{x^{2/3}}{x}=\infty$，不可导，排除`,
           R`(D) $\dfrac{f(2h)-f(h)}{h}$ 不含 $f(0)$，只比较两个邻近点。反例 $f(x)=1\ (x\neq0)$，$f(0)=0$：$f(2h)-f(h)=0$，极限为 0，但 $f$ 在 0 处不连续，更不可导，排除。选 (B)`
@@ -438,7 +438,7 @@
         signal: R`已知 $f$ 在 $a$ 处可导，问 $|f(x)|$ 在 $a$ 处可导（或不可导）的条件`,
         example: { q: R`设 $f(x)$ 在点 $x=a$ 处可导，则 $|f(x)|$ 在 $x=a$ 处不可导的充分条件是（　）。(A) $f(a)=0$ 且 $f'(a)=0$　(B) $f(a)=0$ 且 $f'(a)>0$　(C) $f(a)>0$ 且 $f'(a)>0$　(D) $f(a)<0$ 且 $f'(a)<0$`, src: "吉米【212】p62–63" },
         idea: {
-          key: R`$f$ 在 $a$ 处可导：$f(a)\neq0$ ⇒ $|f|$ 在 $a$ 处可导；$f(a)=0$ ⇒ $|f|$ 可导 $\Leftrightarrow f'(a)=0$。`,
+          key: R`==$f$ 在 $a$ 处可导：$f(a)\neq0$ ⇒ $|f|$ 在 $a$ 处可导==；$f(a)=0$ ⇒ $|f|$ 可导 $\Leftrightarrow f'(a)=0$。`,
           how: [
             R`先看 $f(a)$ 是不是 0`,
             R`$f(a)\neq0$：可导 ⇒ 连续 ⇒ 保号，$a$ 附近 $|f|=f$ 或 $-f$，可导性和 $f$ 一样`,
@@ -454,7 +454,7 @@
         first: R`按 $f(a)$ 是否为 0 分两类`,
         steps: [
           R`(C)：$f(a)>0$ 且 $f$ 在 $a$ 连续，$a$ 附近 $f>0$，$|f|=f$，可导；(D) 同理 $|f|=-f$，可导。都排除`,
-          R`(A)：反例 $f(x)=(x-a)^2$，$|f|=(x-a)^2$ 可导，排除`,
+          R`==(A)：反例 $f(x)=(x-a)^2$，$|f|=(x-a)^2$ 可导，排除==`,
           R`(B)：$f(a)=0$，$|f|'_+(a)=|f'(a)|=f'(a)>0$，$|f|'_-(a)=-f'(a)<0$，不相等，不可导`,
           R`选 (B)`
         ],
@@ -466,7 +466,7 @@
         signal: R`"在点 …… 处的切线（法线）""过点 …… 的切线""与某直线平行（垂直）""两曲线相切"`,
         example: { q: R`求曲线 $y=x^{\frac32}$ 的通过点 $(0,-4)$ 的切线方程。`, src: "教材 例9 p79–80" },
         idea: {
-          key: R`"在点 $M$ 处"：斜率直接是 $f'(x_0)$；"过点 $P$"（$P$ 不一定在曲线上）：设切点 $(x_0,f(x_0))$，写切线，代入 $P$ 解 $x_0$；平行、垂直、公切线都化成斜率（和函数值）的方程。`,
+          key: R`=="在点 $M$ 处"：斜率直接是 $f'(x_0)$==；"过点 $P$"（$P$ 不一定在曲线上）：设切点 $(x_0,f(x_0))$，写切线，代入 $P$ 解 $x_0$；平行、垂直、公切线都化成斜率（和函数值）的方程。`,
           how: [
             R`判断给的是切点还是曲线外的点`,
             R`设切点 $(x_0,f(x_0))$，斜率 $k=f'(x_0)$`,
@@ -482,7 +482,7 @@
         first: R`$(0,-4)$ 不在曲线上，设切点 $(x_0,x_0^{3/2})$`,
         steps: [
           R`设切点 $(x_0,y_0)$，$y_0=x_0^{3/2}$；斜率 $f'(x_0)=\dfrac32\sqrt{x_0}$（幂函数公式，教材 p75）`,
-          R`切线：$y-y_0=\dfrac32\sqrt{x_0}(x-x_0)$`,
+          R`==切线：$y-y_0=\dfrac32\sqrt{x_0}(x-x_0)$==`,
           R`过 $(0,-4)$：$-4-x_0^{3/2}=-\dfrac32x_0^{3/2}$，即 $x_0^{3/2}=8$，$x_0=4$，$y_0=8$`,
           R`斜率 $3$，切线 $y-8=3(x-4)$，即 $3x-y-4=0$。检验：$x=0$ 时 $y=-4$ ✓`
         ],
@@ -494,7 +494,7 @@
         signal: R`"在时刻 $t_0$ 的速度（角速度、冷却速度）""在 $M$ 点处的线密度""边际成本"`,
         example: { q: R`非均匀细轴 $AB$ 长 20 cm，$AM$ 段的质量与 $A$ 到 $M$ 的距离的平方成正比，已知 $AM=2$ cm 时质量为 8 g。求：(1) $AM=2$ cm 一段的平均线密度；(2) 全轴的平均线密度；(3) $M$ 点处的线密度。`, src: "吉米【163】p47" },
         idea: {
-          key: R`"一段上的平均 ……"是增量比，"某一时刻、某一点处的 ……"是导数；先写出函数关系，再用定义（或公式）求导，最后带单位、说实际意义。`,
+          key: R`=="一段上的平均 ……"是增量比，"某一时刻、某一点处的 ……"是导数==；先写出函数关系，再用定义（或公式）求导，最后带单位、说实际意义。`,
           how: [
             R`设自变量，写出函数：位置 $s(t)$、转角 $\theta(t)$、质量 $m(x)$、成本 $C(x)$ …`,
             R`平均变化率 = 因变量的增量 ÷ 自变量的增量`,
@@ -510,7 +510,7 @@
         first: R`设 $AM=x$，$m=kx^2$，由 $x=2$ 时 $m=8$ 定出 $k$`,
         steps: [
           R`$8=k\cdot2^2$，$k=2$，$m(x)=2x^2$（g）`,
-          R`(1) 平均线密度 $=\dfrac{m(2)}{2}=\dfrac82=4$ g/cm`,
+          R`==(1) 平均线密度 $=\dfrac{m(2)}{2}=\dfrac82=4$ g/cm==`,
           R`(2) $m(20)=800$ g，全轴平均线密度 $=\dfrac{800}{20}=40$ g/cm`,
           R`(3) $\rho=\lim\limits_{\Delta x\to0}\dfrac{2(x+\Delta x)^2-2x^2}{\Delta x}=\lim\limits_{\Delta x\to0}(4x+2\Delta x)=4x$ g/cm`
         ],
@@ -522,7 +522,7 @@
         signal: R`"用导数定义求 …… 的导数""证明 $(\cos x)'=-\sin x$"`,
         example: { q: R`证明 $(\cos x)'=-\sin x$。`, src: "教材 习题2-1 第5题 p81" },
         idea: {
-          key: R`写出导函数的差商 $\dfrac{f(x+h)-f(x)}h$（$x$ 当常量），用代数恒等变形把它化成 1.6、1.7 里会求的极限。`,
+          key: R`==写出导函数的差商 $\dfrac{f(x+h)-f(x)}h$（$x$ 当常量），用代数恒等变形把它化成 1.6、1.7 里会求的极限==。`,
           how: [
             R`写差商`,
             R`变形：幂 → 二项展开或提出 $x^\mu$；三角 → 和差化积；指数 → 提出 $a^x$；对数 → 化成 $\log_a\left(1+\frac hx\right)$`,
@@ -538,7 +538,7 @@
         first: R`写差商，分子和差化积`,
         steps: [
           R`$(\cos x)'=\lim\limits_{h\to0}\dfrac{\cos(x+h)-\cos x}{h}$（导函数定义，教材 p74）`,
-          R`和差化积：$\cos(x+h)-\cos x=-2\sin\left(x+\dfrac h2\right)\sin\dfrac h2$`,
+          R`==和差化积：$\cos(x+h)-\cos x=-2\sin\left(x+\dfrac h2\right)\sin\dfrac h2$==`,
           R`原式 $=\lim\limits_{h\to0}\left[-\sin\left(x+\dfrac h2\right)\right]\cdot\dfrac{\sin\frac h2}{\frac h2}$`,
           R`$\sin$ 连续，$\dfrac{\sin(h/2)}{h/2}\to1$（重要极限），所以 $(\cos x)'=-\sin x$`
         ],
@@ -550,7 +550,7 @@
         signal: R`"$f$ 为可导的奇（偶、周期）函数，则 $f'$ ……"；偶函数求 $f'(0)$；用周期把 $f'(5)$ 化到 $f'(1)$`,
         example: { q: R`以下命题错误的是（　）。(A) 若 $f(x)$ 是可导的偶函数，则 $f'(x)$ 是奇函数　(B) 若 $f(x)$ 是可导的奇函数，则 $f'(x)$ 是偶函数　(C) 若 $f(x)$ 是可导的以 $T$ 为周期的函数，则 $f'(x)$ 也以 $T$ 为周期　(D) 若 $f(x)$ 是可导的有界函数，则 $f'(x)$ 是有界函数`, src: "30讲 例3.1 p102–103" },
         idea: {
-          key: R`用定义 + 换元（把 $-\Delta x$ 当新增量）证明：奇 ⇒ $f'$ 偶，偶 ⇒ $f'$ 奇，周期 $T$ ⇒ $f'$ 周期 $T$；有界传不到导数。`,
+          key: R`==用定义 + 换元（把 $-\Delta x$ 当新增量）证明：奇 ⇒ $f'$ 偶，偶 ⇒ $f'$ 奇，周期 $T$ ⇒ $f'$ 周期 $T$==；有界传不到导数。`,
           how: [
             R`写 $f'(-x)$（或 $f'(x+T)$）的定义式`,
             R`用 $f(-x)=\pm f(x)$ 或 $f(x+T)=f(x)$ 改写分子`,
@@ -568,7 +568,7 @@
           R`(A) $f$ 偶：$f'(-x)=\lim\limits_{\Delta x\to0}\dfrac{f(-x+\Delta x)-f(-x)}{\Delta x}=\lim\dfrac{f(x-\Delta x)-f(x)}{\Delta x}=-\lim\dfrac{f(x+(-\Delta x))-f(x)}{-\Delta x}=-f'(x)$，奇函数，正确`,
           R`(B) $f$ 奇：$f'(-x)=\lim\dfrac{-f(x-\Delta x)+f(x)}{\Delta x}=\lim\dfrac{f(x+(-\Delta x))-f(x)}{-\Delta x}=f'(x)$，偶函数，正确`,
           R`(C) $f'(x+T)=\lim\dfrac{f(x+T+\Delta x)-f(x+T)}{\Delta x}=\lim\dfrac{f(x+\Delta x)-f(x)}{\Delta x}=f'(x)$，正确`,
-          R`(D) 反例：$f(x)=\sqrt x$ 在 $(0,1]$ 上有界，$f'(x)=\dfrac1{2\sqrt x}$ 无界。选 (D)`
+          R`==(D) 反例：$f(x)=\sqrt x$ 在 $(0,1]$ 上有界，$f'(x)=\dfrac1{2\sqrt x}$ 无界。选 (D)==`
         ],
         pitfall: R`说"偶函数在 0 处导数为 0"时漏了"$f'(0)$ 存在"（$|x|$ 是偶函数但 $f'(0)$ 不存在）`,
         practice: "教材习题2-1 第11题（p82，答案习题全解 p54–55）；吉米【160】（p46）；30讲 例3.2（p103–104，用到二阶导数，学完 2.3 再做）"
@@ -578,7 +578,7 @@
         signal: R`$\lim\limits_{n\to\infty}n\left[f\left(a+\frac1n\right)-f(a)\right]$、$\lim n\ln\dfrac{f(1/n)}{f(0)}$、$\left[\dfrac{f(a+1/n)}{f(a)}\right]^n$（$1^\infty$）`,
         example: { q: R`设 $f'(a)$ 存在，且 $f(a)\neq0$，求极限 $\lim\limits_{n\to\infty}\left[\dfrac{f\left(a+\frac1n\right)}{f(a)}\right]^n$。`, src: "武忠祥 题型一(一)例2 p60" },
         idea: {
-          key: R`把 $\frac1n$（或 $-\frac2{n+2}$ 等）看成增量，凑成导数定义；$f$ 可导时数列极限等于函数极限。反过来，数列形式的极限存在推不出可导。`,
+          key: R`==把 $\frac1n$（或 $-\frac2{n+2}$ 等）看成增量，凑成导数定义==；$f$ 可导时数列极限等于函数极限。反过来，数列形式的极限存在推不出可导。`,
           how: [
             R`$1^\infty$ 先化成 $\mathrm e^{\lim\alpha\beta}$（底 $=1+\alpha$，指数 $=\beta$）`,
             R`找出 $f(a+\square)-f(a)$ 和 $\square$`,
@@ -594,7 +594,7 @@
         first: R`可导 ⇒ 连续，底 → 1，是 $1^\infty$ 型`,
         steps: [
           R`$f$ 在 $a$ 可导 ⇒ 连续，$f\left(a+\frac1n\right)\to f(a)$，底 → 1，$1^\infty$ 型`,
-          R`原式 $=\lim\left[1+\dfrac{f(a+\frac1n)-f(a)}{f(a)}\right]^n=\mathrm e^{\lim n\cdot\frac{f(a+1/n)-f(a)}{f(a)}}$（1.6、1.7 的 $1^\infty$ 处理）`,
+          R`==原式 $=\lim\left[1+\dfrac{f(a+\frac1n)-f(a)}{f(a)}\right]^n=\mathrm e^{\lim n\cdot\frac{f(a+1/n)-f(a)}{f(a)}}$（1.6、1.7 的 $1^\infty$ 处理）==`,
           R`$n\left[f\left(a+\frac1n\right)-f(a)\right]=\dfrac{f(a+\frac1n)-f(a)}{\frac1n}\to f'(a)$（导数定义，取 $h=\frac1n$）`,
           R`原式 $=\mathrm e^{\frac{f'(a)}{f(a)}}$`
         ],

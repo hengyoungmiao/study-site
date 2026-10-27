@@ -135,7 +135,7 @@
         signal: R`已知 $f$ 在 $x_0$ 连续，再给一个含 $f$ 的极限，求 $f(x_0)$`,
         example: { q: R`设 $f(x)$ 在 $x=2$ 连续，且 $\lim\limits_{x\to2}\dfrac{f(x)-3}{x-2}$ 存在，则 $f(2)=$ ____。`, src: "吉米【78】p22" },
         idea: {
-          key: R`连续：$f(x_0)=\lim f(x)$；再用"分母 $\to0$ 而商有极限，分子必 $\to0$"求出这个极限。`,
+          key: R`==连续：$f(x_0)=\lim f(x)$==；再用"分母 $\to0$ 而商有极限，分子必 $\to0$"求出这个极限。`,
           how: [
             R`由已知极限存在、分母 $\to0$，推出分子 $\to0$（1.5）`,
             R`得到 $\lim\limits_{x\to x_0}f(x)$ 的值`,
@@ -150,7 +150,7 @@
         first: R`分母 $x-2\to0$，商有极限，所以分子 $f(x)-3\to0$`,
         steps: [
           R`分子趋于 0：$f(x)-3=\dfrac{f(x)-3}{x-2}\cdot(x-2)$，第一个因子极限存在（设为 $A$），第二个 $\to0$，所以 $f(x)-3\to A\cdot0=0$`,
-          R`于是 $\lim\limits_{x\to2}f(x)=3$`,
+          R`==于是 $\lim\limits_{x\to2}f(x)=3$==`,
           R`$f$ 在 $x=2$ 连续，按定义 $f(2)=\lim\limits_{x\to2}f(x)=3$（教材 1.8 连续的定义）`,
           R`附带结论：这个极限其实是 $f'(2)$，"可导"这一层要等到 2.1 才能说`
         ],
@@ -162,7 +162,7 @@
         signal: R`分段函数（含参数 $a,b$），问在分段点是否连续，或问参数取何值时处处连续`,
         example: { q: R`设 $f(x)=\begin{cases}\dfrac{x^2\sin\frac1x}{\mathrm e^x-1},&x<0\\b,&x=0\\\dfrac{\ln(1+2x)}{x}+a,&x>0\end{cases}$，求 $a,b$ 使 $f$ 在 $(-\infty,+\infty)$ 内连续。`, src: "吉米【83】p23" },
         idea: {
-          key: R`各段内部是初等函数自然连续，只需在分段点让"左极限 = 右极限 = 函数值"。`,
+          key: R`==各段内部是初等函数自然连续，只需在分段点让"左极限 = 右极限 = 函数值"==。`,
           how: [
             R`说明每一段在其开区间内连续（初等函数）`,
             R`在分段点分别求左极限、右极限（用等价无穷小、有界乘无穷小等）`,
@@ -177,7 +177,7 @@
         first: R`$x\neq0$ 时各段都是初等函数，连续；只看 $x=0$`,
         steps: [
           R`$x\neq0$ 处：左段分母 $\mathrm e^x-1\neq0$（$x<0$），右段 $1+2x>0$、$x\neq0$，都是初等函数在定义区间内，连续。只看 $x=0$`,
-          R`左极限：拆成 $\dfrac{x}{\mathrm e^x-1}\cdot x\sin\dfrac1x$。$\mathrm e^x-1\sim x$，第一个因子 $\to1$；$x\sin\dfrac1x$ 是无穷小乘有界，$\to0$。所以 $f(0^-)=0$`,
+          R`==左极限：拆成 $\dfrac{x}{\mathrm e^x-1}\cdot x\sin\dfrac1x$。$\mathrm e^x-1\sim x$，第一个因子 $\to1$；$x\sin\dfrac1x$ 是无穷小乘有界，$\to0$。所以 $f(0^-)=0$==`,
           R`右极限：$\ln(1+2x)\sim2x$，$\dfrac{\ln(1+2x)}{x}\to2$，$f(0^+)=2+a$`,
           R`连续的条件：$f(0^-)=f(0^+)=f(0)$，即 $0=2+a=b$`,
           R`解得 $a=-2$，$b=0$`
@@ -190,7 +190,7 @@
         signal: R`$f(x+y)=f(x)+f(y)$（或 $f(xy)=f(x)f(y)$ 一类）且在某一点连续，证明处处连续`,
         example: { q: R`设 $f(x)$ 对任意实数 $x,y$ 有 $f(x+y)=f(x)+f(y)$，且 $f(x)$ 在 $x=0$ 连续，证明 $f(x)$ 在 $\mathbb R$ 上连续。`, src: "教材习题1-8 第8题 p59；吉米【84】p23" },
         idea: {
-          key: R`用增量写法：$f(x_0+\Delta x)$ 用函数方程拆成 $f(x_0)$ 加只依赖 $\Delta x$ 的部分，再用已知那一点的连续性。`,
+          key: R`==用增量写法：$f(x_0+\Delta x)$ 用函数方程拆成 $f(x_0)$ 加只依赖 $\Delta x$ 的部分，再用已知那一点的连续性==。`,
           how: [
             R`先代特殊值求出 $f(0)$（令 $x=y=0$ 或 $y=0$）`,
             R`由在 $0$ 处连续得 $\lim\limits_{\Delta x\to0}f(\Delta x)=f(0)$`,
@@ -206,7 +206,7 @@
         steps: [
           R`求 $f(0)$：令 $x=y=0$（或 $y=0$），$f(0)=2f(0)$，所以 $f(0)=0$`,
           R`用 0 处的连续性：$\lim\limits_{\Delta x\to0}f(\Delta x)=f(0)=0$`,
-          R`任取 $x_0\in\mathbb R$，令 $x=x_0$、$y=\Delta x$：$f(x_0+\Delta x)=f(x_0)+f(\Delta x)$`,
+          R`==任取 $x_0\in\mathbb R$，令 $x=x_0$、$y=\Delta x$：$f(x_0+\Delta x)=f(x_0)+f(\Delta x)$==`,
           R`取极限：$\lim\limits_{\Delta x\to0}f(x_0+\Delta x)=f(x_0)+0=f(x_0)$，这就是 $f$ 在 $x_0$ 连续的定义（增量形式）`,
           R`$x_0$ 是任取的，所以 $f$ 在 $\mathbb R$ 上处处连续`
         ],
@@ -218,7 +218,7 @@
         signal: R`$f(x)=\lim\limits_{n\to\infty}(\cdots)$，含 $x^{2n}$、$\mathrm e^{nx}$、$\sin^2\pi x$ 等，问连续性、间断点`,
         example: { q: R`讨论函数 $f(x)=\lim\limits_{n\to\infty}\dfrac{1-x^{2n}}{1+x^{2n}}x$ 的连续性，若有间断点，判别其类型。`, src: "教材习题1-8 第4题 p59；吉米【85】p23" },
         idea: {
-          key: R`把 $x$ 当常数，按 $|x|<1$、$|x|=1$、$|x|>1$（或 $x$ 的正负）分段求出 $f$；再在分界点求左右极限判断。`,
+          key: R`==把 $x$ 当常数，按 $|x|<1$、$|x|=1$、$|x|>1$（或 $x$ 的正负）分段求出 $f$==；再在分界点求左右极限判断。`,
           how: [
             R`找出使 $n\to\infty$ 时结果不同的分界：$x^{2n}$ 看 $|x|$ 与 $1$；$\mathrm e^{nx}$ 看 $x$ 的正负；$\sin^2\pi x$ 看 $x$ 是否整数`,
             R`每段求极限，写成分段函数（分界点单独算）`,
@@ -233,7 +233,7 @@
         first: R`按 $|x|<1$、$|x|=1$、$|x|>1$ 求 $x^{2n}$ 的极限：$0$、$1$、$+\infty$`,
         steps: [
           R`$|x|<1$：$x^{2n}\to0$，$f(x)=\dfrac{1-0}{1+0}x=x$`,
-          R`$|x|=1$：$x^{2n}=1$，$f(x)=\dfrac{0}{2}x=0$`,
+          R`==$|x|=1$：$x^{2n}=1$，$f(x)=\dfrac{0}{2}x=0$==`,
           R`$|x|>1$：$x^{2n}\to+\infty$，分子分母同除 $x^{2n}$：$\dfrac{x^{-2n}-1}{x^{-2n}+1}x\to-x$`,
           R`得 $f(x)=\begin{cases}x,&|x|<1\\0,&|x|=1\\-x,&|x|>1\end{cases}$。各段内部是初等函数，连续；只看 $x=\pm1$`,
           R`$x=1$：$f(1^-)=1$，$f(1^+)=-1$，左右极限存在但不相等，是跳跃间断点（第一类）`,
@@ -247,7 +247,7 @@
         signal: R`给一个函数（多为分式，含 $\mathrm e^{\frac1x}$、$\tan x$、$\ln|x|$），问间断点及其类型，或"第二类间断点有几个"`,
         example: { q: R`设 $f(x)=\dfrac{1}{\mathrm e^{\frac{x}{x-1}}-1}$，则（ ）。(A) $x=0,x=1$ 都是第一类间断点　(B) 都是第二类间断点　(C) $x=0$ 第一类，$x=1$ 第二类　(D) $x=0$ 第二类，$x=1$ 第一类`, src: "吉米【88】p24–25" },
         idea: {
-          key: R`先列出所有无定义点和分段点，再逐点求极限（必要时分左右），按"都存在 → 相等/不等；有不存在 → 第二类"归类。`,
+          key: R`==先列出所有无定义点和分段点，再逐点求极限（必要时分左右），按"都存在 → 相等/不等==；有不存在 → 第二类"归类。`,
           how: [
             R`找间断点：分母为 $0$ 的点、对数真数为 $0$ 的点、$\tan$ 的 $k\pi+\frac\pi2$、分段点`,
             R`对每个点求 $\lim f$；遇到 $\mathrm e^{\frac{1}{x-a}}$、$|x|$ 等要分左右`,
@@ -262,7 +262,7 @@
         first: R`无定义点：$x=1$（指数里分母为 0）和 $x=0$（$\mathrm e^{0}-1=0$）`,
         steps: [
           R`间断点：$x=1$（指数无定义）和 $x=0$（分母 $\mathrm e^0-1=0$）`,
-          R`$x=0$：$\dfrac{x}{x-1}\to0$，分母 $\mathrm e^{\frac{x}{x-1}}-1\to0$，分子是 1，所以 $f\to\infty$，无穷间断点，第二类`,
+          R`==$x=0$：$\dfrac{x}{x-1}\to0$，分母 $\mathrm e^{\frac{x}{x-1}}-1\to0$，分子是 1，所以 $f\to\infty$，无穷间断点，第二类==`,
           R`$x\to1^+$：$x-1\to0^+$，$\dfrac{x}{x-1}\to+\infty$，$\mathrm e^{\frac{x}{x-1}}\to+\infty$，$f\to0$`,
           R`$x\to1^-$：$x-1\to0^-$，$\dfrac{x}{x-1}\to-\infty$，$\mathrm e^{\frac{x}{x-1}}\to0$，$f\to\dfrac{1}{0-1}=-1$`,
           R`$x=1$ 处左右极限都存在但不相等，跳跃间断点，第一类。选 (D)`
@@ -275,7 +275,7 @@
         signal: R`问"$|f|$ 连续则 $f$ 连续吗"，或 $f$ 对有理数、无理数分别定义`,
         example: { q: R`(1) 判断：$f$ 在 $a$ 连续，则 $|f|$ 在 $a$ 连续；$|f|$ 在 $a$ 连续，则 $f$ 在 $a$ 连续。(2) $f(x)=x\ (x\in\mathbb Q)$，$f(x)=0\ (x\notin\mathbb Q)$，在哪些点连续？`, src: "教材习题1-8 第5、7题 p59" },
         idea: {
-          key: R`正方向用不等式 $||a|-|b||\leqslant|a-b|$；反方向举符号函数；有理无理分开定义的函数，用有理数列和无理数列两条路径（海涅）。`,
+          key: R`==正方向用不等式 $||a|-|b||\leqslant|a-b|$==；反方向举符号函数；有理无理分开定义的函数，用有理数列和无理数列两条路径（海涅）。`,
           how: [
             R`$|f|$ 连续：$||f(x)|-|f(a)||\leqslant|f(x)-f(a)|\to0$`,
             R`反例：$f=1\ (x\geqslant0)$，$-1\ (x<0)$`,
@@ -290,7 +290,7 @@
         first: R`(2) 先看 $x=0$：$|f(x)|\leqslant|x|$`,
         steps: [
           R`(1) 第一句对：$\big||f(x)|-|f(a)|\big|\leqslant|f(x)-f(a)|\to0$，所以 $|f(x)|\to|f(a)|$`,
-          R`(1) 第二句错：$f(x)=\begin{cases}1,&x\geqslant0\\-1,&x<0\end{cases}$，$|f|\equiv1$ 处处连续，但 $f$ 在 $0$ 处跳跃`,
+          R`==(1) 第二句错：$f(x)=\begin{cases}1,&x\geqslant0\\-1,&x<0\end{cases}$，$|f|\equiv1$ 处处连续，但 $f$ 在 $0$ 处跳跃==`,
           R`(2) $x=0$：无论 $x$ 有理无理，都有 $|f(x)|\leqslant|x|$，所以 $|f(x)-f(0)|\leqslant|x|\to0$，由夹逼连续`,
           R`(2) $x_0\neq0$：取有理数列 $r_n\to x_0$，$f(r_n)=r_n\to x_0$；取无理数列 $s_n\to x_0$，$f(s_n)=0\to0$。$x_0\neq0$，两个极限不同，$\lim\limits_{x\to x_0}f(x)$ 不存在，不连续`,
           R`结论：$f$ 只在 $x=0$ 处连续`
