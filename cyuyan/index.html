@@ -10,7 +10,7 @@
 标题: C语言知识网页（页面框架）
 写入者: C语言科目项目
 创建日期: 2026-10-21
-更新日期: 2026-10-21
+更新日期: 2026-10-28
 状态: 进行中
 用法见同文件夹「说明.md」。框架只写一次；加小节 = 在「数据/」放一个数据文件 + 在下面 DATA_FILES 加一行。
 -->
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap">
 <style>
-/* 布局：左侧目录（章 → 节 → 章末），右侧一节一页：关系图 → 知识点 / 例题代码 / 易错点；另有「复习」页按间隔安排的混合抽查 */
+/* 布局：左侧目录（章 → 节 → 章末），右侧一节一页：关系图 → 知识点 / 题型梳理 / 易错点；另有「复习」页按间隔安排的混合抽查 */
 :root {
   --paper: #f5f7f9; --sheet: #ffffff; --ink: #18212b; --muted: #5a6775; --line: #d9e0e7; --edge: #9aa8b6;
   --grid: rgba(29, 95, 166, 0.055);
@@ -26,6 +26,7 @@
   --k-map: #4a5d78; --k-map-soft: #e9edf3;
   --yan: #6c43a6; --yan-soft: #efe8f8;
   --warn: #b0561a; --warn-soft: #fbeee3;
+  --hl-k-bg: #fde9a6; --hl-k: #4a3500; --hl-a: #1a56b0; --hl-w: #b32d2d; --hl-w-bg: #fbe3e3;
   --ok: #2b7649; --ok-soft: #e3f2e9; --mid: #94680d; --mid-soft: #f7efda; --bad: #ae3838; --bad-soft: #f8e5e5;
   --f-display: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
   --f-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
@@ -40,6 +41,7 @@
     --yan: #b893ef; --yan-soft: #281f3c;
     --warn: #ee9f5f; --warn-soft: #33231a; --ok: #6fcb95; --ok-soft: #16301f;
     --mid: #e3bd62; --mid-soft: #30281a; --bad: #ef8b8b; --bad-soft: #381d1d;
+    --hl-k-bg: #54420f; --hl-k: #ffe9a8; --hl-a: #8dbcff; --hl-w: #ff9d9d; --hl-w-bg: #3e1f1f;
     color-scheme: dark;
   }
 }
@@ -50,6 +52,7 @@
   --yan: #b893ef; --yan-soft: #281f3c;
   --warn: #ee9f5f; --warn-soft: #33231a; --ok: #6fcb95; --ok-soft: #16301f;
   --mid: #e3bd62; --mid-soft: #30281a; --bad: #ef8b8b; --bad-soft: #381d1d;
+  --hl-k-bg: #54420f; --hl-k: #ffe9a8; --hl-a: #8dbcff; --hl-w: #ff9d9d; --hl-w-bg: #3e1f1f;
   color-scheme: dark;
 }
 [hidden] { display: none !important; }
@@ -141,6 +144,7 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .cover-on .ci:not(.show) .cov * { pointer-events: none; }
 .cover-on .ci:not(.show) { cursor: pointer; }
 .cov { transition: filter .2s, opacity .2s; }
+.cover-on .tcard:not(:has(.ci.show)) .nm-tail { filter: blur(6px); opacity: .55; user-select: none; }
 .reveal-hint { display: none; font-size: 12px; color: var(--accent); font-weight: 400; }
 .cover-on .ci:not(.show) .reveal-hint { display: inline; }
 
@@ -286,6 +290,10 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .refs-h { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: var(--muted); }
 .ref .src { display: block; }
 .back { display: grid; gap: 10px; border-top: 1px dashed var(--line); padding-top: 12px; }
+/* 标记：==关键词/关键点== 黄底；++步骤动作句++ 蓝字；!!易错提醒!! 红字红底。代码块和 ‹› 里不认标记 */
+mark.hl { background: var(--hl-k-bg); color: var(--hl-k); border-radius: 3px; padding: 0 3px; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.act { color: var(--hl-a); font-weight: 600; }
+.wr { color: var(--hl-w); background: var(--hl-w-bg); border-radius: 3px; padding: 0 3px; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .first { background: var(--accent-soft); border-radius: var(--r); padding: 6px 12px; font-weight: 500; }
 .steps { margin: 0; padding-left: 1.3em; }
 .steps li { margin: 4px 0; }
@@ -401,6 +409,11 @@ a.ch-card:hover { border-color: var(--accent); }
 .wr .wr-f { margin:6px 0; line-height:1.7; }
 .wr .wr-cause { background:var(--bad-soft); color:var(--bad); border-radius:6px; padding:1px 8px; font-size:12px; }
 .wr details { margin:6px 0; } .wr summary { cursor:pointer; color:var(--accent); }
+.wr .wr-teach { background:var(--accent); color:#fff; border-radius:6px; padding:1px 7px; font-size:12px; font-weight:700; }
+.wr .wr-wk { font-size:12px; border-radius:6px; padding:1px 8px; background:var(--line); }
+.wr .wr-wk.ok { background:var(--ok); color:#fff; } .wr .wr-wk.bad { background:var(--bad); color:#fff; }
+.wr-sum { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:8px 0; }
+.wr-sum .chip { text-decoration:none; cursor:pointer; } .wr-sum .chip.on { outline:2px solid var(--accent); }
 .wr-bar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:10px 0; }
 .wr-bar select, .wr-bar input { padding:6px 8px; border:1px solid var(--line); border-radius:8px; font:inherit; background:var(--sheet); color:var(--ink); max-width:100%; }
 .sheet-wrap { position: fixed; inset: 0; z-index: 20; background: rgba(10, 16, 22, 0.42); display: grid; place-items: center;
@@ -498,7 +511,8 @@ const DATA_FILES = [
   "数据/第4章-第4节.js",
   "数据/第4章-第5节.js",
   "数据/第4章-第6节.js",
-  "数据/第4章-第7节.js"
+  "数据/第4章-第7节.js",
+  "数据/错题.js"
   // 其余章节出一节加一行，如 "数据/第5章-第1节.js"；章末提升 "数据/第3章-章末.js"
 ];
 
@@ -528,10 +542,11 @@ window.KB = {
   add(d) { this.sections[d.id] = d; },
   seeds: {}, seedNotes(o) { Object.assign(this.seeds, o); },
   cues: {}, seedCues(o) { Object.assign(this.cues, o); },
-  addChapterEnd(d) { d.id = "c" + d.chapter + "-end"; this.chapterEnds[d.chapter] = d; }
+  addChapterEnd(d) { d.id = "c" + d.chapter + "-end"; this.chapterEnds[d.chapter] = d; },
+  wrong: [], addWrong(a) { this.wrong.push(...a); }
 };
 
-/* ===== 4. 记录（本机浏览器）：marks = 例题代码卡 ✓△✗；srs = 复习间隔 ===== */
+/* ===== 4. 记录（本机浏览器）：marks = 题型卡 ✓△✗；srs = 复习间隔 ===== */
 const STORE_KEY = "cyuyan-kb-v1";
 let store = { marks: {}, srs: {}, ui: {}, stars: {}, starT: {}, notes: {}, noteT: {}, del: {} };
 try { const s = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); if (s && s.marks) store = Object.assign({ srs: {}, ui: {}, stars: {}, starT: {}, notes: {}, noteT: {}, del: {} }, s); } catch (e) {}
@@ -742,9 +757,15 @@ function md(s) {
   s = String(s || "");
   const blocks = [];
   s = s.replace(/(```|~~~)[a-zA-Z]*\n?([\s\S]*?)\1/g, (m, f, body) => { blocks.push(`<pre class="code"><code>${esc(body.replace(/\n$/, ""))}</code></pre>`); return `\x00${blocks.length - 1}\x00`; });
-  let html = esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/`([^`]+?)`|‹([^›]+?)›/g, (m, a, b) => `<code class="ic">${a || b}</code>`);
+  s = s.replace(/`([^`]+?)`|‹([^›]+?)›/g, (m, a, b) => { blocks.push(`<code class="ic">${esc(a || b)}</code>`); return `\x00${blocks.length - 1}\x00`; });
+  let html = marks(esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"));
   return html.replace(/\x00(\d+)\x00/g, (m, i) => blocks[i]);
 }
+/* 三色标记 ==关键词== ++动作句++ !!易错!!。== ++ 也是 C 运算符，所以要求：记号前后不能紧挨字母数字或运算符（VC++6.0、a++、!= 都不会被当成标记），
+   记号里面首尾不能是空格（"+ - ++ --" 这种运算符列表不会被当成标记）。正文里写运算符最好仍放进 ‹›。 */
+const MARK_RE = ["==", "\\+\\+", "!!"].map(k => new RegExp(`(?<![A-Za-z0-9_+=!<>&;])${k}(?=\\S)(.+?)(?<=\\S)${k}(?![A-Za-z0-9_+=!])`, "g"));
+function marks(h) { return h.replace(MARK_RE[0], '<mark class="hl">$1</mark>').replace(MARK_RE[1], '<span class="act">$1</span>').replace(MARK_RE[2], '<span class="wr">$1</span>'); }
+function unmark(t) { return String(t || "").replace(MARK_RE[0], "$1").replace(MARK_RE[1], "$1").replace(MARK_RE[2], "$1"); }
 function typeset(el) {
   if (window.renderMathInElement) {
     renderMathInElement(el, { ignoredClasses: ["lz"], delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
@@ -776,7 +797,7 @@ function outlineHtml(d) {
   const pits = (d.pitfalls || []).map((p, i) => a("e" + (i + 1), p.wrong)).join("");
   const mxs = (d.mixed || []).map((m, i) => a(m.id, (i + 1) + ". " + (m.src || m.q))).join("");
   const top = `<a href="#${d.id}" data-ot="top">知识框架${d.mindmap ? "和思维导图" : ""}</a>`;
-  return `<details class="toc-out" data-og="all"${o.all === false ? "" : " open"}><summary>本节大纲</summary>${top}${g("pts", "知识点", npts, pts, true)}${g("types", "例题代码", (d.types || []).length, tys, false)}${g("pits", "易错点", (d.pitfalls || []).length, pits, false)}${g("mx", "混合自测", (d.mixed || []).length, mxs, false)}</details>`;
+  return `<details class="toc-out" data-og="all"${o.all === false ? "" : " open"}><summary>本节大纲</summary>${top}${g("pts", "知识点", npts, pts, true)}${g("types", "题型梳理", (d.types || []).length, tys, false)}${g("pits", "易错点", (d.pitfalls || []).length, pits, false)}${g("mx", "混合自测", (d.mixed || []).length, mxs, false)}</details>`;
 }
 function closeToc() { $("#toc").classList.remove("open"); $("#tocBtn").setAttribute("aria-expanded", "false"); }
 (function bindDrawer() {
@@ -847,7 +868,7 @@ function renderHome() {
     <div class="intro">
       <div class="eyebrow">《新编C语言程序设计》第2版 · 已生成 ${have} / ${total} 节</div>
       <h1>C语言知识网页</h1>
-      <p>一章分成各小节，最后一页是章末期末与等考提升。每节先是<strong>知识框架</strong>，一张图讲清知识点之间怎么连起来，然后分三栏：<strong>知识点</strong>、<strong>例题代码</strong>、<strong>易错点</strong>。知识点、题型、易错点旁都有 <strong>☆</strong>（标为不熟）和 <strong>✓ △ ✗</strong> 自评。右上角的<strong>复习</strong>里有薄弱清单、速认模式、限时抽题和间隔复习；<strong>搜索</strong>能查全站。</p>
+      <p>一章分成各小节，最后一页是章末期末与等考提升。每节先是<strong>知识框架</strong>，一张图讲清知识点之间怎么连起来，然后分三栏：<strong>知识点</strong>、<strong>题型梳理</strong>、<strong>易错点</strong>。知识点、题型、易错点旁都有 <strong>☆</strong>（标为不熟）和 <strong>✓ △ ✗</strong> 自评。右上角的<strong>复习</strong>里有薄弱清单、速认模式、限时抽题和间隔复习；<strong>搜索</strong>能查全站。</p>
     </div>
     <div class="home-grid">${cards}</div>
     <div class="howto panel">
@@ -872,7 +893,7 @@ function renderChapterEnd(n) {
   const have = c.sections.filter(s => KB.sections[s[0]]).length;
   if (!d) {
     $("#main").innerHTML = `<div class="eyebrow">第${CN[n]}章 ${esc(c.title)} · 章末</div><h1>期末与等考提升</h1>
-      <div class="empty panel"><h2>还没生成</h2><p>本章 ${c.sections.length} 节已生成 ${have} 节。全部小节生成后，这里放本章的拓展内容：教材里的小结和习题、辅导书对应实验和习题参考解答，以及期末考试卷、全国计算机等级考试二级 C 语言大纲里覆盖但教材没细讲的部分，同样做成关系图、例题代码卡和易错点。</p></div>`;
+      <div class="empty panel"><h2>还没生成</h2><p>本章 ${c.sections.length} 节已生成 ${have} 节。全部小节生成后，这里放本章的拓展内容：教材里的小结和习题、辅导书对应实验和习题参考解答，以及期末考试卷、全国计算机等级考试二级 C 语言大纲里覆盖但教材没细讲的部分，同样做成关系图、题型卡和易错点。</p></div>`;
     return;
   }
   renderSection(d, true);
@@ -897,7 +918,7 @@ function renderSection(d, isEnd) {
     ${secLinksHtml(d, isEnd)}
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" data-tab="points" aria-selected="false">知识点<span class="n">${npts}</span></button>
-      <button class="tab" role="tab" data-tab="types" aria-selected="false">例题代码<span class="n">${(d.types || []).length}</span></button>
+      <button class="tab" role="tab" data-tab="types" aria-selected="false">题型梳理<span class="n">${(d.types || []).length}</span></button>
       <button class="tab" role="tab" data-tab="pitfalls" aria-selected="false">易错点<span class="n">${(d.pitfalls || []).length}</span></button>
       ${d.mixed ? `<button class="tab" role="tab" data-tab="mixed" aria-selected="false">混合自测<span class="n">${d.mixed.length}</span></button>` : ""}
     </div>
@@ -1112,9 +1133,15 @@ function tallyHtml(d) {
   (d.types || []).forEach(t => { const k = d.id + "/" + t.id, m = lastMark(k); if (isKey(k)) cnt.mid++; if (!m) cnt.none++; else cnt[m.r]++; });
   return `<span>✓ ${cnt.ok}</span><span>△ 重点 ${cnt.mid}</span><span>✗ ${cnt.bad}</span><span>未做 ${cnt.none}</span>`;
 }
+// 卡名里"："后面常是方法，遮住通法时一并模糊，翻开通法后恢复
+function nameHtml(n) {
+  const m = /^([^：]*：)(.+)$/.exec(n);
+  return m ? `${md(m[1])}<span class="nm-tail">${md(m[2])}</span>` : md(n);
+}
 /* 题型卡背面：点「看背面」才生成，没点开时页面里没有第一步、解答和易错 */
 function backHtml(t) {
   return `
+          ${t.think ? `<div class="row"><span class="lab">思路</span><div>${md(t.think)}</div></div>` : ""}
           <div class="row"><span class="lab">第一步</span><div class="first">${md(t.first)}</div></div>
           <div class="row"><span class="lab">解答</span><div><ol class="steps">${t.steps.map(s => `<li>${md(s)}</li>`).join("")}</ol></div></div>
           <div class="row"><span class="lab">易错</span><div class="warnline">${md(t.pitfall)}</div></div>
@@ -1138,7 +1165,7 @@ function typesHtml(d) {
   <div class="cards ${cover ? "cover-on" : ""}" data-cover="coverIdea">${show.length ? show.map(t => {
     const i = types.indexOf(t) + 1, k = key(t);
     return `<article class="tcard panel" data-key="${k}">
-      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${md(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "拓" ? `<span class="badge-t yan">拓</span>` : ""}</div>
+      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${nameHtml(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "拓" ? `<span class="badge-t yan">拓</span>` : ""}</div>
       <div class="tc-body">
         <div class="row"><span class="lab">看到</span><div>${md(t.signal)}</div></div>
         <div class="row"><span class="lab">例题</span><div>${md(t.example.q)}<div class="src">${esc(t.example.src)}</div></div></div>
@@ -1461,14 +1488,14 @@ function finishSample() {
 
 /* --- 搜索：知识点、题型、易错点、混合题、要点 --- */
 let sIdx = null;
-function plain(s) { return String(s || "").replace(/\$+/g, " ").replace(/\\[a-zA-Z]+/g, " ").replace(/[{}^_]/g, "").replace(/\*\*/g, ""); }
+function plain(s) { return unmark(s).replace(/\$+/g, " ").replace(/\\[a-zA-Z]+/g, " ").replace(/[{}^_]/g, "").replace(/\*\*/g, ""); }
 function buildIndex() {
   if (sIdx) return sIdx;
   sIdx = allItems(true).map(it => {
     const o = it.obj; let f = [];
     if (it.kind === "pt") f = [o.name, o.body, ...(o.notes || []), o.quiz, o.kind];
     else if (it.kind === "rel") f = [o.q, o.a];
-    else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.idea && o.idea.key, ...((o.idea && o.idea.how) || []), ...(((o.idea && o.idea.refs) || []).map(r => r.src + " " + r.text)), o.first, ...o.steps, o.pitfall, o.practice];
+    else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.idea && o.idea.key, ...((o.idea && o.idea.how) || []), ...(((o.idea && o.idea.refs) || []).map(r => r.src + " " + r.text)), o.think, o.first, ...o.steps, o.pitfall, o.practice];
     else if (it.kind === "pit") f = [o.wrong, o.test, o.ans, o.why, o.right, o.link];
     else f = [o.q, o.hint, o.ans, o.src];
     f.push(noteOf(it.key));
@@ -1512,17 +1539,24 @@ function runSearch(q) {
 
 /* ===== 11c. 错题区：题目存在云端数据库，本机只留一份缓存 ===== */
 const WCACHE = "cyuyan-wrong-v1";
-let WRONG = []; try { WRONG = JSON.parse(localStorage.getItem(WCACHE) || "[]"); } catch (e) {}
+/* 错题来源：数据/错题.js（随网页部署，不填令牌也能看）+ records/cyuyan/wrong.json（旧方式，可选）；同编号以数据文件为准 */
+let WCLOUD = []; try { WCLOUD = JSON.parse(localStorage.getItem(WCACHE) || "[]"); } catch (e) {}
+let WRONG = [];
+function mergeWrong() { const ids = new Set(KB.wrong.map(w => String(w.id))); WRONG = KB.wrong.concat(WCLOUD.filter(w => !ids.has(String(w.id)))); }
+mergeWrong();
+/* 本周 = 从本周一起；周末重做一次，在错题卡上自评 ✓ ✗ 就算本周重做过 */
+function weekStart() { const d = new Date(), k = (d.getDay() + 6) % 7; d.setDate(d.getDate() - k); return ymd(d); }
+function weekMark(id) { const ws = weekStart(), h = (store.marks["w/" + id] || []).filter(x => x.r !== "mid" && x.d >= ws); return h.length ? h[h.length - 1].r : ""; }
 const WSEC = { id: "wrong", title: "错题区", chapter: 0 };
-const CAUSES = ["审题", "概念不清", "条件遗漏", "方法选择", "计算", "书写表达"];
+const CAUSES = ["语法", "概念不清", "执行过程推错", "边界遗漏", "算法思路", "粗心"];
 let wrOpt = { cause: "all", sec: "all", st: "all", q: "" };
 async function loadWrong() {
   if (!syncOn()) return false;
-  try { const f = await ghGet(GH.wrong); WRONG = f && f.text.trim() ? JSON.parse(f.text) : []; try { localStorage.setItem(WCACHE, JSON.stringify(WRONG)); } catch (e) {} paintWl(document); return true; } catch (e) { return false; }
+  try { const f = await ghGet(GH.wrong); WCLOUD = f && f.text.trim() ? JSON.parse(f.text) : []; try { localStorage.setItem(WCACHE, JSON.stringify(WCLOUD)); } catch (e) {} mergeWrong(); paintWl(document); return true; } catch (e) { return false; }
 }
 /* 错题索引：错题 ↔ 知识点和题型。data.links 写 ["1.5/p7","1.6/t11"]（p 知识点、t 题型、e 易错点、m 混合题）；没写 links 就用 type_key */
 function wrongLinks(w) { const l = w.data && Array.isArray(w.data.links) ? w.data.links : (w.type_key ? [w.type_key] : []); return l.filter(Boolean); }
-function plainLbl(t) { return String(t || "").replace(/\$+/g, "").replace(/\\([a-zA-Z]+)/g, "$1").replace(/[{}^_]/g, "").replace(/\*\*/g, "").replace(/\s+/g, " ").trim(); }
+function plainLbl(t) { return unmark(t).replace(/\$+/g, "").replace(/\\([a-zA-Z]+)/g, "$1").replace(/[{}^_]/g, "").replace(/\*\*/g, "").replace(/\s+/g, " ").trim(); }
 function keyInfo(key) {
   const i = key.indexOf("/"), sid = key.slice(0, i), t = key.slice(i + 1), d = secById(sid);
   if (!d || !t) return d ? { href: "#" + sid, label: secLabel(d) } : null;
@@ -1548,15 +1582,15 @@ function paintWl(root) {
 function wrongBody(w) {
   const d = w.data || {}, br = x => md(x).replace(/\n/g, "<br>");
   const f = (l, v) => v ? `<div class="wr-f"><b>${l}</b>　${br(v)}</div>` : "";
-  return f("题干", d.stem) + f("我的错解", d.mine) + f("关键一步", d.key)
-    + (d.ans ? `<details><summary>先自己重做，再点开看正解</summary><div class="wr-f">${br(d.ans)}</div></details>` : "")
-    + (d.variant ? `<details><summary>变式</summary><div class="wr-f">${br(d.variant)}</div></details>` : "");
+  return f("题干", d.stem)
+    + (d.ans || d.mine || d.where || d.key || d.see ? `<details><summary>先自己重做，再点开看错因和正解</summary>${f("我的错解", d.mine)}${f("错在哪一步", d.where)}${f("关键一步", d.key)}${f("看到……想到……", d.see)}${f("正解", d.ans)}</details>` : "")
+    + (d.variant ? `<details><summary>变式题</summary><div class="wr-f">${br(d.variant)}</div>${d.variantAns ? `<details><summary>变式答案</summary><div class="wr-f">${br(d.variantAns)}</div></details>` : ""}</details>` : "");
 }
 function wrongCard(w) {
   const key = "w/" + w.id, d = w.data || {};
   const infos = wrongLinks(w).map(keyInfo).filter(Boolean);
   const link = infos.length ? `<div class="wr-links"><span class="lab">对应知识点和题型 →</span>${infos.map(x => `<a class="chip" href="${esc(x.href)}">${esc(x.label)}</a>`).join("")}</div>` : "";
-  return `<article class="wr panel" id="w${w.id}"><div class="wk-top"><span class="rv-kind k-wr">错题 ${w.id}</span><span class="src">${esc(w.source || "")}</span>${w.cause ? `<span class="wr-cause">${esc(w.cause)}</span>` : ""}<span class="src">${esc((w.created || "").slice(0, 10))}</span></div>
+  return `<article class="wr panel" id="w${w.id}"><div class="wk-top"><span class="rv-kind k-wr">错题 ${w.id}</span>${w.teacher ? `<span class="wr-teach" title="老师补充题">师</span>` : ""}<span class="src">${esc(w.source || "")}</span>${(() => { const r = weekMark(w.id); return `<span class="wr-wk ${r}">${r === "ok" ? "本周已重做 ✓" : r === "bad" ? "本周已重做 ✗" : "本周未重做"}</span>`; })()}${w.cause ? `<span class="wr-cause">${esc(w.cause)}</span>` : ""}<span class="src">${esc((w.created || "").slice(0, 10))}</span></div>
     <h3 style="margin:6px 0">${md(d.title || "")}</h3>${wrongBody(w)}
     <div class="rate-box" data-k="${qa(key)}">${rateInner(key)}</div>${link}</article>`;
 }
@@ -1570,20 +1604,23 @@ function renderWrong(tgt) {
     const st = statusOf("w/" + w.id).text;
     if (wrOpt.st === "todo" && st !== "未做" && !/^✗/.test(st)) return false;
     if (wrOpt.st === "done" && st !== "已学会") return false;
+    if (wrOpt.st === "week" && weekMark(w.id)) return false;
     if (q && !JSON.stringify(w).toLowerCase().includes(q)) return false;
     return true;
   }).sort((a, b) => b.id - a.id);
   const opt = (v, l, cur) => `<option value="${qa(v)}"${cur === v ? " selected" : ""}>${esc(l)}</option>`;
   $("#main").innerHTML = `<div class="eyebrow">错题区</div><h1>错题区</h1>
-    <p class="note" style="max-width:46em">每道错题写明错因和关键一步。先自己重做，再点开正解；重做对了自评 ✓，间隔几天再做一次，连续两天独立做对才算学会。</p>
-    ${!syncOn() ? `<p class="msg">没有填 GitHub 令牌，只能看这台设备上次缓存的错题。点右上角「记录」填写。</p>` : ""}
+    <p class="note" style="max-width:46em">每周末把错题重做一遍：先自己做，再点开错因和正解，在卡片上自评 ✓ ✗ 就记为本周已重做。连续两次（不同天）独立做对才算学会。「师」是老师补充题。</p>
+    ${(() => { const wk = WRONG.map(w => weekMark(w.id)), cnt = c => WRONG.filter(w => w.cause === c).length;
+      return `<div class="wr-sum"><span class="lab">本周重做</span><b>${wk.filter(Boolean).length} / ${WRONG.length}</b><span class="note">做对 ${wk.filter(r => r === "ok").length}</span><span class="lab" style="margin-left:10px">错因累计</span>${CAUSES.map(c => `<a class="chip${wrOpt.cause === c ? " on" : ""}" href="javascript:void 0" data-cause="${qa(c)}">${esc(c)} ${cnt(c)}</a>`).join("")}</div>`; })()}
     <div class="wr-bar"><select id="wrCause">${opt("all", "全部错因", wrOpt.cause)}${CAUSES.map(c => opt(c, c, wrOpt.cause)).join("")}</select>
       <select id="wrSec">${opt("all", "全部章节", wrOpt.sec)}${secs.map(c => opt(c, c, wrOpt.sec)).join("")}</select>
-      <select id="wrSt">${opt("all", "全部状态", wrOpt.st)}${opt("todo", "还没学会", wrOpt.st)}${opt("done", "已学会", wrOpt.st)}</select>
+      <select id="wrSt">${opt("all", "全部状态", wrOpt.st)}${opt("todo", "还没学会", wrOpt.st)}${opt("done", "已学会", wrOpt.st)}${opt("week", "本周未重做", wrOpt.st)}</select>
       <input id="wrQ" type="search" placeholder="搜题干、错解" value="${qa(wrOpt.q)}"><span class="tally">${items.length} / ${WRONG.length} 题</span></div>
     <div id="wrList">${items.map(wrongCard).join("") || `<div class="empty panel"><h2>这里还是空的</h2><p>把做错的题发给我，我会按错因整理后收进来。</p></div>`}</div>`;
   const re = () => renderWrong();
   $("#wrCause").addEventListener("change", e => { wrOpt.cause = e.target.value; re(); });
+  $$(".wr-sum [data-cause]").forEach(a => a.addEventListener("click", () => { wrOpt.cause = wrOpt.cause === a.dataset.cause ? "all" : a.dataset.cause; re(); }));
   $("#wrSec").addEventListener("change", e => { wrOpt.sec = e.target.value; re(); });
   $("#wrSt").addEventListener("change", e => { wrOpt.st = e.target.value; re(); });
   let tm; $("#wrQ").addEventListener("input", e => { clearTimeout(tm); tm = setTimeout(() => { wrOpt.q = e.target.value; re(); const q2 = $("#wrQ"); q2.focus(); q2.setSelectionRange(99, 99); }, 250); });
@@ -1648,7 +1685,7 @@ window.addEventListener("hashchange", route);
 /* ===== 14. 并行载入数据文件，全部到齐再显示 ===== */
 (function loadAll() {
   let left = DATA_FILES.length;
-  const done = () => { if (--left === 0) { applySeeds(); route(); if (syncOn()) { syncNow(); loadWrong(); } } };
+  const done = () => { if (--left === 0) { applySeeds(); mergeWrong(); route(); if (syncOn()) { syncNow(); loadWrong(); } } };
   DATA_FILES.forEach(f => {
     const el = document.createElement("script");
     el.src = f; el.onload = done;
