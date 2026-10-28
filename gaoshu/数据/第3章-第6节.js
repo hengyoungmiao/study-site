@@ -37,21 +37,21 @@
         { id: "DOM", go: "p5", col: 0, row: 0, kind: "map", label: "定义域与对称性", sub: "奇偶、周期缩小范围" },
         { id: "PTS", go: "p2", col: 1, row: 0, kind: "func", label: "分点", sub: R`$f'$、$f''$ 零点、不存在点、间断点` },
         { id: "TAB", go: "p3", col: 2, row: 0, kind: "build", label: "列表", sub: "升降、凹凸、极值、拐点" },
-        { id: "LIM", go: "p10", col: 0, row: 1, kind: "map", label: "极限（第一章）", sub: "单侧极限、无穷远处" },
-        { id: "VA", go: "p7", col: 1, row: 1, kind: "prop", label: "铅直渐近线", sub: R`$f\to\infty$（$x\to x_0^\pm$）` },
-        { id: "HA", go: "p6", col: 2, row: 1, kind: "prop", label: "水平渐近线", sub: R`$f\to A$（$x\to\pm\infty$）` },
-        { id: "SA", go: "p8", col: 2, row: 2, kind: "prop", label: "斜渐近线", sub: R`$a=\lim\frac fx\neq0$，$b=\lim(f-ax)$` },
-        { id: "PLOT", go: "p1", col: 1, row: 2, kind: "build", label: "描点作图", sub: "五步：关键点 + 补充点" }
+        { id: "VA", go: "p7", col: 0, row: 1, kind: "prop", label: "铅直渐近线", sub: R`$x\to x_0^\pm$ 时 $f\to\infty$` },
+        { id: "PLOT", go: "p1", col: 2, row: 1, kind: "build", label: "描点作图", sub: "五步：关键点 + 补充点" },
+        { id: "LIM", go: "p10", col: 0, row: 2, kind: "map", label: "极限（第一章）", sub: "单侧极限、无穷远处" },
+        { id: "HA", go: "p6", col: 1, row: 2, kind: "prop", label: "水平渐近线", sub: R`$x\to\pm\infty$ 时 $f\to A$` },
+        { id: "SA", go: "p8", col: 2, row: 2, kind: "prop", label: "斜渐近线", sub: R`先求 $a$，再求 $b$` }
       ],
       edges: [
         { from: "DOM", to: "PTS", label: "求导找点" },
         { from: "PTS", to: "TAB", label: "定符号" },
+        { from: "TAB", to: "PLOT", label: "性态" },
         { from: "LIM", to: "VA", label: "无穷间断点" },
         { from: "LIM", to: "HA", label: "趋于常数" },
         { from: "HA", to: "SA", label: "同侧趋于∞时再求" },
-        { from: "TAB", to: "PLOT", label: "性态" },
-        { from: "VA", to: "PLOT", label: "走向" },
-        { from: "SA", to: "PLOT", label: "走向" }
+        { from: "VA", to: "PLOT", label: "间断点两侧走向" },
+        { from: "SA", to: "PLOT", label: "无穷远处走向" }
       ],
       keys: [
         { q: R`利用导数描绘函数图形有哪五步？`, a: R`① 定义域和奇偶性、周期性，求 $f'$、$f''$；② 求 $f'$、$f''$ 的零点和不存在的点、$f$ 的间断点，划分部分区间；③ 定各区间内 $f'$、$f''$ 的符号，得升降、凹凸、拐点；④ 求水平、铅直渐近线和其他变化趋势；⑤ 算关键点的函数值，补点连线（教材 p159–160）。` },
