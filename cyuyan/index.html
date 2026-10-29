@@ -268,6 +268,10 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .tc-name { font: 700 16.5px/1.4 var(--f-display); }
 .badge-t { font-size: 12px; font-weight: 700; padding: 0 7px; border-radius: 4px; line-height: 20px; }
 .badge-t.yan { background: var(--yan-soft); color: var(--yan); }
+mark.hl { background: #fde9a6; color: #4a3500; border-radius: 3px; padding: 0 3px; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.wr { color: #b32d2d; background: #fbe3e3; border-radius: 3px; padding: 0 3px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) mark.hl { background: #54420f; color: #ffe9a8; } :root:not([data-theme="light"]) .wr { color: #ff9d9d; background: #3e1f1f; } }
+:root[data-theme="dark"] mark.hl { background: #54420f; color: #ffe9a8; } :root[data-theme="dark"] .wr { color: #ff9d9d; background: #3e1f1f; }
 .badge-k { font-size: 12px; font-weight: 700; padding: 0 7px; border-radius: 4px; line-height: 20px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
 .exam-line { margin: 8px 0 0; padding: 6px 12px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 var(--r) var(--r) 0; font-size: 13px; }
 .exam-line b { margin-right: 6px; }
@@ -505,6 +509,18 @@ a.ch-card:hover { border-color: var(--accent); }
 const DATA_FILES = [
   "数据/我的总结.js",
   "数据/线索.js",
+  "数据/第1章-第1节.js",
+  "数据/第1章-第2节.js",
+  "数据/第1章-第3节.js",
+  "数据/第1章-第4节.js",
+  "数据/第1章-第5节.js",
+  "数据/第1章-第6节.js",
+  "数据/第1章-章末.js",
+  "数据/第2章-第1节.js",
+  "数据/第2章-第2节.js",
+  "数据/第2章-第3节.js",
+  "数据/第2章-第4节.js",
+  "数据/第2章-章末.js",
   "数据/第3章-第1节.js",
   "数据/第3章-第2节.js",
   "数据/第3章-第3节.js",
@@ -517,6 +533,7 @@ const DATA_FILES = [
   "数据/第3章-第10节.js",
   "数据/第3章-第11节.js",
   "数据/第3章-第12节.js",
+  "数据/第3章-章末.js",
   "数据/第4章-第1节.js",
   "数据/第4章-第2节.js",
   "数据/第4章-第3节.js",
@@ -524,9 +541,8 @@ const DATA_FILES = [
   "数据/第4章-第5节.js",
   "数据/第4章-第6节.js",
   "数据/第4章-第7节.js",
-  "数据/第3章-章末.js",
   "数据/第4章-章末.js"
-  // 其余章节出一节加一行，如 "数据/第5章-第1节.js"；章末提升 "数据/第3章-章末.js"
+  // 出一节加一行，如 "数据/第8章-第1节.js"；章末 "数据/第8章-章末.js"
 ];
 
 /* ===== 2. 教材目录（《新编C语言程序设计》第2版，页码是印刷页） ===== */
@@ -769,7 +785,10 @@ function md(s) {
   s = String(s || "");
   const blocks = [];
   s = s.replace(/(```|~~~)[a-zA-Z]*\n?([\s\S]*?)\1/g, (m, f, body) => { blocks.push(`<pre class="code"><code>${esc(body.replace(/\n$/, ""))}</code></pre>`); return `\x00${blocks.length - 1}\x00`; });
-  let html = esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/`([^`]+?)`|‹([^›]+?)›/g, (m, a, b) => `<code class="ic">${a || b}</code>`);
+  const ics = [];
+  let html = esc(s).replace(/`([^`]+?)`|‹([^›]+?)›/g, (m, a, b) => { ics.push(`<code class="ic">${a || b}</code>`); return `\x01${ics.length - 1}\x01`; });
+  html = html.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>").replace(/==([^=\s](?:[^=]*?[^=\s])?)==/g, '<mark class="hl">$1</mark>').replace(/!!([^!]+?)!!/g, '<span class="wr">$1</span>');
+  html = html.replace(/\x01(\d+)\x01/g, (m, i) => ics[i]);
   return html.replace(/\x00(\d+)\x00/g, (m, i) => blocks[i]);
 }
 function typeset(el) {

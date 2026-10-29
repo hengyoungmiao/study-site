@@ -14,7 +14,7 @@ function run(src, input) {
   fs.writeFileSync(c, src);
   const cc = spawnSync("gcc", ["-std=c17", "-w", "-o", exe, c, "-lm"], { encoding: "utf8" });
   if (cc.status !== 0) return { err: "编译失败：" + cc.stderr.split("\n").slice(0, 3).join(" | ") };
-  const r = spawnSync(exe, [], { input: input || "", encoding: "utf8", timeout: 3000 });
+  const r = spawnSync(exe, [], { input: input || "", encoding: "utf8", timeout: 3000, cwd: tmp });
   if (r.error) return { err: "运行失败：" + r.error.message };
   return { out: r.stdout };
 }
