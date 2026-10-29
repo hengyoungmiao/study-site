@@ -83,7 +83,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .top-actions { margin-left: auto; display: flex; gap: 8px; }
 .btn {
   border: 1px solid var(--line); background: var(--sheet); border-radius: var(--r);
-  padding: 5px 12px; font-size: 13px; line-height: 1.5; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; font-size: 13px; line-height: 1.5; text-decoration: none; color: var(--ink); display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
 }
 .btn:hover { border-color: var(--accent); color: var(--accent); }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--sheet); }
@@ -294,7 +294,7 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 /* 标记：==关键词/关键点== 黄底；++步骤动作句++ 蓝字；!!易错提醒!! 红字红底 */
 mark.hl { background: var(--hl-k-bg); color: var(--hl-k); border-radius: 3px; padding: 0 3px; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .act { color: var(--hl-a); font-weight: 600; }
-.wr { color: var(--hl-w); background: var(--hl-w-bg); border-radius: 3px; padding: 0 3px; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+span.wr { color: var(--hl-w); background: var(--hl-w-bg); border-radius: 3px; padding: 0 3px; font-weight: 600; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .first { background: var(--accent-soft); border-radius: var(--r); padding: 6px 12px; font-weight: 500; }
 .steps { margin: 0; padding-left: 1.3em; }
 .steps li { margin: 4px 0; }
@@ -444,7 +444,11 @@ a.ch-card:hover { border-color: var(--accent); }
 }
 @media (max-width: 560px) {
   .top-actions { gap: 5px; }
-  .top-actions .btn { padding: 5px 8px; }
+  .top-actions { gap: 4px; flex: none; }
+  .top-actions .btn { padding: 5px 7px; }
+  #rvBtn { display: none; }
+  .brand { flex: 1 1 auto; overflow: hidden; }
+  .brand b { font-size: 15px; overflow: hidden; text-overflow: ellipsis; }
   .pt { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   .pt-side { flex-direction: row; gap: 10px; align-items: baseline; }
   .row { grid-template-columns: minmax(0, 1fr); gap: 0; }
@@ -453,6 +457,19 @@ a.ch-card:hover { border-color: var(--accent); }
   .brand span { display: none; }
   .rel .kv { grid-template-columns: minmax(0, 1fr); }
 }
+.today-bar { display: flex; align-items: center; gap: 14px; padding: 14px 18px; margin: 0 0 18px; text-decoration: none; color: inherit; border-color: var(--accent); }
+.today-bar b { font-size: 16px; color: var(--accent); white-space: nowrap; }
+.today-bar .go { margin-left: auto; color: var(--accent); white-space: nowrap; }
+.today-main { padding: 16px 18px; }
+.today-main p { margin: 0 0 10px; }
+.do-tip { margin: 0 0 12px; }
+article.wr.panel { padding: 12px 16px; }
+.do-on .tcard:not(.flipped) .row.sig, .do-on .tcard:not(.flipped) .idea-row { display: none; }
+.do-on .tcard:not(.flipped) .tc-name { filter: blur(6px); opacity: .55; user-select: none; }
+.btn.tm.run { color: var(--accent); border-color: var(--accent); }
+.btn.tm.late { color: var(--bad); border-color: var(--bad); }
+.badge-t.lv-f { background: var(--accent-soft); color: var(--accent); }
+.badge-t.lv-u { background: var(--line); color: var(--muted); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
 
@@ -463,7 +480,8 @@ a.ch-card:hover { border-color: var(--accent); }
       <button class="btn" id="tocBtn" type="button" aria-expanded="false" aria-controls="toc">目录</button>
       <a class="btn" id="srBtn" href="#search">搜索</a>
       <a class="btn" id="wrBtn" href="#wrong">错题</a>
-      <a class="btn" id="rvBtn" href="#review">复习<span class="dot" id="dueDot" hidden></span></a>
+      <a class="btn" id="tdBtn" href="#today">今日<span class="dot" id="dueDot" hidden></span></a>
+      <a class="btn" id="rvBtn" href="#review">复习</a>
       <button class="btn" id="recBtn" type="button">记录</button>
     </div>
   </div>
@@ -536,11 +554,46 @@ function today() { return ymd(new Date()); }
 function addDays(n) { const d = new Date(); d.setDate(d.getDate() + n); return ymd(d); }
 const SYM = { ok: "✓", mid: "△", bad: "✗" };
 const INTERVALS = [1, 3, 7, 21];
+const DAY_CAP = 30; // 「今日」一天最多做多少条，超出的顺延到第二天
+const DO_MIN = 5; // 做完模式默认计时（分钟）
+/* 间隔复习（2026-10-30 起和自评打通）：store.srs[键] = { box, due, last, lastWrong, t }；撤销后留 { del: 1 }
+   - 第一次 ✓（读的时候）只算见过：排到明天闭卷复查
+   - 到期那天再 ✓：往后挪一档，3 → 7 → 21 天
+   - ✗：今天再出一次；同一天先 ✗ 后 ✓ 只算重学对，明天再查
+   - 没到期或今天已经评过的 ✓：只记结果，不改安排 */
+function srsOf(k) { const s = store.srs[k]; return s && !s.del && s.due ? s : null; }
+function srsNewer(n, o) { if (!o) return true; if (n.t && o.t && n.t !== o.t) return n.t > o.t; return (n.last || "") > (o.last || ""); }
+function srsGrade(k, ok) {
+  const t = today(), s = srsOf(k);
+  let n;
+  if (!ok) n = { box: 0, due: t, last: t, lastWrong: t };
+  else if (!s) n = { box: 0, due: addDays(1), last: t };
+  else if (s.lastWrong === t) n = { box: 0, due: addDays(1), last: t, lastWrong: t };
+  else if (s.due <= t && s.last !== t) { const b = (s.box || 0) + 1; n = { box: b, due: addDays(INTERVALS[Math.min(b, INTERVALS.length - 1)]), last: t }; }
+  else return false;
+  n.t = Date.now(); store.srs[k] = n; return true;
+}
+/* 撤销自评时把复习安排一起退回去（本页打开期间有效） */
+const srsUndo = {};
+function srsPush(k, ok) { const prev = store.srs[k] ? Object.assign({}, store.srs[k]) : null; const ch = srsGrade(k, ok); (srsUndo[k] = srsUndo[k] || []).push(ch ? { p: prev } : null); }
+function srsPop(k) { const st = srsUndo[k], x = st && st.pop(); if (!x) return; store.srs[k] = Object.assign(x.p ? Object.assign({}, x.p) : { del: 1, last: today() }, { t: Date.now() }); }
+/* 旧记录补排：2026-10-30 之前的自评没有进间隔复习。有自评、没有安排的条目今天全部到期（「今日」一天最多 30 条，顺延） */
+function migrateSrs() {
+  let n = 0;
+  for (const k in store.marks) {
+    if (store.srs[k]) continue;
+    const l = lastMark(k); if (!l) continue;
+    store.srs[k] = l.r === "bad" ? { box: 0, due: today(), last: l.d, lastWrong: l.d, t: 1 } : { box: 0, due: today(), last: l.d, t: 1 };
+    n++;
+  }
+  if (n) { rawSave(); schedulePush(); }
+  return n;
+}
 function statusOf(key) {
   const h = (store.marks[key] || []).filter(x => x.r !== "mid");
   if (!h.length) return { cls: "", text: "未做" };
   const a = h[h.length - 1], b = h[h.length - 2];
-  if (a.r === "ok" && b && b.r === "ok" && a.d !== b.d) return { cls: "s-learned", text: "已学会" };
+  const sr = srsOf(key); if (a.r === "ok" && sr && sr.box >= 1) return { cls: "s-learned", text: "已学会" };
   return { cls: "s-" + a.r, text: SYM[a.r] + " " + a.d.slice(5) };
 }
 function qa(s) { return esc(s).replace(/"/g, "&quot;"); }
@@ -593,8 +646,8 @@ function bindRate(root) {
       else if (b.dataset.act === "key") { toggleStar(k + "!"); }
       else if (b.dataset.r) {
         const h = (store.marks[k] = store.marks[k] || []);
-        if (curR(k) === b.dataset.r) { for (let i = h.length - 1; i >= 0; i--) if (h[i].r !== "mid") { const x = h.splice(i, 1)[0]; store.del = store.del || {}; store.del[k + "|" + mid(x)] = Date.now(); break; } if (!h.length) delete store.marks[k]; }
-        else { h.push({ d: today(), r: b.dataset.r, t: Date.now() }); if (h.length > 20) store.marks[k] = h.slice(-20); }
+        if (curR(k) === b.dataset.r) { srsPop(k); for (let i = h.length - 1; i >= 0; i--) if (h[i].r !== "mid") { const x = h.splice(i, 1)[0]; store.del = store.del || {}; store.del[k + "|" + mid(x)] = Date.now(); break; } if (!h.length) delete store.marks[k]; }
+        else { h.push({ d: today(), r: b.dataset.r, t: Date.now() }); if (h.length > 20) store.marks[k] = h.slice(-20); srsPush(k, b.dataset.r === "ok"); }
       }
       else return;
       save(); box.innerHTML = rateInner(k); onRated();
@@ -629,7 +682,7 @@ function mergeState(a, b) {
       const seen = new Set((out.marks[k] || []).map(mid));
       for (const x of src.marks[k]) if (x && x.d && SYM[x.r] && !seen.has(mid(x)) && !((k + "|" + mid(x)) in out.del)) { (out.marks[k] = out.marks[k] || []).push(x.t ? { d: x.d, r: x.r, t: x.t } : { d: x.d, r: x.r }); seen.add(mid(x)); }
     }
-    for (const k in (src.srs || {})) { const o = out.srs[k], n = src.srs[k]; if (n && n.due && (!o || (n.last || "") > (o.last || ""))) out.srs[k] = n; }
+    for (const k in (src.srs || {})) { const o = out.srs[k], n = src.srs[k]; if (n && (n.due || n.del) && srsNewer(n, o)) out.srs[k] = n; }
     for (const [f, t] of [["stars", "starT"], ["notes", "noteT"]]) for (const k in (src[f] || {})) {
       const tm = (src[t] || {})[k] || 0;
       if (!(k in out[f]) || tm > (out[t][k] || 0)) { out[f][k] = src[f][k]; out[t][k] = tm; }
@@ -669,7 +722,7 @@ function reviewMd() {
   const lastBad = [], keys = [], stars = [];
   for (const k in store.marks) { const l = lastMark(k); if (l && l.r === "bad") lastBad.push(k); }
   for (const k in store.stars) { if (!store.stars[k]) continue; if (k.endsWith("!")) keys.push(k.slice(0, -1)); else stars.push(k); }
-  const due = Object.keys(store.srs).filter(k => store.srs[k].due <= t).sort();
+  const due = Object.keys(store.srs).filter(k => srsOf(k) && srsOf(k).due <= t).sort();
   const notes = Object.keys(store.notes).filter(k => store.notes[k]).sort();
   const sec = (h, a) => `## ${h}（${a.length}）\n\n${a.length ? a.join("\n") : "（无）"}\n`;
   const td = byDay[t];
@@ -683,7 +736,7 @@ function reviewMd() {
     sec("最近一次自评是 ✗ 的", lines(lastBad)),
     sec("☆ 不熟", lines(stars)),
     sec("△ 重点记录", lines(keys)),
-    sec("今天及之前到期的间隔复习", due.slice(0, 40).map(k => `- ${itemLabel(k)}（到期 ${store.srs[k].due}）`)),
+    sec(`今天及之前到期的间隔复习（共 ${due.length} 条，「今日」一天做 ${DAY_CAP} 条；下面列前 40 条）`, due.slice(0, 40).map(k => `- ${itemLabel(k)}（到期 ${store.srs[k].due}）`)),
     sec("我的总结", notes.map(k => `- ${itemLabel(k)}：${store.notes[k].replace(/\n/g, " ")}`)),
     ""
   ].join("\n");
@@ -712,6 +765,7 @@ async function syncNow(manual) {
       throw new Error("写入失败 " + w.status);
     }
     sync.at = new Date().toTimeString().slice(0, 5); sync.msg = "已保存到 GitHub " + sync.at; syncSaveCfg();
+    if (migrateSrs()) changed = true;
     if (wrote || !reviewAt) { reviewAt = Date.now(); await pushReview(); }
   } catch (e) { sync.msg = "同步失败：" + (e.message || e); }
   syncBusy = false; showSyncMsg();
@@ -813,9 +867,9 @@ function allItems(withMx) {
   }
   return out;
 }
-function isDue(key) { const s = store.srs[key]; return !s || s.due <= today(); }
-function dueSeenCount() { const t = today(); return allItems().filter(it => store.srs[it.key] && store.srs[it.key].due <= t).length; }
-function updateDot() { const n = dueSeenCount(); const dot = $("#dueDot"); dot.hidden = !n; dot.textContent = n; }
+function isDue(key) { const s = srsOf(key); return !s || s.due <= today(); }
+function dueSeenCount() { const t = today(); return allItems(true).filter(it => { const s = srsOf(it.key); return s && s.due <= t; }).length; }
+function updateDot() { const n = dueSeenCount(); const dot = $("#dueDot"); if (!dot) return; dot.hidden = !n; dot.textContent = n > DAY_CAP ? DAY_CAP + "+" : n; }
 
 /* ===== 8. 首页 ===== */
 function renderHome() {
@@ -833,17 +887,18 @@ function renderHome() {
       <h1>线性代数知识网页</h1>
       <p>一章分成各小节，最后一页是章末考研难度提升。每节先是<strong>知识框架</strong>，一张图讲清知识点之间怎么连起来，然后分三栏：<strong>知识点</strong>、<strong>题型梳理</strong>、<strong>易错点</strong>。知识点、题型、易错点旁都有 <strong>☆</strong>（标为不熟）和 <strong>✓ △ ✗</strong> 自评。右上角的<strong>复习</strong>里有薄弱清单、速认模式、限时抽题和间隔复习；<strong>搜索</strong>能查全站。</p>
     </div>
+    ${todayBanner()}
     <div class="home-grid">${cards}</div>
     <div class="howto panel">
       <h3>一节怎么学（按这个顺序）</h3>
       <ol>
-        <li>先在白纸上凭记忆画这一节的关系图：有哪些概念、谁推出谁、条件是什么。画不全没关系。</li>
-        <li>打开知识框架对照，用红笔补上漏掉的连线，再把「抓住这几条」逐条讲出为什么。</li>
-        <li>知识点栏开「遮住内容自测」，看名字和自测问题，先看每条开头的线索，说出后面的条件和细节，再点开对照。</li>
-        <li>题型栏：看正面，先说出这类题的通法和本题第一步，再点开通法、翻背面对照；标 ✓（独立对）、✗（不会）；需要重点记住的内容点 △。</li>
-        <li>易错点栏：先做陷阱小题，再看为什么错。</li>
-        <li>不熟的条目点 ☆，要重点记录的点 △，自评 ✗ 的也会进「薄弱清单」。</li>
-        <li>之后每天点「复习」：先看薄弱清单，再做到期的间隔复习；周日用速认和抽题做综合复习。</li>
+        <li>课上认真听三样：老师讲的例题、强调的地方、你第一次见的内容。老师补充的题拍照发给科目项目，进错题区（标「师」）。</li>
+        <li>其余时间打开本节「题型梳理」，开「做完模式」（标了层级的节默认只显示「期末必会」）。在 GoodNotes 里写完整过程，可以点「计时」，写完再点「对照答案」。</li>
+        <li>全对才点 ✓；看了答案、写错、卡住都点 ✗。看懂了不算 ✓，不熟就点 ☆。</li>
+        <li>知识点栏开「线索自测」，先回忆条件和结论，再点开对照；易错点栏先做陷阱小题，再看为什么错。</li>
+        <li>自评以后不用自己记：第一次 ✓ 明天再查一次，到期再答对就往后挪到 3、7、21 天；✗ 当天再来。</li>
+        <li>每天 23:00 点右上角「今日」，把到期的做完，一天最多 30 条，约 10–15 分钟。</li>
+        <li>每章讲完：章末思维导图闭卷回忆一次，再做混合自测。</li>
       </ol>
     </div>`;
 }
@@ -867,7 +922,7 @@ let curTab = store.ui.tab || "points";
 let filter = "all";
 let curSec = null;
 function renderSection(d, isEnd) {
-  curSec = d; filter = "all";
+  curSec = d; filter = (d.types || []).some(t => t.level) ? "final" : "all";
   if (curTab === "mixed" && !d.mixed) curTab = "points";
   const chap = CATALOG.find(c => c.n === d.chapter) || { title: "" };
   const npts = (d.points || []).reduce((a, g) => a + g.items.length, 0);
@@ -1093,7 +1148,7 @@ function nameHtml(n) {
 }
 function ideaHtml(t) {
   const i = t.idea; if (!i) return "";
-  return `<div class="row ci"><span class="lab">通法</span><div class="idea"><span class="reveal-hint">先说出这类题的通法，再点击显示</span><div class="cov">
+  return `<div class="row ci idea-row"><span class="lab">通法</span><div class="idea"><span class="reveal-hint">先说出这类题的通法，再点击显示</span><div class="cov">
     <p class="key">${md(i.key)}</p>${i.how ? `<ol>${i.how.map(s => `<li>${md(s)}</li>`).join("")}</ol>` : ""}${i.refs && i.refs.length ? `<div class="refs"><div class="refs-h">辅导书怎么说</div>${i.refs.map(r => `<div class="ref"><span class="src">${esc(r.src)}</span>${md(r.text)}</div>`).join("")}</div>` : ""}</div></div></div>`;
 }
 function tallyHtml(d) {
@@ -1116,26 +1171,27 @@ function typesHtml(d) {
   const key = t => d.id + "/" + t.id;
   const show = types.filter(t => {
     if (filter === "yan") return t.tag === "研";
+    if (filter === "final") return t.level === "期末";
     if (filter.startsWith("b:")) return t.block === filter.slice(2);
     if (filter === "todo") { const s = statusOf(key(t)); return s.cls !== "s-learned" && s.cls !== "s-ok"; }
     return true;
   });
-  const cover = uiFlag("coverIdea", true);
+  const cover = uiFlag("coverIdea", true), doOn = uiFlag("doMode", false);
   const fbtn = (v, label) => `<button class="chip" type="button" data-f="${v}" aria-pressed="${filter === v}">${label}</button>`;
-  return `<div class="toolbar"><div class="chips">${fbtn("all", "全部")}${fbtn("todo", "还没掌握")}${types.some(t => t.tag === "研") ? fbtn("yan", "研") : ""}${(d.blocks || []).map(b => fbtn("b:" + b.id, b.name)).join("")}</div>
-    ${toggle("coverIdea", "遮住通法", cover)}
+  return `<div class="toolbar"><div class="chips">${types.some(t => t.level) ? fbtn("final", "期末必会 " + types.filter(t => t.level === "期末").length) : ""}${fbtn("all", "全部")}${fbtn("todo", "还没掌握")}${types.some(t => t.tag === "研") ? fbtn("yan", "研") : ""}${(d.blocks || []).map(b => fbtn("b:" + b.id, b.name)).join("")}</div>
+    ${toggle("coverIdea", "遮住通法", cover)}${toggle("doMode", "做完模式", doOn)}
     <div class="tally" id="tally">${tallyHtml(d)}</div></div>
-  <div class="cards ${cover ? "cover-on" : ""}" data-cover="coverIdea">${show.length ? show.map(t => {
+  ${doOn ? `<p class="note do-tip">做完模式：在 GoodNotes 里写完整过程（可以点「计时」），写完再点「对照答案」。全对才点 ✓，看了答案、写错、卡住都点 ✗。</p>` : ""}<div class="cards ${cover ? "cover-on" : ""}${doOn ? " do-on" : ""}" data-cover="coverIdea">${show.length ? show.map(t => {
     const i = types.indexOf(t) + 1, k = key(t);
     return `<article class="tcard panel" data-key="${k}">
-      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${nameHtml(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "研" ? `<span class="badge-t yan">研</span>` : ""}</div>
+      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${nameHtml(t.name)}</span>${t.level ? `<span class="badge-t lv-${t.level === "期末" ? "f" : "u"}">${esc(t.level)}</span>` : ""}${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "研" ? `<span class="badge-t yan">研</span>` : ""}</div>
       <div class="tc-body">
-        <div class="row"><span class="lab">看到</span><div>${md(t.signal)}</div></div>
+        <div class="row sig"><span class="lab">看到</span><div>${md(t.signal)}</div></div>
         <div class="row"><span class="lab">例题</span><div>${md(t.example.q)}<div class="src">${esc(t.example.src)}</div></div></div>
         ${ideaHtml(t)}
         <div class="back" hidden></div>
       </div>
-      <div class="tc-foot"><button class="btn flip" type="button" aria-expanded="false">看背面</button>
+      <div class="tc-foot"><button class="btn flip" type="button" aria-expanded="false">${doOn ? "对照答案" : "看背面"}</button>${doOn ? `<button class="btn tm" type="button">计时 ${DO_MIN} 分钟</button>` : ""}
         ${rateBox(k)}
       </div></article>`;
   }).join("") : `<p class="note">这一栏没有符合条件的题型。</p>`}</div>`;
@@ -1159,17 +1215,25 @@ function bindPane(d) {
     if (sw.dataset.bound) return; sw.dataset.bound = 1;
     sw.addEventListener("change", () => {
       store.ui[sw.dataset.flag] = sw.checked; save();
+      if (sw.dataset.flag === "doMode") { showTab(d); return; }
       const box = $(`[data-cover="${sw.dataset.flag}"]`);
       if (box) { box.classList.toggle("cover-on", sw.checked); $$(".ci.show", box).forEach(x => x.classList.remove("show")); }
     });
   });
   $$(".ci").forEach(c => { if (c.dataset.bound) return; c.dataset.bound = 1; c.addEventListener("click", e => { if (e.target.closest(".rate-box,.mm-star")) return; const box = c.closest(".cover-on"); if (box) c.classList.add("show"); }); });
   $$(".chip[data-f]").forEach(b => b.addEventListener("click", () => { filter = b.dataset.f; showTab(d); }));
+  $$(".tcard .btn.tm").forEach(b => b.addEventListener("click", () => {
+    if (b._tm) { clearInterval(b._tm); b._tm = null; b.classList.remove("run"); b.textContent = `计时 ${DO_MIN} 分钟`; return; }
+    let left = DO_MIN * 60; b.classList.remove("late"); b.classList.add("run");
+    const show = () => { b.textContent = left > 0 ? `${Math.floor(left / 60)}:${String(left % 60).padStart(2, "0")}（点一下停）` : "时间到"; };
+    show();
+    b._tm = setInterval(() => { left--; if (left <= 0 || !document.body.contains(b)) { clearInterval(b._tm); b._tm = null; b.classList.remove("run"); b.classList.add("late"); } show(); }, 1000);
+  }));
   $$(".tcard").forEach(card => {
     const back = $(".back", card), flip = $(".flip", card);
     flip.addEventListener("click", () => {
       if (!back.dataset.f) { const t = (d.types || []).find(x => d.id + "/" + x.id === card.dataset.key); if (t) { back.innerHTML = backHtml(t); back.dataset.f = 1; typeset(back); } }
-      back.hidden = !back.hidden; flip.textContent = back.hidden ? "看背面" : "收起背面"; flip.setAttribute("aria-expanded", String(!back.hidden)); });
+      back.hidden = !back.hidden; card.classList.toggle("flipped", !back.hidden); const dm = !!card.closest(".do-on"); flip.textContent = back.hidden ? (dm ? "对照答案" : "看背面") : (dm ? "收起答案" : "收起背面"); flip.setAttribute("aria-expanded", String(!back.hidden)); });
   });
 }
 
@@ -1180,9 +1244,9 @@ function renderSpaced() {
   curSec = null;
   const items = allItems();
   const t = today();
-  const seenDue = items.filter(it => store.srs[it.key] && store.srs[it.key].due <= t).length;
-  const fresh = items.filter(it => !store.srs[it.key]).length;
-  const learned = items.filter(it => store.srs[it.key] && store.srs[it.key].due > t).length;
+  const seenDue = items.filter(it => srsOf(it.key) && srsOf(it.key).due <= t).length;
+  const fresh = items.filter(it => !srsOf(it.key)).length;
+  const learned = items.filter(it => srsOf(it.key) && srsOf(it.key).due > t).length;
   const opt = Object.assign({ scope: "all", kinds: ["pt", "rel", "type", "pit"], size: 20 }, store.ui.rv || {});
   const secs = Object.keys(KB.sections);
   const chip = (attr, v, label, on) => `<button class="chip" type="button" data-${attr}="${v}" aria-pressed="${on}">${label}</button>`;
@@ -1194,7 +1258,7 @@ function renderSpaced() {
       <div class="line"><span>一轮</span><div class="chips">${[10, 20, 40].map(n => chip("size", n, n + " 条", opt.size === n)).join("")}</div></div>
       <div class="line"><button class="btn primary" id="rvStart" type="button">开始</button><span class="note">先抽到期的，再补没学过的，顺序打乱。答错的会在本轮再出现，直到答对一次。</span></div>
     </div>
-    <p class="note" style="max-width:760px;margin-top:16px">一次就答对：下次在 1、3、7、21 天后（每多对一轮，间隔往后挪一档）。本轮答错过：明天再来。这个安排来自"连续重学"（Rawson、Dunlosky 等的研究：先检索到全部答对一次，再隔天重学几轮）。</p>`;
+    <p class="note" style="max-width:760px;margin-top:16px">第一次答对：明天再查一次；到期再答对，间隔往后挪到 3、7、21 天。答错过：今天再来，重学对了明天再查。节内的 ✓ ✗ 也按这个规则排。这个安排来自"连续重学"（Rawson、Dunlosky 等的研究：先检索到全部答对一次，再隔天重学几轮）。</p>`;
   $$("[data-scope]").forEach(b => b.addEventListener("click", () => { opt.scope = b.dataset.scope; store.ui.rv = opt; save(); renderSpaced(); }));
   $$("[data-kind]").forEach(b => b.addEventListener("click", () => { const k = b.dataset.kind; opt.kinds = opt.kinds.includes(k) ? opt.kinds.filter(x => x !== k) : opt.kinds.concat(k); if (!opt.kinds.length) opt.kinds = [k]; store.ui.rv = opt; save(); renderSpaced(); }));
   $$("[data-size]").forEach(b => b.addEventListener("click", () => { opt.size = +b.dataset.size; store.ui.rv = opt; save(); renderSpaced(); }));
@@ -1204,13 +1268,13 @@ function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.fl
 function startReview(opt) {
   const t = today();
   const pool = allItems().filter(it => opt.kinds.includes(it.kind) && (opt.scope === "all" || it.sec.id === opt.scope));
-  const due = shuffle(pool.filter(it => store.srs[it.key] && store.srs[it.key].due <= t));
-  const fresh = shuffle(pool.filter(it => !store.srs[it.key]));
+  const due = shuffle(pool.filter(it => srsOf(it.key) && srsOf(it.key).due <= t));
+  const fresh = shuffle(pool.filter(it => !srsOf(it.key)));
   const pick = shuffle(due.concat(fresh).slice(0, opt.size));
   if (!pick.length) { $("#main").insertAdjacentHTML("beforeend", `<p class="msg">这个范围里今天没有要复习的条目。</p>`); return; }
-  rv = { queue: pick, total: pick.length, done: 0, wrong: new Set(), firstOk: 0, relearn: 0 };
-  showReviewCard();
+  runReview(pick, "spaced");
 }
+function runReview(pick, from) { rv = { queue: pick, total: pick.length, done: 0, wrong: new Set(), firstOk: 0, relearn: 0, from: from || "spaced" }; showReviewCard(); }
 function promptHtml(it) {
   const o = it.obj;
   if (it.kind === "pt") return `<div class="rv-q"><b>${md(o.name)}</b></div><div>${o.quiz ? md(o.quiz) : "说出它的定义或内容，条件写全。"}</div>`;
@@ -1250,26 +1314,64 @@ function showReviewCard() {
 }
 function gradeReview(ok) {
   const it = rv.queue.shift(); rv.done++;
-  if (ok) {
-    const s = store.srs[it.key] || { box: 0 };
-    if (rv.wrong.has(it.key)) { s.box = 0; s.due = addDays(1); rv.relearn++; }
-    else { s.box = (s.box || 0) + 1; s.due = addDays(INTERVALS[Math.min(s.box - 1, INTERVALS.length - 1)]); rv.firstOk++; delete s.lastWrong; }
-    s.last = today(); store.srs[it.key] = s; save();
-  } else {
-    rv.wrong.add(it.key);
-    const w = store.srs[it.key] || { box: 0, due: addDays(1) }; w.lastWrong = today(); w.last = w.last || today(); store.srs[it.key] = w; save();
-    rv.queue.splice(Math.min(3, rv.queue.length), 0, it);
-  }
-  showReviewCard();
+  const h = (store.marks[it.key] = store.marks[it.key] || []); h.push({ d: today(), r: ok ? "ok" : "bad", t: Date.now() }); if (h.length > 20) store.marks[it.key] = h.slice(-20);
+  srsPush(it.key, ok);
+  if (ok) { if (rv.wrong.has(it.key)) rv.relearn++; else rv.firstOk++; }
+  else { rv.wrong.add(it.key); rv.queue.splice(Math.min(3, rv.queue.length), 0, it); }
+  save(); showReviewCard();
 }
 function finishReview() {
-  const left = rv ? rv.queue.length : 0;
+  const left = rv ? rv.queue.length : 0, from = rv ? rv.from : "spaced";
   $("#main").innerHTML = `<div class="eyebrow">复习</div><h1>本轮结束</h1>
     <div class="stats"><span><b>${rv ? rv.firstOk : 0}</b>一次答对</span><span><b>${rv ? rv.relearn : 0}</b>答错后重学对</span><span><b>${left}</b>没做完</span></div>
-    <p>一次答对的条目按 1、3、7、21 天往后排；答错过的明天再出现。没做完的条目没有记录，下次还会抽到。</p>
-    <p><a class="btn primary" href="#spaced" id="rvAgain">回间隔复习首页</a> <a class="btn" href="#review">复习中心</a></p>`;
+    <p>答对的条目自动往后排：第一次见的明天再查，到期答对的挪到 3、7、21 天；答错过的明天再出现。没做完的条目没有记录，下次还会排到。</p>
+    <p><a class="btn primary" href="#${from === "today" ? "today" : "spaced"}" id="rvAgain">${from === "today" ? "回今日" : "回间隔复习首页"}</a> <a class="btn" href="#review">复习中心</a></p>`;
   rv = null; updateDot();
-  $("#rvAgain").addEventListener("click", e => { e.preventDefault(); renderSpaced(); });
+  $("#rvAgain").addEventListener("click", e => { e.preventDefault(); if (from === "today") renderToday(); else renderSpaced(); });
+}
+
+/* ===== 11a. 今日：每天 23:00 回顾时只点这里 ===== */
+function todayQueue() {
+  const t = today();
+  const its = allItems(true).filter(it => { const s = srsOf(it.key); return s && s.due <= t; });
+  const pri = it => (srsOf(it.key).lastWrong ? 0 : 2) + (store.stars[it.key] ? 0 : 1);
+  return its.sort((a, b) => pri(a) - pri(b) || (srsOf(a.key).due < srsOf(b.key).due ? -1 : srsOf(a.key).due > srsOf(b.key).due ? 1 : 0) || secRank(a.sec) - secRank(b.sec));
+}
+/* 最近在学：最近一次自评所在的小节 */
+function recentSec() {
+  let best = null, bt = 0;
+  for (const k in store.marks) {
+    const sid = k.split("/")[0]; if (!KB.sections[sid]) continue;
+    for (const x of store.marks[k]) { const tm = x.t || Date.parse(x.d); if (tm > bt) { bt = tm; best = sid; } }
+  }
+  return best ? KB.sections[best] : null;
+}
+function todayBanner() {
+  const n = todayQueue().length, m = Math.min(n, DAY_CAP);
+  return `<a class="today-bar panel" href="#today"><b>今日</b><span>${n ? `到期 ${n} 条，今天做 ${m} 条` : "今天没有到期的条目"}</span><span class="go">进入 →</span></a>`;
+}
+function renderToday() {
+  curSec = null;
+  const q = todayQueue(), n = q.length, m = Math.min(n, DAY_CAP), t = today();
+  const wk = WRONG.filter(w => !weekMark(w.id)).length;
+  const rs = recentSec();
+  const sched = {}; Object.keys(store.srs).forEach(k => { const s = srsOf(k); if (s && s.due > t) sched[s.due] = (sched[s.due] || 0) + 1; });
+  const next = Object.keys(sched).sort().slice(0, 5).map(d => `${d.slice(5)} ${sched[d]} 条`).join("　");
+  $("#main").innerHTML = `<div class="eyebrow">每天 23:00 回顾时先做这里</div><h1>今日</h1>
+    <div class="stats" style="margin-bottom:16px"><span><b>${n}</b>到期</span><span><b>${m}</b>今天做</span><span><b>${wk}</b>本周没重做的错题</span></div>
+    <div class="panel today-main">
+      ${n ? `<p>先闭卷说出来或写下来，再点「显示答案」。答错的本轮会再出现，直到答对一次。${n > DAY_CAP ? `超出的 ${n - DAY_CAP} 条顺延到明天。` : ""}</p><button class="btn primary" id="tdStart" type="button">开始今天的复习（${m} 条）</button>` : `<p>今天没有到期的条目。新学的内容自评以后，会自动排进来。</p>`}
+      ${next ? `<p class="note" style="margin:10px 0 0">之后几天：${next}</p>` : ""}
+    </div>
+    <div class="home-grid" style="margin-top:16px">
+      ${rs ? `<a class="ch-card panel" href="#${rs.id}" id="tdDo"><div class="eyebrow"><span>最近在学</span><span>${esc(rs.id)}</span></div><h3>${esc(rs.title)}</h3><div class="note">打开本节题型卡的做完模式：在 GoodNotes 里写完整过程，再对照答案。</div></a>` : ""}
+      <a class="ch-card panel" href="#wrong" id="tdWr"><div class="eyebrow"><span>周末重做</span><span>${wk} 题</span></div><h3>错题区</h3><div class="note">只看本周还没重做的错题。</div></a>
+      <a class="ch-card panel" href="#review"><div class="eyebrow"><span>按需要</span><span></span></div><h3>复习中心</h3><div class="note">薄弱清单、速认、限时抽题、自选范围的间隔复习。</div></a>
+    </div>
+    <p class="note" style="max-width:46em;margin-top:16px">✓ 的标准：闭卷、写出来、对了。第一次 ✓ 明天再查一次；到期再答对，间隔往后挪到 3、7、21 天；✗ 当天再来。</p>`;
+  const st = $("#tdStart"); if (st) st.addEventListener("click", () => runReview(q.slice(0, DAY_CAP), "today"));
+  const dd = $("#tdDo"); if (dd) dd.addEventListener("click", () => { curTab = "types"; store.ui.tab = "types"; store.ui.doMode = true; save(); });
+  const wr = $("#tdWr"); if (wr) wr.addEventListener("click", () => { wrOpt.st = "week"; });
 }
 
 /* ===== 11b. 复习中心：复习首页、薄弱清单、速认、限时抽题、搜索 ===== */
@@ -1281,7 +1383,7 @@ function secLabel(d) { if (d.id === "wrong") return "错题区"; return String(d
 function reasons(key) {
   const r = []; if (store.stars[key]) r.push("star");
   const l = lastMark(key); if (l && l.r === "bad") r.push("bad"); if (isKey(key)) r.push("mid");
-  const s = store.srs[key]; if (s && s.lastWrong) r.push("rv");
+  const s = srsOf(key); if (s && s.lastWrong) r.push("rv");
   return r;
 }
 function weakItems() {
@@ -1300,18 +1402,19 @@ function renderHub() {
   const w = weakItems().length, due = dueSeenCount();
   const card = (href, tag, title, desc, extra, id) => `<a class="ch-card panel" href="${href}"${id ? ` id="${id}"` : ""}><div class="eyebrow"><span>${tag}</span><span>${extra || ""}</span></div><h3>${title}</h3><div class="note">${desc}</div></a>`;
   $("#main").innerHTML = `<div class="eyebrow">综合复习</div><h1>复习</h1>
-    <p class="intro">内容多的时候不要从头重读。先看薄弱清单，再用速认和抽题练「认出题型、说出第一步」。考试丢分多半不是不会算，而是没认出该用什么方法。</p>
+    <p class="intro">每天先点「今日」，把到期的条目做完。其余按需要用：薄弱清单看自己标过的，速认练「认出题型、说出第一步」，题型卡的做完模式练「算对」。</p>
     <div class="home-grid">
-      ${card("#weak", "每天先看", "薄弱清单", "汇总标了 ☆、△ 重点、自评 ✗、间隔复习答错的条目，一条一行，点开才看详情。", w + " 条")}
+      ${card("#today", "每天 23:00", "今日", "到期的条目一键开始，一天最多 30 条，超出的顺延。", Math.min(due, DAY_CAP) + " 条")}
+      ${card("#weak", "随时看", "薄弱清单", "汇总标了 ☆、△ 重点、自评 ✗、间隔复习答错的条目，一条一行，点开才看详情。", w + " 条")}
       ${card("#quick", "综合复习", "速认模式", "每张题型只显示「看到」和例题。先在心里说出方法和第一步，再点核对。", "")}
       ${card("#sample", "周复盘", "限时抽题", "从题型、易错点、混合题里随机抽，每题限时，时间到自动翻出答案。", "")}
       ${card("#wrong", "错题", "错题区", "你做错的题，按错因和章节整理，先自己重做，再看正解。", WRONG.length + " 题")}
-      ${card("#spaced", "每天 22:30", "间隔复习", "按 1、3、7、21 天的间隔抽查，答错的当场重学。", due + " 到期")}
+      ${card("#spaced", "自选范围", "间隔复习", "按章节、内容挑一轮复习；每天的到期条目在「今日」里做。", due + " 到期")}
       ${card("#c1-end", "考前一周", "闭卷思维导图", "章末页的导图会先模糊小节下的内容，先回忆再点开，不熟的点 ☆。", "", "mmGo")}
     </div>
     <div class="howto panel"><h3>怎么安排</h3>
       <table class="tbl"><tr><th>时间</th><th>做什么</th><th>用时</th></tr>
-      <tr><td>每天 22:30 回顾</td><td>间隔复习里到期的条目，加上当天新增的薄弱清单</td><td>10–15 分钟</td></tr>
+      <tr><td>每天 23:00 回顾</td><td>点「今日」，做完到期的条目（一天最多 30 条）</td><td>10–15 分钟</td></tr>
       <tr><td>周日周复盘</td><td>薄弱清单过一遍，限时抽题 10 张</td><td>30 分钟</td></tr>
       <tr><td>每章学完</td><td>章末混合自测</td><td>60 分钟</td></tr>
       <tr><td>考前两周</td><td>每章：闭卷思维导图 → 速认模式 → 薄弱清单</td><td>每章约 1 小时</td></tr></table>
@@ -1521,7 +1624,14 @@ async function loadWrong() {
 }
 /* 错题索引：错题 ↔ 知识点和题型。data.links 写 ["1.5/p7","1.6/t11"]（p 知识点、t 题型、e 易错点、m 混合题）；没写 links 就用 type_key */
 function wrongLinks(w) { const l = w.data && Array.isArray(w.data.links) ? w.data.links : (w.type_key ? [w.type_key] : []); return l.filter(Boolean); }
-function plainLbl(t) { return String(t || "").replace(/\$+/g, "").replace(/\\([a-zA-Z]+)/g, "$1").replace(/[{}^_]/g, "").replace(/\*\*/g, "").replace(/==|\+\+|!!/g, "").replace(/\s+/g, " ").trim(); }
+const TEX_SYM = { to: "→", infty: "∞", leqslant: "≤", leq: "≤", le: "≤", geqslant: "≥", geq: "≥", ge: "≥", neq: "≠", ne: "≠", cdot: "·", times: "×", pi: "π", Delta: "Δ", delta: "δ", varphi: "φ", phi: "φ", alpha: "α", beta: "β", lambda: "λ", xi: "ξ", varepsilon: "ε", epsilon: "ε", in: "∈", Rightarrow: "⇒", Leftrightarrow: "⇔", sim: "~", pm: "±", partial: "∂", int: "∫", sum: "∑", prime: "′", lim: "lim", sin: "sin", cos: "cos", tan: "tan", ln: "ln", arcsin: "arcsin", arctan: "arctan" };
+function plainLbl(t) {
+  let s = String(t || "").replace(/\$+/g, "").replace(/[‹›]/g, "");
+  s = s.replace(/\\(left|right|limits|displaystyle|mathrm|mathbf|operatorname|text|quad|qquad)(?![a-zA-Z])/g, "").replace(/\\[,;!]/g, "");
+  for (let i = 0; i < 3; i++) s = s.replace(/\\d?frac\{([^{}]*)\}\{([^{}]*)\}/g, "($1)/($2)").replace(/\\sqrt\{([^{}]*)\}/g, "√($1)");
+  s = s.replace(/_\{([^{}]*)\}/g, " $1 ").replace(/\\([a-zA-Z]+)/g, (m, w) => TEX_SYM[w] !== undefined ? TEX_SYM[w] : w);
+  return s.replace(/[{}]/g, "").replace(/_/g, "").replace(/\*\*/g, "").replace(/==|\+\+|!!/g, "").replace(/\s+/g, " ").trim();
+}
 function keyInfo(key) {
   const i = key.indexOf("/"), sid = key.slice(0, i), t = key.slice(i + 1), d = secById(sid);
   if (!d || !t) return d ? { href: "#" + sid, label: secLabel(d) } : null;
@@ -1609,6 +1719,7 @@ function route() {
   if (KB.sections[h]) { renderToc(h); renderSection(KB.sections[h]); }
   else if ((m = h.match(/^c(\d+)-end$/))) { renderToc(h); renderChapterEnd(+m[1]); }
   else if (h === "wrong") { renderToc(null); showWrong(tgt); updateDot(); window.scrollTo(0, 0); return; }
+  else if (h === "today") { renderToc(null); renderToday(); }
   else if (h === "review") { renderToc(null); renderHub(); }
   else if (h === "spaced") { renderToc(null); renderSpaced(); }
   else if (h === "weak") { renderToc(null); renderWeak(); }
@@ -1638,7 +1749,7 @@ $("#recImport").addEventListener("click", () => {
     const obj = JSON.parse($("#recIn").value); const mk = obj.marks || {}; let n = 0;
     for (const k in mk) { const seen = new Set((store.marks[k] || []).map(mid)); for (const x of mk[k]) if (x && x.d && SYM[x.r] && !seen.has(mid(x))) { (store.marks[k] = store.marks[k] || []).push(x); n++; } if (store.marks[k]) store.marks[k].sort((a, b) => a.d < b.d ? -1 : 1); }
     const sr = obj.srs || {};
-    for (const k in sr) { const a = store.srs[k], b = sr[k]; if (b && b.due && (!a || (b.last || "") > (a.last || ""))) { store.srs[k] = b; n++; } }
+    for (const k in sr) { const a = store.srs[k], b = sr[k]; if (b && (b.due || b.del) && srsNewer(b, a)) { store.srs[k] = b; n++; } }
     const st = obj.stars || {}; for (const k in st) if (st[k] && !store.stars[k]) { setStar(k, true); n++; }
     { const m = mergeState(syncPayload(), { notes: obj.notes || {}, noteT: obj.noteT || {} }); store.notes = m.notes; store.noteT = m.noteT; }
     save(); $("#recIn").value = ""; openRec(); $("#recMsg").textContent = "导入了 " + n + " 条"; route();
@@ -1650,7 +1761,7 @@ window.addEventListener("hashchange", route);
 /* ===== 14. 并行载入数据文件，全部到齐再显示 ===== */
 (function loadAll() {
   let left = DATA_FILES.length;
-  const done = () => { if (--left === 0) { applySeeds(); mergeWrong(); route(); if (syncOn()) { syncNow(); loadWrong(); } } };
+  const done = () => { if (--left === 0) { applySeeds(); migrateSrs(); mergeWrong(); route(); if (syncOn()) { syncNow(); loadWrong(); } } };
   DATA_FILES.forEach(f => {
     const el = document.createElement("script");
     el.src = f; el.onload = done;

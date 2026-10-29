@@ -1,6 +1,6 @@
 const fs=require('fs'),vm=require('vm');
 const file=process.argv[2];let data;
-const ctx={KB:{add:d=>data=d,addChapterEnd:d=>data=d}};vm.createContext(ctx);
+const ctx={KB:{add:d=>data=d,addChapterEnd:d=>data=d,addWrong:d=>data=d}};vm.createContext(ctx);
 vm.runInContext(fs.readFileSync(file,'utf8'),ctx);
 const strs=[];(function walk(o,p){if(typeof o==='string')strs.push([p,o]);else if(o&&typeof o==='object')for(const k in o)walk(o[k],p+'.'+k)})(data,'');
 let n=0,bad=0;
