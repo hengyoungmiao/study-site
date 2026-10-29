@@ -9,7 +9,7 @@
   KB.addWrong([
   {
     id: 1, created: "2026-09-21", chapter: 1, section: "1.4",
-    source: "上机 ex1.c 2026-09-21（原 E1）", cause: "条件遗漏",
+    source: "上机 ex1.c 2026-09-21（原 E1）", cause: "语法",
     data: {
       title: R`用 ‹printf› 忘了写 ‹#include <stdio.h>›`,
       stem: R`下面的程序能不能通过编译？为什么？
@@ -30,7 +30,7 @@ int main(void)
   },
   {
     id: 2, created: "2026-09-21", chapter: 1, section: "1.5",
-    source: "改错练习 2026-09-21（原 E2）", cause: "书写表达",
+    source: "改错练习 2026-09-21（原 E2）", cause: "语法",
     data: {
       title: R`‹include› 前面漏了 ‹#›`,
       stem: R`找出错误：‹include<stdio.h>›`,
@@ -44,7 +44,7 @@ int main(void)
   },
   {
     id: 3, created: "2026-09-21", chapter: 1, section: "1.4",
-    source: "上机 ex1.c 2026-09-21（原 E3）", cause: "概念不清",
+    source: "上机 ex1.c 2026-09-21（原 E3）", cause: "语法",
     data: {
       title: R`‹printf› 的文字用了单引号`,
       stem: R`找出错误：‹printf('Hello,world!\n');›`,
@@ -72,7 +72,7 @@ int main(void)
   },
   {
     id: 5, created: "2026-09-21", chapter: 1, section: "1.5",
-    source: "课后自测 2026-09-21（原 E5；9/22 答对一次）", cause: "条件遗漏",
+    source: "课后自测 2026-09-21（原 E5；9/22 答对一次）", cause: "语法",
     data: {
       title: R`哪些后面不能加分号`,
       stem: R`① ‹#include <stdio.h>›　② ‹int main(void)›　③ ‹printf("hi\n")›　④ 函数体最后的 ‹}›。哪些后面不能加分号？`,
@@ -86,7 +86,7 @@ int main(void)
   },
   {
     id: 6, created: "2026-09-21", chapter: 1, section: "1.5",
-    source: "上机 ex1.c 2026-09-21（原 E6）", cause: "概念不清",
+    source: "上机 ex1.c 2026-09-21（原 E6）", cause: "执行过程推错",
     data: {
       title: R`‹\t› 放错位置`,
       stem: R`要输出三行：‹name: "wu"›、‹age:›（制表符）‹19›、‹C is fun!›。写出 ‹printf› 语句。`,
@@ -128,7 +128,7 @@ int main(void)
   },
   {
     id: 9, created: "2026-09-22", chapter: 1, section: "1.4",
-    source: "改错练习 例1-2 2026-09-22（原 E9，9/25 重抽未作答）", cause: "条件遗漏",
+    source: "改错练习 例1-2 2026-09-22（原 E9，9/25 重抽未作答）", cause: "语法",
     data: {
       title: R`‹printf› 参数之间的逗号`,
       stem: R`找出错误：‹printf("%d %d\n" a b);›`,

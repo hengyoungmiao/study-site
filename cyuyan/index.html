@@ -1726,7 +1726,7 @@ mergeWrong();
 function weekStart() { const d = new Date(), k = (d.getDay() + 6) % 7; d.setDate(d.getDate() - k); return ymd(d); }
 function weekMark(id) { const ws = weekStart(), h = (store.marks["w/" + id] || []).filter(x => x.r !== "mid" && x.d >= ws); return h.length ? h[h.length - 1].r : ""; }
 const WSEC = { id: "wrong", title: "错题区", chapter: 0 };
-const CAUSES = ["审题", "概念不清", "条件遗漏", "方法选择", "计算", "书写表达"];
+const CAUSES = ["语法", "概念不清", "执行过程推错", "边界遗漏", "算法思路", "粗心"]; // C 语言项目的六类错因
 let wrOpt = { cause: "all", sec: "all", st: "all", q: "" };
 async function loadWrong() {
   if (!syncOn()) return false;
