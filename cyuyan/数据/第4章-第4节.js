@@ -18,7 +18,8 @@
     title: "输入输出概念",
     pages: "教材 p69–70",
     sources: ["教材 4.4 p69–70"],
-    updated: "2026-10-21",
+    updated: "2026-10-29",
+    exam: "没有单独考。",
 
     points: [
       {
@@ -51,7 +52,7 @@
 
     types: [
       {
-        id: "t1", name: "判断输入输出相关的说法",
+        id: "t1", kind: "辨析", name: "判断输入输出相关的说法",
         signal: R`问输入输出是不是语句、需要什么头文件、两种 include 写法的区别`,
         example: { q: R`判断：①‹printf› 是 C 语言的关键字；②使用 ‹scanf› 的程序在 gcc 下可以不写 ‹#include <stdio.h>›；③自己写的头文件 ‹my.h› 应该用 ‹#include "my.h"›；④从键盘把数据读进变量叫“输出”。`, src: "教材 p69" },
         idea: {

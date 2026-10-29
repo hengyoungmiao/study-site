@@ -268,6 +268,31 @@ h3 { font: 700 16px/1.4 var(--f-display); margin: 0; }
 .tc-name { font: 700 16.5px/1.4 var(--f-display); }
 .badge-t { font-size: 12px; font-weight: 700; padding: 0 7px; border-radius: 4px; line-height: 20px; }
 .badge-t.yan { background: var(--yan-soft); color: var(--yan); }
+.badge-k { font-size: 12px; font-weight: 700; padding: 0 7px; border-radius: 4px; line-height: 20px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+.exam-line { margin: 8px 0 0; padding: 6px 12px; border-left: 3px solid var(--accent); background: var(--accent-soft); border-radius: 0 var(--r) var(--r) 0; font-size: 13px; }
+.exam-line b { margin-right: 6px; }
+.out-box { margin: 0; }
+.trace-wrap { overflow-x: auto; }
+.trace { border-collapse: collapse; font: 13px var(--f-mono); min-width: 60%; }
+.trace th, .trace td { border: 1px solid var(--line); padding: 3px 8px; text-align: left; vertical-align: top; }
+.trace th { background: var(--accent-soft); font-weight: 600; }
+.trace tr.hid { display: none; }
+.trace-acts { display: flex; gap: 8px; margin-top: 6px; align-items: center; }
+.blank-list, .choice-list, .score-list { margin: 0; padding-left: 0; list-style: none; }
+.blank-list li, .choice-list li { margin: 4px 0; padding: 4px 10px; border: 1px solid var(--line); border-radius: var(--r); cursor: pointer; }
+.blank-list li .ba, .choice-list li .ca { display: none; }
+.blank-list li.open .ba, .choice-list li.open .ca { display: block; margin-top: 2px; }
+.blank-list li .bn { font-weight: 700; color: var(--accent); margin-right: 6px; }
+.choice-list .ok { color: var(--accent); font-weight: 700; }
+.choice-list .no { color: var(--warn, #c0392b); font-weight: 700; }
+.score-list li { margin: 3px 0; }
+.score-list li::before { content: "□ "; color: var(--accent); }
+.exmap { width: 100%; border-collapse: collapse; font-size: 13px; }
+.exmap th, .exmap td { border-bottom: 1px solid var(--line); padding: 4px 8px; text-align: left; vertical-align: top; }
+.exmap th { color: var(--muted); font-weight: 600; }
+.exmap td.ex { font-family: var(--f-mono); white-space: nowrap; }
+.exmap-panel { margin: 16px 0; padding: 12px 16px; }
+.exmap-panel h3 { margin: 0 0 8px; font-size: 15px; }
 .status { margin-left: auto; font: 500 12px var(--f-mono); padding: 1px 8px; border-radius: 999px; background: var(--paper); color: var(--muted); border: 1px solid var(--line); }
 .status.s-learned { background: var(--ok-soft); color: var(--ok); border-color: transparent; }
 .status.s-ok { color: var(--ok); }
@@ -498,7 +523,9 @@ const DATA_FILES = [
   "数据/第4章-第4节.js",
   "数据/第4章-第5节.js",
   "数据/第4章-第6节.js",
-  "数据/第4章-第7节.js"
+  "数据/第4章-第7节.js",
+  "数据/第3章-章末.js",
+  "数据/第4章-章末.js"
   // 其余章节出一节加一行，如 "数据/第5章-第1节.js"；章末提升 "数据/第3章-章末.js"
 ];
 
@@ -776,7 +803,7 @@ function outlineHtml(d) {
   const pits = (d.pitfalls || []).map((p, i) => a("e" + (i + 1), p.wrong)).join("");
   const mxs = (d.mixed || []).map((m, i) => a(m.id, (i + 1) + ". " + (m.src || m.q))).join("");
   const top = `<a href="#${d.id}" data-ot="top">知识框架${d.mindmap ? "和思维导图" : ""}</a>`;
-  return `<details class="toc-out" data-og="all"${o.all === false ? "" : " open"}><summary>本节大纲</summary>${top}${g("pts", "知识点", npts, pts, true)}${g("types", "例题代码", (d.types || []).length, tys, false)}${g("pits", "易错点", (d.pitfalls || []).length, pits, false)}${g("mx", "混合自测", (d.mixed || []).length, mxs, false)}</details>`;
+  return `<details class="toc-out" data-og="all"${o.all === false ? "" : " open"}><summary>本节大纲</summary>${top}${g("pts", "知识点", npts, pts, true)}${g("types", "题型卡", (d.types || []).length, tys, false)}${g("pits", "易错点", (d.pitfalls || []).length, pits, false)}${g("mx", "混合自测", (d.mixed || []).length, mxs, false)}</details>`;
 }
 function closeToc() { $("#toc").classList.remove("open"); $("#tocBtn").setAttribute("aria-expanded", "false"); }
 (function bindDrawer() {
@@ -847,7 +874,7 @@ function renderHome() {
     <div class="intro">
       <div class="eyebrow">《新编C语言程序设计》第2版 · 已生成 ${have} / ${total} 节</div>
       <h1>C语言知识网页</h1>
-      <p>一章分成各小节，最后一页是章末期末与等考提升。每节先是<strong>知识框架</strong>，一张图讲清知识点之间怎么连起来，然后分三栏：<strong>知识点</strong>、<strong>例题代码</strong>、<strong>易错点</strong>。知识点、题型、易错点旁都有 <strong>☆</strong>（标为不熟）和 <strong>✓ △ ✗</strong> 自评。右上角的<strong>复习</strong>里有薄弱清单、速认模式、限时抽题和间隔复习；<strong>搜索</strong>能查全站。</p>
+      <p>一章分成各小节，最后一页是章末期末与等考提升。每节先是<strong>知识框架</strong>，一张图讲清知识点之间怎么连起来，然后分三栏：<strong>知识点</strong>、<strong>题型卡</strong>（读程序、填空、辨析、纸上编程四种，按期末考法分）、<strong>易错点</strong>。知识点、题型、易错点旁都有 <strong>☆</strong>（标为不熟）和 <strong>✓ △ ✗</strong> 自评。右上角的<strong>复习</strong>里有薄弱清单、速认模式、限时抽题和间隔复习；<strong>搜索</strong>能查全站。</p>
     </div>
     <div class="home-grid">${cards}</div>
     <div class="howto panel">
@@ -892,14 +919,16 @@ function renderSection(d, isEnd) {
     <h1>${isEnd ? "期末与等考提升" : d.id + "　" + esc(d.title)}</h1>
     <div class="meta"><span class="pg">${esc(d.pages || "")}</span><span>更新 ${esc(d.updated || "")}</span></div>
     <div class="meta" style="margin-top:4px">${(d.sources || []).map(s => `<span>${esc(s)}</span>`).join("")}</div>
+    ${d.exam ? `<div class="exam-line"><b>真题考法</b>${md(d.exam)}</div>` : ""}
+    ${d.exampleMap ? exmapHtml(d) : ""}
     ${d.mindmap ? mindHtml(d) : ""}
     ${d.framework && d.framework.nodes ? frameHtml(d) : ""}
     ${secLinksHtml(d, isEnd)}
     <div class="tabs" role="tablist">
       <button class="tab" role="tab" data-tab="points" aria-selected="false">知识点<span class="n">${npts}</span></button>
-      <button class="tab" role="tab" data-tab="types" aria-selected="false">例题代码<span class="n">${(d.types || []).length}</span></button>
+      <button class="tab" role="tab" data-tab="types" aria-selected="false">题型卡<span class="n">${(d.types || []).length}</span></button>
       <button class="tab" role="tab" data-tab="pitfalls" aria-selected="false">易错点<span class="n">${(d.pitfalls || []).length}</span></button>
-      ${d.mixed ? `<button class="tab" role="tab" data-tab="mixed" aria-selected="false">混合自测<span class="n">${d.mixed.length}</span></button>` : ""}
+      ${d.mixed ? `<button class="tab" role="tab" data-tab="mixed" aria-selected="false">${esc(d.mixedLabel || "混合自测")}<span class="n">${d.mixed.length}</span></button>` : ""}
     </div>
     <div id="pane"></div>`;
   $$(".tab").forEach(b => b.addEventListener("click", () => { curTab = b.dataset.tab; store.ui.tab = curTab; save(); showTab(d); }));
@@ -973,13 +1002,13 @@ function focusTarget(d, tgt) {
 }
 function mixedHtml(d) {
   const blk = id => { const b = (d.blocks || []).find(x => x.id === id); return b ? b.name : ""; };
-  return `<p class="note" style="margin:0 0 14px">题目打乱了板块顺序。先判断"这题属于哪一类、第一步做什么"，再点"看思路"核对，最后自己做完再看答案。</p>
+  return `<p class="note" style="margin:0 0 14px">${d.mixedNote ? md(d.mixedNote) + "<br>" : ""}题目打乱了板块顺序。先判断"这题属于哪一类、第一步做什么"，再点"看思路"核对，最后自己做完再看答案。</p>
   ${d.mixed.map((x, i) => `<article class="mx panel" data-id="${x.id}">
     <div class="mx-top"><span class="tc-no">${i + 1}</span>${x.level ? `<span class="badge-b">${esc(x.level)}</span>` : ""}<span class="mx-blk">${esc(x.src || "")}</span></div>
     <div class="mx-q">${md(x.q)}</div>
     <div class="mx-btns"><button class="btn" type="button" data-show="hint">看思路</button><button class="btn" type="button" data-show="ans">看答案</button>${x.go ? `<button class="btn" type="button" data-go="${esc(x.go)}">对应题型 →</button>` : ""}</div>
     ${rateBox(d.id + "/" + x.id)}
-    <div class="mx-box" data-box="hint" hidden><b>属于：${esc(blk(x.block))}</b>${md(x.hint)}</div>
+    <div class="mx-box" data-box="hint" hidden>${blk(x.block) ? `<b>属于：${esc(blk(x.block))}</b>` : ""}${md(x.hint)}</div>
     <div class="mx-box" data-box="ans" hidden><b>答案</b>${md(x.ans)}</div>
   </article>`).join("")}`;
 }
@@ -1113,13 +1142,36 @@ function tallyHtml(d) {
   return `<span>✓ ${cnt.ok}</span><span>△ 重点 ${cnt.mid}</span><span>✗ ${cnt.bad}</span><span>未做 ${cnt.none}</span>`;
 }
 /* 题型卡背面：点「看背面」才生成，没点开时页面里没有第一步、解答和易错 */
+function traceHtml(tr) {
+  if (!tr || !tr.rows) return "";
+  return `<div class="trace-wrap"><table class="trace"><thead><tr>${tr.cols.map(c => `<th>${md(c)}</th>`).join("")}</tr></thead><tbody>${tr.rows.map((r, i) => `<tr class="hid" data-i="${i}">${r.map(c => `<td>${md(String(c))}</td>`).join("")}</tr>`).join("")}</tbody></table></div>
+    <div class="trace-acts"><button class="btn tr-next" type="button">下一步</button><button class="btn tr-all" type="button">全部显示</button><span class="note">先自己推这一步，再点开核对</span></div>`;
+}
 function backHtml(t) {
+  const row = (lab, html) => `<div class="row"><span class="lab">${lab}</span><div>${html}</div></div>`;
   return `
-          <div class="row"><span class="lab">第一步</span><div class="first">${md(t.first)}</div></div>
-          <div class="row"><span class="lab">解答</span><div><ol class="steps">${t.steps.map(s => `<li>${md(s)}</li>`).join("")}</ol></div></div>
-          <div class="row"><span class="lab">易错</span><div class="warnline">${md(t.pitfall)}</div></div>
-          <div class="row"><span class="lab">练习</span><div style="font-size:13px;color:var(--muted)">${md(t.practice || "")}</div></div>
+          ${t.first ? row("第一步", `<div class="first">${md(t.first)}</div>`) : ""}
+          ${t.trace ? row("追踪", traceHtml(t.trace)) : ""}
+          ${t.output != null ? row("输出", `<pre class="code out-box"><code>${esc(t.output)}</code></pre>${t.input ? `<div class="src">输入：${esc(t.input)}</div>` : ""}`) : ""}
+          ${t.blanks ? row("各空", `<ol class="blank-list">${t.blanks.map((b, i) => `<li><span class="bn">【${i + 1}】</span>点开看答案<div class="ba"><code class="ic">${esc(b.a)}</code>　${md(b.why || "")}</div></li>`).join("")}</ol>`) : ""}
+          ${t.choices ? row("逐项", `<ol class="choice-list">${t.choices.map(c => `<li>${md(c.s)}<div class="ca"><span class="${c.ok ? "ok" : "no"}">${c.ok ? "✓ 对" : "✗ 错"}</span>　${md(c.why || "")}</div></li>`).join("")}</ol>`) : ""}
+          ${t.steps && t.steps.length ? row(t.kind === "编程" ? "答案" : "解答", `<ol class="steps">${t.steps.map(s => `<li>${md(s)}</li>`).join("")}</ol>`) : ""}
+          ${t.score ? row("评分点", `<ul class="score-list">${t.score.map(s => `<li>${md(s)}</li>`).join("")}</ul>`) : ""}
+          ${t.pitfall ? row("易错", `<div class="warnline">${md(t.pitfall)}</div>`) : ""}
+          ${row("练习", `<div style="font-size:13px;color:var(--muted)">${md(t.practice || "")}</div>`)}
   `;
+}
+function bindBack(back) {
+  const rows = $$(".trace tr.hid", back);
+  const nx = $(".tr-next", back), al = $(".tr-all", back);
+  if (nx) nx.addEventListener("click", () => { const r = $(".trace tr.hid", back); if (r) r.classList.remove("hid"); if (!$(".trace tr.hid", back)) nx.disabled = true; });
+  if (al) al.addEventListener("click", () => { rows.forEach(r => r.classList.remove("hid")); if (nx) nx.disabled = true; });
+  $$(".blank-list li, .choice-list li", back).forEach(li => li.addEventListener("click", () => li.classList.toggle("open")));
+}
+function exmapHtml(d) {
+  const m = d.exampleMap;
+  const link = w => w ? w.split(/[、,，]\s*/).map(x => `<a href="#${esc(x)}">${esc(x)}</a>`).join("、") : "—";
+  return `<section class="exmap-panel panel"><h3>本章例题对照表（${m.length} 道）</h3><div class="trace-wrap"><table class="exmap"><thead><tr><th>例题</th><th>内容</th><th>在哪</th><th>做成</th></tr></thead><tbody>${m.map(r => `<tr><td class="ex">${esc(r.ex)}</td><td>${md(r.title)}</td><td>${link(r.where)}</td><td>${md(r.form || "")}</td></tr>`).join("")}</tbody></table></div></section>`;
 }
 function typesHtml(d) {
   const types = d.types || [];
@@ -1138,7 +1190,7 @@ function typesHtml(d) {
   <div class="cards ${cover ? "cover-on" : ""}" data-cover="coverIdea">${show.length ? show.map(t => {
     const i = types.indexOf(t) + 1, k = key(t);
     return `<article class="tcard panel" data-key="${k}">
-      <div class="tc-head"><span class="tc-no">题型 ${i}</span><span class="tc-name">${md(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "拓" ? `<span class="badge-t yan">拓</span>` : ""}</div>
+      <div class="tc-head"><span class="tc-no">题型 ${i}</span>${t.kind ? `<span class="badge-k">${esc(t.kind)}</span>` : ""}<span class="tc-name">${md(t.name)}</span>${t.block && d.blocks ? `<span class="badge-b">${esc((d.blocks.find(b => b.id === t.block) || {}).name || "")}</span>` : ""}${t.tag === "拓" ? `<span class="badge-t yan">拓</span>` : ""}</div>
       <div class="tc-body">
         <div class="row"><span class="lab">看到</span><div>${md(t.signal)}</div></div>
         <div class="row"><span class="lab">例题</span><div>${md(t.example.q)}<div class="src">${esc(t.example.src)}</div></div></div>
@@ -1176,7 +1228,7 @@ function bindPane(d) {
   $$(".tcard").forEach(card => {
     const back = $(".back", card), flip = $(".flip", card);
     flip.addEventListener("click", () => {
-      if (!back.dataset.f) { const t = (d.types || []).find(x => d.id + "/" + x.id === card.dataset.key); if (t) { back.innerHTML = backHtml(t); back.dataset.f = 1; typeset(back); } }
+      if (!back.dataset.f) { const t = (d.types || []).find(x => d.id + "/" + x.id === card.dataset.key); if (t) { back.innerHTML = backHtml(t); back.dataset.f = 1; typeset(back); bindBack(back); } }
       back.hidden = !back.hidden; flip.textContent = back.hidden ? "看背面" : "收起背面"; flip.setAttribute("aria-expanded", String(!back.hidden)); });
   });
 }
@@ -1223,7 +1275,7 @@ function promptHtml(it) {
   const o = it.obj;
   if (it.kind === "pt") return `<div class="rv-q"><b>${md(o.name)}</b></div><div>${o.quiz ? md(o.quiz) : "说出它的定义或内容，条件写全。"}</div>`;
   if (it.kind === "rel") return `<div class="rv-q">${md(o.q)}</div>`;
-  if (it.kind === "type") return `<div class="rv-q"><b>${md(o.name)}</b></div><div>${md(o.example.q)}</div><div class="note">说出这类题的通法和本题第一步（不用算完）。</div>`;
+  if (it.kind === "type") return `<div class="rv-q"><b>${md(o.name)}</b></div><div>${md(o.example.q)}</div><div class="note">${({ "读程序": "先在纸上推出输出，再看答案。", "填空": "先填出每个空，说出为什么。", "辨析": "逐项判断对错，说出理由。", "编程": "说出思路和关键几行（周测时在纸上写全）。" })[o.kind] || "说出这类题的通法和本题第一步（不用算完）。"}</div>`;
   if (it.kind === "mx") return `<div class="rv-q">${md(o.q)}</div><div class="src">${esc(o.src || "")}</div>`;
   return `<div class="rv-q">${md(o.test || o.wrong)}</div><div class="note">先回答，再说清容易错在哪。</div>`;
 }
@@ -1233,7 +1285,7 @@ function answerHtml(it) {
   if (it.kind === "pt") return `<div>${md(o.body)}</div>${o.notes ? `<ul class="pt-notes">${o.notes.map(n => `<li>${md(n)}</li>`).join("")}</ul>` : ""}<div class="src">${esc(o.page || "")}</div>`;
   if (it.kind === "rel") return `<div>${md(o.a)}</div>`;
   if (it.kind === "mx") return `<div><b>思路</b>　${md(o.hint)}</div><div><b>答案</b>　${md(o.ans)}</div>`;
-  if (it.kind === "type") return `<div class="first">${md(o.first)}</div>${o.idea ? `<div class="idea"><p class="key">${md(o.idea.key)}</p><ol>${(o.idea.how || []).map(s => `<li>${md(s)}</li>`).join("")}</ol></div>` : ""}<div class="src">${esc(o.example.src)}</div>`;
+  if (it.kind === "type") return `${o.output != null ? `<pre class="code out-box"><code>${esc(o.output)}</code></pre>` : ""}${o.blanks ? `<ol>${o.blanks.map(b => `<li><code class="ic">${esc(b.a)}</code></li>`).join("")}</ol>` : ""}<div class="first">${md(o.first || "")}</div>${o.idea ? `<div class="idea"><p class="key">${md(o.idea.key)}</p><ol>${(o.idea.how || []).map(s => `<li>${md(s)}</li>`).join("")}</ol></div>` : ""}<div class="src">${esc(o.example.src)}</div>`;
   return `${o.ans ? `<div><b>答案</b>　${md(o.ans)}</div>` : ""}<div class="pf-wrong">✗ ${md(o.wrong)}</div><div>${md(o.why)}</div><div style="color:var(--ok)">${md(o.right)}</div>`;
 }
 function showReviewCard() {
@@ -1468,7 +1520,7 @@ function buildIndex() {
     const o = it.obj; let f = [];
     if (it.kind === "pt") f = [o.name, o.body, ...(o.notes || []), o.quiz, o.kind];
     else if (it.kind === "rel") f = [o.q, o.a];
-    else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.idea && o.idea.key, ...((o.idea && o.idea.how) || []), ...(((o.idea && o.idea.refs) || []).map(r => r.src + " " + r.text)), o.first, ...o.steps, o.pitfall, o.practice];
+    else if (it.kind === "type") f = [o.name, o.signal, o.example.q, o.example.src, o.idea && o.idea.key, ...((o.idea && o.idea.how) || []), ...(((o.idea && o.idea.refs) || []).map(r => r.src + " " + r.text)), o.first, ...(o.steps || []), o.pitfall, o.practice, o.output, o.kind];
     else if (it.kind === "pit") f = [o.wrong, o.test, o.ans, o.why, o.right, o.link];
     else f = [o.q, o.hint, o.ans, o.src];
     f.push(noteOf(it.key));

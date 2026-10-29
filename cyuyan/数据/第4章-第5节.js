@@ -18,7 +18,8 @@
     title: "字符数据输入输出",
     pages: "教材 p70–72",
     sources: ["教材 4.5 p70–72（例4-2～4-4）", "辅导 习题解答 第4章 选择题1 p94", "辅导 实验4 改错题(3) p48"],
-    updated: "2026-10-21",
+    updated: "2026-10-29",
+    exam: "读程序 1 次：用字符运算把大写转成小写（2016，‹ch=ch+32›）。",
 
     framework: {
       main: R`‹putchar› 输出一个字符，‹getchar› 读入一个字符。‹getchar› 每次只取一个字符，回车也是一个字符。两个函数都来自 ‹stdio.h›。`,
@@ -75,7 +76,7 @@
 
     types: [
       {
-        id: "t1", name: "putchar 输出字符：读程序写结果（例4-2）",
+        id: "t1", kind: "读程序", output: "Book\tBo\nok\n", name: "putchar 输出字符：读程序写结果（例4-2）",
         signal: R`连续多个 ‹putchar›，夹着 ‹'\t'›、‹'\n'›`,
         example: {
           q: R`写出下面程序的输出：
@@ -106,7 +107,7 @@ int main(void)
         practice: "教材 例4-2（p71）；辅导 习题解答 第4章 选择题1（p94）：输出一个字符用哪个函数"
       },
       {
-        id: "t2", name: "getchar 读入字符和回车（例4-4）",
+        id: "t2", kind: "读程序", input: "a\n", output: "input a character\na\n\n97 10\n", name: "getchar 读入字符和回车（例4-4）",
         signal: R`连续两次 ‹getchar›，只输入一个字符加回车，问输出`,
         example: {
           q: R`键盘输入 ‹a› 然后按回车，写出下面程序的输出：
