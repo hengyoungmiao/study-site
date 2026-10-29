@@ -305,19 +305,11 @@ $$A^{-1}=\frac{1}{|A|}A^*,\qquad \begin{pmatrix}a&b\\c&d\end{pmatrix}^{-1}=\frac
     ],
 
     pitfalls: [
-      { wrong: R`$A\neq O$，所以 $A$ 可逆`, why: R`可逆看的是 $|A|\neq0$，不是元素不全为 0`, right: R`算 $|A|$，或者找 $B$ 使 $AB=E$`, test: R`$\begin{pmatrix}1&2\\2&4\end{pmatrix}$ 可逆吗？`, ans: R`不可逆：$|A|=4-4=0$`, link: "知识点 逆矩阵" },
-      { wrong: R`$(AB)^{-1}=A^{-1}B^{-1}$`, why: R`$(AB)(A^{-1}B^{-1})$ 中间 $BA^{-1}$ 消不掉`, right: R`$(AB)^{-1}=B^{-1}A^{-1}$：$(AB)(B^{-1}A^{-1})=AEA^{-1}=E$`, test: R`化简 $(A^{-1}B)^{-1}$。`, ans: R`$B^{-1}A$`, link: "知识点 逆矩阵的运算律" },
-      { wrong: R`$(kA)^{-1}=kA^{-1}$`, why: R`$(kA)(kA^{-1})=k^2E$，不是 $E$`, right: R`$(kA)^{-1}=\frac1kA^{-1}$（$k\neq0$）`, test: R`$(3E)^{-1}=$？`, ans: R`$\frac13E$`, link: "知识点 逆矩阵的运算律" },
-      { wrong: R`$A,B$ 都可逆，所以 $A+B$ 可逆，且 $(A+B)^{-1}=A^{-1}+B^{-1}$`, why: R`和的可逆性没有保证，逆也不能拆开`, right: R`要证 $A+B$ 可逆，设法写成可逆矩阵的乘积（30讲 例2.5 p58）`, test: R`$A=E$，$B=-E$，$A+B$ 可逆吗？`, ans: R`$A+B=O$，不可逆`, link: "知识点 逆矩阵的运算律" },
-      { wrong: R`$A^*$ 的第 $i$ 行第 $j$ 列放 $A_{ij}$`, why: R`伴随矩阵是转置着排的`, right: R`$A_{ij}$ 放在第 $j$ 行第 $i$ 列`, test: R`$A=\begin{pmatrix}1&2\\3&4\end{pmatrix}$，$A^*=$？`, ans: R`$\begin{pmatrix}4&-2\\-3&1\end{pmatrix}$（不是 $\begin{pmatrix}4&-3\\-2&1\end{pmatrix}$）`, link: "题型 1" },
-      { wrong: R`代数余子式就是余子式`, why: R`漏了 $(-1)^{i+j}$`, right: R`$A_{ij}=(-1)^{i+j}M_{ij}$；$i+j$ 为奇数的位置变号`, test: R`$\begin{vmatrix}1&2&3\\4&5&6\\7&8&9\end{vmatrix}$ 中 $A_{21}=$？`, ans: R`$M_{21}=\begin{vmatrix}2&3\\8&9\end{vmatrix}=-6$，$A_{21}=(-1)^{3}\cdot(-6)=6$`, link: "知识点 余子式和代数余子式" },
-      { wrong: R`$A^{-1}=A^*$`, why: R`$AA^*=|A|E$，不是 $E$`, right: R`$A^{-1}=\frac{1}{|A|}A^*$，别忘了除以 $|A|$`, test: R`$A=\begin{pmatrix}1&2\\3&4\end{pmatrix}$，$AA^*=$？`, ans: R`$-2E$，所以 $A^{-1}=-\frac12A^*$`, link: "题型 1" },
-      { wrong: R`四阶行列式也能用对角线法则`, why: R`对角线法则只对 2、3 阶成立，4 阶的展开式有 24 项`, right: R`4 阶以上用展开定理或化三角形`, test: R`$\begin{vmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{vmatrix}$ 按「对角线法则」会得 $-1$，实际是多少？`, ans: R`$(-1)^{6}=1$（教材 例1.11 注 p13）`, link: "题型 4" },
-      { wrong: R`副对角行列式一律等于副对角元之积取负`, why: R`符号是 $(-1)^{\frac{n(n-1)}{2}}$，随 $n$ 变化`, right: R`$n=2,3$ 取负，$n=4,5$ 取正，以 4 为周期`, test: R`5 阶副对角行列式，副对角元都是 1，值是多少？`, ans: R`$(-1)^{10}=1$`, link: "题型 4" },
-      { wrong: R`一阶行列式 $|-3|=3$`, why: R`一阶行列式就是这个数本身，不是绝对值`, right: R`$|a_{11}|=a_{11}$，看上下文区分`, test: R`$1\times1$ 矩阵 $A=(-3)$，$|A|=$？`, ans: R`$-3$`, link: "知识点 n 阶行列式（按第一行展开）" },
-      { wrong: R`$a_{11}A_{21}+a_{12}A_{22}+a_{13}A_{23}=|A|$`, why: R`第 1 行元素配的是第 2 行的代数余子式，属于异行展开`, right: R`同一行配自己的代数余子式才是 $|A|$；异行相配等于 0（定理1.3）`, test: R`$A=\begin{pmatrix}1&2\\3&4\end{pmatrix}$，$a_{11}A_{21}+a_{12}A_{22}=$？`, ans: R`$A_{21}=-2$，$A_{22}=1$，$1\cdot(-2)+2\cdot1=0$`, link: "知识点 异行（列）展开为零" },
-      { wrong: R`不先算 $|A|$，直接套 $A^{-1}=\frac{1}{|A|}A^*$`, why: R`$|A|=0$ 时 $A$ 不可逆，公式没有意义`, right: R`第一步先算 $|A|$ 判可逆`, test: R`$A=\begin{pmatrix}1&2&3\\4&5&6\\7&8&9\end{pmatrix}$ 可逆吗？`, ans: R`$|A|=0$，不可逆（第 3 行 = 2×第 2 行 − 第 1 行）`, link: "题型 1" },
-      { wrong: R`$|A^*|=|A|$ 或 $|A^*|=|A|^n$`, why: R`由 $|A||A^*|=|A|^n$ 得到的是 $n-1$ 次`, right: R`$|A^*|=|A|^{n-1}$`, test: R`3 阶矩阵 $|A|=-2$，$|A^*|=$？`, ans: R`$(-2)^2=4$`, link: "知识点 伴随矩阵的两个常用式子" }
+      { id: "e5", wrong: R`$A^*$ 的第 $i$ 行第 $j$ 列放 $A_{ij}$`, why: R`伴随矩阵是转置着排的`, right: R`$A_{ij}$ 放在第 $j$ 行第 $i$ 列`, test: R`$A=\begin{pmatrix}1&2\\3&4\end{pmatrix}$，$A^*=$？`, ans: R`$\begin{pmatrix}4&-2\\-3&1\end{pmatrix}$（不是 $\begin{pmatrix}4&-3\\-2&1\end{pmatrix}$）`, link: "题型 1" },
+      { id: "e8", wrong: R`四阶行列式也能用对角线法则`, why: R`对角线法则只对 2、3 阶成立，4 阶的展开式有 24 项`, right: R`4 阶以上用展开定理或化三角形`, test: R`$\begin{vmatrix}0&0&0&1\\0&0&1&0\\0&1&0&0\\1&0&0&0\end{vmatrix}$ 按「对角线法则」会得 $-1$，实际是多少？`, ans: R`$(-1)^{6}=1$（教材 例1.11 注 p13）`, link: "题型 4" },
+      { id: "e9", wrong: R`副对角行列式一律等于副对角元之积取负`, why: R`符号是 $(-1)^{\frac{n(n-1)}{2}}$，随 $n$ 变化`, right: R`$n=2,3$ 取负，$n=4,5$ 取正，以 4 为周期`, test: R`5 阶副对角行列式，副对角元都是 1，值是多少？`, ans: R`$(-1)^{10}=1$`, link: "题型 4" },
+      { id: "e11", wrong: R`$a_{11}A_{21}+a_{12}A_{22}+a_{13}A_{23}=|A|$`, why: R`第 1 行元素配的是第 2 行的代数余子式，属于异行展开`, right: R`同一行配自己的代数余子式才是 $|A|$；异行相配等于 0（定理1.3）`, test: R`$A=\begin{pmatrix}1&2\\3&4\end{pmatrix}$，$a_{11}A_{21}+a_{12}A_{22}=$？`, ans: R`$A_{21}=-2$，$A_{22}=1$，$1\cdot(-2)+2\cdot1=0$`, link: "知识点 异行（列）展开为零" },
+      { id: "e13", wrong: R`$|A^*|=|A|$ 或 $|A^*|=|A|^n$`, why: R`由 $|A||A^*|=|A|^n$ 得到的是 $n-1$ 次`, right: R`$|A^*|=|A|^{n-1}$`, test: R`3 阶矩阵 $|A|=-2$，$|A^*|=$？`, ans: R`$(-2)^2=4$`, link: "知识点 伴随矩阵的两个常用式子" }
     ]
   });
 })();

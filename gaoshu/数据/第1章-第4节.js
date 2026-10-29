@@ -227,21 +227,12 @@
     ],
 
     pitfalls: [
-      { wrong: R`无穷小就是很小很小的数`, why: R`无穷小是趋于 $0$ 的函数（变量），任何非零常数都不是`, right: R`说无穷小要说"在什么过程中极限为 $0$"（教材 p33）`, test: R`$10^{-100}$ 是无穷小吗？`, ans: R`不是，它是一个固定的正数`, link: "知识点 无穷小不是很小的数" },
-      { wrong: R`$x^2$ 是无穷小`, why: R`没说变化过程；$x\to1$ 时 $x^2\to1$`, right: R`写成"$x^2$ 是 $x\to0$ 时的无穷小"`, test: R`$x^2$ 是 $x\to1$ 时的无穷小吗？`, ans: R`不是，极限是 $1$`, link: "知识点 无穷小" },
-      { wrong: R`$0$ 太小了，不算无穷小`, why: R`$f(x)\equiv0$ 满足极限为 $0$`, right: R`$0$ 是唯一可以作无穷小的常数（教材 p33）`, test: R`常函数 $f(x)\equiv0$ 是 $x\to2$ 时的无穷小吗？`, ans: R`是`, link: "知识点 无穷小不是很小的数" },
-      { wrong: R`$\lim f(x)=\infty$，所以极限存在`, why: R`$\infty$ 不是数，按定义极限不存在`, right: R`回答"极限不存在（为无穷大）"（教材 p34）`, test: R`$\lim\limits_{x\to0}\dfrac1{x^2}$ 存在吗？`, ans: R`不存在，是 $+\infty$`, link: "知识点 无穷大的极限不存在" },
-      { wrong: R`$\lim\limits_{x\to0}\dfrac1x=+\infty$`, why: R`左侧趋于 $-\infty$`, right: R`两侧符号不同只能写 $\infty$；单侧才写 $\pm\infty$`, test: R`$\lim\limits_{x\to0^-}\dfrac1x=$？`, ans: R`$-\infty$`, link: "知识点 无穷大" },
-      { wrong: R`无界函数就是无穷大`, why: R`无穷大要求所有足够靠近的点都大，无界只要求某些点大`, right: R`无穷大 $\Rightarrow$ 无界，反之不对（习题1-4 第6题）`, test: R`$x\cos x$ 在 $(-\infty,+\infty)$ 内无界，它是 $x\to+\infty$ 时的无穷大吗？`, ans: R`不是：$x=2k\pi+\frac{\pi}{2}$ 处函数值为 $0$`, link: "题型 1" },
-      { wrong: R`$\dfrac1{x^2}\sin\dfrac1x$ 有 $\dfrac1{x^2}$，所以 $x\to0$ 时是无穷大`, why: R`$\sin\dfrac1x$ 有无数个零点趋于 $0$`, right: R`取 $\sin\dfrac1x=0$ 的点说明不是无穷大（吉米【35】p10–11）`, test: R`$x_k=\dfrac1{k\pi}$ 处 $\dfrac1{x^2}\sin\dfrac1x$ 等于多少？`, ans: R`$0$`, link: "题型 1" },
-      { wrong: R`$f$ 是无穷小，所以 $\dfrac1f$ 一定是无穷大`, why: R`$f$ 可能在 $x_0$ 附近取到 $0$，$\dfrac1f$ 没有定义`, right: R`定理 2 要求 $f(x)\neq0$（教材 p35）`, test: R`$x\to0$ 时 $f(x)=x\sin\dfrac1x$ 是无穷小，$\dfrac1f$ 是无穷大吗？`, ans: R`不是：$f$ 在 $x=\frac{1}{k\pi}$ 处为 $0$，$\dfrac1f$ 在 $0$ 的任何去心邻域内都有无定义的点`, link: "知识点 定理 2" },
-      { wrong: R`两个无穷小的商还是无穷小`, why: R`商的结果取决于两者趋于 $0$ 的快慢`, right: R`商要具体算（1.7 无穷小的比较）`, test: R`$x\to0$ 时 $\dfrac{2x}{3x}$ 是无穷小吗？`, ans: R`不是，等于 $\dfrac23$（习题全解 p20）`, link: "知识点 两个无穷小的商" },
-      { wrong: R`$\lim x_ny_n=0$，所以 $x_n$、$y_n$ 中至少一个是无穷小`, why: R`可以两个都在"轮流取 0"`, right: R`举奇偶交替的反例（武忠祥 p14）`, test: R`$x_n=n,0,n,0,\cdots$，$y_n=0,n,0,n,\cdots$，$x_ny_n$ 是多少？两个是无穷小吗？`, ans: R`$x_ny_n\equiv0$；两个都无界，都不是无穷小`, link: "题型 2" },
-      { wrong: R`$x_n$ 有界、$x_ny_n\to0$，所以 $y_n\to0$`, why: R`把"有界 × 无穷小 = 无穷小"倒过来用了`, right: R`反例 $x_n=\dfrac1{n^2},\ y_n=n$（吉米【37】p11）`, test: R`$x_n=\dfrac1{n^2}$，$y_n=n$，$x_ny_n\to$？$y_n$ 是无穷小吗？`, ans: R`$x_ny_n=\dfrac1n\to0$；$y_n\to\infty$，不是`, link: "题型 2" },
-      { wrong: R`分母为 $0$ 的点都是铅直渐近线`, why: R`分子也为 $0$ 时可能有有限极限`, right: R`逐点求极限，是 $\infty$ 才算（教材 p35）`, test: R`$y=\dfrac{x^2-1}{x-1}$ 在 $x=1$ 有铅直渐近线吗？`, ans: R`没有，$\lim\limits_{x\to1}=2$`, link: "题型 4" },
-      { wrong: R`水平渐近线算 $\lim\limits_{x\to0}f(x)$`, why: R`水平渐近线描述 $|x|$ 很大时的走向`, right: R`算 $\lim\limits_{x\to\infty}f(x)$（教材 p30）`, test: R`$y=\dfrac{4}{2-x^2}$ 的水平渐近线是 $y=2$ 吗？`, ans: R`不是：$f(0)=2$ 只是一个函数值；$x\to\infty$ 时 $f\to0$，水平渐近线是 $y=0$`, link: "题型 4" },
-      { wrong: R`$f=A+\alpha$ 里的 $\alpha$ 是一个很小的常数`, why: R`$\alpha=f(x)-A$ 是随 $x$ 变化的无穷小`, right: R`$\alpha$ 是变量，$\lim\alpha=0$（教材 p33–34）`, test: R`$f(x)=3+x^2$，$x\to0$ 时 $A$ 和 $\alpha$ 各是什么？`, ans: R`$A=3$，$\alpha=x^2$`, link: "知识点 定理 1" },
-      { wrong: R`$\dfrac{c}{0}=\infty$，可以直接写`, why: R`$0$ 不能作分母；要说的是"分母趋于 $0$"`, right: R`先说倒数 $\to0$，再用定理 2 推出 $\infty$`, test: R`$\lim\limits_{x\to2}\dfrac{x}{x-2}$ 怎么说明？`, ans: R`$\dfrac{x-2}{x}\to0$ 且 $x\neq2$ 时不为 $0$，由定理 2 得 $\infty$`, link: "题型 3" }
+      { id: "e6", wrong: R`无界函数就是无穷大`, why: R`无穷大要求所有足够靠近的点都大，无界只要求某些点大`, right: R`无穷大 $\Rightarrow$ 无界，反之不对（习题1-4 第6题）`, test: R`$x\cos x$ 在 $(-\infty,+\infty)$ 内无界，它是 $x\to+\infty$ 时的无穷大吗？`, ans: R`不是：$x=2k\pi+\frac{\pi}{2}$ 处函数值为 $0$`, link: "题型 1" },
+      { id: "e7", wrong: R`$\dfrac1{x^2}\sin\dfrac1x$ 有 $\dfrac1{x^2}$，所以 $x\to0$ 时是无穷大`, why: R`$\sin\dfrac1x$ 有无数个零点趋于 $0$`, right: R`取 $\sin\dfrac1x=0$ 的点说明不是无穷大（吉米【35】p10–11）`, test: R`$x_k=\dfrac1{k\pi}$ 处 $\dfrac1{x^2}\sin\dfrac1x$ 等于多少？`, ans: R`$0$`, link: "题型 1" },
+      { id: "e8", wrong: R`$f$ 是无穷小，所以 $\dfrac1f$ 一定是无穷大`, why: R`$f$ 可能在 $x_0$ 附近取到 $0$，$\dfrac1f$ 没有定义`, right: R`定理 2 要求 $f(x)\neq0$（教材 p35）`, test: R`$x\to0$ 时 $f(x)=x\sin\dfrac1x$ 是无穷小，$\dfrac1f$ 是无穷大吗？`, ans: R`不是：$f$ 在 $x=\frac{1}{k\pi}$ 处为 $0$，$\dfrac1f$ 在 $0$ 的任何去心邻域内都有无定义的点`, link: "知识点 定理 2" },
+      { id: "e10", wrong: R`$\lim x_ny_n=0$，所以 $x_n$、$y_n$ 中至少一个是无穷小`, why: R`可以两个都在"轮流取 0"`, right: R`举奇偶交替的反例（武忠祥 p14）`, test: R`$x_n=n,0,n,0,\cdots$，$y_n=0,n,0,n,\cdots$，$x_ny_n$ 是多少？两个是无穷小吗？`, ans: R`$x_ny_n\equiv0$；两个都无界，都不是无穷小`, link: "题型 2" },
+      { id: "e11", wrong: R`$x_n$ 有界、$x_ny_n\to0$，所以 $y_n\to0$`, why: R`把"有界 × 无穷小 = 无穷小"倒过来用了`, right: R`反例 $x_n=\dfrac1{n^2},\ y_n=n$（吉米【37】p11）`, test: R`$x_n=\dfrac1{n^2}$，$y_n=n$，$x_ny_n\to$？$y_n$ 是无穷小吗？`, ans: R`$x_ny_n=\dfrac1n\to0$；$y_n\to\infty$，不是`, link: "题型 2" },
+      { id: "e12", wrong: R`分母为 $0$ 的点都是铅直渐近线`, why: R`分子也为 $0$ 时可能有有限极限`, right: R`逐点求极限，是 $\infty$ 才算（教材 p35）`, test: R`$y=\dfrac{x^2-1}{x-1}$ 在 $x=1$ 有铅直渐近线吗？`, ans: R`没有，$\lim\limits_{x\to1}=2$`, link: "题型 4" },
     ]
   });
 })();

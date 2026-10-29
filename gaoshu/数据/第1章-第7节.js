@@ -308,21 +308,12 @@
     ],
 
     pitfalls: [
-      { wrong: R`$\tan x-\sin x\sim x-x=0$`, why: R`加减项各自替换会把主要部分抵消`, right: R`先变成 $\tan x(1-\cos x)\sim\frac12x^3$（习题全解 p31 注）`, test: R`$\lim\limits_{x\to0}\dfrac{\tan x-\sin x}{x^3}=$？`, ans: R`$\dfrac12$`, link: "题型 4" },
-      { wrong: R`$1-\cos x\sim x^2$`, why: R`少了系数 $\frac12$`, right: R`$1-\cos x\sim\frac12x^2$（教材 p51）`, test: R`$\lim\limits_{x\to0}\dfrac{1-\cos2x}{x^2}=$？`, ans: R`$2$`, link: "知识点 常用等价无穷小" },
-      { wrong: R`$1-\cos x^2\sim\dfrac12x^2$`, why: R`$\square=x^2$，应该是 $\frac12\square^2$`, right: R`$1-\cos x^2\sim\frac12x^4$`, test: R`$x\to0$ 时 $1-\cos\sqrt x$ 等价于什么？`, ans: R`$\dfrac12x$`, link: "题型 1" },
-      { wrong: R`$x\to\infty$ 时 $\sin x\sim x$`, why: R`等价无穷小公式要求 $\square\to0$`, right: R`先确认替换的量趋于 $0$`, test: R`$\lim\limits_{x\to\infty}x\sin\dfrac{2x}{x^2+1}=$？`, ans: R`$\dfrac{2x}{x^2+1}\to0$，可换：$=\lim\dfrac{2x^2}{x^2+1}=2$（吉米【70】p20）`, link: "知识点 广义化" },
-      { wrong: R`$\sqrt{1+x}-1\sim x$`, why: R`$(1+x)^{\frac12}-1\sim\frac12x$`, right: R`$\sqrt[n]{1+x}-1\sim\frac xn$（教材 p52 例1）`, test: R`$\lim\limits_{x\to0}\dfrac{\sqrt[3]{1+x^2}-1}{x^2}=$？`, ans: R`$\dfrac13$`, link: "题型 2" },
-      { wrong: R`任意两个无穷小都能比较阶数`, why: R`比值的极限可能不存在也不是 $\infty$`, right: R`比值没有极限时无法比较（30讲 p43）`, test: R`$x\to0$ 时 $x\sin\dfrac1x$ 与 $x$ 谁高阶？`, ans: R`无法比较：比值 $\sin\frac1x$ 没有极限`, link: "知识点 比值没有极限时无法比较" },
-      { wrong: R`$\lim\dfrac\beta\alpha=0$，所以 $\alpha$ 是高阶无穷小`, why: R`说反了：比值趋于 $0$ 说明分子 $\beta$ 趋于 $0$ 更快`, right: R`$\lim\frac\beta\alpha=0\Rightarrow\beta=o(\alpha)$，$\beta$ 高阶（教材 p51）`, test: R`$x\to0$ 时 $x^2-x^3$ 与 $2x-x^2$，哪个高阶？`, ans: R`$x^2-x^3$ 高阶（习题全解 p30）`, link: "题型 6" },
-      { wrong: R`同阶就是等价`, why: R`等价要求比值极限恰好为 $1$`, right: R`等价是同阶中 $c=1$ 的特殊情形`, test: R`$x\to1$ 时 $1-x$ 与 $1-x^3$ 等价吗？`, ans: R`不等价，比值极限 $\frac13$，只是同阶`, link: "题型 6" },
-      { wrong: R`$\mathrm e^{\tan x}-\mathrm e^{\sin x}\sim\tan x-\sin x$ 不需要理由`, why: R`要先提公因式变成 $\mathrm e^{\sin x}(\mathrm e^{\tan x-\sin x}-1)$`, right: R`提公因式后用 $\mathrm e^{\square}-1\sim\square$（30讲 p45）`, test: R`$x\to0$ 时 $\mathrm e^{\tan x}-\mathrm e^{\sin x}$ 是几阶无穷小？`, ans: R`三阶，$\sim\frac12x^3$`, link: "题型 1" },
-      { wrong: R`$1^{\infty}$ 型算出指数 $A$，答案写 $A$`, why: R`结果是 $\mathrm e^A$`, right: R`整体抄 $\mathrm e^{\lim v(u-1)}$（30讲 p62）`, test: R`$\lim\limits_{x\to0}(1+3x)^{\frac2{\sin x}}=$？`, ans: R`$\mathrm e^6$`, link: "题型 5" },
-      { wrong: R`$o(x)-o(x)=0$`, why: R`两个 $o(x)$ 可以是不同的函数`, right: R`$o(x)\pm o(x)=o(x)$`, test: R`$x^2=o(x)$，$x^3=o(x)$，$x^2-x^3$ 是 $0$ 吗？`, ans: R`不是，它仍是 $o(x)$`, link: "知识点 o 记号" },
-      { wrong: R`$\lim\dfrac{f}{g^2}$ 一定是 $0$，因为 $f=o(g)$`, why: R`$\frac f{g^2}=\frac fg\cdot\frac1g$，后者趋于 $\infty$`, right: R`逐个算比值（1000题 第1章第9题）`, test: R`$f=x^2$，$g=x$（$x\to0$），$f=o(g)$ 吗？$f=o(g^2)$ 吗？`, ans: R`$f=o(g)$ 成立；$\frac{f}{g^2}=1$，$f=o(g^2)$ 不成立`, link: "题型 7" },
-      { wrong: R`极限非零的因子也要换成等价无穷小`, why: R`它不是无穷小，直接求出极限即可`, right: R`先求非零因子的极限（如 $\mathrm e^x\to1$、$1+\sqrt{\cos x}\to2$）`, test: R`$\lim\limits_{x\to0}\dfrac{(1+\cos x)\sin x}{x}=$？`, ans: R`$2$：$1+\cos x\to2$ 先求，$\sin x\sim x$`, link: "题型 3" },
-      { wrong: R`$\ln x\sim x$`, why: R`$\ln(1+\square)\sim\square$ 要求 $\square\to0$`, right: R`$x\to1$ 时 $\ln x=\ln[1+(x-1)]\sim x-1$（30讲 p59）`, test: R`$\lim\limits_{x\to1}\dfrac{\ln x}{x-1}=$？`, ans: R`$1$`, link: "知识点 广义化" },
-      { wrong: R`等价替换后极限一定存在`, why: R`定理 2 要求替换后的极限存在（或为 $\infty$）才能得结论`, right: R`替换后若极限不存在，要换别的方法（教材 p52 定理2 的条件）`, test: R`定理 2 的条件里，"$\lim\frac{\tilde\beta}{\tilde\alpha}$ 存在"能去掉吗？`, ans: R`不能去掉，这是定理的前提（教材 p52）`, link: "知识点 定理 2" }
+      { id: "e1", wrong: R`$\tan x-\sin x\sim x-x=0$`, why: R`加减项各自替换会把主要部分抵消`, right: R`先变成 $\tan x(1-\cos x)\sim\frac12x^3$（习题全解 p31 注）`, test: R`$\lim\limits_{x\to0}\dfrac{\tan x-\sin x}{x^3}=$？`, ans: R`$\dfrac12$`, link: "题型 4" },
+      { id: "e4", wrong: R`$x\to\infty$ 时 $\sin x\sim x$`, why: R`等价无穷小公式要求 $\square\to0$`, right: R`先确认替换的量趋于 $0$`, test: R`$\lim\limits_{x\to\infty}x\sin\dfrac{2x}{x^2+1}=$？`, ans: R`$\dfrac{2x}{x^2+1}\to0$，可换：$=\lim\dfrac{2x^2}{x^2+1}=2$（吉米【70】p20）`, link: "知识点 广义化" },
+      { id: "e6", wrong: R`任意两个无穷小都能比较阶数`, why: R`比值的极限可能不存在也不是 $\infty$`, right: R`比值没有极限时无法比较（30讲 p43）`, test: R`$x\to0$ 时 $x\sin\dfrac1x$ 与 $x$ 谁高阶？`, ans: R`无法比较：比值 $\sin\frac1x$ 没有极限`, link: "知识点 比值没有极限时无法比较" },
+      { id: "e9", wrong: R`$\mathrm e^{\tan x}-\mathrm e^{\sin x}\sim\tan x-\sin x$ 不需要理由`, why: R`要先提公因式变成 $\mathrm e^{\sin x}(\mathrm e^{\tan x-\sin x}-1)$`, right: R`提公因式后用 $\mathrm e^{\square}-1\sim\square$（30讲 p45）`, test: R`$x\to0$ 时 $\mathrm e^{\tan x}-\mathrm e^{\sin x}$ 是几阶无穷小？`, ans: R`三阶，$\sim\frac12x^3$`, link: "题型 1" },
+      { id: "e11", wrong: R`$o(x)-o(x)=0$`, why: R`两个 $o(x)$ 可以是不同的函数`, right: R`$o(x)\pm o(x)=o(x)$`, test: R`$x^2=o(x)$，$x^3=o(x)$，$x^2-x^3$ 是 $0$ 吗？`, ans: R`不是，它仍是 $o(x)$`, link: "知识点 o 记号" },
+      { id: "e15", wrong: R`等价替换后极限一定存在`, why: R`定理 2 要求替换后的极限存在（或为 $\infty$）才能得结论`, right: R`替换后若极限不存在，要换别的方法（教材 p52 定理2 的条件）`, test: R`定理 2 的条件里，"$\lim\frac{\tilde\beta}{\tilde\alpha}$ 存在"能去掉吗？`, ans: R`不能去掉，这是定理的前提（教材 p52）`, link: "知识点 定理 2" }
     ]
   });
 })();

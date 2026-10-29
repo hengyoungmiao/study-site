@@ -780,7 +780,7 @@ function outlineHtml(d) {
   const npts = (d.points || []).reduce((n, x) => n + x.items.length, 0);
   const pts = (d.points || []).map(x => `<div class="out-sub">${esc(olp(x.group))}</div>${x.items.map(p => a(p.id, p.name)).join("")}`).join("");
   const tys = (d.types || []).map(t => a(t.id, t.name)).join("");
-  const pits = (d.pitfalls || []).map((p, i) => a("e" + (i + 1), p.wrong)).join("");
+  const pits = (d.pitfalls || []).map((p, i) => a(peid(p, i), p.wrong)).join("");
   const mxs = (d.mixed || []).map((m, i) => a(m.id, (i + 1) + ". " + (m.src || m.q))).join("");
   const top = `<a href="#${d.id}" data-ot="top">知识框架${d.mindmap ? "和思维导图" : ""}</a>`;
   return `<details class="toc-out" data-og="all"${o.all === false ? "" : " open"}><summary>本节大纲</summary>${top}${g("pts", "知识点", npts, pts, true)}${g("types", "题型梳理", (d.types || []).length, tys, false)}${g("pits", "易错点", (d.pitfalls || []).length, pits, false)}${g("mx", "混合自测", (d.mixed || []).length, mxs, false)}</details>`;
@@ -831,7 +831,7 @@ function allItems(withMx) {
     for (const g of d.points || []) for (const p of g.items) out.push({ key: d.id + "/" + p.id, sec: d, kind: "pt", obj: p });
     ((d.framework && d.framework.keys) || []).forEach((k, i) => out.push({ key: d.id + "/k" + (i + 1), sec: d, kind: "rel", obj: k }));
     for (const t of d.types || []) out.push({ key: d.id + "/" + t.id, sec: d, kind: "type", obj: t });
-    (d.pitfalls || []).forEach((p, i) => out.push({ key: d.id + "/e" + (i + 1), sec: d, kind: "pit", obj: p }));
+    (d.pitfalls || []).forEach((p, i) => out.push({ key: d.id + "/" + peid(p, i), sec: d, kind: "pit", obj: p }));
     if (withMx) (d.mixed || []).forEach(m => out.push({ key: d.id + "/" + m.id, sec: d, kind: "mx", obj: m }));
   }
   return out;
@@ -969,7 +969,7 @@ function focusTarget(d, tgt) {
   store.ui.tab = curTab; save(); showTab(d);
   let el;
   if (c === "t") el = $(`.tcard[data-key="${d.id}/${tgt}"]`);
-  else if (c === "e") el = $$(".pf-item")[+tgt.slice(1) - 1];
+  else if (c === "e") el = $$(".pf-item").find(x => x.dataset.e === tgt);
   else if (c === "m") el = $(`.mx[data-id="${tgt}"]`);
   else if (c === "b") el = $(".tabs");
   else el = $(`.pt[data-id="${tgt}"]`);
@@ -1163,17 +1163,19 @@ function typesHtml(d) {
       </div></article>`;
   }).join("") : `<p class="note">这一栏没有符合条件的题型。</p>`}</div>`;
 }
+// 易错点编号：数据里写了 id 就用 id（删掉条目后编号不变），没写按位置
+function peid(p, i) { return p.id || "e" + (i + 1); }
 function pitfallsHtml(d) {
   const cover = uiFlag("coverPf", true);
   return `<div class="toolbar">${toggle("coverPf", "遮住解析", cover, "先做陷阱小题，想清楚错在哪，再点开")}</div>
-  <div class="pf ${cover ? "cover-on" : ""}" data-cover="coverPf">${(d.pitfalls || []).map((p, i) => `<div class="pf-item panel ci">
+  <div class="pf ${cover ? "cover-on" : ""}" data-cover="coverPf">${(d.pitfalls || []).map((p, i) => `<div class="pf-item panel ci" data-e="${peid(p, i)}">
     <div class="pf-top"><span class="tc-no">${i + 1}</span><span class="pf-wrong">✗ ${md(p.wrong)}</span>${p.link ? `<span class="pf-link">${esc(p.link)}</span>` : ""}</div>
     ${p.test ? `<div class="pf-test"><b>陷阱小题</b>${md(p.test)} <span class="reveal-hint">点击显示</span></div>` : ""}
     <div class="cov pf-grid">
       ${p.ans ? `<div><b>答案</b>${md(p.ans)}</div>` : ""}
       <div><b>为什么错</b>${md(p.why)}</div>
       <div class="r"><b>正确做法</b>${md(p.right)}</div>
-    </div>${rateBox(d.id + "/e" + (i + 1))}</div>`).join("")}</div>`;
+    </div>${rateBox(d.id + "/" + peid(p, i))}</div>`).join("")}</div>`;
 }
 function bindPane(d) {
   $$("input[data-flag]").forEach(sw => {
@@ -1549,7 +1551,7 @@ function keyInfo(key) {
   let kind = "", name = "";
   if (t[0] === "p") { kind = "知识点"; for (const g of d.points || []) for (const p of g.items) if (p.id === t) name = p.name; }
   else if (t[0] === "t") { kind = "题型"; const x = (d.types || []).find(x => x.id === t); name = x ? x.name : ""; }
-  else if (t[0] === "e") { kind = "易错点"; const x = (d.pitfalls || [])[+t.slice(1) - 1]; name = x ? x.wrong : ""; }
+  else if (t[0] === "e") { kind = "易错点"; const x = (d.pitfalls || []).find((p, i) => peid(p, i) === t); name = x ? x.wrong : ""; }
   else if (t[0] === "m") { kind = "混合题"; const x = (d.mixed || []).find(x => x.id === t); name = x ? (x.src || x.q) : ""; }
   if (!name) return null;
   return { href: "#" + sid + ":" + t, label: (String(sid).startsWith("c") ? "章末" : sid) + " " + kind + "：" + plainLbl(name) };

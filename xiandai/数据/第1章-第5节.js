@@ -418,24 +418,19 @@
     ],
 
     pitfalls: [
-      { wrong: R`找到一个三阶子式等于 0，就说 $r(A)<3$`, why: R`秩小于 3 要求所有三阶子式都为 0；一个为 0 什么也说明不了`, right: R`$r(A)\geqslant k$ 找一个非零的 $k$ 阶子式；$r(A)<k$ 要所有 $k$ 阶子式为 0（或化阶梯形）`, test: R`$\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&0&1\end{pmatrix}$ 前三列组成的子式为 0，秩是几？`, ans: R`3（第 1、2、4 列的子式为 1）`, link: "知识点 矩阵的秩" },
-      { wrong: R`没化成真正的阶梯形就数非零行`, why: R`两行的首元在同一列时，还能再消，非零行数会多算`, right: R`首元所在列逐行严格右移以后再数`, test: R`$\begin{pmatrix}1&2&3\\0&1&1\\0&2&2\end{pmatrix}$ 的秩是几？`, ans: R`2（$r_3-2r_2$ 得零行）`, link: "题型 1" },
-      { wrong: R`$|A|=0$，所以 $r(A)=n-1$`, why: R`$|A|=0$ 只说明 $r(A)\leqslant n-1$`, right: R`再找 $n-1$ 阶非零子式确认，或化阶梯形`, test: R`$\begin{pmatrix}1&1&1\\1&1&1\\1&1&1\end{pmatrix}$ 的秩是几？`, ans: R`1`, link: "题型 2" },
-      { wrong: R`由 $|A|=0$ 解出两个参数值，都当作答案`, why: R`不同参数值下秩可能不同，有的不满足题目要求`, right: R`每个候选值代回去验秩（30讲 例2.18 分析 p71）`, test: R`$\begin{pmatrix}1&1&t\\1&t&1\\t&1&1\end{pmatrix}$ 秩为 2，$t=$？`, ans: R`只有 $t=-2$；$t=1$ 时秩为 1`, link: "题型 2" },
-      { wrong: R`增广矩阵化出一整行 0，方程组无解`, why: R`全零行对应 $0=0$，是多余方程`, right: R`无解的标志是 $(0\ \cdots\ 0\mid c)$，$c\neq0$，即 $r(A)<r(B)$`, test: R`增广矩阵化成 $\left(\begin{array}{cc|c}1&2&3\\0&0&0\end{array}\right)$，有解吗？`, ans: R`有无穷多解：$x_1=3-2k$，$x_2=k$`, link: "题型 3" },
-      { wrong: R`$r(A)=r(B)$ 等于方程个数，所以有唯一解`, why: R`唯一还是无穷多，比的是未知数个数 $n$`, right: R`$r(A)=r(B)=n$ 唯一，$<n$ 无穷多`, test: R`$\begin{cases}x+y+z=1\\x-y=0\end{cases}$ 有几个解？`, ans: R`$r(A)=r(B)=2<3$，无穷多个`, link: "知识点 有解判定定理" },
-      { wrong: R`$r(A)=n$，所以 $Ax=b$ 有唯一解`, why: R`没看 $r(B)$：$r(B)$ 可能是 $n+1$`, right: R`$r(A)=n$ 只保证「有解时唯一」；有没有解还要看 $r(B)$`, test: R`$\begin{cases}x=1\\x=2\end{cases}$ 中 $r(A)=n=1$，有唯一解吗？`, ans: R`无解，$r(B)=2$（30讲 例4.6 p124）`, link: "题型 10" },
-      { wrong: R`$Ax=0$ 有非零解，所以 $Ax=b$ 有无穷多解`, why: R`$Ax=0$ 有非零解只说明 $r(A)<n$，$Ax=b$ 还可能无解`, right: R`先判 $r(A)=r(B)$；有解时，$Ax=0$ 有非零解才推出无穷多解`, test: R`$\begin{cases}x+y=1\\2x+2y=3\end{cases}$ 有解吗？`, ans: R`无解（李永乐 例4.11 p114）`, link: "题型 10" },
-      { wrong: R`$|A|=0$，所以方程组有无穷多解`, why: R`$|A|=0$ 只说明不是唯一解，可能无解`, right: R`$|A|=0$ 的每个参数值都要代回增广矩阵比秩`, test: R`教材例1.29 中 $a=-2$ 时方程组的解？`, ans: R`无解：$r(A)=2$，$r(B)=3$（p38）`, link: "题型 4" },
-      { wrong: R`照搬例题：「$a=1$ 时无穷多解，$a=-2$ 时无解」`, why: R`$|A|=0$ 时有没有解由常数项决定，常数项变了结论会变`, right: R`每道题都代回自己的增广矩阵重算`, test: R`$\begin{cases}ax+y+z=1\\x+ay+z=1\\x+y+az=-2\end{cases}$ 中 $a=1$ 时？`, ans: R`无解；$a=-2$ 时反而有无穷多解（1000题 第4章 第1题）`, link: "题型 4" },
-      { wrong: R`方程比未知数多，方程组就无解`, why: R`多出来的方程可能是其余方程的组合`, right: R`照样比较 $r(A)$ 和 $r(B)$`, test: R`$\begin{cases}x+y=2\\x-y=0\\2x+2y=4\end{cases}$ 有解吗？`, ans: R`有唯一解 $x=y=1$`, link: "题型 3" },
-      { wrong: R`齐次方程组方程个数不少于未知数个数，就只有零解`, why: R`推论1.6 只有一个方向：$m<n$ 必有非零解；$m\geqslant n$ 时要看 $r(A)$`, right: R`只有零解 $\Leftrightarrow r(A)=n$`, test: R`$\begin{cases}x+y=0\\2x+2y=0\\3x+3y=0\end{cases}$ 只有零解吗？`, ans: R`不是，$r(A)=1<2$，$x=-k$，$y=k$`, link: "知识点 方程个数少于未知数个数，必有非零解" },
-      { wrong: R`解方程组时为了好算，对增广矩阵用了列变换`, why: R`列变换不改变秩，但会打乱未知数（交换列等于换了未知数的名字；常数列参与列变换更是全乱）`, right: R`求秩可以行列混用；解方程组只用行变换`, test: R`只是判断有没有解（比秩），能用列变换吗？`, ans: R`系数部分可以，但常数列不能和系数列混着做；稳妥起见一律用行变换`, link: "题型 3" },
-      { wrong: R`自由未知量随便挑，挑了首元列对应的未知数`, why: R`首元列的未知数要用其余未知数表示，不能任意取值`, right: R`首元所在列之外的未知数取作自由未知量，共 $n-r$ 个`, test: R`行最简形 $\begin{pmatrix}1&0&2\\0&1&-1\end{pmatrix}$（齐次），自由未知量是哪个？`, ans: R`$x_3$；$x_1=-2k$，$x_2=k$，$x_3=k$`, link: "题型 5" },
-      { wrong: R`$r(AB)=r(A)$ 总成立`, why: R`只有 $B$ 可逆（或行满秩）时才取等；一般只有 $r(AB)\leqslant\min\{r(A),r(B)\}$`, right: R`先判断 $B$ 是否可逆`, test: R`$A=E_2$，$B=\begin{pmatrix}1&0\\0&0\end{pmatrix}$，$r(AB)$ 与 $r(A)$？`, ans: R`$r(AB)=1$，$r(A)=2$`, link: "题型 7" },
-      { wrong: R`$r(A)=n-1$，所以 $r(A^*)=n-1$`, why: R`伴随矩阵的秩只有 $n,1,0$ 三种`, right: R`$r(A)=n-1\Rightarrow r(A^*)=1$；$r(A)<n-1\Rightarrow A^*=O$`, test: R`4 阶 $r(A)=2$，$r(A^*)=$？`, ans: R`0（教材 练习题1.5 第2题）`, link: "题型 9" },
-      { wrong: R`$AB=O$，所以 $A=O$ 或 $B=O$`, why: R`矩阵有零因子（1.1 节）`, right: R`$AB=O$ 只能推出 $r(A)+r(B)\leqslant n$`, test: R`$\begin{pmatrix}1&0\\0&0\end{pmatrix}\begin{pmatrix}0&0\\0&1\end{pmatrix}=$？`, ans: R`$O$，两个因子都不是零矩阵`, link: "题型 8" },
-      { wrong: R`秩相同的两个矩阵一定等价`, why: R`等价要求同型`, right: R`同型矩阵等价 $\Leftrightarrow$ 秩相等`, test: R`$(1\ 0)$ 与 $\begin{pmatrix}1\\0\end{pmatrix}$ 秩都为 1，等价吗？`, ans: R`不等价，一个 $1\times2$、一个 $2\times1$`, link: "知识点 秩与等价标准形" }
+      { id: "e1", wrong: R`找到一个三阶子式等于 0，就说 $r(A)<3$`, why: R`秩小于 3 要求所有三阶子式都为 0；一个为 0 什么也说明不了`, right: R`$r(A)\geqslant k$ 找一个非零的 $k$ 阶子式；$r(A)<k$ 要所有 $k$ 阶子式为 0（或化阶梯形）`, test: R`$\begin{pmatrix}1&0&0&0\\0&1&0&0\\0&0&0&1\end{pmatrix}$ 前三列组成的子式为 0，秩是几？`, ans: R`3（第 1、2、4 列的子式为 1）`, link: "知识点 矩阵的秩" },
+      { id: "e3", wrong: R`$|A|=0$，所以 $r(A)=n-1$`, why: R`$|A|=0$ 只说明 $r(A)\leqslant n-1$`, right: R`再找 $n-1$ 阶非零子式确认，或化阶梯形`, test: R`$\begin{pmatrix}1&1&1\\1&1&1\\1&1&1\end{pmatrix}$ 的秩是几？`, ans: R`1`, link: "题型 2" },
+      { id: "e4", wrong: R`由 $|A|=0$ 解出两个参数值，都当作答案`, why: R`不同参数值下秩可能不同，有的不满足题目要求`, right: R`每个候选值代回去验秩（30讲 例2.18 分析 p71）`, test: R`$\begin{pmatrix}1&1&t\\1&t&1\\t&1&1\end{pmatrix}$ 秩为 2，$t=$？`, ans: R`只有 $t=-2$；$t=1$ 时秩为 1`, link: "题型 2" },
+      { id: "e6", wrong: R`$r(A)=r(B)$ 等于方程个数，所以有唯一解`, why: R`唯一还是无穷多，比的是未知数个数 $n$`, right: R`$r(A)=r(B)=n$ 唯一，$<n$ 无穷多`, test: R`$\begin{cases}x+y+z=1\\x-y=0\end{cases}$ 有几个解？`, ans: R`$r(A)=r(B)=2<3$，无穷多个`, link: "知识点 有解判定定理" },
+      { id: "e7", wrong: R`$r(A)=n$，所以 $Ax=b$ 有唯一解`, why: R`没看 $r(B)$：$r(B)$ 可能是 $n+1$`, right: R`$r(A)=n$ 只保证「有解时唯一」；有没有解还要看 $r(B)$`, test: R`$\begin{cases}x=1\\x=2\end{cases}$ 中 $r(A)=n=1$，有唯一解吗？`, ans: R`无解，$r(B)=2$（30讲 例4.6 p124）`, link: "题型 10" },
+      { id: "e8", wrong: R`$Ax=0$ 有非零解，所以 $Ax=b$ 有无穷多解`, why: R`$Ax=0$ 有非零解只说明 $r(A)<n$，$Ax=b$ 还可能无解`, right: R`先判 $r(A)=r(B)$；有解时，$Ax=0$ 有非零解才推出无穷多解`, test: R`$\begin{cases}x+y=1\\2x+2y=3\end{cases}$ 有解吗？`, ans: R`无解（李永乐 例4.11 p114）`, link: "题型 10" },
+      { id: "e9", wrong: R`$|A|=0$，所以方程组有无穷多解`, why: R`$|A|=0$ 只说明不是唯一解，可能无解`, right: R`$|A|=0$ 的每个参数值都要代回增广矩阵比秩`, test: R`教材例1.29 中 $a=-2$ 时方程组的解？`, ans: R`无解：$r(A)=2$，$r(B)=3$（p38）`, link: "题型 4" },
+      { id: "e10", wrong: R`照搬例题：「$a=1$ 时无穷多解，$a=-2$ 时无解」`, why: R`$|A|=0$ 时有没有解由常数项决定，常数项变了结论会变`, right: R`每道题都代回自己的增广矩阵重算`, test: R`$\begin{cases}ax+y+z=1\\x+ay+z=1\\x+y+az=-2\end{cases}$ 中 $a=1$ 时？`, ans: R`无解；$a=-2$ 时反而有无穷多解（1000题 第4章 第1题）`, link: "题型 4" },
+      { id: "e13", wrong: R`解方程组时为了好算，对增广矩阵用了列变换`, why: R`列变换不改变秩，但会打乱未知数（交换列等于换了未知数的名字；常数列参与列变换更是全乱）`, right: R`求秩可以行列混用；解方程组只用行变换`, test: R`只是判断有没有解（比秩），能用列变换吗？`, ans: R`系数部分可以，但常数列不能和系数列混着做；稳妥起见一律用行变换`, link: "题型 3" },
+      { id: "e14", wrong: R`自由未知量随便挑，挑了首元列对应的未知数`, why: R`首元列的未知数要用其余未知数表示，不能任意取值`, right: R`首元所在列之外的未知数取作自由未知量，共 $n-r$ 个`, test: R`行最简形 $\begin{pmatrix}1&0&2\\0&1&-1\end{pmatrix}$（齐次），自由未知量是哪个？`, ans: R`$x_3$；$x_1=-2k$，$x_2=k$，$x_3=k$`, link: "题型 5" },
+      { id: "e15", wrong: R`$r(AB)=r(A)$ 总成立`, why: R`只有 $B$ 可逆（或行满秩）时才取等；一般只有 $r(AB)\leqslant\min\{r(A),r(B)\}$`, right: R`先判断 $B$ 是否可逆`, test: R`$A=E_2$，$B=\begin{pmatrix}1&0\\0&0\end{pmatrix}$，$r(AB)$ 与 $r(A)$？`, ans: R`$r(AB)=1$，$r(A)=2$`, link: "题型 7" },
+      { id: "e16", wrong: R`$r(A)=n-1$，所以 $r(A^*)=n-1$`, why: R`伴随矩阵的秩只有 $n,1,0$ 三种`, right: R`$r(A)=n-1\Rightarrow r(A^*)=1$；$r(A)<n-1\Rightarrow A^*=O$`, test: R`4 阶 $r(A)=2$，$r(A^*)=$？`, ans: R`0（教材 练习题1.5 第2题）`, link: "题型 9" },
+      { id: "e18", wrong: R`秩相同的两个矩阵一定等价`, why: R`等价要求同型`, right: R`同型矩阵等价 $\Leftrightarrow$ 秩相等`, test: R`$(1\ 0)$ 与 $\begin{pmatrix}1\\0\end{pmatrix}$ 秩都为 1，等价吗？`, ans: R`不等价，一个 $1\times2$、一个 $2\times1$`, link: "知识点 秩与等价标准形" }
     ]
   });
 })();

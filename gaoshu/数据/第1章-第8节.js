@@ -301,21 +301,18 @@
     ],
 
     pitfalls: [
-      { wrong: R`极限存在就连续`, why: R`还要求有定义且极限值等于函数值`, right: R`连续三条：有定义、极限存在、相等（教材 p55–56）`, test: R`$f(x)=x\ (x\neq1)$，$f(1)=\frac12$，在 $1$ 处连续吗？`, ans: R`不连续，可去间断点（教材 例4 p57）`, link: "知识点 间断点" },
-      { wrong: R`分段点处只看左右极限相等`, why: R`还要等于函数值`, right: R`$f(x_0^-)=f(x_0^+)=f(x_0)$`, test: R`吉米【83】只令 $f(0^-)=f(0^+)$，能定出 $b$ 吗？`, ans: R`不能，$b$ 要由"等于函数值"定出：$b=0$`, link: "题型 2" },
-      { wrong: R`有定义的点就不会是间断点`, why: R`有定义但极限不存在或不等于函数值，也是间断点`, right: R`三种情形都要查（教材 p56）`, test: R`$f(x)=x-1\ (x<0)$，$0\ (x=0)$，$x+1\ (x>0)$，$x=0$ 有定义，连续吗？`, ans: R`不连续，跳跃间断点（教材 例5 p57–58）`, link: "知识点 间断点" },
-      { wrong: R`分母为 $0$ 的点都是无穷间断点`, why: R`约分后可能有有限极限`, right: R`逐点求极限再分类`, test: R`$y=\dfrac{x^2-1}{x^2-3x+2}$ 在 $x=1$ 处是什么间断点？`, ans: R`可去间断点，极限 $-2$（习题全解 p33）`, link: "题型 5" },
-      { wrong: R`$\dfrac{x}{\tan x}$ 在 $x=k\pi+\frac\pi2$ 处连续，因为极限是 $0$`, why: R`在该点没有定义`, right: R`没有定义就是间断点；极限存在则为可去`, test: R`$\dfrac{x}{\tan x}$ 在 $x=\frac\pi2$ 是什么点？`, ans: R`可去间断点，补充定义 $0$（习题全解 p34）`, link: "题型 5" },
-      { wrong: R`$x=0$ 是 $\dfrac{x}{\tan x}$ 的无穷间断点`, why: R`$\lim\limits_{x\to0}\frac{x}{\tan x}=1$`, right: R`$x=0$ 可去；$x=k\pi\ (k\neq0)$ 才是无穷间断点（习题全解 p34）`, test: R`$x=\pi$ 处 $\dfrac{x}{\tan x}$ 的极限？`, ans: R`$\infty$，无穷间断点`, link: "题型 5" },
-      { wrong: R`$\cos^2\dfrac1x$ 有界，所以 $x=0$ 是第一类间断点`, why: R`第一类要求左右极限存在；有界但振荡，极限不存在`, right: R`振荡间断点，属于第二类（习题全解 p34）`, test: R`$\sin\dfrac1x$ 在 $x=0$ 是哪一类？`, ans: R`第二类（振荡）`, link: "知识点 间断点的分类" },
-      { wrong: R`跳跃间断点的类型和 $f(x_0)$ 的值有关`, why: R`跳跃只看左右极限是否相等`, right: R`改 $f(x_0)$ 改不掉跳跃（30讲 p66）`, test: R`跳跃间断点能通过修改一个函数值变成连续点吗？`, ans: R`不能；只有可去间断点可以`, link: "知识点 间断点的分类" },
-      { wrong: R`无穷间断点要求左右极限都是 $\infty$`, why: R`一侧为 $\infty$ 就够`, right: R`至少一侧为 $\infty$（30讲 p66）`, test: R`$\mathrm e^{\frac1x}$ 在 $x=0$ 是什么间断点？`, ans: R`右极限 $+\infty$，左极限 $0$：第二类（无穷间断点）`, link: "知识点 间断点的分类" },
-      { wrong: R`区间端点处也要讨论是否间断`, why: R`端点只谈单侧连续`, right: R`区间端点不讨论间断（30讲 p65）`, test: R`$\sqrt x$ 在 $x=0$ 是间断点吗？`, ans: R`不是，它在 $0$ 处右连续（$0$ 是定义域的端点）`, link: "知识点 在区间上连续" },
-      { wrong: R`$|f|$ 连续，所以 $f$ 连续`, why: R`取绝对值丢掉了符号的跳跃`, right: R`只有 $f$ 连续 $\Rightarrow|f|$ 连续（习题全解 p35）`, test: R`$f=\operatorname{sgn}x$，$|f|$ 在 $0$ 处连续吗？$f$ 呢？`, ans: R`$|f|=1\ (x\neq0)$、$|f(0)|=0$，$|f|$ 在 $0$ 不连续；$f$ 也不连续。换成 $f=1\ (x\geqslant0)$、$-1\ (x<0)$ 时 $|f|\equiv1$ 连续而 $f$ 不连续`, link: "题型 6" },
-      { wrong: R`由极限定义的函数，分界点用两边的式子代入就行`, why: R`分界点处的 $f$ 值要单独按 $n\to\infty$ 算`, right: R`$|x|=1$ 时 $x^{2n}=1$，单独算（习题全解 p34–35）`, test: R`$f(x)=\lim\limits_{n\to\infty}\dfrac{\mathrm e^{nx}-1}{\mathrm e^{nx}+1}$，$f(0)=$？`, ans: R`$0$（吉米【86】p23–24）`, link: "题型 4" },
-      { wrong: R`$f(x+y)=f(x)+f(y)$ 就说明 $f(x)=kx$`, why: R`没有连续性等条件时不能这样推`, right: R`按增量写法证连续（习题全解 p36）`, test: R`证明处处连续的第一步是什么？`, ans: R`令 $y=0$ 得 $f(0)=0$`, link: "题型 3" },
-      { wrong: R`$f$ 在 $x_0$ 连续、$f(x_0)>0$，只能推出去心邻域内 $f>0$`, why: R`连续时 $x_0$ 本身也满足`, right: R`存在 $x_0$ 的邻域（含 $x_0$）使 $f>0$（习题1-8 第6题）`, test: R`这个结论和 1.3 的局部保号性有什么不同？`, ans: R`1.3 只在去心邻域内；连续时包括 $x_0$`, link: "知识点 连续函数的局部保号性" },
-      { wrong: R`只在 $x=0$ 一点连续的函数不存在`, why: R`可以构造`, right: R`$f=x\ (x\in\mathbb Q)$，$0\ (x\notin\mathbb Q)$ 只在 $0$ 连续（习题1-8 第7题）`, test: R`$f(x)=x^2D(x)$（$D$ 为狄利克雷函数）在哪里连续？`, ans: R`只在 $x=0$（30讲 p84–85）`, link: "题型 6" }
+      { id: "e2", wrong: R`分段点处只看左右极限相等`, why: R`还要等于函数值`, right: R`$f(x_0^-)=f(x_0^+)=f(x_0)$`, test: R`吉米【83】只令 $f(0^-)=f(0^+)$，能定出 $b$ 吗？`, ans: R`不能，$b$ 要由"等于函数值"定出：$b=0$`, link: "题型 2" },
+      { id: "e4", wrong: R`分母为 $0$ 的点都是无穷间断点`, why: R`约分后可能有有限极限`, right: R`逐点求极限再分类`, test: R`$y=\dfrac{x^2-1}{x^2-3x+2}$ 在 $x=1$ 处是什么间断点？`, ans: R`可去间断点，极限 $-2$（习题全解 p33）`, link: "题型 5" },
+      { id: "e5", wrong: R`$\dfrac{x}{\tan x}$ 在 $x=k\pi+\frac\pi2$ 处连续，因为极限是 $0$`, why: R`在该点没有定义`, right: R`没有定义就是间断点；极限存在则为可去`, test: R`$\dfrac{x}{\tan x}$ 在 $x=\frac\pi2$ 是什么点？`, ans: R`可去间断点，补充定义 $0$（习题全解 p34）`, link: "题型 5" },
+      { id: "e6", wrong: R`$x=0$ 是 $\dfrac{x}{\tan x}$ 的无穷间断点`, why: R`$\lim\limits_{x\to0}\frac{x}{\tan x}=1$`, right: R`$x=0$ 可去；$x=k\pi\ (k\neq0)$ 才是无穷间断点（习题全解 p34）`, test: R`$x=\pi$ 处 $\dfrac{x}{\tan x}$ 的极限？`, ans: R`$\infty$，无穷间断点`, link: "题型 5" },
+      { id: "e7", wrong: R`$\cos^2\dfrac1x$ 有界，所以 $x=0$ 是第一类间断点`, why: R`第一类要求左右极限存在；有界但振荡，极限不存在`, right: R`振荡间断点，属于第二类（习题全解 p34）`, test: R`$\sin\dfrac1x$ 在 $x=0$ 是哪一类？`, ans: R`第二类（振荡）`, link: "知识点 间断点的分类" },
+      { id: "e9", wrong: R`无穷间断点要求左右极限都是 $\infty$`, why: R`一侧为 $\infty$ 就够`, right: R`至少一侧为 $\infty$（30讲 p66）`, test: R`$\mathrm e^{\frac1x}$ 在 $x=0$ 是什么间断点？`, ans: R`右极限 $+\infty$，左极限 $0$：第二类（无穷间断点）`, link: "知识点 间断点的分类" },
+      { id: "e10", wrong: R`区间端点处也要讨论是否间断`, why: R`端点只谈单侧连续`, right: R`区间端点不讨论间断（30讲 p65）`, test: R`$\sqrt x$ 在 $x=0$ 是间断点吗？`, ans: R`不是，它在 $0$ 处右连续（$0$ 是定义域的端点）`, link: "知识点 在区间上连续" },
+      { id: "e11", wrong: R`$|f|$ 连续，所以 $f$ 连续`, why: R`取绝对值丢掉了符号的跳跃`, right: R`只有 $f$ 连续 $\Rightarrow|f|$ 连续（习题全解 p35）`, test: R`$f=\operatorname{sgn}x$，$|f|$ 在 $0$ 处连续吗？$f$ 呢？`, ans: R`$|f|=1\ (x\neq0)$、$|f(0)|=0$，$|f|$ 在 $0$ 不连续；$f$ 也不连续。换成 $f=1\ (x\geqslant0)$、$-1\ (x<0)$ 时 $|f|\equiv1$ 连续而 $f$ 不连续`, link: "题型 6" },
+      { id: "e12", wrong: R`由极限定义的函数，分界点用两边的式子代入就行`, why: R`分界点处的 $f$ 值要单独按 $n\to\infty$ 算`, right: R`$|x|=1$ 时 $x^{2n}=1$，单独算（习题全解 p34–35）`, test: R`$f(x)=\lim\limits_{n\to\infty}\dfrac{\mathrm e^{nx}-1}{\mathrm e^{nx}+1}$，$f(0)=$？`, ans: R`$0$（吉米【86】p23–24）`, link: "题型 4" },
+      { id: "e13", wrong: R`$f(x+y)=f(x)+f(y)$ 就说明 $f(x)=kx$`, why: R`没有连续性等条件时不能这样推`, right: R`按增量写法证连续（习题全解 p36）`, test: R`证明处处连续的第一步是什么？`, ans: R`令 $y=0$ 得 $f(0)=0$`, link: "题型 3" },
+      { id: "e14", wrong: R`$f$ 在 $x_0$ 连续、$f(x_0)>0$，只能推出去心邻域内 $f>0$`, why: R`连续时 $x_0$ 本身也满足`, right: R`存在 $x_0$ 的邻域（含 $x_0$）使 $f>0$（习题1-8 第6题）`, test: R`这个结论和 1.3 的局部保号性有什么不同？`, ans: R`1.3 只在去心邻域内；连续时包括 $x_0$`, link: "知识点 连续函数的局部保号性" },
+      { id: "e15", wrong: R`只在 $x=0$ 一点连续的函数不存在`, why: R`可以构造`, right: R`$f=x\ (x\in\mathbb Q)$，$0\ (x\notin\mathbb Q)$ 只在 $0$ 连续（习题1-8 第7题）`, test: R`$f(x)=x^2D(x)$（$D$ 为狄利克雷函数）在哪里连续？`, ans: R`只在 $x=0$（30讲 p84–85）`, link: "题型 6" }
     ]
   });
 })();

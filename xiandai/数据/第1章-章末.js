@@ -443,22 +443,17 @@
     ],
 
     pitfalls: [
-      { wrong: R`$(A+B)^2=A^2+2AB+B^2$`, why: R`展开是 $A^2+AB+BA+B^2$，$AB$ 与 $BA$ 一般不等`, right: R`只有 $AB=BA$ 时才能合并（1.1 节）`, test: R`$A=\begin{pmatrix}3&4\\-1&-2\end{pmatrix}$，$B=\begin{pmatrix}1&1\\-3&-2\end{pmatrix}$，$A^2-B^2$ 与 $(A-B)(A+B)$ 相等吗？`, ans: R`不等：分别是 $\begin{pmatrix}7&5\\-4&-1\end{pmatrix}$ 和 $\begin{pmatrix}-4&-2\\8&10\end{pmatrix}$（30讲 习题2.1）`, link: "1.1 题型 2" },
-      { wrong: R`$AB=O$，所以 $A=O$ 或 $B=O$`, why: R`矩阵有零因子`, right: R`$AB=O$ 只能推出 $r(A)+r(B)\leqslant n$；$A$ 列满秩（或可逆）时才能推出 $B=O$`, test: R`$\begin{pmatrix}1&0\\0&0\end{pmatrix}\begin{pmatrix}0&0\\0&1\end{pmatrix}=$？`, ans: R`$O$`, link: "题型 3" },
-      { wrong: R`$|kA|=k|A|$`, why: R`$kA$ 的每一行都乘了 $k$，要提出 $n$ 次`, right: R`$|kA|=k^n|A|$`, test: R`3 阶 $|A|=2$，$|-2A|=$？`, ans: R`$(-2)^3\times2=-16$`, link: "知识点 行列式的运算公式" },
-      { wrong: R`$|A+B|=|A|+|B|$`, why: R`行列式只对单独一行（列）可拆，整体相加没有公式`, right: R`$|A+B|$ 要先算出 $A+B$；能化成乘积时用 $|AB|=|A||B|$`, test: R`$|E_2+E_2|$ 与 $|E_2|+|E_2|$？`, ans: R`$4$ 和 $2$`, link: "知识点 行列式的运算公式" },
-      { wrong: R`$|A^*|=|A|^n$`, why: R`$AA^*=|A|E$ 两边取行列式：$|A||A^*|=|A|^n$，约掉一个 $|A|$`, right: R`$|A^*|=|A|^{n-1}$`, test: R`3 阶 $|A|=2$，$|A^*|=$？`, ans: R`$4$`, link: "知识点 伴随矩阵公式组" },
-      { wrong: R`$(kA)^*=kA^*$`, why: R`$A^*$ 的元素是 $n-1$ 阶代数余子式，每个都提出 $k^{n-1}$`, right: R`$(kA)^*=k^{n-1}A^*$`, test: R`3 阶矩阵 $(2A)^*=$？`, ans: R`$4A^*$`, link: "知识点 伴随矩阵公式组" },
-      { wrong: R`$(AB)^{-1}=A^{-1}B^{-1}$`, why: R`逆要倒序：$(AB)(B^{-1}A^{-1})=E$`, right: R`$(AB)^{-1}=B^{-1}A^{-1}$，转置同理（1.2 节）`, test: R`$(ABC)^{-1}=$？`, ans: R`$C^{-1}B^{-1}A^{-1}$`, link: "1.2 知识点 逆矩阵的运算律" },
-      { wrong: R`$AB=E$ 就说 $B=A^{-1}$`, why: R`只有 $A,B$ 是同阶方阵时才成立`, right: R`先确认是方阵；非方阵 $AB=E$ 时 $BA$ 是另一个阶数的矩阵`, test: R`$A$ 为 $2\times3$、$B$ 为 $3\times2$，$AB=E_2$，$BA=E_3$ 吗？`, ans: R`不可能：$r(BA)\leqslant2<3$`, link: "题型 6" },
-      { wrong: R`$ABC=E$，所以 $CBA=E$`, why: R`只能轮换：$A(BC)=E\Rightarrow(BC)A=E$`, right: R`$ABC=E\Rightarrow BCA=E$、$CAB=E$`, test: R`$ABC=E$，下列哪个一定成立：$ACB=E$、$BCA=E$？`, ans: R`$BCA=E$（30讲 习题2.3）`, link: "知识点 AB = E ⇒ BA = E 只对方阵成立" },
-      { wrong: R`求逆时行变换、列变换混着用`, why: R`$(A\mid E)$ 的原理是一串左乘`, right: R`求逆只用行（或只用列）；求秩可以混用；解方程组只用行（1.4 节）`, test: R`求秩时能先做行变换再做列变换吗？`, ans: R`能`, link: "知识点 初等变换的三种用法" },
-      { wrong: R`等价矩阵的行列式相等`, why: R`$B=PAQ$，$|B|=|P||A||Q|$`, right: R`等价只保持秩`, test: R`$E_2$ 与 $3E_2$ 等价吗？行列式？`, ans: R`等价；行列式 1 和 9`, link: "题型 5" },
-      { wrong: R`$|A|=0$，所以方程组有无穷多解`, why: R`$|A|=0$ 只排除了唯一解，可能无解`, right: R`代回增广矩阵比较 $r(A)$、$r(B)$（1.5 节）`, test: R`教材例1.29 $a=-2$ 时？`, ans: R`无解`, link: "1.5 题型 4" },
-      { wrong: R`$r(A)=n$，所以 $Ax=b$ 有唯一解`, why: R`没看 $r(B)$`, right: R`$r(A)=m$（行满秩）才保证有解；$r(A)=n$ 只保证「有解则唯一」`, test: R`$A$ 为 $3\times2$、$r(A)=2$，$Ax=b$ 一定有解吗？`, ans: R`不一定，$r(B)$ 可能是 3`, link: "1.5 题型 10" },
-      { wrong: R`由 $|A|=0$ 求出几个参数值，全写成答案`, why: R`不同参数值下秩、解的情况可能不同`, right: R`每个候选值代回去验证`, test: R`$\begin{pmatrix}a&-1&-1\\-1&a&-1\\-1&-1&a\end{pmatrix}$ 秩为 2，$a=$？`, ans: R`只有 $a=2$；$a=-1$ 时秩为 1`, link: "题型 5" },
-      { wrong: R`消元时直接除以含参数的数`, why: R`参数可能使它为 0，这一步就不是初等变换了`, right: R`先把含参数的元素换到后面；要除时单独讨论它为 0 的情形`, test: R`$\left(\begin{array}{cc|c}a&1&1\\1&1&1\end{array}\right)$ 第 1 行除以 $a$ 前要讨论什么？`, ans: R`$a=0$；更好的做法是先交换两行`, link: "题型 8" },
-      { wrong: R`克拉默法则在 $D=0$ 时说方程组无解`, why: R`克拉默法则只管 $D\neq0$ 的情形；$D=0$ 时可能无解，也可能无穷多解`, right: R`$D=0$ 时用增广矩阵比秩（1.3、1.5 节）`, test: R`$\begin{cases}x+y=1\\2x+2y=2\end{cases}$ 的 $D$ 和解？`, ans: R`$D=0$，有无穷多解`, link: "1.3 知识点 克拉默法则" }
+      { id: "e5", wrong: R`$|A^*|=|A|^n$`, why: R`$AA^*=|A|E$ 两边取行列式：$|A||A^*|=|A|^n$，约掉一个 $|A|$`, right: R`$|A^*|=|A|^{n-1}$`, test: R`3 阶 $|A|=2$，$|A^*|=$？`, ans: R`$4$`, link: "知识点 伴随矩阵公式组" },
+      { id: "e6", wrong: R`$(kA)^*=kA^*$`, why: R`$A^*$ 的元素是 $n-1$ 阶代数余子式，每个都提出 $k^{n-1}$`, right: R`$(kA)^*=k^{n-1}A^*$`, test: R`3 阶矩阵 $(2A)^*=$？`, ans: R`$4A^*$`, link: "知识点 伴随矩阵公式组" },
+      { id: "e8", wrong: R`$AB=E$ 就说 $B=A^{-1}$`, why: R`只有 $A,B$ 是同阶方阵时才成立`, right: R`先确认是方阵；非方阵 $AB=E$ 时 $BA$ 是另一个阶数的矩阵`, test: R`$A$ 为 $2\times3$、$B$ 为 $3\times2$，$AB=E_2$，$BA=E_3$ 吗？`, ans: R`不可能：$r(BA)\leqslant2<3$`, link: "题型 6" },
+      { id: "e9", wrong: R`$ABC=E$，所以 $CBA=E$`, why: R`只能轮换：$A(BC)=E\Rightarrow(BC)A=E$`, right: R`$ABC=E\Rightarrow BCA=E$、$CAB=E$`, test: R`$ABC=E$，下列哪个一定成立：$ACB=E$、$BCA=E$？`, ans: R`$BCA=E$（30讲 习题2.3）`, link: "知识点 AB = E ⇒ BA = E 只对方阵成立" },
+      { id: "e10", wrong: R`求逆时行变换、列变换混着用`, why: R`$(A\mid E)$ 的原理是一串左乘`, right: R`求逆只用行（或只用列）；求秩可以混用；解方程组只用行（1.4 节）`, test: R`求秩时能先做行变换再做列变换吗？`, ans: R`能`, link: "知识点 初等变换的三种用法" },
+      { id: "e11", wrong: R`等价矩阵的行列式相等`, why: R`$B=PAQ$，$|B|=|P||A||Q|$`, right: R`等价只保持秩`, test: R`$E_2$ 与 $3E_2$ 等价吗？行列式？`, ans: R`等价；行列式 1 和 9`, link: "题型 5" },
+      { id: "e12", wrong: R`$|A|=0$，所以方程组有无穷多解`, why: R`$|A|=0$ 只排除了唯一解，可能无解`, right: R`代回增广矩阵比较 $r(A)$、$r(B)$（1.5 节）`, test: R`教材例1.29 $a=-2$ 时？`, ans: R`无解`, link: "1.5 题型 4" },
+      { id: "e13", wrong: R`$r(A)=n$，所以 $Ax=b$ 有唯一解`, why: R`没看 $r(B)$`, right: R`$r(A)=m$（行满秩）才保证有解；$r(A)=n$ 只保证「有解则唯一」`, test: R`$A$ 为 $3\times2$、$r(A)=2$，$Ax=b$ 一定有解吗？`, ans: R`不一定，$r(B)$ 可能是 3`, link: "1.5 题型 10" },
+      { id: "e14", wrong: R`由 $|A|=0$ 求出几个参数值，全写成答案`, why: R`不同参数值下秩、解的情况可能不同`, right: R`每个候选值代回去验证`, test: R`$\begin{pmatrix}a&-1&-1\\-1&a&-1\\-1&-1&a\end{pmatrix}$ 秩为 2，$a=$？`, ans: R`只有 $a=2$；$a=-1$ 时秩为 1`, link: "题型 5" },
+      { id: "e15", wrong: R`消元时直接除以含参数的数`, why: R`参数可能使它为 0，这一步就不是初等变换了`, right: R`先把含参数的元素换到后面；要除时单独讨论它为 0 的情形`, test: R`$\left(\begin{array}{cc|c}a&1&1\\1&1&1\end{array}\right)$ 第 1 行除以 $a$ 前要讨论什么？`, ans: R`$a=0$；更好的做法是先交换两行`, link: "题型 8" },
+      { id: "e16", wrong: R`克拉默法则在 $D=0$ 时说方程组无解`, why: R`克拉默法则只管 $D\neq0$ 的情形；$D=0$ 时可能无解，也可能无穷多解`, right: R`$D=0$ 时用增广矩阵比秩（1.3、1.5 节）`, test: R`$\begin{cases}x+y=1\\2x+2y=2\end{cases}$ 的 $D$ 和解？`, ans: R`$D=0$，有无穷多解`, link: "1.3 知识点 克拉默法则" }
     ],
 
     mixed: [
